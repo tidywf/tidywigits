@@ -1,0 +1,6 @@
+outs:
+- md5: ed45a60bc6376a499ca3e45f177fef53.dir
+  size: 12690
+  nfiles: 8
+  hash: md5
+  path: isofox

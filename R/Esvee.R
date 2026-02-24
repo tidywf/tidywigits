@@ -9,8 +9,9 @@
 #' id <- "esvee_run1"
 #' obj <- cls$new(indir)
 #' obj$nemofy(diro = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "cobalt.*parquet", full.names = FALSE))
-#' #TODO: add esvee test data
+#' (lf <- list.files(odir, pattern = "esvee.*parquet", full.names = FALSE))
+#' @testexamples
+#' expect_equal(length(lf), 7)
 #' @export
 Esvee <- R6::R6Class(
   "Esvee",
