@@ -1,0 +1,947 @@
+id: https://example.org/tidywigits/bamtools
+name: bamtools
+description: >-
+  Various routines to run on a BAM file.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  bamtools: https://example.org/tidywigits/bamtools/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: bamtools
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  latest:
+    description: Bamtools latest version
+
+classes:
+
+  #----Wgsmetrics----#
+  RawWgsmetrics:
+    description: Mostly coverage metrics.
+    in_subset: [raw, latest]
+    annotations:
+      name: wgsmetrics
+      pattern: "\\.wgsmetrics$"
+      ftype: txt
+    attributes:
+      GENOME_TERRITORY:
+        range: float
+      MEAN_COVERAGE:
+        range: float
+      SD_COVERAGE:
+        range: float
+      MEDIAN_COVERAGE:
+        range: float
+      MAD_COVERAGE:
+        range: float
+      PCT_EXC_ADAPTER:
+        range: float
+      PCT_EXC_MAPQ:
+        range: float
+      PCT_EXC_DUPE:
+        range: float
+      PCT_EXC_UNPAIRED:
+        range: float
+      PCT_EXC_BASEQ:
+        range: float
+      PCT_EXC_OVERLAP:
+        range: float
+      PCT_EXC_CAPPED:
+        range: float
+      PCT_EXC_TOTAL:
+        range: float
+      PCT_1X:
+        range: float
+      PCT_5X:
+        range: float
+      PCT_10X:
+        range: float
+      PCT_15X:
+        range: float
+      PCT_20X:
+        range: float
+      PCT_25X:
+        range: float
+      PCT_30X:
+        range: float
+      PCT_40X:
+        range: float
+      PCT_50X:
+        range: float
+      PCT_60X:
+        range: float
+      PCT_70X:
+        range: float
+      PCT_80X:
+        range: float
+      PCT_90X:
+        range: float
+      PCT_100X:
+        range: float
+
+  TidyWgsmetrics:
+    description: Mostly coverage metrics.
+    in_subset: [tidy, latest]
+    annotations:
+      name: wgsmetrics
+      subtbl: tbl1
+    attributes:
+      genome_territory:
+        range: integer
+        description: Genome territory
+      mean_coverage:
+        range: float
+        description: Mean coverage
+      sd_coverage:
+        range: float
+        description: Standard deviation of coverage
+      median_coverage:
+        range: float
+        description: Median coverage
+      mad_coverage:
+        range: float
+        description: Median absolute deviation of coverage
+      pct_exc_adapter:
+        range: float
+        description: Fraction of bases excluded due to adapter
+      pct_exc_mapq:
+        range: float
+        description: Fraction of bases excluded due to mapping quality
+      pct_exc_dupe:
+        range: float
+        description: Fraction of bases excluded due to duplication
+      pct_exc_unpaired:
+        range: float
+        description: Fraction of bases excluded due to being unpaired
+      pct_exc_baseq:
+        range: float
+        description: Fraction of bases excluded due to base quality
+      pct_exc_overlap:
+        range: float
+        description: Fraction of bases excluded due to overlap
+      pct_exc_capped:
+        range: float
+        description: Fraction of bases excluded due to capping
+      pct_exc_total:
+        range: float
+        description: Total fraction of bases excluded
+      pct_1x:
+        range: float
+        description: Fraction of genome at 1x coverage
+      pct_5x:
+        range: float
+        description: Fraction of genome at 5x coverage
+      pct_10x:
+        range: float
+        description: Fraction of genome at 10x coverage
+      pct_15x:
+        range: float
+        description: Fraction of genome at 15x coverage
+      pct_20x:
+        range: float
+        description: Fraction of genome at 20x coverage
+      pct_25x:
+        range: float
+        description: Fraction of genome at 25x coverage
+      pct_30x:
+        range: float
+        description: Fraction of genome at 30x coverage
+      pct_40x:
+        range: float
+        description: Fraction of genome at 40x coverage
+      pct_50x:
+        range: float
+        description: Fraction of genome at 50x coverage
+      pct_60x:
+        range: float
+        description: Fraction of genome at 60x coverage
+      pct_70x:
+        range: float
+        description: Fraction of genome at 70x coverage
+      pct_80x:
+        range: float
+        description: Fraction of genome at 80x coverage
+      pct_90x:
+        range: float
+        description: Fraction of genome at 90x coverage
+      pct_100x:
+        range: float
+        description: Fraction of genome at 100x coverage
+
+  #----Coverage----#
+  RawCoverage:
+    description: Coverage metrics.
+    in_subset: [raw, latest]
+    annotations:
+      name: coverage
+      pattern: "\\.bam_metric\\.coverage\\.tsv$"
+      ftype: tsv
+    attributes:
+      Coverage:
+        range: float
+      Count:
+        range: float
+
+  TidyCoverage:
+    description: Coverage metrics.
+    in_subset: [tidy, latest]
+    annotations:
+      name: coverage
+      subtbl: tbl1
+    attributes:
+      coverage:
+        range: float
+        description: Coverage
+      count:
+        range: float
+        description: Count
+
+  #----Flagstats----#
+  RawFlagstats:
+    description: Counts of alignments for each FLAG type.
+    in_subset: [raw, latest]
+    annotations:
+      name: flagstats
+      pattern: "\\.bam_metric\\.flag_counts\\.tsv$"
+      ftype: txt
+    attributes:
+      dummy:
+        range: string
+
+  TidyFlagstats:
+    description: Counts of alignments for each FLAG type.
+    in_subset: [tidy, latest]
+    annotations:
+      name: flagstats
+      subtbl: tbl1
+    attributes:
+      passed_or_failed:
+        range: string
+        description: QC passed or failed
+      total:
+        range: float
+        description: Total number of reads that are QC pass and fail
+      primary:
+        range: float
+        description: Neither secondary nor supplementary
+      secondary:
+        range: float
+        description: Secondary
+      suppl:
+        range: float
+        description: Supplementary
+      dup:
+        range: float
+        description: Dup
+      primary_dup:
+        range: float
+        description: Dup and neither secondary nor supplementary
+      mapped:
+        range: float
+        description: Not unmap
+      primary_map:
+        range: float
+        description: Not unmap, not secondary, and not supplementary
+      paired_in_seq:
+        range: float
+        description: Paired
+      read1:
+        range: float
+        description: Both paired and read1
+      read2:
+        range: float
+        description: Both paired and read2
+      proper_pair:
+        range: float
+        description: Both paired and proper_pair, not unmap
+      both_map:
+        range: float
+        description: Paired and neither unmap nor munmap
+      singletons:
+        range: float
+        description: Both paired and munmap, and not unmap
+      matemap_diff:
+        range: float
+        description: Paired and neither unmap nor munmap, and mrnm not equal to rname
+      matemap_diff_mapq5:
+        range: float
+        description: Paired and neither unmap nor munmap, and mrnm not equal to rname, and mapq >= 5
+      mapped_pct:
+        range: float
+        description: Percentage of total reads mapped
+      primary_map_pct:
+        range: float
+        description: Percentage of total primary reads
+      proper_pair_pct:
+        range: float
+        description: Percentage against total pairs
+      singletons_pct:
+        range: float
+        description: Percentage against total pairs
+
+  #----Fraglength----#
+  RawFraglength:
+    description: Fragment lengths.
+    in_subset: [raw, latest]
+    annotations:
+      name: fraglength
+      pattern: "\\.bam_metric\\.frag_length\\.tsv$"
+      ftype: tsv
+    attributes:
+      FragmentLength:
+        range: string
+      Count:
+        range: float
+
+  TidyFraglength:
+    description: Fragment length counts.
+    in_subset: [tidy, latest]
+    annotations:
+      name: fraglength
+      subtbl: tbl1
+    attributes:
+      length:
+        range: string
+        description: Fragment length
+      count:
+        range: float
+        description: Count
+
+  #----Partitionstats----#
+  RawPartitionstats:
+    description: Partition stats.
+    in_subset: [raw, latest]
+    annotations:
+      name: partitionstats
+      pattern: "\\.bam_metric\\.partition_stats\\.tsv$"
+      ftype: tsv
+    attributes:
+      Chromosome:
+        range: string
+      PositionStart:
+        range: float
+      PositionEnd:
+        range: float
+      TotalReads:
+        range: float
+      DuplicateReads:
+        range: float
+      ChimericReads:
+        range: float
+      InterPartition:
+        range: float
+      UnmappedReads:
+        range: float
+      ProcessTime:
+        range: float
+
+  TidyPartitionstats:
+    description: Partition stats.
+    in_subset: [tidy, latest]
+    annotations:
+      name: partitionstats
+      subtbl: tbl1
+    attributes:
+      chrom:
+        range: string
+        description: Chromosome
+      pos_start:
+        range: float
+        description: Start position
+      pos_end:
+        range: float
+        description: End position
+      total_reads:
+        range: float
+        description: Total reads
+      dup_reads:
+        range: float
+        description: Duplicate reads
+      chim_reads:
+        range: float
+        description: Chimeric reads
+      interpartition:
+        range: float
+        description: Inter-partition reads
+      unmap_reads:
+        range: float
+        description: Unmapped reads
+      process_time:
+        range: float
+        description: Process time
+
+
+  #----Summary----#
+  RawSummary:
+    description: Coverage summary.
+    in_subset: [raw, latest]
+    annotations:
+      name: summary
+      pattern: "\\.bam_metric\\.summary\\.tsv$"
+      ftype: tsv
+    attributes:
+      TotalRegionBases:
+        range: float
+      TotalReads:
+        range: float
+      DuplicateReads:
+        range: float
+      DualStrandReads:
+        range: float
+      MeanCoverage:
+        range: float
+      StdDevCoverage:
+        range: float
+      MedianCoverage:
+        range: float
+      MadCoverage:
+        range: float
+      LowMapQualPercent:
+        range: float
+      DuplicatePercent:
+        range: float
+      UnpairedPercent:
+        range: float
+      LowBaseQualPercent:
+        range: float
+      OverlappingReadPercent:
+        range: float
+      CappedCoverage:
+        range: float
+      DepthCoverage_1:
+        range: float
+      DepthCoverage_5:
+        range: float
+      DepthCoverage_10:
+        range: float
+      DepthCoverage_15:
+        range: float
+      DepthCoverage_20:
+        range: float
+      DepthCoverage_25:
+        range: float
+      DepthCoverage_30:
+        range: float
+      DepthCoverage_40:
+        range: float
+      DepthCoverage_50:
+        range: float
+      DepthCoverage_60:
+        range: float
+      DepthCoverage_70:
+        range: float
+      DepthCoverage_80:
+        range: float
+      DepthCoverage_90:
+        range: float
+      DepthCoverage_100:
+        range: float
+
+  TidySummaryTbl1:
+    description: Coverage summary - main metrics.
+    in_subset: [tidy, latest]
+    annotations:
+      name: summary
+      subtbl: tbl1
+    attributes:
+      tot_region_bases:
+        range: float
+        description: Total region bases
+      tot_reads:
+        range: float
+        description: Total reads
+      dup_reads:
+        range: float
+        description: Duplicate reads
+      dual_strand_reads:
+        range: float
+        description: Dual strand reads
+      cov_mean:
+        range: float
+        description: Mean coverage
+      cov_sd:
+        range: float
+        description: Standard deviation of coverage
+      cov_median:
+        range: float
+        description: Median coverage
+      cov_mad:
+        range: float
+        description: Median absolute deviation of coverage
+      lowmapq_pct:
+        range: float
+        description: Low mapping quality percentage
+      dup_pct:
+        range: float
+        description: Duplicate percentage
+      unpaired_pct:
+        range: float
+        description: Unpaired percentage
+      lowbaseq_pct:
+        range: float
+        description: Low base quality percentage
+      overlap_read_pct:
+        range: float
+        description: Overlapping read percentage
+      cov_capped:
+        range: float
+        description: Coverage capped
+
+  TidySummaryCovx:
+    description: Coverage summary - depth coverage.
+    in_subset: [tidy, latest]
+    annotations:
+      name: summary
+      subtbl: tbl2
+    attributes:
+      covx:
+        range: float
+        description: Coverage x
+      value:
+        range: float
+        description: Value
+
+  #----Genecvg----#
+  RawGenecvg:
+    description: Gene coverage metrics.
+    in_subset: [raw, latest]
+    annotations:
+      name: genecvg
+      pattern: "\\.bam_metric\\.gene_coverage\\.tsv$"
+      ftype: tsv
+    attributes:
+      gene:
+        range: string
+      chromosome:
+        range: string
+      posStart:
+        range: float
+      posEnd:
+        range: float
+      missedVariantLikelihood:
+        range: float
+      DR_0:
+        range: float
+      DR_1:
+        range: float
+      DR_2:
+        range: float
+      DR_3:
+        range: float
+      DR_4:
+        range: float
+      DR_5:
+        range: float
+      DR_6:
+        range: float
+      DR_7:
+        range: float
+      DR_8:
+        range: float
+      DR_9:
+        range: float
+      DR_10:
+        range: float
+      DR_11:
+        range: float
+      DR_12:
+        range: float
+      DR_13:
+        range: float
+      DR_14:
+        range: float
+      DR_15:
+        range: float
+      DR_16:
+        range: float
+      DR_17:
+        range: float
+      DR_18:
+        range: float
+      DR_19:
+        range: float
+      DR_20:
+        range: float
+      DR_21:
+        range: float
+      DR_22:
+        range: float
+      DR_23:
+        range: float
+      DR_24:
+        range: float
+      DR_25:
+        range: float
+      DR_26:
+        range: float
+      DR_27:
+        range: float
+      DR_28:
+        range: float
+      DR_29:
+        range: float
+      DR_30_39:
+        range: float
+      DR_40_49:
+        range: float
+      DR_50_59:
+        range: float
+      DR_60_69:
+        range: float
+      DR_70_79:
+        range: float
+      DR_80_89:
+        range: float
+      DR_90_99:
+        range: float
+      DR_100_149:
+        range: float
+      DR_150_199:
+        range: float
+      DR_200_249:
+        range: float
+      DR_250_299:
+        range: float
+      DR_300_349:
+        range: float
+      DR_350_399:
+        range: float
+      DR_400_449:
+        range: float
+      DR_450_499:
+        range: float
+      DR_500_599:
+        range: float
+      DR_600_699:
+        range: float
+      DR_700_799:
+        range: float
+      DR_800_899:
+        range: float
+      DR_900_999:
+        range: float
+      DR_1000_1099:
+        range: float
+      DR_1100_1199:
+        range: float
+      DR_1200_1299:
+        range: float
+      DR_1300_1399:
+        range: float
+      DR_1400_1499:
+        range: float
+      DR_1500_1599:
+        range: float
+      DR_1600_1699:
+        range: float
+      DR_1700_1799:
+        range: float
+      DR_1800_1899:
+        range: float
+      DR_1900_1999:
+        range: float
+      DR_2000_2999:
+        range: float
+      DR_3000_3999:
+        range: float
+      DR_4000_4999:
+        range: float
+      DR_5000_5999:
+        range: float
+      DR_6000_6999:
+        range: float
+      DR_7000_7999:
+        range: float
+      DR_8000_8999:
+        range: float
+      DR_9000_9999:
+        range: float
+      DR_10000:
+        range: float
+
+  TidyGenecvg:
+    description: Gene coverage metrics.
+    in_subset: [tidy, latest]
+    annotations:
+      name: genecvg
+      subtbl: tbl1
+    attributes:
+      gene:
+        range: string
+        description: Gene name
+      chrom:
+        range: string
+        description: Chromosome
+      pos_start:
+        range: float
+        description: Start position
+      pos_end:
+        range: float
+        description: End position
+      missed_var_likelihood:
+        range: float
+        description: Missed variant likelihood
+      dr_0:
+        range: float
+        description: Depth range 0
+      dr_1:
+        range: float
+        description: Depth range 1
+      dr_2:
+        range: float
+        description: Depth range 2
+      dr_3:
+        range: float
+        description: Depth range 3
+      dr_4:
+        range: float
+        description: Depth range 4
+      dr_5:
+        range: float
+        description: Depth range 5
+      dr_6:
+        range: float
+        description: Depth range 6
+      dr_7:
+        range: float
+        description: Depth range 7
+      dr_8:
+        range: float
+        description: Depth range 8
+      dr_9:
+        range: float
+        description: Depth range 9
+      dr_10:
+        range: float
+        description: Depth range 10
+      dr_11:
+        range: float
+        description: Depth range 11
+      dr_12:
+        range: float
+        description: Depth range 12
+      dr_13:
+        range: float
+        description: Depth range 13
+      dr_14:
+        range: float
+        description: Depth range 14
+      dr_15:
+        range: float
+        description: Depth range 15
+      dr_16:
+        range: float
+        description: Depth range 16
+      dr_17:
+        range: float
+        description: Depth range 17
+      dr_18:
+        range: float
+        description: Depth range 18
+      dr_19:
+        range: float
+        description: Depth range 19
+      dr_20:
+        range: float
+        description: Depth range 20
+      dr_21:
+        range: float
+        description: Depth range 21
+      dr_22:
+        range: float
+        description: Depth range 22
+      dr_23:
+        range: float
+        description: Depth range 23
+      dr_24:
+        range: float
+        description: Depth range 24
+      dr_25:
+        range: float
+        description: Depth range 25
+      dr_26:
+        range: float
+        description: Depth range 26
+      dr_27:
+        range: float
+        description: Depth range 27
+      dr_28:
+        range: float
+        description: Depth range 28
+      dr_29:
+        range: float
+        description: Depth range 29
+      dr_30_39:
+        range: float
+        description: Depth range 30-39
+      dr_40_49:
+        range: float
+        description: Depth range 40-49
+      dr_50_59:
+        range: float
+        description: Depth range 50-59
+      dr_60_69:
+        range: float
+        description: Depth range 60-69
+      dr_70_79:
+        range: float
+        description: Depth range 70-79
+      dr_80_89:
+        range: float
+        description: Depth range 80-89
+      dr_90_99:
+        range: float
+        description: Depth range 90-99
+      dr_100_149:
+        range: float
+        description: Depth range 100-149
+      dr_150_199:
+        range: float
+        description: Depth range 150-199
+      dr_200_249:
+        range: float
+        description: Depth range 200-249
+      dr_250_299:
+        range: float
+        description: Depth range 250-299
+      dr_300_349:
+        range: float
+        description: Depth range 300-349
+      dr_350_399:
+        range: float
+        description: Depth range 350-399
+      dr_400_449:
+        range: float
+        description: Depth range 400-449
+      dr_450_499:
+        range: float
+        description: Depth range 450-499
+      dr_500_599:
+        range: float
+        description: Depth range 500-599
+      dr_600_699:
+        range: float
+        description: Depth range 600-699
+      dr_700_799:
+        range: float
+        description: Depth range 700-799
+      dr_800_899:
+        range: float
+        description: Depth range 800-899
+      dr_900_999:
+        range: float
+        description: Depth range 900-999
+      dr_1000_1099:
+        range: float
+        description: Depth range 1000-1099
+      dr_1100_1199:
+        range: float
+        description: Depth range 1100-1199
+      dr_1200_1299:
+        range: float
+        description: Depth range 1200-1299
+      dr_1300_1399:
+        range: float
+        description: Depth range 1300-1399
+      dr_1400_1499:
+        range: float
+        description: Depth range 1400-1499
+      dr_1500_1599:
+        range: float
+        description: Depth range 1500-1599
+      dr_1600_1699:
+        range: float
+        description: Depth range 1600-1699
+      dr_1700_1799:
+        range: float
+        description: Depth range 1700-1799
+      dr_1800_1899:
+        range: float
+        description: Depth range 1800-1899
+      dr_1900_1999:
+        range: float
+        description: Depth range 1900-1999
+      dr_2000_2999:
+        range: float
+        description: Depth range 2000-2999
+      dr_3000_3999:
+        range: float
+        description: Depth range 3000-3999
+      dr_4000_4999:
+        range: float
+        description: Depth range 4000-4999
+      dr_5000_5999:
+        range: float
+        description: Depth range 5000-5999
+      dr_6000_6999:
+        range: float
+        description: Depth range 6000-6999
+      dr_7000_7999:
+        range: float
+        description: Depth range 7000-7999
+      dr_8000_8999:
+        range: float
+        description: Depth range 8000-8999
+      dr_9000_9999:
+        range: float
+        description: Depth range 9000-9999
+      dr_10000plus:
+        range: float
+        description: Depth range 10000+
+
+  #----Exoncvg----#
+  RawExoncvg:
+    description: Exon coverage metrics.
+    in_subset: [raw, latest]
+    annotations:
+      name: exoncvg
+      pattern: "\\.bam_metric\\.exon_medians\\.tsv$"
+      ftype: tsv
+    attributes:
+      gene:
+        range: string
+      chromosome:
+        range: string
+      posStart:
+        range: float
+      posEnd:
+        range: float
+      exonRank:
+        range: float
+      medianDepth:
+        range: float
+
+  TidyExoncvg:
+    description: Exon coverage metrics.
+    in_subset: [tidy, latest]
+    annotations:
+      name: exoncvg
+      subtbl: tbl1
+    attributes:
+      gene:
+        range: string
+        description: Gene name
+      chrom:
+        range: string
+        description: Chromosome
+      start:
+        range: float
+        description: Start position
+      end:
+        range: float
+        description: End position
+      exon:
+        range: float
+        description: Exon rank
+      dp_med:
+        range: float
+        description: Median depth
+
