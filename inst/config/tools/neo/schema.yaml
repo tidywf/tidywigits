@@ -1,0 +1,397 @@
+id: https://example.org/tidywigits/neo
+name: neo
+description: >-
+  Neoepitope prediction.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  neo: https://example.org/tidywigits/neo/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: neo
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  latest:
+    description: Neo latest version
+
+classes:
+
+  #---- Candidates ----#
+  RawCandidates:
+    description: Neoepitope candidates.
+    in_subset: [raw, latest]
+    annotations:
+      name: candidates
+      pattern: "\\.neo\\.neo_data\\.tsv$"
+      ftype: tsv
+    attributes:
+      NeId:
+        range: float
+      VariantType:
+        range: string
+      VariantInfo:
+        range: string
+      VariantCopyNumber:
+        range: float
+      CopyNumber:
+        range: float
+      SubclonalLikelihood:
+        range: float
+      GeneIdUp:
+        range: string
+      GeneIdDown:
+        range: string
+      GeneNameUp:
+        range: string
+      GeneNameDown:
+        range: string
+      ChrUp:
+        range: string
+      ChrDown:
+        range: string
+      OrientUp:
+        range: float
+      OrientDown:
+        range: float
+      UpstreamAA:
+        range: string
+      DownstreamAA:
+        range: string
+      NovelAA:
+        range: string
+      NmdMin:
+        range: float
+      NmdMax:
+        range: float
+      CodingBasesLengthMin:
+        range: float
+      CodingBasesLengthMax:
+        range: float
+      FusedIntronLength:
+        range: float
+      SkippedDonors:
+        range: float
+      SkippedAcceptors:
+        range: float
+      UpTranscripts:
+        range: string
+      DownTranscripts:
+        range: string
+      WildtypeAA:
+        range: string
+      CodingBaseUpPosStart:
+        range: float
+      CodingBaseUpPosEnd:
+        range: float
+      CodingBasesUp:
+        range: string
+      CodingBaseCigarUp:
+        range: string
+      CodingBaseDownPosStart:
+        range: float
+      CodingBaseDownPosEnd:
+        range: float
+      CodingBasesDown:
+        range: string
+      CodingBaseCigarDown:
+        range: string
+
+  TidyCandidates:
+    description: Neoepitope candidates.
+    in_subset: [tidy, latest]
+    annotations:
+      name: candidates
+      subtbl: tbl1
+    attributes:
+      ne_id:
+        range: integer
+        description: Unique ID for neoepitope
+      variant_type:
+        range: string
+        description: MISSENSE, INFRAME, OUT_OF_FRAME_FUSION, INFRAME_FUSION, FRAMESHIFT
+      variant_info:
+        range: string
+        description: 'Unique identifier for variant. For point mutations: [chr]:[pos]:[ref]:[alt]; For SV: [chrUp]:[posUp]:[orientUp]-[chrDown]:[posDown]:[orientDown]'
+      variant_cn:
+        range: float
+        description: Allele copies of the point mutation or structural variant
+      cn:
+        range: float
+        description: Total chromosomal copies at variant location
+      subclonal_likelihood:
+        range: float
+        description: Subclonal likelihood of variant (for point mutations only)
+      gene_id_up:
+        range: string
+        description: Ensembl gene ID for upstream gene
+      gene_id_down:
+        range: string
+        description: Ensembl gene ID for downstream gene
+      gene_name_up:
+        range: string
+        description: Gene name for upstream gene
+      gene_name_down:
+        range: string
+        description: Gene name for downstream gene
+      chr_up:
+        range: string
+        description: Chromosome for upstream gene
+      chr_down:
+        range: string
+        description: Chromosome for downstream gene
+      orient_up:
+        range: float
+        description: Orientation for upstream gene
+      orient_down:
+        range: float
+        description: Orientation for downstream gene
+      aa_upstream:
+        range: string
+        description: Upstream AA
+      aa_downstream:
+        range: string
+        description: Downstream AA
+      aa_novel:
+        range: string
+        description: Novel AA
+      nmd_min:
+        range: float
+        description: Smallest # of coding bases from stop codon to exon splice junction across all downstream transcripts
+      nmd_max:
+        range: float
+        description: Largest # of coding bases from stop codon to exon splice junction across all downstream transcripts
+      coding_bases_length_min:
+        range: float
+        description: '# of coding bases for shortest fused transcript combination (not presently used)'
+      coding_bases_length_max:
+        range: float
+        description: '# of coding bases for longest fused transcript combination (not presently used)'
+      fused_intron_length:
+        range: float
+        description: Length of fused Intron (not presently used)
+      skipped_donors:
+        range: float
+        description: '# of splice donors skipped in transcripts other than those in the fusion transcripts'
+      skipped_acceptors:
+        range: float
+        description: '# of splice acceptors skipped in transcripts other than those in the fusion transcripts'
+      transcripts_up:
+        range: string
+        description: List of transcripts in the up gene that support the neoepitope
+      transcripts_down:
+        range: string
+        description: All unique transcripts on the up gene that support the neoepitope
+      aa_wildtype:
+        range: string
+        description: Wildtype AA sequence (for point mutations only)
+      coding_base_up_pos_start:
+        range: float
+        description: Start position of coding bases in upstream transcript
+      coding_base_up_pos_end:
+        range: float
+        description: End position of coding bases in upstream transcript
+      coding_bases_up:
+        range: string
+        description: Coding bases in upstream transcript
+      coding_base_cigar_up:
+        range: string
+        description: CIGAR string for coding bases in upstream transcript
+      coding_base_down_pos_start:
+        range: float
+        description: Start position of coding bases in downstream transcript
+      coding_base_down_pos_end:
+        range: float
+        description: End position of coding bases in downstream transcript
+      coding_bases_down:
+        range: string
+        description: Coding bases in downstream transcript
+      coding_base_cigar_down:
+        range: string
+        description: CIGAR string for coding bases in downstream transcript
+
+
+  #---- Predictions ----#
+  RawPredictions:
+    description: Neoepitope predictions.
+    in_subset: [raw, latest]
+    annotations:
+      name: predictions
+      pattern: "\\.neo\\.neoepitope\\.tsv$"
+      ftype: tsv
+    attributes:
+      NeId:
+        range: float
+      VariantType:
+        range: string
+      VariantInfo:
+        range: string
+      GeneName:
+        range: string
+      UpAminoAcids:
+        range: string
+      NovelAminoAcids:
+        range: string
+      DownAminoAcids:
+        range: string
+      PeptideCount:
+        range: float
+      TpmSource:
+        range: string
+      RnaFrags:
+        range: float
+      RnaDepth:
+        range: float
+      TpmUp:
+        range: float
+      TpmDown:
+        range: float
+      ExpectedTpm:
+        range: float
+      RawEffectiveTpm:
+        range: float
+      EffectiveTpm:
+        range: float
+      TpmCancerUp:
+        range: float
+      TpmCancerDown:
+        range: float
+      TpmPanCancerUp:
+        range: float
+      TpmPanCancerDown:
+        range: float
+      NmdMin:
+        range: float
+      NmdMax:
+        range: float
+      CodingBasesLengthMin:
+        range: float
+      CodingBasesLengthMax:
+        range: float
+      FusedIntronLength:
+        range: float
+      SkippedDonors:
+        range: float
+      SkippedAcceptors:
+        range: float
+      TranscriptsUp:
+        range: string
+      TranscriptsDown:
+        range: string
+      VariantCopyNumber:
+        range: float
+      CopyNumber:
+        range: float
+      SubclonalLikelihood:
+        range: float
+
+  TidyPredictions:
+    description: Neoepitope predictions.
+    in_subset: [tidy, latest]
+    annotations:
+      name: predictions
+      subtbl: tbl1
+    attributes:
+      ne_id:
+        range: integer
+        description: Unique ID for neoepitope
+      variant_type:
+        range: string
+        description: MISSENSE, INFRAME, OUT_OF_FRAME_FUSION, INFRAME_FUSION, FRAMESHIFT
+      variant_info:
+        range: string
+        description: 'Unique identifier for variant. For point mutations: [chr]:[pos]:[ref]:[alt]; For SV: [chrUp]:[posUp]:[orientUp]-[chrDown]:[posDown]:[orientDown]'
+      gene_name:
+        range: string
+        description: Gene name or fusion name for fusions
+      aa_up:
+        range: string
+        description: Section of the neoepitope that matches the upstream transcript
+      aa_novel:
+        range: string
+        description: Novel section of the neoepitope (if any)
+      aa_down:
+        range: string
+        description: Section of the neoepitope that matches the downstream transcript (if any)
+      peptide_count:
+        range: float
+        description: '# of novel peptides between 8 and 12 bases that form part of neoepitope'
+      tpm_source:
+        range: string
+        description: Sample, CancerType or Cohort
+      rna_frags:
+        range: float
+        description: '# of fragments supporting the novel RNA sequence'
+      rna_depth:
+        range: float
+        description: Total RNA coverage at the last base of the upstream AA sequence
+      tpm_up:
+        range: float
+        description: Sum of estimated TPM across all transcripts that support the predicted upstream AA sequence
+      tpm_down:
+        range: float
+        description: Sum of estimated TPM across all transcripts that support the predicted downstream AA sequence
+      tpm_expected:
+        range: float
+        description: Estimated TPM of the neo-epitope
+      tpm_raw_effective:
+        range: float
+        description: TPM estimate from direct fragment count
+      tpm_effective:
+        range: float
+        description: CombinedTPM estimate from direct fragment count and transcript expression
+      tpm_cancer_up:
+        range: float
+        description: SUM Median TPM for up transcripts for cancer type
+      tpm_cancer_down:
+        range: float
+        description: SUM Median TPM for down transcripts for cancer type
+      tpm_pancancer_up:
+        range: float
+        description: SUM Median TPM for up transcripts pan-cancer
+      tpm_pancancer_down:
+        range: float
+        description: SUM Median TPM for down transcripts pan-cancer
+      nmd_min:
+        range: float
+        description: Smallest # of coding bases from stop codon to exon splice junction across all downstream transcripts
+      nmd_max:
+        range: float
+        description: Largest # of coding bases from stop codon to exon splice junction across all downstream transcripts
+      coding_bases_length_min:
+        range: float
+        description: '# of coding bases for shortest fused transcript combination (not presently used)'
+      coding_bases_length_max:
+        range: float
+        description: '# of coding bases for longest fused transcript combination (not presently used)'
+      fused_intron_length:
+        range: float
+        description: Length of fused Intron (not presently used)
+      skipped_donors:
+        range: float
+        description: '# of splice donors skipped in transcripts other than those in the fusion transcripts'
+      skipped_acceptors:
+        range: float
+        description: '# of splice acceptors skipped in transcripts other than those in the fusion transcripts'
+      transcripts_up:
+        range: string
+        description: List of transcripts in the up gene that support the neoepitope
+      transcripts_down:
+        range: string
+        description: All unique transcripts on the up gene that support the neoepitope
+      variant_cn:
+        range: float
+        description: Allele copies of the point mutation or structural variant
+      cn:
+        range: float
+        description: Total chromosomal copies at variant location
+      subclonal_likelihood:
+        range: float
+        description: Subclonal likelihood of variant (for point mutations only)
+

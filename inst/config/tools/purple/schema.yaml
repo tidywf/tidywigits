@@ -1,0 +1,906 @@
+id: https://example.org/tidywigits/purple
+name: purple
+description: >-
+  Purity Ploidy Estimator.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  purple: https://example.org/tidywigits/purple/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: purple
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  v4.0:
+    description: Purple version v4.0
+  latest:
+    description: Purple latest version
+
+classes:
+
+  #---- Cnvgenetsv ----#
+  RawCnvgenetsv:
+    description: Copy number alterations of each gene in the HMF gene panel.
+    in_subset:
+      - raw
+    annotations:
+      name: cnvgenetsv
+      pattern: "\\.purple\\.cnv\\.gene\\.tsv$"
+      ftype: tsv
+    attributes:
+      chromosome:
+        range: string
+        in_subset: [v4.0, latest]
+      start:
+        range: float
+        in_subset: [v4.0, latest]
+      end:
+        range: float
+        in_subset: [v4.0, latest]
+      gene:
+        range: string
+        in_subset: [v4.0, latest]
+      minCopyNumber:
+        range: float
+        in_subset: [v4.0, latest]
+      maxCopyNumber:
+        range: float
+        in_subset: [v4.0, latest]
+      somaticRegions:
+        range: float
+        in_subset: [v4.0, latest]
+      transcriptId:
+        range: string
+        in_subset: [v4.0, latest]
+      isCanonical:
+        range: string
+        in_subset: [v4.0, latest]
+      chromosomeBand:
+        range: string
+        in_subset: [v4.0, latest]
+      minRegions:
+        range: float
+        in_subset: [v4.0, latest]
+      minRegionStart:
+        range: float
+        in_subset: [v4.0, latest]
+      minRegionEnd:
+        range: float
+        in_subset: [v4.0, latest]
+      minRegionStartSupport:
+        range: string
+        in_subset: [v4.0, latest]
+      minRegionEndSupport:
+        range: string
+        in_subset: [v4.0, latest]
+      minRegionMethod:
+        range: string
+        in_subset: [v4.0, latest]
+      minMinorAlleleCopyNumber:
+        range: float
+        in_subset: [v4.0, latest]
+      depthWindowCount:
+        range: float
+        in_subset: [v4.0, latest]
+      gcContent:
+        range: float
+        in_subset: [latest]
+
+  TidyCnvgenetsv:
+    description: Copy number alterations of each gene in the HMF gene panel.
+    in_subset:
+      - tidy
+    annotations:
+      name: cnvgenetsv
+      subtbl: tbl1
+    attributes:
+      chrom:
+        range: string
+        description: chromosome of gene
+        in_subset: [v4.0, latest]
+      start:
+        range: float
+        description: start location of gene transcript
+        in_subset: [v4.0, latest]
+      end:
+        range: float
+        description: end location of gene transcript
+        in_subset: [v4.0, latest]
+      gene:
+        range: string
+        description: name of gene as per Ensembl and HGNC
+        in_subset: [v4.0, latest]
+      cn_min:
+        range: float
+        description: minimum cn found in the gene exons
+        in_subset: [v4.0, latest]
+      cn_max:
+        range: float
+        description: maximum cn found in the gene exons
+        in_subset: [v4.0, latest]
+      somatic_regions:
+        range: float
+        description: count of somatic cn regions this gene spans
+        in_subset: [v4.0, latest]
+      transcript_id:
+        range: string
+        description: ensembl transcript ID
+        in_subset: [v4.0, latest]
+      is_canonical:
+        range: string
+        description: is canonical
+        in_subset: [v4.0, latest]
+      chrom_band:
+        range: string
+        description: chromosome band of the gene
+        in_subset: [v4.0, latest]
+      regions_min:
+        range: float
+        description: number of somatic regions inside the gene that share the min cn
+        in_subset: [v4.0, latest]
+      start_region_min:
+        range: float
+        description: start base of the cn region overlapping the gene with the minimum cn
+        in_subset: [v4.0, latest]
+      end_region_min:
+        range: float
+        description: end base of the cn region overlapping the gene with the minimum cn
+        in_subset: [v4.0, latest]
+      start_region_min_support:
+        range: string
+        description: start support of the cn region overlapping the gene with the minimum cn
+        in_subset: [v4.0, latest]
+      end_region_min_support:
+        range: string
+        description: end support of the cn region overlapping the gene with the minimum cn
+        in_subset: [v4.0, latest]
+      region_min_method:
+        range: string
+        description: method used to determine cn of the cn region overlapping the gene with the minimum cn
+        in_subset: [v4.0, latest]
+      cn_minor_allele_min:
+        range: float
+        description: minimum allele cn found over the gene exons - useful for identifying LOH events
+        in_subset: [v4.0, latest]
+      window_count_depth:
+        range: float
+        description: count of cobalt windows covered by this segment
+        in_subset: [v4.0, latest]
+      gc_content:
+        range: float
+        description: proportion of segment that is G or C
+        in_subset: [latest]
+
+
+  #---- Cnvsomtsv ----#
+  RawCnvsomtsv:
+    description: Copy number profile of all (contiguous) segments of the tumor sample.
+    in_subset: [raw, latest]
+    annotations:
+      name: cnvsomtsv
+      pattern: "\\.purple\\.cnv\\.somatic\\.tsv$"
+      ftype: tsv
+    attributes:
+      chromosome:
+        range: string
+      start:
+        range: float
+      end:
+        range: float
+      copyNumber:
+        range: float
+      bafCount:
+        range: float
+      observedBAF:
+        range: float
+      baf:
+        range: float
+      segmentStartSupport:
+        range: string
+      segmentEndSupport:
+        range: string
+      method:
+        range: string
+      depthWindowCount:
+        range: float
+      gcContent:
+        range: float
+      minStart:
+        range: float
+      maxStart:
+        range: float
+      minorAlleleCopyNumber:
+        range: float
+      majorAlleleCopyNumber:
+        range: float
+
+  TidyCnvsomtsv:
+    description: Copy number profile of all (contiguous) segments of the tumor sample.
+    in_subset: [tidy, latest]
+    annotations:
+      name: cnvsomtsv
+      subtbl: tbl1
+    attributes:
+      chrom:
+        range: string
+        description: chromosome of cn segment
+      start:
+        range: float
+        description: start base of cn segment
+      end:
+        range: float
+        description: end base of cn segment
+      cn:
+        range: float
+        description: fitted absolute cn of segment adjusted for purity and ploidy
+      baf_count:
+        range: float
+        description: count of amber baf points covered by this segment
+      baf_observed:
+        range: float
+        description: combined reference and tumor BAF in tumor sample unadjusted for purity and ploidy
+      baf:
+        range: float
+        description: tumor BAF after adjusted for purity and ploidy
+      start_segment_support:
+        range: string
+        description: type of structural variant support for the cn breakpoint at start of region
+      end_segment_support:
+        range: string
+        description: type of structural variant support for the cn breakpoint at end of region
+      method:
+        range: string
+        description: method used to determine the cn of the region
+      window_count_depth:
+        range: float
+        description: count of cobalt windows covered by this segment
+      gc_content:
+        range: float
+        description: proportion of segment that is G or C
+      start_min:
+        range: float
+        description: minimum start location of this segment if there is any uncertainty
+      start_max:
+        range: float
+        description: maximum start location of this segment if there is any uncertainty
+      cn_minor_allele:
+        range: float
+        description: cn of minor allele adjusted for purity
+      cn_major_allele:
+        range: float
+        description: cn of major allele adjusted for purity
+
+
+  #---- Drivercatalog ----#
+  RawDrivercatalog:
+    description: Significant amplifications and deletions that occur in the HMF gene panel.
+    in_subset: [raw, latest]
+    annotations:
+      name: drivercatalog
+      pattern: "\\.purple\\.driver\\.catalog\\.(germline|somatic)\\.tsv$"
+      ftype: tsv
+    attributes:
+      chromosome:
+        range: string
+      chromosomeBand:
+        range: string
+      gene:
+        range: string
+      transcript:
+        range: string
+      isCanonical:
+        range: string
+      driver:
+        range: string
+      category:
+        range: string
+      likelihoodMethod:
+        range: string
+      driverLikelihood:
+        range: float
+      missense:
+        range: float
+      nonsense:
+        range: float
+      splice:
+        range: float
+      inframe:
+        range: float
+      frameshift:
+        range: float
+      biallelic:
+        range: string
+      minCopyNumber:
+        range: float
+      maxCopyNumber:
+        range: float
+
+  TidyDrivercatalog:
+    description: Significant amplifications and deletions that occur in the HMF gene panel.
+    in_subset: [tidy, latest]
+    annotations:
+      name: drivercatalog
+      subtbl: tbl1
+    attributes:
+      chrom:
+        range: string
+        description: chromosome of the gene
+      chrom_band:
+        range: string
+        description: chromosome band of driver
+      gene:
+        range: string
+        description: name of gene
+      transcript:
+        range: string
+        description: ensembl transcript ID
+      is_canonical:
+        range: string
+        description: is canonical (True/False)
+      driver:
+        range: string
+        description: driver type (amp, del, mutation)
+      category:
+        range: string
+        description: gene driver type (oncogene or tumor suppressor)
+      likelihood_method:
+        range: string
+        description: method used to determine likelihood
+      driver_likelihood:
+        range: float
+        description: likelihood that gene is a driver
+      missense:
+        range: float
+        description: number of missense variants in gene
+      nonsense:
+        range: float
+        description: number of nonsense variants in gene
+      splice:
+        range: float
+        description: number of splice variants in gene
+      inframe:
+        range: float
+        description: number of inframe variants in gene
+      frameshift:
+        range: float
+        description: number of frameshift variants in gene
+      biallelic:
+        range: string
+        description: true if any variants in the gene are biallelic
+      cn_min:
+        range: float
+        description: minimum cn found in the gene exons
+      cn_max:
+        range: float
+        description: maximum cn found in the gene exons
+
+
+  #---- Germdeltsv ----#
+  RawGermdeltsv:
+    description: Germline deletions.
+    in_subset: [raw, latest]
+    annotations:
+      name: germdeltsv
+      pattern: "\\.purple\\.germline\\.deletion\\.tsv$"
+      ftype: tsv
+    attributes:
+      gene:
+        range: string
+      chromosome:
+        range: string
+      chromosomeBand:
+        range: string
+      regionStart:
+        range: float
+      regionEnd:
+        range: float
+      depthWindowCount:
+        range: float
+      exonStart:
+        range: float
+      exonEnd:
+        range: float
+      detectionMethod:
+        range: string
+      germlineStatus:
+        range: string
+      tumorStatus:
+        range: string
+      germlineCopyNumber:
+        range: float
+      tumorCopyNumber:
+        range: float
+      filter:
+        range: string
+      cohortFrequency:
+        range: float
+      reported:
+        range: string
+
+  TidyGermdeltsv:
+    description: Germline deletions.
+    in_subset: [tidy, latest]
+    annotations:
+      name: germdeltsv
+      subtbl: tbl1
+    attributes:
+      gene:
+        range: string
+        description: name of gene as per Ensembl and HGNC
+      chrom:
+        range: string
+        description: chromosome of gene
+      chrom_band:
+        range: string
+        description: chromosome band of gene
+      start_region:
+        range: float
+        description: start base of deletion
+      end_region:
+        range: float
+        description: end base of deletion
+      window_count_depth:
+        range: float
+        description: count of cobalt windows covered by this segment
+      start_exon:
+        range: float
+        description: start base of deletion
+      end_exon:
+        range: float
+        description: end base of deletion
+      detection_method:
+        range: string
+        description: method used to determine the cn of the region
+      status_germline:
+        range: string
+        description: germline status of the deletion
+      status_tumor:
+        range: string
+        description: tumor status of the deletion
+      cn_germline:
+        range: float
+        description: germline cn of the deletion
+      cn_tumor:
+        range: float
+        description: tumor cn of the deletion
+      filter:
+        range: string
+        description: filter applied to the deletion
+      cohort_frequency:
+        range: float
+        description: frequency of deletion in the HMF cohort
+      reported:
+        range: string
+        description: reported deletion
+
+
+  #---- Purityrange ----#
+  RawPurityrange:
+    description: Best fit per purity sorted by score.
+    in_subset: [raw, latest]
+    annotations:
+      name: purityrange
+      pattern: "\\.purple\\.purity\\.range\\.tsv$"
+      ftype: tsv
+    attributes:
+      purity:
+        range: float
+      normFactor:
+        range: float
+      score:
+        range: float
+      diploidProportion:
+        range: float
+      ploidy:
+        range: float
+      somaticPenalty:
+        range: float
+
+  TidyPurityrange:
+    description: Best fit per purity sorted by score.
+    in_subset: [tidy, latest]
+    annotations:
+      name: purityrange
+      subtbl: tbl1
+    attributes:
+      purity:
+        range: float
+        description: purity of tumor in the sample
+      norm_factor:
+        range: float
+        description: internal factor to convert tumor ratio to cn.
+      score:
+        range: float
+        description: score of fit (lower is better)
+      diploid_proportion:
+        range: float
+        description: proportion of cn regions that have 1 (+- 0.2) minor and major allele
+      ploidy:
+        range: float
+        description: average ploidy of the tumor sample after adjusting for purity
+      somatic_penalty:
+        range: float
+        description: penalty from somatic variants with implied variant cn that are inconsistent with the minor and major allele cn
+
+
+  #---- Puritytsv ----#
+  RawPuritytsv:
+    description: Purity/ploidy fit summary.
+    in_subset: [raw, latest]
+    annotations:
+      name: puritytsv
+      pattern: "\\.purple\\.purity\\.tsv$"
+      ftype: tsv
+    attributes:
+      purity:
+        range: float
+      normFactor:
+        range: float
+      score:
+        range: float
+      diploidProportion:
+        range: float
+      ploidy:
+        range: float
+      gender:
+        range: string
+      status:
+        range: string
+      polyclonalProportion:
+        range: float
+      minPurity:
+        range: float
+      maxPurity:
+        range: float
+      minPloidy:
+        range: float
+      maxPloidy:
+        range: float
+      minDiploidProportion:
+        range: float
+      maxDiploidProportion:
+        range: float
+      somaticPenalty:
+        range: float
+      wholeGenomeDuplication:
+        range: string
+      msIndelsPerMb:
+        range: float
+      msStatus:
+        range: string
+      tml:
+        range: float
+      tmlStatus:
+        range: string
+      tmbPerMb:
+        range: float
+      tmbStatus:
+        range: string
+      svTumorMutationalBurden:
+        range: float
+      runMode:
+        range: string
+      targeted:
+        range: string
+
+  TidyPuritytsv:
+    description: Purity/ploidy fit summary.
+    in_subset: [tidy, latest]
+    annotations:
+      name: puritytsv
+      subtbl: tbl1
+    attributes:
+      purity:
+        range: float
+        description: purity of tumor in the sample
+      norm_factor:
+        range: float
+        description: internal factor to convert tumor ratio to cn.
+      fit_score:
+        range: float
+        description: score of fit (lower is better)
+      diploid_proportion:
+        range: float
+        description: proportion of cn regions that have 1 (+- 0.2) minor and major allele
+      ploidy:
+        range: float
+        description: average ploidy of the tumor sample after adjusting for purity
+      gender:
+        range: string
+        description: one of male or female
+      status:
+        range: string
+        description: either pass or one or more warning or fail status
+      polyclonal_proportion:
+        range: float
+        description: proportion of copy number regions that are more than 0.25 from a whole cn
+      purity_min:
+        range: float
+        description: minimum purity with score within 10% of best
+      purity_max:
+        range: float
+        description: maximum purity with score within 10% of best
+      ploidy_min:
+        range: float
+        description: minimum ploidy with score within 10% of best
+      ploidy_max:
+        range: float
+        description: maximum ploidy with score within 10% of best
+      diploid_proportion_min:
+        range: float
+        description: min estimation for diploid proportion
+      diploid_proportion_max:
+        range: float
+        description: max estimation for diploid proportion
+      somatic_penalty:
+        range: float
+        description: penalty from somatic variants with implied variant cn that are inconsistent with the minor and major allele cn
+      whole_genome_duplication:
+        range: string
+        description: true if more than 10 autosomes have major allele cn > 1.5
+      ms_indels_per_mb:
+        range: float
+        description: microsatellite indels per mega base
+      ms_status:
+        range: string
+        description: microsatellite status (msi, mss or unknown if somatic variants not supplied)
+      tml:
+        range: float
+        description: tumor mutational load (# of missense variants in sample)
+      tml_status:
+        range: string
+        description: tumor mutational load status (high, low or unknown if somatic variants not supplied)
+      tmb_per_mb:
+        range: float
+        description: tumor mutational burden (#passing variants per Mb) per mega base
+      tmb_status:
+        range: string
+        description: tumor mutational burden status (high, low or unknown if somatic variants not supplied)
+      tmb_sv:
+        range: float
+        description: total number of non inferred, non single passing structural variants detected in sample
+      run_mode:
+        range: string
+        description: tumor_germline, tumor or germline, set based on whether a tumor and/or reference sample were supplied
+      targeted:
+        range: string
+        description: true if purple was run with target-region files
+
+
+  #---- Qc ----#
+  RawQc:
+    description: QC metrics.
+    in_subset:
+      - raw
+    annotations:
+      name: qc
+      pattern: "\\.purple\\.qc$"
+      ftype: txt-nohead
+    attributes:
+      QCStatus:
+        range: string
+        in_subset: [v4.0, latest]
+      Method:
+        range: string
+        in_subset: [v4.0, latest]
+      CopyNumberSegments:
+        range: integer
+        in_subset: [v4.0, latest]
+      UnsupportedCopyNumberSegments:
+        range: integer
+        in_subset: [v4.0, latest]
+      Purity:
+        range: float
+        in_subset: [v4.0, latest]
+      AmberGender:
+        range: string
+        in_subset: [v4.0, latest]
+      CobaltGender:
+        range: string
+        in_subset: [v4.0, latest]
+      DeletedGenes:
+        range: integer
+        in_subset: [v4.0, latest]
+      Contamination:
+        range: float
+        in_subset: [v4.0, latest]
+      GermlineAberrations:
+        range: string
+        in_subset: [v4.0, latest]
+      AmberMeanDepth:
+        range: float
+        in_subset: [v4.0, latest]
+      LohPercent:
+        range: float
+        in_subset: [v4.0, latest]
+      TincLevel:
+        range: float
+        in_subset: [latest]
+      ChimerismPercentage:
+        range: float
+        in_subset: [latest]
+
+  TidyQc:
+    description: QC metrics.
+    in_subset:
+      - tidy
+    annotations:
+      name: qc
+      subtbl: tbl1
+    attributes:
+      qc_status:
+        range: string
+        description: QC status
+        in_subset: [v4.0, latest]
+      method:
+        range: string
+        description: method used to determine the cn of the region (NORMAL, HIGHLY_DIPLOID, SOMATIC or NO_TUMOR)
+        in_subset: [v4.0, latest]
+      cn_segments:
+        range: integer
+        description: total number of cn segments in sample
+        in_subset: [v4.0, latest]
+      cn_segments_unsupported:
+        range: integer
+        description: count of cn segments with no SV support on either side. A high number is an indicator of poor sample quality
+        in_subset: [v4.0, latest]
+      purity:
+        range: float
+        description: purity of tumor in the sample
+        in_subset: [v4.0, latest]
+      gender_amber:
+        range: string
+        description: gender from amber data
+        in_subset: [v4.0, latest]
+      gender_cobalt:
+        range: string
+        description: gender from cobalt data
+        in_subset: [v4.0, latest]
+      deleted_genes:
+        range: integer
+        description: number of genes with cn < 0.5
+        in_subset: [v4.0, latest]
+      contamination:
+        range: float
+        description: rate of contamination in tumor sample as determined by Amber
+        in_subset: [v4.0, latest]
+      germline_aberrations:
+        range: string
+        description: any germline chromosomal aberrations detected (KLINEFELTER, TRISOMY_X, TRISOMY_21, TRISOMY_13, TRISOMY_18, TRISOMY_15, XYY, MOSAIC_X)
+        in_subset: [v4.0, latest]
+      mean_depth_amber:
+        range: float
+        description: as calculated by Amber
+        in_subset: [v4.0, latest]
+      loh_percent:
+        range: float
+        description: LOH percentage
+        in_subset: [v4.0, latest]
+      tinc_level:
+        range: float
+        description: tumor in normal contamination level
+        in_subset: [latest]
+      chimerism_percent:
+        range: float
+        description: chimerism percentage (presence of a donor sample)
+        in_subset: [latest]
+
+
+  #---- Somclonality ----#
+  RawSomclonality:
+    description: Clonality peak model data.
+    in_subset: [raw, latest]
+    annotations:
+      name: somclonality
+      pattern: "\\.purple\\.somatic\\.clonality\\.tsv$"
+      ftype: tsv
+    attributes:
+      peak:
+        range: float
+      bucket:
+        range: float
+      bucketWeight:
+        range: float
+      peakAvgWeight:
+        range: float
+      isValid:
+        range: string
+      isSubclonal:
+        range: string
+
+  TidySomclonality:
+    description: Clonality peak model data.
+    in_subset: [tidy, latest]
+    annotations:
+      name: somclonality
+      subtbl: tbl1
+    attributes:
+      peak:
+        range: float
+        description: peak
+      bucket:
+        range: float
+        description: bucket
+      bucket_weight:
+        range: float
+        description: bucket weight
+      peak_avg_weight:
+        range: float
+        description: peak average weight
+      is_valid:
+        range: string
+        description: is valid
+      is_subclonal:
+        range: string
+        description: is subclonal
+
+
+  #---- Somhist ----#
+  RawSomhist:
+    description: Somatic variant histogram data.
+    in_subset: [raw, latest]
+    annotations:
+      name: somhist
+      pattern: "\\.purple\\.somatic\\.hist\\.tsv$"
+      ftype: tsv
+    attributes:
+      variantCopyNumberBucket:
+        range: float
+      copyNumberBucket:
+        range: float
+      count:
+        range: float
+
+  TidySomhist:
+    description: Somatic variant histogram data.
+    in_subset: [tidy, latest]
+    annotations:
+      name: somhist
+      subtbl: tbl1
+    attributes:
+      variant_cn_bucket:
+        range: float
+        description: variant cn bucket
+      cn_bucket:
+        range: float
+        description: cn bucket
+      count:
+        range: float
+        description: count
+
+
+  #---- Version ----#
+  RawVersion:
+    description: Version of the tool.
+    in_subset: [raw, latest]
+    annotations:
+      name: version
+      pattern: "^purple\\.version$"
+      ftype: txt
+    attributes:
+      version:
+        range: string
+      "build.date":
+        range: string
+
+  TidyVersion:
+    description: Version of the tool.
+    in_subset: [tidy, latest]
+    annotations:
+      name: version
+      subtbl: tbl1
+    attributes:
+      version:
+        range: string
+        description: version of the tool
+      date_build:
+        range: string
+        description: build date
+

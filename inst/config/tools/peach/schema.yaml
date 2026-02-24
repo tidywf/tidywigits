@@ -1,0 +1,204 @@
+id: https://example.org/tidywigits/peach
+name: peach
+description: >-
+  Pharmacogenomic evaluator and caller of haplotypes.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  peach: https://example.org/tidywigits/peach/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: peach
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  latest:
+    description: Peach latest version
+
+classes:
+
+  #---- Events ----#
+  RawEvents:
+    description: Variant events.
+    in_subset: [raw, latest]
+    annotations:
+      name: events
+      pattern: "\\.peach\\.events\\.tsv$"
+      ftype: tsv
+    attributes:
+      event:
+        range: string
+      count:
+        range: float
+
+  TidyEvents:
+    description: Variant events.
+    in_subset: [tidy, latest]
+    annotations:
+      name: events
+      subtbl: tbl1
+    attributes:
+      event:
+        range: string
+        description: Event ID
+      count:
+        range: float
+        description: Number of times event was observed
+
+
+  #---- Eventsg ----#
+  RawEventsg:
+    description: Variant events linked to gene.
+    in_subset: [raw, latest]
+    annotations:
+      name: eventsg
+      pattern: "\\.peach\\.gene\\.events\\.tsv$"
+      ftype: tsv
+    attributes:
+      gene:
+        range: string
+      event:
+        range: string
+      count:
+        range: float
+
+  TidyEventsg:
+    description: Variant events linked to gene.
+    in_subset: [tidy, latest]
+    annotations:
+      name: eventsg
+      subtbl: tbl1
+    attributes:
+      gene:
+        range: string
+        description: Gene name
+      event:
+        range: string
+        description: ID of event linked to gene
+      count:
+        range: float
+        description: Number of times event was observed
+
+
+  #---- Hapall ----#
+  RawHapall:
+    description: All haplotypes.
+    in_subset: [raw, latest]
+    annotations:
+      name: hapall
+      pattern: "\\.peach\\.haplotypes\\.all\\.tsv$"
+      ftype: tsv
+    attributes:
+      gene:
+        range: string
+      combination:
+        range: string
+      count:
+        range: float
+      nonWildTypeCount:
+        range: float
+
+  TidyHapall:
+    description: All haplotypes.
+    in_subset: [tidy, latest]
+    annotations:
+      name: hapall
+      subtbl: tbl1
+    attributes:
+      gene:
+        range: string
+        description: Gene name
+      combination:
+        range: string
+        description: Combination of haplotypes that could explain the observed events for this gene. ; separated list of pairs of haplotype names and number of times the haplotype is called.
+      count:
+        range: float
+        description: Number of haplotypes in the combination
+      count_non_wildtype:
+        range: float
+        description: Number of non-wild-type haplotypes in the combination
+
+
+  #---- Hapbest ----#
+  RawHapbest:
+    description: Best haplotypes.
+    in_subset: [raw, latest]
+    annotations:
+      name: hapbest
+      pattern: "\\.peach\\.haplotypes\\.best\\.tsv$"
+      ftype: tsv
+    attributes:
+      gene:
+        range: string
+      haplotype:
+        range: string
+      count:
+        range: float
+      function:
+        range: string
+      linkedDrugs:
+        range: string
+      prescriptionUrls:
+        range: string
+
+  TidyHapbest:
+    description: Best haplotypes.
+    in_subset: [tidy, latest]
+    annotations:
+      name: hapbest
+      subtbl: tbl1
+    attributes:
+      gene:
+        range: string
+        description: Gene name
+      haplotype:
+        range: string
+        description: Haplotype name
+      count:
+        range: float
+        description: Number of times haplotype was called for this gene
+      function:
+        range: string
+        description: Haplotype function
+      linked_drugs:
+        range: string
+        description: List of drugs for which this gene is relevant
+      prescription_urls:
+        range: string
+        description: List of urls to prescription advice for related drugs
+
+
+  #---- Qc ----#
+  RawQc:
+    description: QC metrics.
+    in_subset: [raw, latest]
+    annotations:
+      name: qc
+      pattern: "\\.peach\\.qc\\.tsv$"
+      ftype: tsv
+    attributes:
+      gene:
+        range: string
+      status:
+        range: string
+
+  TidyQc:
+    description: QC metrics.
+    in_subset: [tidy, latest]
+    annotations:
+      name: qc
+      subtbl: tbl1
+    attributes:
+      gene:
+        range: string
+        description: Gene name
+      status:
+        range: string
+        description: QC status of calls for this gene.
+
