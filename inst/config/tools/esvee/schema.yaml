@@ -1,0 +1,701 @@
+id: https://example.org/tidywigits/esvee
+name: esvee
+description: >-
+  Structural variant caller optimised for short read sequencing.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  esvee: https://example.org/tidywigits/esvee/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: esvee
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  latest:
+    description: Esvee latest version
+
+classes:
+
+  #---- Prepfraglen ----#
+  RawPrepfraglen:
+    description: Fragment length stats.
+    in_subset: [raw, latest]
+    annotations:
+      name: prepfraglen
+      pattern: "\\.esvee\\.prep\\.fragment_length\\.tsv$"
+      ftype: tsv
+    attributes:
+      FragmentLength:
+        range: float
+      Count:
+        range: float
+
+  TidyPrepfraglen:
+    description: Fragment length stats.
+    in_subset: [tidy, latest]
+    annotations:
+      name: prepfraglen
+      subtbl: tbl1
+    attributes:
+      fragment_length:
+        range: float
+      count:
+        range: float
+
+
+  #---- Prepdiscstats ----#
+  RawPrepdiscstats:
+    description: Discordant read stats.
+    in_subset: [raw, latest]
+    annotations:
+      name: prepdiscstats
+      pattern: "\\.esvee\\.prep\\.disc_stats\\.tsv$"
+      ftype: tsv
+    attributes:
+      TotalReads:
+        range: float
+      PrepReads:
+        range: float
+      Translocation:
+        range: float
+      InvLt1K:
+        range: float
+      Inv1To5K:
+        range: float
+      Inv5To100K:
+        range: float
+      InvGt100K:
+        range: float
+      Del1To5K:
+        range: float
+      Del5To100K:
+        range: float
+      DelGt100K:
+        range: float
+      Dup1To5K:
+        range: float
+      Dup5To100K:
+        range: float
+      DupGt100K:
+        range: float
+
+  TidyPrepdiscstats:
+    description: Discordant read stats.
+    in_subset: [tidy, latest]
+    annotations:
+      name: prepdiscstats
+      subtbl: tbl1
+    attributes:
+      tot_reads:
+        range: float
+        description: Total reads
+      prep_reads:
+        range: float
+        description: Prep reads written
+      translocation:
+        range: float
+        description: Translocation
+      inv_lt_1k:
+        range: float
+        description: Inversion < 1kb
+      inv_1_to_5k:
+        range: float
+        description: Inversion 1-5kb
+      inv_5_to_100k:
+        range: float
+        description: Inversion 5-100kb
+      inv_gt_100k:
+        range: float
+        description: Inversion > 100kb
+      del_1_to_5k:
+        range: float
+        description: Deletion 1-5kb
+      del_5_to_100k:
+        range: float
+        description: Deletion 5-100kb
+      del_gt_100k:
+        range: float
+        description: Deletion > 100kb
+      dup_1_to_5k:
+        range: float
+        description: Duplication 1-5kb
+      dup_5_to_100k:
+        range: float
+        description: Duplication 5-100kb
+      dup_gt_100k:
+        range: float
+        description: Duplication > 100kb
+
+
+  #---- Prepjunction ----#
+  RawPrepjunction:
+    description: Candidate junctions.
+    in_subset: [raw, latest]
+    annotations:
+      name: prepjunction
+      pattern: "\\.esvee\\.prep\\.junction\\.tsv$"
+      ftype: tsv
+    attributes:
+      Chromosome:
+        range: string
+      Position:
+        range: float
+      Orientation:
+        range: float
+      JunctionFrags:
+        range: float
+      ExactSupportFrags:
+        range: float
+      OtherSupportFrags:
+        range: float
+      LowMapQualFrags:
+        range: float
+      MaxQual:
+        range: float
+      ExtraInfo:
+        range: float
+      Indel:
+        range: string
+      Hotspot:
+        range: string
+      InitialReadId:
+        range: string
+
+  TidyPrepjunction:
+    description: Candidate junctions.
+    in_subset: [tidy, latest]
+    annotations:
+      name: prepjunction
+      subtbl: tbl1
+    attributes:
+      chrom:
+        range: string
+      position:
+        range: float
+      orientation:
+        range: float
+      junc_frags:
+        range: float
+      exact_support_frags:
+        range: float
+      other_support_frags:
+        range: float
+      low_map_qual_frags:
+        range: float
+      max_qual:
+        range: float
+      extra_info:
+        range: float
+      indel:
+        range: string
+      hotspot:
+        range: string
+      initial_read_id:
+        range: string
+
+
+  #---- Assemblephased ----#
+  RawAssemblephased:
+    description: Phased assemblies.
+    in_subset: [raw, latest]
+    annotations:
+      name: assemblephased
+      pattern: "\\.esvee\\.phased_assembly\\.tsv$"
+      ftype: tsv
+    attributes:
+      AssemblyIds:
+        range: string
+      AssemblyInfo:
+        range: string
+      Merged:
+        range: string
+      SequenceLength:
+        range: float
+      AssemblyCigar:
+        range: string
+      FullSequence:
+        range: string
+
+  TidyAssemblephased:
+    description: Phased assemblies.
+    in_subset: [tidy, latest]
+    annotations:
+      name: assemblephased
+      subtbl: tbl1
+    attributes:
+      assembly_ids:
+        range: string
+      assembly_info:
+        range: string
+      merged:
+        range: string
+      sequence_length:
+        range: float
+      assembly_cigar:
+        range: string
+      full_sequence:
+        range: string
+
+
+  #---- Assembleassembly ----#
+  RawAssembleassembly:
+    description: Breakend assemblies.
+    in_subset: [raw, latest]
+    annotations:
+      name: assembleassembly
+      pattern: "\\.esvee\\.assembly\\.tsv$"
+      ftype: tsv
+    attributes:
+      Id:
+        range: string
+      Chromosome:
+        range: string
+      JuncPosition:
+        range: float
+      JuncOrientation:
+        range: float
+      JuncType:
+        range: string
+      ExtBaseLength:
+        range: float
+      RefBasePosition:
+        range: float
+      RefBaseLength:
+        range: float
+      RefBaseCigar:
+        range: string
+      SplitFrags:
+        range: float
+      RefSplitFrags:
+        range: float
+      DiscFrags:
+        range: float
+      RefDiscFrags:
+        range: float
+      Outcome:
+        range: string
+      PhaseGroupId:
+        range: float
+      PhaseGroupCount:
+        range: float
+      PhaseSetId:
+        range: string
+      PhaseSetCount:
+        range: float
+      SplitLinks:
+        range: string
+      FacingLinks:
+        range: string
+      SvType:
+        range: string
+      SvLength:
+        range: float
+      InsertedBases:
+        range: string
+      OverlapBases:
+        range: string
+      SecondaryLinks:
+        range: string
+      JunctionSequence:
+        range: string
+      RefBaseSequence:
+        range: string
+      InsertType:
+        range: string
+      RefBaseCandidates:
+        range: float
+      UnmappedCandidates:
+        range: float
+      AssemblyInfo:
+        range: string
+
+  TidyAssembleassembly:
+    description: Breakend assemblies.
+    in_subset: [tidy, latest]
+    annotations:
+      name: assembleassembly
+      subtbl: tbl1
+    attributes:
+      id:
+        range: string
+        description: Assembly ID
+      chrom:
+        range: string
+        description: Chromosome
+      junc_position:
+        range: float
+        description: Junction position
+      junc_orientation:
+        range: float
+        description: Junction orientation
+      junc_type:
+        range: string
+        description: Junction type
+      ext_base_length:
+        range: float
+        description: Extension base length
+      ref_base_position:
+        range: float
+        description: Reference base position
+      ref_base_length:
+        range: float
+        description: Reference base length
+      ref_base_cigar:
+        range: string
+        description: Reference base CIGAR
+      split_frags:
+        range: float
+        description: Split fragments
+      ref_split_frags:
+        range: float
+        description: Reference split fragments
+      disc_frags:
+        range: float
+        description: Discordant fragments
+      ref_disc_frags:
+        range: float
+        description: Reference discordant fragments
+      outcome:
+        range: string
+        description: Outcome
+      phase_group_id:
+        range: float
+        description: Phase group ID
+      phase_group_count:
+        range: float
+        description: Phase group count
+      phase_set_id:
+        range: string
+        description: Phase set ID
+      phase_set_count:
+        range: float
+        description: Phase set count
+      split_links:
+        range: string
+        description: Split links
+      facing_links:
+        range: string
+        description: Facing links
+      sv_type:
+        range: string
+        description: SV type
+      sv_length:
+        range: float
+        description: SV length
+      inserted_bases:
+        range: string
+        description: Inserted bases
+      overlap_bases:
+        range: string
+        description: Overlap bases
+      secondary_links:
+        range: string
+        description: Secondary links
+      junc_sequence:
+        range: string
+        description: Junction sequence
+      ref_base_sequence:
+        range: string
+        description: Reference base sequence
+      insert_type:
+        range: string
+        description: Insert type
+      ref_base_candidates:
+        range: float
+        description: Reference base candidates
+      unmapped_candidates:
+        range: float
+        description: Unmapped candidates
+      assembly_info:
+        range: string
+        description: Assembly info
+
+
+  #---- Assemblebreakend ----#
+  RawAssemblebreakend:
+    description: Breakends.
+    in_subset: [raw, latest]
+    annotations:
+      name: assemblebreakend
+      pattern: "\\.esvee\\.breakend\\.tsv$"
+      ftype: tsv
+    attributes:
+      Id:
+        range: string
+      PhaseGroupId:
+        range: string
+      PhaseSetId:
+        range: string
+      AssemblyId:
+        range: string
+      MateId:
+        range: string
+      AssemblyInfo:
+        range: string
+      Type:
+        range: string
+      Chromosome:
+        range: string
+      Position:
+        range: float
+      Orientation:
+        range: float
+      MateChr:
+        range: string
+      MatePos:
+        range: float
+      MateOrient:
+        range: float
+      Length:
+        range: float
+      InsertedBases:
+        range: string
+      Homology:
+        range: string
+      ConfidenceInterval:
+        range: string
+      InexactOffset:
+        range: string
+      Qual:
+        range: float
+      SplitFragments:
+        range: float
+      RefSplitFragments:
+        range: float
+      DiscFragments:
+        range: float
+      RefDiscFragments:
+        range: float
+      ForwardReads:
+        range: float
+      ReverseReads:
+        range: float
+      SequenceLength:
+        range: float
+      SegmentCount:
+        range: float
+      SegmentIndex:
+        range: float
+      SequenceIndex:
+        range: float
+      AlignedBases:
+        range: float
+      MapQual:
+        range: float
+      Score:
+        range: float
+      AdjAlignedBases:
+        range: float
+      AvgFragmentLength:
+        range: float
+      IncompleteFragments:
+        range: float
+      BreakendQual:
+        range: float
+      FacingBreakendIds:
+        range: string
+      AltAlignments:
+        range: string
+      InsertionType:
+        range: string
+      UniqueFragPos:
+        range: float
+      ClosestAssembly:
+        range: string
+      NonPrimaryFragments:
+        range: float
+
+  TidyAssemblebreakend:
+    description: Breakends.
+    in_subset: [tidy, latest]
+    annotations:
+      name: assemblebreakend
+      subtbl: tbl1
+    attributes:
+      id:
+        range: string
+      phase_group_id:
+        range: string
+      phase_set_id:
+        range: string
+      assembly_id:
+        range: string
+      mate_id:
+        range: string
+      assembly_info:
+        range: string
+      type:
+        range: string
+      chrom:
+        range: string
+      position:
+        range: float
+      orientation:
+        range: float
+      mate_chr:
+        range: string
+      mate_pos:
+        range: float
+      mate_orient:
+        range: float
+      length:
+        range: float
+      inserted_bases:
+        range: string
+      homology:
+        range: string
+      confidence_interval:
+        range: string
+      inexact_offset:
+        range: string
+      qual:
+        range: float
+      split_fragments:
+        range: float
+      ref_split_fragments:
+        range: float
+      disc_fragments:
+        range: float
+      ref_disc_fragments:
+        range: float
+      forward_reads:
+        range: float
+      reverse_reads:
+        range: float
+      sequence_length:
+        range: float
+      segment_count:
+        range: float
+      segment_index:
+        range: float
+      sequence_index:
+        range: float
+      aligned_bases:
+        range: float
+      map_qual:
+        range: float
+      score:
+        range: float
+      adj_aligned_bases:
+        range: float
+      avg_fragment_length:
+        range: float
+      incomplete_fragments:
+        range: float
+      breakend_qual:
+        range: float
+      facing_breakend_ids:
+        range: string
+      alt_alignments:
+        range: string
+      insertion_type:
+        range: string
+        description: Insertion type
+      unique_frag_pos:
+        range: float
+        description: Unique fragment positions
+      closest_assembly:
+        range: string
+        description: Closest assembly
+      non_primary_frags:
+        range: float
+        description: Non-primary fragments
+
+
+  #---- Assemblealignment ----#
+  RawAssemblealignment:
+    description: Realigned assemblies.
+    in_subset: [raw, latest]
+    annotations:
+      name: assemblealignment
+      pattern: "\\.esvee\\.alignment\\.tsv$"
+      ftype: tsv
+    attributes:
+      AssemblyIds:
+        range: string
+      AssemblyInfo:
+        range: string
+      RefInfo:
+        range: string
+      RawSeqCoords:
+        range: string
+      AdjSeqCoords:
+        range: string
+      MapQual:
+        range: float
+      Cigar:
+        range: string
+      Orientation:
+        range: float
+      AlignedBases:
+        range: float
+      Score:
+        range: float
+      Flags:
+        range: float
+      NMatches:
+        range: float
+      XaTag:
+        range: string
+      MdTag:
+        range: string
+      CalcAlignLength:
+        range: float
+      ModMapQual:
+        range: float
+      DroppedOnRequery:
+        range: string
+      LinkedAltAlignment:
+        range: string
+
+  TidyAssemblealignment:
+    description: Realigned assemblies.
+    in_subset: [tidy, latest]
+    annotations:
+      name: assemblealignment
+      subtbl: tbl1
+    attributes:
+      assembly_ids:
+        range: string
+      assembly_info:
+        range: string
+      ref_info:
+        range: string
+      raw_seq_coords:
+        range: string
+      adj_seq_coords:
+        range: string
+      map_qual:
+        range: float
+      cigar:
+        range: string
+      orientation:
+        range: float
+      aligned_bases:
+        range: float
+      score:
+        range: float
+      flags:
+        range: float
+      n_matches:
+        range: float
+      xa_tag:
+        range: string
+      md_tag:
+        range: string
+      calc_align_length:
+        range: float
+      mod_map_qual:
+        range: float
+      dropped_on_requery:
+        range: string
+      linked_alt_alignment:
+        range: string
+
