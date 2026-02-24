@@ -1,0 +1,893 @@
+id: https://example.org/tidywigits/isofox
+name: isofox
+description: >-
+  Counts fragment support for identifying and counting gene and transcript
+  features using genome aligned RNASeq data.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  isofox: https://example.org/tidywigits/isofox/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: isofox
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  latest:
+    description: Isofox latest version
+
+classes:
+
+  #---- Summary ----#
+  RawSummary:
+    description: QC summary.
+    in_subset: [raw, latest]
+    annotations:
+      name: summary
+      pattern: "\\.isf\\.summary\\.csv$"
+      ftype: csv
+    attributes:
+      SampleId:
+        range: string
+      QcStatus:
+        range: string
+      TotalFragments:
+        range: float
+      DuplicateFragments:
+        range: float
+      SplicedFragmentPerc:
+        range: float
+      UnsplicedFragmentPerc:
+        range: float
+      AltFragmentPerc:
+        range: float
+      ChimericFragmentPerc:
+        range: float
+      SplicedGeneCount:
+        range: float
+      ReadLength:
+        range: float
+      FragLength5th:
+        range: float
+      FragLength50th:
+        range: float
+      FragLength95th:
+        range: float
+      EnrichedGenePercent:
+        range: float
+      MedianGCRatio:
+        range: float
+      ForwardStrandPercent:
+        range: float
+
+  TidySummary:
+    description: QC summary.
+    in_subset: [tidy, latest]
+    annotations:
+      name: summary
+      subtbl: tbl1
+    attributes:
+      sample_id:
+        range: string
+        description: sample ID
+      qc_status:
+        range: string
+        description: QC status
+      frag_tot:
+        range: float
+        description: total fragments
+      frag_dup:
+        range: float
+        description: duplicate marked fragments
+      frag_spliced_pct:
+        range: float
+        description: fragment % supporting 1 or more known transcripts
+      frag_unspliced_pct:
+        range: float
+        description: fragment % not containing a splice junction and not supporting any known transcript
+      frag_alt_pct:
+        range: float
+        description: fragment % supporting an alternate splice junction within a gene
+      frag_chimeric_pct:
+        range: float
+        description: fragment % supporting a chimeric junction
+      spliced_gene_count:
+        range: float
+        description: count of spliced genes
+      read_length:
+        range: float
+        description: raw read length of fragments
+      frag_length_5th:
+        range: float
+        description: 5th percentile of genic intronic fragment lengths
+      frag_length_50th:
+        range: float
+        description: 50th percentile of genic intronic fragment lengths
+      frag_length_95th:
+        range: float
+        description: 95th percentile of genic intronic fragment lengths
+      enriched_gene_pct:
+        range: float
+        description: 'fragment % supporting one of the following 6 genes: RN7SL2, RN7SL1, RN7SL3, RN7SL4P, RN7SL5P & RN7SK'
+      median_gc_ratio:
+        range: float
+        description: median GC ratio excluding the 6 highly enriched genes
+      forward_strand_pct:
+        range: float
+
+
+  #---- Genedata ----#
+  RawGenedata:
+    description: Gene level data.
+    in_subset: [raw, latest]
+    annotations:
+      name: genedata
+      pattern: "\\.isf\\.gene_data\\.csv$"
+      ftype: csv
+    attributes:
+      GeneId:
+        range: string
+      GeneName:
+        range: string
+      Chromosome:
+        range: string
+      GeneLength:
+        range: integer
+      IntronicLength:
+        range: integer
+      TranscriptCount:
+        range: integer
+      GeneSetId:
+        range: string
+      SplicedFragments:
+        range: integer
+      UnsplicedFragments:
+        range: integer
+      AdjTPM:
+        range: float
+      RawTPM:
+        range: float
+      FitResiduals:
+        range: float
+      LowMapQualFrags:
+        range: float
+
+  TidyGenedata:
+    description: Gene level data.
+    in_subset: [tidy, latest]
+    annotations:
+      name: genedata
+      subtbl: tbl1
+    attributes:
+      gene_id:
+        range: string
+        description: Ensembl gene id
+      gene_name:
+        range: string
+        description: Gene name
+      chrom:
+        range: string
+        description: chromosome
+      gene_length:
+        range: integer
+        description: length of gene
+      intronic_length:
+        range: integer
+        description: total bases which are intronic across all transcripts
+      transcript_count:
+        range: integer
+        description: count of transcripts in gene
+      gene_set_id:
+        range: string
+        description: identifier shared by all genes in overlapping group
+      spliced_fragments:
+        range: integer
+        description: count of fitted fragments assigned to spliced transcripts in the gene
+      unspliced_fragments:
+        range: integer
+        description: count of fitted fragments assigned to the unspliced gene transcript
+      tpm_adj:
+        range: float
+        description: adjusted TPM
+      tpm_raw:
+        range: float
+        description: raw TPM
+      fit_residuals:
+        range: float
+        description: fit residuals
+      low_map_quality_fragments:
+        range: float
+
+
+  #---- Transdata ----#
+  RawTransdata:
+    description: Transcript level data.
+    in_subset: [raw, latest]
+    annotations:
+      name: transdata
+      pattern: "\\.isf\\.transcript_data\\.csv$"
+      ftype: csv
+    attributes:
+      GeneId:
+        range: string
+      GeneName:
+        range: string
+      TransId:
+        range: string
+      TransName:
+        range: string
+      ExonCount:
+        range: integer
+      TranscriptLength:
+        range: integer
+      EffectiveLength:
+        range: integer
+      FittedFragments:
+        range: float
+      RawFittedFragments:
+        range: float
+      AdjTPM:
+        range: float
+      RawTPM:
+        range: float
+      TranscriptBasesCovered:
+        range: float
+      SJSupported:
+        range: float
+      UniqueSJSupported:
+        range: float
+      UniqueSJFragments:
+        range: float
+      UniqueNonSJFragments:
+        range: float
+      DiscordantFragments:
+        range: float
+      LowMapQualFrags:
+        range: float
+
+  TidyTransdata:
+    description: Transcript level data.
+    in_subset: [tidy, latest]
+    annotations:
+      name: transdata
+      subtbl: tbl1
+    attributes:
+      gene_id:
+        range: string
+        description: Ensembl ID for gene
+      gene_name:
+        range: string
+        description: gene name
+      transcript_id:
+        range: string
+        description: Ensembl ID for transcript
+      transcript_name:
+        range: string
+        description: Ensembl transcript name
+      exon_count:
+        range: integer
+        description: count of exons in transcript
+      transcript_length:
+        range: integer
+        description: total length of transcript
+      effective_length:
+        range: integer
+        description: effective length of transcript (adjusted for fragment size)
+      fitted_fragments:
+        range: float
+        description: count of fragments assigned to transcript
+      raw_fitted_fragments:
+        range: float
+        description: count of fragments assigned to transcript prior to bias adjustments
+      tpm_adj:
+        range: float
+        description: adjusted TPM
+      tpm_raw:
+        range: float
+        description: raw TPM
+      transcript_bases_covered:
+        range: float
+        description: number of bases in transcript with at least 1 supporting fragment
+      sj_supported:
+        range: float
+        description: count of splice junctions in transcript with at least 1 supporting fragment
+      sj_supported_unique:
+        range: float
+        description: count of unique splice junctions in transcript with at least 1 supporting fragment
+      sj_fragments_unique:
+        range: float
+        description: count of fragments supporting a splice junction unique to the transcript
+      non_sj_fragments_unique:
+        range: float
+        description: count of fragments uniquely supporting transcript but without a unique splice junction
+      fragments_discordant:
+        range: float
+      low_map_quality_fragments:
+        range: float
+
+
+  #---- Altsj ----#
+  RawAltsj:
+    description: Alternate splice junctions.
+    in_subset: [raw, latest]
+    annotations:
+      name: altsj
+      pattern: "\\.isf\\.alt_splice_junc\\.csv$"
+      ftype: csv
+    attributes:
+      GeneId:
+        range: string
+      GeneName:
+        range: string
+      Chromosome:
+        range: string
+      SjStart:
+        range: float
+      SjEnd:
+        range: float
+      Type:
+        range: string
+      FragCount:
+        range: float
+      DepthStart:
+        range: float
+      DepthEnd:
+        range: float
+      RegionStart:
+        range: string
+      RegionEnd:
+        range: string
+      BasesStart:
+        range: string
+      BasesEnd:
+        range: string
+      TransStart:
+        range: string
+      TransEnd:
+        range: string
+      NearestStartExon:
+        range: float
+      NearestEndExon:
+        range: float
+      InitialReadId:
+        range: string
+
+  TidyAltsj:
+    description: Alternate splice junctions.
+    in_subset: [tidy, latest]
+    annotations:
+      name: altsj
+      subtbl: tbl1
+    attributes:
+      gene_id:
+        range: string
+        description: Ensembl ID for gene
+      gene_name:
+        range: string
+        description: gene name
+      chrom:
+        range: string
+        description: chromosome
+      sj_start:
+        range: float
+        description: start position of novel splice junction
+      sj_end:
+        range: float
+        description: end position of novel splice junction
+      type:
+        range: string
+        description: type of novel splice junction
+      frag_count:
+        range: float
+        description: fragment count
+      dp_start:
+        range: float
+        description: total depth at start_sj position
+      dp_end:
+        range: float
+        description: total depth at end_sj position
+      region_start:
+        range: string
+      region_end:
+        range: string
+      bases_start:
+        range: string
+      bases_end:
+        range: string
+      trans_start:
+        range: string
+      trans_end:
+        range: string
+      nearest_start_exon:
+        range: float
+      nearest_end_exon:
+        range: float
+      init_read_id:
+        range: string
+
+
+  #---- Retintron ----#
+  RawRetintron:
+    description: Retained introns.
+    in_subset: [raw, latest]
+    annotations:
+      name: retintron
+      pattern: "\\.isf\\.retained_intron\\.csv$"
+      ftype: csv
+    attributes:
+      GeneId:
+        range: string
+      GeneName:
+        range: string
+      Chromosome:
+        range: string
+      Strand:
+        range: float
+      Position:
+        range: float
+      Type:
+        range: string
+      FragCount:
+        range: float
+      SplicedFragCount:
+        range: float
+      TotalDepth:
+        range: float
+      TranscriptInfo:
+        range: string
+
+  TidyRetintron:
+    description: Retained introns.
+    in_subset: [tidy, latest]
+    annotations:
+      name: retintron
+      subtbl: tbl1
+    attributes:
+      gene_id:
+        range: string
+        description: Ensembl ID for gene
+      gene_name:
+        range: string
+        description: gene name
+      chrom:
+        range: string
+        description: chromosome
+      strand:
+        range: float
+        description: strand
+      position:
+        range: float
+        description: position of exon boundary with overlapping frags suggesting retained intron
+      type:
+        range: string
+        description: donor or acceptor splice site
+      frag_count:
+        range: float
+        description: Count of all fragments which overlap splice site boundary
+      spliced_frag_count:
+        range: float
+        description: Count of fragments which overlap splice site boundary which contain another splice site (ie. evidence of being part of a spliced transcript)
+      dp_total:
+        range: float
+        description: depth at splice boundary
+      transcript_info:
+        range: string
+        description: transcript ID and exon rank of all transcripts that match splice site boundary
+
+
+  #---- Fusionsall ----#
+  RawFusionsall:
+    description: All fusions.
+    in_subset: [raw, latest]
+    annotations:
+      name: fusionsall
+      pattern: "\\.isf\\.fusions\\.csv$"
+      ftype: csv
+    attributes:
+      FusionId:
+        range: string
+      Valid:
+        range: string
+      ChrUp:
+        range: string
+      PosUp:
+        range: float
+      OrientUp:
+        range: float
+      GeneIdUp:
+        range: string
+      GeneNameUp:
+        range: string
+      StrandUp:
+        range: float
+      JuncTypeUp:
+        range: string
+      CoverageUp:
+        range: float
+      MaxAnchorLengthUp:
+        range: float
+      TransDataUp:
+        range: string
+      ChrDown:
+        range: string
+      PosDown:
+        range: float
+      OrientDown:
+        range: float
+      GeneIdDown:
+        range: string
+      GeneNameDown:
+        range: string
+      StrandDown:
+        range: float
+      JuncTypeDown:
+        range: string
+      CoverageDown:
+        range: float
+      MaxAnchorLengthDown:
+        range: float
+      TransDataDown:
+        range: string
+      SVType:
+        range: string
+      TotalFragments:
+        range: float
+      SplitFrags:
+        range: float
+      RealignedFrags:
+        range: float
+      DiscordantFrags:
+        range: float
+      RelatedSplicedIds:
+        range: string
+      CohortCount:
+        range: float
+      ReadType:
+        range: string
+      InitReadId:
+        range: string
+
+  TidyFusionsall:
+    description: All fusions.
+    in_subset: [tidy, latest]
+    annotations:
+      name: fusionsall
+      subtbl: tbl1
+    attributes:
+      fusion_id:
+        range: string
+        description: fusion id
+      valid:
+        range: string
+        description: valid fusion
+      chr_up:
+        range: string
+        description: chromosome of up breakend
+      pos_up:
+        range: float
+        description: position of up breakend
+      orient_up:
+        range: string
+        description: orientation of up breakend
+      gene_id_up:
+        range: string
+        description: Ensembl ID of gene at up breakend
+      gene_name_up:
+        range: string
+        description: gene name at up breakend
+      strand_up:
+        range: string
+        description: strand of gene at up breakend
+      junc_type_up:
+        range: string
+        description: junction type at up breakend (known, canonical, unknown)
+      coverage_up:
+        range: float
+        description: n of fragments overlapping the last base prior to the up breakend
+      max_anchor_length_up:
+        range: float
+        description: maximum number of distinct matched bases by any 1 junction supporting fragment at the up breakend
+      trans_data_up:
+        range: string
+        description: transcript ids which contain a splice junction which includes matches the up breakend
+      chr_down:
+        range: string
+        description: chromosome of down breakend
+      pos_down:
+        range: float
+        description: position of down breakend
+      orient_down:
+        range: float
+        description: orientation of down breakend
+      gene_id_down:
+        range: string
+        description: Ensembl ID of gene at down breakend
+      gene_name_down:
+        range: string
+        description: gene name at down breakend
+      strand_down:
+        range: float
+        description: strand of gene at down breakend
+      junc_type_down:
+        range: string
+        description: junction type at down breakend (known, canonical, unknown)
+      coverage_down:
+        range: float
+        description: n of fragments overlapping the last base prior to the down breakend
+      max_anchor_length_down:
+        range: float
+        description: maximum number of distinct matched bases by any 1 junction supporting fragment at the down breakend
+      trans_data_down:
+        range: string
+        description: transcript ids which contain a splice junction which includes matches the down breakend
+      sv_type:
+        range: string
+        description: structural variant type
+      total_frags:
+        range: float
+        description: n fragments supporting the transcript = spliced + realigned + discordant
+      split_frags:
+        range: float
+        description: n fragments with supplementary or spliced alignments that match the chimeric junction
+      realigned_frags:
+        range: float
+        description: n fragments which overlap the breakpoint at either end by at least 3 bases and exactly match the reference sequence at the other breakend but are not split or spliced at the break junction by the aligner
+      discordant_frags:
+        range: float
+      related_spliced_ids:
+        range: string
+      cohort_count:
+        range: float
+      read_type:
+        range: string
+        description: read type
+      init_read_id:
+        range: string
+
+
+  #---- Fusionspass ----#
+  RawFusionspass:
+    description: Passed fusions.
+    in_subset: [raw, latest]
+    annotations:
+      name: fusionspass
+      pattern: "\\.isf\\.pass_fusions\\.csv$"
+      ftype: csv
+    attributes:
+      FusionId:
+        range: string
+      Valid:
+        range: string
+      ChrUp:
+        range: string
+      PosUp:
+        range: float
+      OrientUp:
+        range: float
+      GeneIdUp:
+        range: string
+      GeneNameUp:
+        range: string
+      StrandUp:
+        range: float
+      JuncTypeUp:
+        range: string
+      CoverageUp:
+        range: float
+      MaxAnchorLengthUp:
+        range: float
+      ChrDown:
+        range: string
+      PosDown:
+        range: float
+      OrientDown:
+        range: float
+      GeneIdDown:
+        range: string
+      GeneNameDown:
+        range: string
+      StrandDown:
+        range: float
+      JuncTypeDown:
+        range: string
+      CoverageDown:
+        range: float
+      MaxAnchorLengthDown:
+        range: float
+      SVType:
+        range: string
+      TotalFragments:
+        range: float
+      SplitFrags:
+        range: float
+      RealignedFrags:
+        range: float
+      DiscordantFrags:
+        range: float
+      RelatedSplicedIds:
+        range: string
+      CohortCount:
+        range: float
+      Filter:
+        range: string
+      KnownFusionType:
+        range: string
+
+  TidyFusionspass:
+    description: Passed fusions.
+    in_subset: [tidy, latest]
+    annotations:
+      name: fusionspass
+      subtbl: tbl1
+    attributes:
+      fusion_id:
+        range: string
+        description: fusion id
+      valid:
+        range: string
+        description: valid fusion
+      chr_up:
+        range: string
+        description: chromosome of up breakend
+      pos_up:
+        range: float
+        description: position of up breakend
+      orient_up:
+        range: float
+        description: orientation of up breakend
+      gene_id_up:
+        range: string
+        description: Ensembl ID of gene at up breakend
+      gene_name_up:
+        range: string
+        description: gene name at up breakend
+      strand_up:
+        range: float
+        description: strand of gene at up breakend
+      junc_type_up:
+        range: string
+        description: junction type at up breakend (known, canonical, unknown)
+      coverage_up:
+        range: float
+        description: n of fragments overlapping the last base prior to the up breakend
+      max_anchor_length_up:
+        range: float
+        description: maximum number of distinct matched bases by any 1 junction supporting fragment at the up breakend
+      chr_down:
+        range: string
+        description: chromosome of down breakend
+      pos_down:
+        range: float
+        description: position of down breakend
+      orient_down:
+        range: float
+        description: orientation of down breakend
+      gene_id_down:
+        range: string
+        description: Ensembl ID of gene at down breakend
+      gene_name_down:
+        range: string
+        description: gene name at down breakend
+      strand_down:
+        range: float
+        description: strand of gene at down breakend
+      junc_type_down:
+        range: string
+        description: junction type at down breakend (known, canonical, unknown)
+      coverage_down:
+        range: float
+        description: n of fragments overlapping the last base prior to the down breakend
+      max_anchor_length_down:
+        range: float
+        description: maximum number of distinct matched bases by any 1 junction supporting fragment at the down breakend
+      sv_type:
+        range: string
+        description: structural variant type
+      total_frags:
+        range: float
+        description: n fragments supporting the transcript = spliced + realigned + discordant
+      split_frags:
+        range: float
+        description: n fragments with supplementary or spliced alignments that match the chimeric junction
+      realigned_frags:
+        range: float
+        description: n fragments which overlap the breakpoint at either end by at least 3 bases and exactly match the reference sequence at the other breakend but are not split or spliced at the break junction by the aligner
+      discordant_frags:
+        range: float
+      related_spliced_ids:
+        range: string
+      cohort_count:
+        range: float
+      filter:
+        range: string
+      known_fusion_type:
+        range: string
+
+
+  #---- Genecollection ----#
+  RawGenecollection:
+    description: Gene collection.
+    in_subset: [raw, latest]
+    annotations:
+      name: genecollection
+      pattern: "\\.isf\\.gene_collection\\.csv$"
+      ftype: csv
+    attributes:
+      GeneSetId:
+        range: string
+      GeneCount:
+        range: float
+      Chromosome:
+        range: string
+      RangeStart:
+        range: float
+      RangeEnd:
+        range: float
+      TotalFragments:
+        range: float
+      Duplicates:
+        range: float
+      SupportingTrans:
+        range: float
+      Unspliced:
+        range: float
+      AltSJ:
+        range: float
+      Chimeric:
+        range: float
+      LowMapQual:
+        range: float
+      ForwardStrand:
+        range: float
+      ReverseStrand:
+        range: float
+      Genes:
+        range: string
+
+  TidyGenecollection:
+    description: Gene collection.
+    in_subset: [tidy, latest]
+    annotations:
+      name: genecollection
+      subtbl: tbl1
+    attributes:
+      gene_set_id:
+        range: string
+        description: Gene set ID
+      gene_count:
+        range: float
+        description: Gene count
+      chrom:
+        range: string
+        description: chromosome
+      range_start:
+        range: float
+      range_end:
+        range: float
+      total_frags:
+        range: float
+      duplicates:
+        range: float
+      supporting_trans:
+        range: float
+      unspliced:
+        range: float
+      alt_sj:
+        range: float
+      chimeric:
+        range: float
+      low_map_qual:
+        range: float
+      fwd_strand:
+        range: float
+      rev_strand:
+        range: float
+      genes:
+        range: string
+
