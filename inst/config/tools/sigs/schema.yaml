@@ -1,0 +1,87 @@
+id: https://example.org/tidywigits/sigs
+name: sigs
+description: >-
+  Fits sample SNV counts to trinucleotide signature definitions.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  sigs: https://example.org/tidywigits/sigs/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: sigs
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  latest:
+    description: Sigs latest version
+
+classes:
+
+  #---- Allocation ----#
+  RawAllocation:
+    description: Signature allocation.
+    in_subset: [raw, latest]
+    annotations:
+      name: allocation
+      pattern: "\\.sig\\.allocation\\.tsv$"
+      ftype: tsv
+    attributes:
+      signature:
+        range: string
+      allocation:
+        range: float
+      percent:
+        range: float
+
+  TidyAllocation:
+    description: Signature allocation.
+    in_subset: [tidy, latest]
+    annotations:
+      name: allocation
+      subtbl: tbl1
+    attributes:
+      signature:
+        range: string
+        description: Signature name
+      allocation:
+        range: float
+        description: Signature allocation
+      percent:
+        range: float
+        description: Signature allocation percentage
+
+
+  #---- Snvcounts ----#
+  RawSnvcounts:
+    description: SNV counts.
+    in_subset: [raw, latest]
+    annotations:
+      name: snvcounts
+      pattern: "\\.sig\\.snv_counts\\.csv$"
+      ftype: csv
+    attributes:
+      BucketName:
+        range: string
+      count:
+        range: integer
+
+  TidySnvcounts:
+    description: SNV counts.
+    in_subset: [tidy, latest]
+    annotations:
+      name: snvcounts
+      subtbl: tbl1
+    attributes:
+      bucket_name:
+        range: string
+        description: signature context bucket
+      count:
+        range: integer
+        description: SNV count in bucket
+

@@ -1,0 +1,534 @@
+id: https://example.org/tidywigits/sage
+name: sage
+description: >-
+  Somatic alterations in genome.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  sage: https://example.org/tidywigits/sage/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: sage
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  v3.4.4:
+    description: Sage version v3.4.4
+  latest:
+    description: Sage latest version
+
+classes:
+
+  #---- Bqrtsv ----#
+  RawBqrtsv:
+    description: Base quality recalibration metrics.
+    in_subset:
+      - raw
+    annotations:
+      name: bqrtsv
+      pattern: "\\.sage\\.bqr\\.tsv$"
+      ftype: tsv
+    attributes:
+      alt:
+        range: string
+        in_subset: [v3.4.4, latest]
+      ref:
+        range: string
+        in_subset: [v3.4.4, latest]
+      trinucleotideContext:
+        range: string
+        in_subset: [v3.4.4, latest]
+      count:
+        range: float
+        in_subset: [v3.4.4, latest]
+      originalQual:
+        range: float
+        in_subset: [v3.4.4, latest]
+      recalibratedQual:
+        range: float
+        in_subset: [v3.4.4, latest]
+      readType:
+        range: string
+        in_subset: [latest]
+
+  TidyBqrtsv:
+    description: Base quality recalibration metrics.
+    in_subset:
+      - tidy
+    annotations:
+      name: bqrtsv
+      subtbl: tbl1
+    attributes:
+      alt:
+        range: string
+        description: alternate allele
+        in_subset: [v3.4.4, latest]
+      ref:
+        range: string
+        description: reference allele
+        in_subset: [v3.4.4, latest]
+      context:
+        range: string
+        description: trinucleotide context
+        in_subset: [v3.4.4, latest]
+      count:
+        range: float
+        description: count
+        in_subset: [v3.4.4, latest]
+      origq:
+        range: float
+        description: original quality
+        in_subset: [v3.4.4, latest]
+      recalq:
+        range: float
+        description: recalibrated quality
+        in_subset: [v3.4.4, latest]
+      read_type:
+        range: string
+        description: read type
+        in_subset: [latest]
+
+
+  #---- Genecvg ----#
+  RawGenecvg:
+    description: Gene coverage metrics.
+    in_subset: [raw, latest]
+    annotations:
+      name: genecvg
+      pattern: "\\.sage\\.gene\\.coverage\\.tsv$"
+      ftype: tsv
+    attributes:
+      gene:
+        range: string
+      chromosome:
+        range: string
+      posStart:
+        range: float
+      posEnd:
+        range: float
+      missedVariantLikelihood:
+        range: float
+      DR_0:
+        range: float
+      DR_1:
+        range: float
+      DR_2:
+        range: float
+      DR_3:
+        range: float
+      DR_4:
+        range: float
+      DR_5:
+        range: float
+      DR_6:
+        range: float
+      DR_7:
+        range: float
+      DR_8:
+        range: float
+      DR_9:
+        range: float
+      DR_10:
+        range: float
+      DR_11:
+        range: float
+      DR_12:
+        range: float
+      DR_13:
+        range: float
+      DR_14:
+        range: float
+      DR_15:
+        range: float
+      DR_16:
+        range: float
+      DR_17:
+        range: float
+      DR_18:
+        range: float
+      DR_19:
+        range: float
+      DR_20:
+        range: float
+      DR_21:
+        range: float
+      DR_22:
+        range: float
+      DR_23:
+        range: float
+      DR_24:
+        range: float
+      DR_25:
+        range: float
+      DR_26:
+        range: float
+      DR_27:
+        range: float
+      DR_28:
+        range: float
+      DR_29:
+        range: float
+      DR_30_39:
+        range: float
+      DR_40_49:
+        range: float
+      DR_50_59:
+        range: float
+      DR_60_69:
+        range: float
+      DR_70_79:
+        range: float
+      DR_80_89:
+        range: float
+      DR_90_99:
+        range: float
+      DR_100_149:
+        range: float
+      DR_150_199:
+        range: float
+      DR_200_249:
+        range: float
+      DR_250_299:
+        range: float
+      DR_300_349:
+        range: float
+      DR_350_399:
+        range: float
+      DR_400_449:
+        range: float
+      DR_450_499:
+        range: float
+      DR_500_599:
+        range: float
+      DR_600_699:
+        range: float
+      DR_700_799:
+        range: float
+      DR_800_899:
+        range: float
+      DR_900_999:
+        range: float
+      DR_1000_1099:
+        range: float
+      DR_1100_1199:
+        range: float
+      DR_1200_1299:
+        range: float
+      DR_1300_1399:
+        range: float
+      DR_1400_1499:
+        range: float
+      DR_1500_1599:
+        range: float
+      DR_1600_1699:
+        range: float
+      DR_1700_1799:
+        range: float
+      DR_1800_1899:
+        range: float
+      DR_1900_1999:
+        range: float
+      DR_2000_2999:
+        range: float
+      DR_3000_3999:
+        range: float
+      DR_4000_4999:
+        range: float
+      DR_5000_5999:
+        range: float
+      DR_6000_6999:
+        range: float
+      DR_7000_7999:
+        range: float
+      DR_8000_8999:
+        range: float
+      DR_9000_9999:
+        range: float
+      DR_10000:
+        range: float
+
+  TidyGenecvg:
+    description: Gene coverage metrics.
+    in_subset: [tidy, latest]
+    annotations:
+      name: genecvg
+      subtbl: tbl1
+    attributes:
+      gene:
+        range: string
+        description: gene name
+      chrom:
+        range: string
+        description: chromosome
+      pos_start:
+        range: float
+        description: start position
+      pos_end:
+        range: float
+        description: end position
+      missed_var_likelihood:
+        range: float
+        description: missed variant likelihood
+      dr_0:
+        range: float
+        description: depth range 0
+      dr_1:
+        range: float
+        description: depth range 1
+      dr_2:
+        range: float
+        description: depth range 2
+      dr_3:
+        range: float
+        description: depth range 3
+      dr_4:
+        range: float
+        description: depth range 4
+      dr_5:
+        range: float
+        description: depth range 5
+      dr_6:
+        range: float
+        description: depth range 6
+      dr_7:
+        range: float
+        description: depth range 7
+      dr_8:
+        range: float
+        description: depth range 8
+      dr_9:
+        range: float
+        description: depth range 9
+      dr_10:
+        range: float
+        description: depth range 10
+      dr_11:
+        range: float
+        description: depth range 11
+      dr_12:
+        range: float
+        description: depth range 12
+      dr_13:
+        range: float
+        description: depth range 13
+      dr_14:
+        range: float
+        description: depth range 14
+      dr_15:
+        range: float
+        description: depth range 15
+      dr_16:
+        range: float
+        description: depth range 16
+      dr_17:
+        range: float
+        description: depth range 17
+      dr_18:
+        range: float
+        description: depth range 18
+      dr_19:
+        range: float
+        description: depth range 19
+      dr_20:
+        range: float
+        description: depth range 20
+      dr_21:
+        range: float
+        description: depth range 21
+      dr_22:
+        range: float
+        description: depth range 22
+      dr_23:
+        range: float
+        description: depth range 23
+      dr_24:
+        range: float
+        description: depth range 24
+      dr_25:
+        range: float
+        description: depth range 25
+      dr_26:
+        range: float
+        description: depth range 26
+      dr_27:
+        range: float
+        description: depth range 27
+      dr_28:
+        range: float
+        description: depth range 28
+      dr_29:
+        range: float
+        description: depth range 29
+      dr_30_39:
+        range: float
+        description: depth range 30-39
+      dr_40_49:
+        range: float
+        description: depth range 40-49
+      dr_50_59:
+        range: float
+        description: depth range 50-59
+      dr_60_69:
+        range: float
+        description: depth range 60-69
+      dr_70_79:
+        range: float
+        description: depth range 70-79
+      dr_80_89:
+        range: float
+        description: depth range 80-89
+      dr_90_99:
+        range: float
+        description: depth range 90-99
+      dr_100_149:
+        range: float
+        description: depth range 100-149
+      dr_150_199:
+        range: float
+        description: depth range 150-199
+      dr_200_249:
+        range: float
+        description: depth range 200-249
+      dr_250_299:
+        range: float
+        description: depth range 250-299
+      dr_300_349:
+        range: float
+        description: depth range 300-349
+      dr_350_399:
+        range: float
+        description: depth range 350-399
+      dr_400_449:
+        range: float
+        description: depth range 400-449
+      dr_450_499:
+        range: float
+        description: depth range 450-499
+      dr_500_599:
+        range: float
+        description: depth range 500-599
+      dr_600_699:
+        range: float
+        description: depth range 600-699
+      dr_700_799:
+        range: float
+        description: depth range 700-799
+      dr_800_899:
+        range: float
+        description: depth range 800-899
+      dr_900_999:
+        range: float
+        description: depth range 900-999
+      dr_1000_1099:
+        range: float
+        description: depth range 1000-1099
+      dr_1100_1199:
+        range: float
+        description: depth range 1100-1199
+      dr_1200_1299:
+        range: float
+        description: depth range 1200-1299
+      dr_1300_1399:
+        range: float
+        description: depth range 1300-1399
+      dr_1400_1499:
+        range: float
+        description: depth range 1400-1499
+      dr_1500_1599:
+        range: float
+        description: depth range 1500-1599
+      dr_1600_1699:
+        range: float
+        description: depth range 1600-1699
+      dr_1700_1799:
+        range: float
+        description: depth range 1700-1799
+      dr_1800_1899:
+        range: float
+        description: depth range 1800-1899
+      dr_1900_1999:
+        range: float
+        description: depth range 1900-1999
+      dr_2000_2999:
+        range: float
+        description: depth range 2000-2999
+      dr_3000_3999:
+        range: float
+        description: depth range 3000-3999
+      dr_4000_4999:
+        range: float
+        description: depth range 4000-4999
+      dr_5000_5999:
+        range: float
+        description: depth range 5000-5999
+      dr_6000_6999:
+        range: float
+        description: depth range 6000-6999
+      dr_7000_7999:
+        range: float
+        description: depth range 7000-7999
+      dr_8000_8999:
+        range: float
+        description: depth range 8000-8999
+      dr_9000_9999:
+        range: float
+        description: depth range 9000-9999
+      dr_10000plus:
+        range: float
+        description: depth range 10000+
+
+
+  #---- Exoncvg ----#
+  RawExoncvg:
+    description: Exon coverage metrics.
+    in_subset: [raw, latest]
+    annotations:
+      name: exoncvg
+      pattern: "\\.sage\\.exon\\.medians\\.tsv$"
+      ftype: tsv
+    attributes:
+      gene:
+        range: string
+      chromosome:
+        range: string
+      posStart:
+        range: float
+      posEnd:
+        range: float
+      exonRank:
+        range: float
+      medianDepth:
+        range: float
+
+  TidyExoncvg:
+    description: Exon coverage metrics.
+    in_subset: [tidy, latest]
+    annotations:
+      name: exoncvg
+      subtbl: tbl1
+    attributes:
+      gene:
+        range: string
+        description: gene name
+      chrom:
+        range: string
+        description: chromosome
+      start:
+        range: float
+        description: start position
+      end:
+        range: float
+        description: end position
+      exon:
+        range: float
+        description: exon rank
+      dp_med:
+        range: float
+        description: median depth
+
