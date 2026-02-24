@@ -1,0 +1,276 @@
+id: https://example.org/tidywigits/cuppa
+name: cuppa
+description: >-
+  Cancer of Unknown Primary Prediction Algorithm.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  cuppa: https://example.org/tidywigits/cuppa/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: cuppa
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  v1.4:
+    description: Cuppa version v1.4
+  latest:
+    description: Cuppa latest version
+
+classes:
+
+  #---- Datacsv ----#
+  RawDatacsv:
+    description: Visualisation data (CUPPA v1).
+    in_subset:
+      - raw
+    annotations:
+      name: datacsv
+      pattern: "\\.cup\\.data\\.csv$"
+      ftype: csv
+    attributes:
+      SampleId:
+        range: string
+        in_subset: [v1.4]
+      Category:
+        range: string
+        in_subset: [v1.4, latest]
+      ResultType:
+        range: string
+        in_subset: [v1.4, latest]
+      DataType:
+        range: string
+        in_subset: [v1.4, latest]
+      Value:
+        range: string
+        in_subset: [v1.4, latest]
+      RefCancerType:
+        range: string
+        in_subset: [v1.4, latest]
+      RefValue:
+        range: float
+        in_subset: [v1.4, latest]
+
+  TidyDatacsv:
+    description: Visualisation data (CUPPA v1).
+    in_subset:
+      - tidy
+    annotations:
+      name: datacsv
+      subtbl: tbl1
+    attributes:
+      sample_id:
+        range: string
+        description: sample ID
+        in_subset: [v1.4]
+      category:
+        range: string
+        description: category
+        in_subset: [v1.4, latest]
+      result_type:
+        range: string
+        description: result type
+        in_subset: [v1.4, latest]
+      data_type:
+        range: string
+        description: data type
+        in_subset: [v1.4, latest]
+      value:
+        range: string
+        description: value
+        in_subset: [v1.4, latest]
+      ref_cancer_type:
+        range: string
+        description: ref cancer type
+        in_subset: [v1.4, latest]
+      ref_value:
+        range: float
+        description: ref value
+        in_subset: [v1.4, latest]
+      plot_section:
+        range: string
+        description: section of cuppa plot
+        in_subset: [v1.4, latest]
+
+
+  #---- Feat ----#
+  RawFeat:
+    description: Input features.
+    in_subset: [raw, latest]
+    annotations:
+      name: feat
+      pattern: "\\.cuppa_data\\.tsv\\.gz$"
+      ftype: tsv
+    attributes:
+      Source:
+        range: string
+      Category:
+        range: string
+      Key:
+        range: string
+      Value:
+        range: float
+
+  TidyFeat:
+    description: Input features.
+    in_subset: [tidy, latest]
+    annotations:
+      name: feat
+      subtbl: tbl1
+    attributes:
+      source:
+        range: string
+        description: Source
+      category:
+        range: string
+        description: Category
+      key:
+        range: string
+        description: Key
+      value:
+        range: float
+        description: Value
+
+
+  #---- Predsum ----#
+  RawPredsum:
+    description: Prediction summary.
+    in_subset: [raw, latest]
+    annotations:
+      name: predsum
+      pattern: "\\.cuppa\\.pred_summ\\.tsv$"
+      ftype: tsv
+    attributes:
+      sample_id:
+        range: string
+      clf_group:
+        range: string
+      clf_name:
+        range: string
+      pred_class_1:
+        range: string
+      pred_class_2:
+        range: string
+      pred_class_3:
+        range: string
+      pred_prob_1:
+        range: float
+      pred_prob_2:
+        range: float
+      pred_prob_3:
+        range: float
+      extra_info:
+        range: string
+      extra_info_format:
+        range: string
+
+  TidyPredsum:
+    description: Prediction summary.
+    in_subset: [tidy, latest]
+    annotations:
+      name: predsum
+      subtbl: tbl1
+    attributes:
+      sample_id:
+        range: string
+        description: sample ID
+      clf_group:
+        range: string
+        description: classifier group
+      clf_name:
+        range: string
+        description: classifier name
+      pred_class_rank:
+        range: integer
+        description: prediction class rank
+      pred_class:
+        range: string
+        description: prediction class
+      pred_prob_rank:
+        range: integer
+        description: prediction probability rank
+      pred_prob:
+        range: float
+        description: prediction probability
+      extra_info:
+        range: string
+        description: extra info
+      extra_info_format:
+        range: string
+        description: extra info format
+
+
+  #---- Datatsv ----#
+  RawDatatsv:
+    description: Visualisation data (CUPPA v2).
+    in_subset: [raw, latest]
+    annotations:
+      name: datatsv
+      pattern: "\\.cuppa\\.vis_data\\.tsv$"
+      ftype: tsv
+    attributes:
+      sample_id:
+        range: string
+      data_type:
+        range: string
+      clf_group:
+        range: string
+      clf_name:
+        range: string
+      feat_name:
+        range: string
+      feat_value:
+        range: float
+      cancer_type:
+        range: string
+      data_value:
+        range: float
+      rank:
+        range: float
+      rank_group:
+        range: float
+
+  TidyDatatsv:
+    description: Visualisation data (CUPPA v2).
+    in_subset: [tidy, latest]
+    annotations:
+      name: datatsv
+      subtbl: tbl1
+    attributes:
+      sample_id:
+        range: string
+        description: sample ID
+      data_type:
+        range: string
+        description: data type
+      clf_group:
+        range: string
+        description: classifier group
+      clf_name:
+        range: string
+        description: classifier name
+      feat_name:
+        range: string
+        description: EVENT feature name
+      feat_value:
+        range: float
+        description: EVENT feature value
+      cancer_type:
+        range: string
+        description: cancer type
+      data_value:
+        range: float
+        description: Value of data_type
+      rank:
+        range: float
+        description: rank of data_value
+      rank_group:
+        range: float
+        description: Grouping of [data_type, clf_name, feat_name] by which data_value is ranked
+

@@ -1,0 +1,171 @@
+id: https://example.org/tidywigits/cobalt
+name: cobalt
+description: >-
+  Count bam lines determines the read depth ratios of the supplied tumor and
+  reference genomes.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  cobalt: https://example.org/tidywigits/cobalt/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: cobalt
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  latest:
+    description: Cobalt latest version
+
+classes:
+
+  #---- Gcmed ----#
+  RawGcmed:
+    description: GC median read depth.
+    in_subset: [raw, latest]
+    annotations:
+      name: gcmed
+      pattern: "\\.cobalt\\.gc\\.median\\.tsv$"
+      ftype: tsv
+    attributes:
+      "#gcBucket":
+        range: string
+      median:
+        range: float
+
+  TidyGcmed:
+    description: GC median read depth.
+    in_subset: [tidy, latest]
+    annotations:
+      name: gcmed
+      subtbl: tbl1
+    attributes:
+      gc_bucket:
+        range: string
+        description: GC bucket number
+      median:
+        range: float
+        description: median read depth in bucket
+
+
+  #---- Ratiomed ----#
+  RawRatiomed:
+    description: Chromosome median ratios.
+    in_subset: [raw, latest]
+    annotations:
+      name: ratiomed
+      pattern: "\\.cobalt\\.ratio\\.median\\.tsv$"
+      ftype: tsv
+    attributes:
+      chromosome:
+        range: string
+      medianRatio:
+        range: float
+      count:
+        range: float
+
+  TidyRatiomed:
+    description: Chromosome median ratios.
+    in_subset: [tidy, latest]
+    annotations:
+      name: ratiomed
+      subtbl: tbl1
+    attributes:
+      chrom:
+        range: string
+        description: chromosome
+      median_ratio:
+        range: float
+        description: median ratio
+      count:
+        range: float
+        description: count
+
+
+  #---- Ratiopcf ----#
+  RawRatiopcf:
+    description: Segmented regions determined from the ratios (piecewise constant fit).
+    in_subset: [raw, latest]
+    annotations:
+      name: ratiopcf
+      pattern: "\\.cobalt\\.ratio\\.pcf$"
+      ftype: tsv
+    attributes:
+      sampleID:
+        range: string
+      chrom:
+        range: string
+      arm:
+        range: string
+      "start.pos":
+        range: float
+      "end.pos":
+        range: float
+      "n.probes":
+        range: integer
+      mean:
+        range: float
+
+  TidyRatiopcf:
+    description: Segmented regions determined from the ratios (piecewise constant fit).
+    in_subset: [tidy, latest]
+    annotations:
+      name: ratiopcf
+      subtbl: tbl1
+    attributes:
+      sample_id:
+        range: string
+        description: sample ID
+      chrom:
+        range: string
+        description: chromosome
+      arm:
+        range: string
+        description: chromosome arm
+      start_pos:
+        range: float
+        description: start position
+      end_pos:
+        range: float
+        description: end position
+      n_probes:
+        range: integer
+        description: number of probes
+      mean:
+        range: float
+        description: mean
+
+
+  #---- Version ----#
+  RawVersion:
+    description: Version of the tool.
+    in_subset: [raw, latest]
+    annotations:
+      name: version
+      pattern: "^cobalt\\.version$"
+      ftype: txt
+    attributes:
+      version:
+        range: string
+      "build.date":
+        range: string
+
+  TidyVersion:
+    description: Version of the tool
+    in_subset: [tidy, latest]
+    annotations:
+      name: version
+      subtbl: tbl1
+    attributes:
+      version:
+        range: string
+        description: version of the tool
+      date_build:
+        range: string
+        description: build date
+
