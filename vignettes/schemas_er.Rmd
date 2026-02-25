@@ -47,12 +47,12 @@ for (p in schema_paths) {
 
   if (length(versions) == 1) {
     cat("\n\n###", tool_title, "\n\n")
-    cat(paste0("![](figures/", tool, "_", versions, ".svg)\n\n"))
+    cat(paste0("![](fig/mermaid/", tool, "_", versions, ".svg)\n\n"))
   } else {
     cat("\n\n###", tool_title, "{.tabset}\n\n")
     for (v in versions) {
       cat("\n\n####", v, "\n\n")
-      cat(paste0("![](figures/", tool, "_", v, ".svg)\n\n"))
+      cat(paste0("![](fig/mermaid/", tool, "_", v, ".svg)\n\n"))
     }
   }
 }
