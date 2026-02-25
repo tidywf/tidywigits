@@ -1,0 +1,59 @@
+---
+title: "Schema ER Diagrams"
+output: rmarkdown::html_document
+vignette: >
+  %\VignetteIndexEntry{LinkML Schemas}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{css, echo=FALSE}
+/*
+https://github.com/r-lib/pkgdown/issues/2721
+Correct flex boxes from sizing based upon the largest in tabset
+*/
+
+.tab-content>.tab-pane {
+  display: none;
+}
+
+.tab-content>.active {
+  display: block;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+use("nemo")
+use("tidywigits")
+```
+
+ER diagrams for each tool's LinkML schema. Tools with multiple version subsets
+show per-version sub-tabs.
+
+## Tools {.tabset}
+
+```{r er-diagrams, results='asis', echo=FALSE}
+schema_paths <- sort(list.files(
+  system.file("config/tools", package = "tidywigits"),
+  pattern = "schema\\.yaml$",
+  full.names = TRUE,
+  recursive = TRUE
+))
+for (p in schema_paths) {
+  tool <- basename(dirname(p))
+  tool_title <- tools::toTitleCase(tool)
+  versions <- nemo::schema_versions(p)
+
+  if (length(versions) == 1) {
+    cat("\n\n###", tool_title, "\n\n")
+    cat(paste0("![](figures/", tool, "_", versions, ".svg)\n\n"))
+  } else {
+    cat("\n\n###", tool_title, "{.tabset}\n\n")
+    for (v in versions) {
+      cat("\n\n####", v, "\n\n")
+      cat(paste0("![](figures/", tool, "_", v, ".svg)\n\n"))
+    }
+  }
+}
+```

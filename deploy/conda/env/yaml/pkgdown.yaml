@@ -9,3 +9,4 @@ dependencies:
   - quarto
   - r-htmltools
   - r-reactable
+  - nodejs
