@@ -44,6 +44,9 @@ classes:
       trinucleotideContext:
         range: string
         in_subset: [v3.4.4, latest]
+      readType:
+        range: string
+        in_subset: [latest]
       count:
         range: float
         in_subset: [v3.4.4, latest]
@@ -53,9 +56,6 @@ classes:
       recalibratedQual:
         range: float
         in_subset: [v3.4.4, latest]
-      readType:
-        range: string
-        in_subset: [latest]
 
   TidyBqrtsv:
     description: Base quality recalibration metrics.
@@ -77,6 +77,10 @@ classes:
         range: string
         description: trinucleotide context
         in_subset: [v3.4.4, latest]
+      read_type:
+        range: string
+        description: read type
+        in_subset: [latest]
       count:
         range: float
         description: count
@@ -89,10 +93,6 @@ classes:
         range: float
         description: recalibrated quality
         in_subset: [v3.4.4, latest]
-      read_type:
-        range: string
-        description: read type
-        in_subset: [latest]
 
 
   #---- Genecvg ----#

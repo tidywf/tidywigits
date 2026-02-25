@@ -62,12 +62,12 @@ classes:
       reported:
         range: string
         in_subset: [v1.3, latest]
-      driverLikelihood:
-        range: string
-        in_subset: [v1.3, latest]
       blacklisted:
         range: string
         in_subset: [latest]
+      driverLikelihood:
+        range: string
+        in_subset: [v1.3, latest]
 
   TidyAnnotated:
     description: Processed oncoviral call/annotation data.
@@ -113,12 +113,12 @@ classes:
         range: string
         description: boolean indicating whether the detected viral presence is considered a driver
         in_subset: [v1.3, latest]
-      driver_likelihood:
-        range: string
-        description: driver likelihood of the virus as annotated in the reporting db
-        in_subset: [v1.3, latest]
       blacklisted:
         range: string
         description: Virus should be blacklisted (e.g. in case of HIV)
         in_subset: [latest]
+      driver_likelihood:
+        range: string
+        description: driver likelihood of the virus as annotated in the reporting db
+        in_subset: [v1.3, latest]
 

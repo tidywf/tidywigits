@@ -216,11 +216,11 @@ classes:
         in_subset: [v1.25]
       exon_up:
         range: float
-        description: .
+        description: exon 5p
         in_subset: [v1.25, latest]
       exon_down:
         range: float
-        description: .
+        description: exon 3p
         in_subset: [v1.25, latest]
       junction_cn:
         range: float
@@ -533,25 +533,25 @@ classes:
         description: First exon fused on 3prime partner side
       gene_start:
         range: string
-        description: .
+        description: Gene(s) overlapping start breakend of SV
       gene_context_start:
         range: string
-        description: .
+        description: Gene context start
       transcript_start:
         range: string
-        description: .
+        description: Transcript start
       gene_end:
         range: string
-        description: .
+        description: Gene(s) overlapping end breakend of SV
       gene_context_end:
         range: string
-        description: .
+        description: Gene context end
       transcript_end:
         range: string
-        description: .
+        description: Transcript end
       junction_cn:
         range: float
-        description: .
+        description: Junction copy number
 
 
   #---- Links ----#
