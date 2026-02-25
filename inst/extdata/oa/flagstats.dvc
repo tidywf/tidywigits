@@ -1,0 +1,6 @@
+outs:
+- md5: e265c8dfc592eaf4c501426fde1d21fa.dir
+  size: 572
+  nfiles: 1
+  hash: md5
+  path: flagstats

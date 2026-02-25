@@ -1,0 +1,400 @@
+id: https://example.org/tidywigits/chord
+name: chord
+description: >-
+  Classifier of HOmologous Recombination Deficiency.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  chord: https://example.org/tidywigits/chord/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: chord
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  latest:
+    description: Chord latest version
+
+classes:
+
+  #---- Prediction ----#
+  RawPrediction:
+    description: Predictions from the CHORD random forest.
+    in_subset: [raw, latest]
+    annotations:
+      name: prediction
+      pattern: "_chord_prediction\\.txt$|\\.chord\\.prediction\\.tsv$"
+      ftype: tsv
+    attributes:
+      sample:
+        range: string
+      p_BRCA1:
+        range: float
+      p_BRCA2:
+        range: float
+      p_hrd:
+        range: float
+      hr_status:
+        range: string
+      hrd_type:
+        range: string
+      remarks_hr_status:
+        range: string
+      remarks_hrd_type:
+        range: string
+
+  TidyPrediction:
+    description: Predictions from the CHORD random forest.
+    in_subset: [tidy, latest]
+    annotations:
+      name: prediction
+      subtbl: tbl1
+    attributes:
+      sample_id:
+        range: string
+        description: sample ID
+      p_brca1:
+        range: float
+        description: probability of BRCA1-type HRD
+      p_brca2:
+        range: float
+        description: probability of BRCA2-type HRD
+      p_hrd:
+        range: float
+        description: probability of HRD
+      hr_status:
+        range: string
+        description: HR status (deficient or proficient)
+      hrd_type:
+        range: string
+        description: HRD type (BRCA1 or BRCA2)
+      remarks_hr_status:
+        range: string
+        description: remarks on HR status
+      remarks_hrd_type:
+        range: string
+        description: remarks on HRD type
+
+
+  #---- Signatures ----#
+  RawSignatures:
+    description: Counts of SNV, INDEL and SV contexts.
+    in_subset: [raw, latest]
+    annotations:
+      name: signatures
+      pattern: "_chord_signatures\\.txt$|\\.chord\\.mutation_contexts\\.tsv$"
+      ftype: tsv
+    attributes:
+      sample_id:
+        range: string
+      "A[C>A]A":
+        range: integer
+      "A[C>A]C":
+        range: integer
+      "A[C>A]G":
+        range: integer
+      "A[C>A]T":
+        range: integer
+      "C[C>A]A":
+        range: integer
+      "C[C>A]C":
+        range: integer
+      "C[C>A]G":
+        range: integer
+      "C[C>A]T":
+        range: integer
+      "G[C>A]A":
+        range: integer
+      "G[C>A]C":
+        range: integer
+      "G[C>A]G":
+        range: integer
+      "G[C>A]T":
+        range: integer
+      "T[C>A]A":
+        range: integer
+      "T[C>A]C":
+        range: integer
+      "T[C>A]G":
+        range: integer
+      "T[C>A]T":
+        range: integer
+      "A[C>G]A":
+        range: integer
+      "A[C>G]C":
+        range: integer
+      "A[C>G]G":
+        range: integer
+      "A[C>G]T":
+        range: integer
+      "C[C>G]A":
+        range: integer
+      "C[C>G]C":
+        range: integer
+      "C[C>G]G":
+        range: integer
+      "C[C>G]T":
+        range: integer
+      "G[C>G]A":
+        range: integer
+      "G[C>G]C":
+        range: integer
+      "G[C>G]G":
+        range: integer
+      "G[C>G]T":
+        range: integer
+      "T[C>G]A":
+        range: integer
+      "T[C>G]C":
+        range: integer
+      "T[C>G]G":
+        range: integer
+      "T[C>G]T":
+        range: integer
+      "A[C>T]A":
+        range: integer
+      "A[C>T]C":
+        range: integer
+      "A[C>T]G":
+        range: integer
+      "A[C>T]T":
+        range: integer
+      "C[C>T]A":
+        range: integer
+      "C[C>T]C":
+        range: integer
+      "C[C>T]G":
+        range: integer
+      "C[C>T]T":
+        range: integer
+      "G[C>T]A":
+        range: integer
+      "G[C>T]C":
+        range: integer
+      "G[C>T]G":
+        range: integer
+      "G[C>T]T":
+        range: integer
+      "T[C>T]A":
+        range: integer
+      "T[C>T]C":
+        range: integer
+      "T[C>T]G":
+        range: integer
+      "T[C>T]T":
+        range: integer
+      "A[T>A]A":
+        range: integer
+      "A[T>A]C":
+        range: integer
+      "A[T>A]G":
+        range: integer
+      "A[T>A]T":
+        range: integer
+      "C[T>A]A":
+        range: integer
+      "C[T>A]C":
+        range: integer
+      "C[T>A]G":
+        range: integer
+      "C[T>A]T":
+        range: integer
+      "G[T>A]A":
+        range: integer
+      "G[T>A]C":
+        range: integer
+      "G[T>A]G":
+        range: integer
+      "G[T>A]T":
+        range: integer
+      "T[T>A]A":
+        range: integer
+      "T[T>A]C":
+        range: integer
+      "T[T>A]G":
+        range: integer
+      "T[T>A]T":
+        range: integer
+      "A[T>C]A":
+        range: integer
+      "A[T>C]C":
+        range: integer
+      "A[T>C]G":
+        range: integer
+      "A[T>C]T":
+        range: integer
+      "C[T>C]A":
+        range: integer
+      "C[T>C]C":
+        range: integer
+      "C[T>C]G":
+        range: integer
+      "C[T>C]T":
+        range: integer
+      "G[T>C]A":
+        range: integer
+      "G[T>C]C":
+        range: integer
+      "G[T>C]G":
+        range: integer
+      "G[T>C]T":
+        range: integer
+      "T[T>C]A":
+        range: integer
+      "T[T>C]C":
+        range: integer
+      "T[T>C]G":
+        range: integer
+      "T[T>C]T":
+        range: integer
+      "A[T>G]A":
+        range: integer
+      "A[T>G]C":
+        range: integer
+      "A[T>G]G":
+        range: integer
+      "A[T>G]T":
+        range: integer
+      "C[T>G]A":
+        range: integer
+      "C[T>G]C":
+        range: integer
+      "C[T>G]G":
+        range: integer
+      "C[T>G]T":
+        range: integer
+      "G[T>G]A":
+        range: integer
+      "G[T>G]C":
+        range: integer
+      "G[T>G]G":
+        range: integer
+      "G[T>G]T":
+        range: integer
+      "T[T>G]A":
+        range: integer
+      "T[T>G]C":
+        range: integer
+      "T[T>G]G":
+        range: integer
+      "T[T>G]T":
+        range: integer
+      "del.rep.len.1":
+        range: integer
+      "del.rep.len.2":
+        range: integer
+      "del.rep.len.3":
+        range: integer
+      "del.rep.len.4":
+        range: integer
+      "del.rep.len.5":
+        range: integer
+      "ins.rep.len.1":
+        range: integer
+      "ins.rep.len.2":
+        range: integer
+      "ins.rep.len.3":
+        range: integer
+      "ins.rep.len.4":
+        range: integer
+      "ins.rep.len.5":
+        range: integer
+      "del.mh.bimh.1":
+        range: integer
+      "del.mh.bimh.2":
+        range: integer
+      "del.mh.bimh.3":
+        range: integer
+      "del.mh.bimh.4":
+        range: integer
+      "del.mh.bimh.5":
+        range: integer
+      "ins.mh.bimh.1":
+        range: integer
+      "ins.mh.bimh.2":
+        range: integer
+      "ins.mh.bimh.3":
+        range: integer
+      "ins.mh.bimh.4":
+        range: integer
+      "ins.mh.bimh.5":
+        range: integer
+      "del.none.len.1":
+        range: integer
+      "del.none.len.2":
+        range: integer
+      "del.none.len.3":
+        range: integer
+      "del.none.len.4":
+        range: integer
+      "del.none.len.5":
+        range: integer
+      "ins.none.len.1":
+        range: integer
+      "ins.none.len.2":
+        range: integer
+      "ins.none.len.3":
+        range: integer
+      "ins.none.len.4":
+        range: integer
+      "ins.none.len.5":
+        range: integer
+      DEL_0e00_1e03_bp:
+        range: integer
+      DEL_1e03_1e04_bp:
+        range: integer
+      DEL_1e04_1e05_bp:
+        range: integer
+      DEL_1e05_1e06_bp:
+        range: integer
+      DEL_1e06_1e07_bp:
+        range: integer
+      DEL_1e07_Inf_bp:
+        range: integer
+      DUP_0e00_1e03_bp:
+        range: integer
+      DUP_1e03_1e04_bp:
+        range: integer
+      DUP_1e04_1e05_bp:
+        range: integer
+      DUP_1e05_1e06_bp:
+        range: integer
+      DUP_1e06_1e07_bp:
+        range: integer
+      DUP_1e07_Inf_bp:
+        range: integer
+      INV_0e00_1e03_bp:
+        range: integer
+      INV_1e03_1e04_bp:
+        range: integer
+      INV_1e04_1e05_bp:
+        range: integer
+      INV_1e05_1e06_bp:
+        range: integer
+      INV_1e06_1e07_bp:
+        range: integer
+      INV_1e07_Inf_bp:
+        range: integer
+      TRA:
+        range: integer
+
+  TidySignatures:
+    description: Counts of SNV, INDEL and SV contexts.
+    in_subset: [tidy, latest]
+    annotations:
+      name: signatures
+      subtbl: tbl1
+    attributes:
+      signature:
+        range: string
+        description: signature context
+      count:
+        range: integer
+        description: count of signature
+

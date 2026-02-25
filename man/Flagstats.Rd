@@ -13,8 +13,7 @@ odir <- tempdir()
 id <- "flagstats_run1"
 obj <- cls$new(indir)
 obj$nemofy(diro = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "parquet", full.names = FALSE))
-#TODO: add flagstats test data
+(lf <- list.files(odir, pattern = "flagstats.*parquet", full.names = FALSE))
 }
 \section{Super class}{
 \code{\link[nemo:Tool]{nemo::Tool}} -> \code{Flagstats}

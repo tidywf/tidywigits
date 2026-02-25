@@ -1,0 +1,124 @@
+id: https://example.org/tidywigits/virusinterpreter
+name: virusinterpreter
+description: >-
+  Post-process final VIRUSBreakend summary.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  virusinterpreter: https://example.org/tidywigits/virusinterpreter/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: virusinterpreter
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  v1.3:
+    description: Virusinterpreter version v1.3
+  latest:
+    description: Virusinterpreter latest version (adds blacklisted field)
+
+classes:
+
+  #---- Annotated ----#
+  RawAnnotated:
+    description: Processed oncoviral call/annotation data.
+    in_subset:
+      - raw
+    annotations:
+      name: annotated
+      pattern: "\\.virus\\.annotated\\.tsv$"
+      ftype: tsv
+    attributes:
+      taxid:
+        range: string
+        in_subset: [v1.3, latest]
+      name:
+        range: string
+        in_subset: [v1.3, latest]
+      qcStatus:
+        range: string
+        in_subset: [v1.3, latest]
+      integrations:
+        range: float
+        in_subset: [v1.3, latest]
+      interpretation:
+        range: string
+        in_subset: [v1.3, latest]
+      percentageCovered:
+        range: float
+        in_subset: [v1.3, latest]
+      meanCoverage:
+        range: float
+        in_subset: [v1.3, latest]
+      expectedClonalCoverage:
+        range: string
+        in_subset: [v1.3, latest]
+      reported:
+        range: string
+        in_subset: [v1.3, latest]
+      blacklisted:
+        range: string
+        in_subset: [latest]
+      driverLikelihood:
+        range: string
+        in_subset: [v1.3, latest]
+
+  TidyAnnotated:
+    description: Processed oncoviral call/annotation data.
+    in_subset:
+      - tidy
+    annotations:
+      name: annotated
+      subtbl: tbl1
+    attributes:
+      taxid:
+        range: string
+        description: reference taxid of the virus that is called with VIRUSBreakend
+        in_subset: [v1.3, latest]
+      name:
+        range: string
+        description: name of the virus, matching with the taxid
+        in_subset: [v1.3, latest]
+      qc_status:
+        range: string
+        description: QC status as reported by VIRUSBreakend
+        in_subset: [v1.3, latest]
+      integrations:
+        range: float
+        description: number of detected integrations of this virus into the sample genome as reported by VIRUSBreakend
+        in_subset: [v1.3, latest]
+      interpretation:
+        range: string
+        description: output of the interpretation step of Virus Interpreter
+        in_subset: [v1.3, latest]
+      percentage_covered:
+        range: float
+        description: percentage of the viral reference sequence that has been covered in the tumor sample as reported by VIRUSBreakend ("coverage")
+        in_subset: [v1.3, latest]
+      mean_coverage:
+        range: float
+        description: average coverage of the viral genome as reported by VIRUSBreakend ("meanDepth")
+        in_subset: [v1.3, latest]
+      expected_clonal_coverage:
+        range: string
+        description: expected coverage assuming the virus is clonally integrated once in the tumor DNA
+        in_subset: [v1.3, latest]
+      reported:
+        range: string
+        description: boolean indicating whether the detected viral presence is considered a driver
+        in_subset: [v1.3, latest]
+      blacklisted:
+        range: string
+        description: Virus should be blacklisted (e.g. in case of HIV)
+        in_subset: [latest]
+      driver_likelihood:
+        range: string
+        description: driver likelihood of the virus as annotated in the reporting db
+        in_subset: [v1.3, latest]
+

@@ -9,8 +9,9 @@
 #' id <- "isofox_run1"
 #' obj <- cls$new(indir)
 #' obj$nemofy(diro = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "parquet", full.names = FALSE))
-#' #TODO: add isofox test data
+#' (lf <- list.files(odir, pattern = "isofox.*parquet", full.names = FALSE))
+#' @testexamples
+#' expect_equal(length(lf), 8)
 #' @export
 Isofox <- R6::R6Class(
   "Isofox",

@@ -1,0 +1,151 @@
+id: https://example.org/tidywigits/alignments
+name: alignments
+description: >-
+  Alignment duplicate read metrics.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  alignments: https://example.org/tidywigits/alignments/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: alignments
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  latest:
+    description: Alignments latest version
+
+classes:
+
+  #---- Dupfreq ----#
+  RawDupfreq:
+    description: Duplicate read count and frequency.
+    in_subset: [raw, latest]
+    annotations:
+      name: dupfreq
+      pattern: "(\\.redux)?\\.duplicate_freq\\.tsv$"
+      ftype: tsv
+    attributes:
+      DuplicateReadCount:
+        range: string
+      Frequency:
+        range: float
+
+  TidyDupfreq:
+    description: Duplicate read count and frequency.
+    in_subset: [tidy, latest]
+    annotations:
+      name: dupfreq
+      subtbl: tbl1
+    attributes:
+      duplicate_read_count:
+        range: string
+        description: Duplicate read count
+      frequency:
+        range: float
+        description: Frequency of duplicate reads
+
+  #---- Markdup ----#
+  RawMarkdup:
+    description: Picard duplication metrics.
+    in_subset: [raw, latest]
+    annotations:
+      name: markdup
+      pattern: "\\.md\\.metrics$"
+      ftype: tsv
+    attributes:
+      LIBRARY:
+        range: string
+      UNPAIRED_READS_EXAMINED:
+        range: float
+      READ_PAIRS_EXAMINED:
+        range: float
+      SECONDARY_OR_SUPPLEMENTARY_RDS:
+        range: float
+      UNMAPPED_READS:
+        range: float
+      UNPAIRED_READ_DUPLICATES:
+        range: float
+      READ_PAIR_DUPLICATES:
+        range: float
+      READ_PAIR_OPTICAL_DUPLICATES:
+        range: float
+      PERCENT_DUPLICATION:
+        range: float
+      ESTIMATED_LIBRARY_SIZE:
+        range: float
+      SPLIT_HERE:
+        range: string
+      BIN:
+        range: float
+      CoverageMult:
+        range: float
+      all_sets:
+        range: float
+      optical_sets:
+        range: float
+      non_optical_sets:
+        range: float
+
+  TidyMarkdup:
+    description: Picard duplication metrics.
+    in_subset: [tidy, latest]
+    annotations:
+      name: markdup
+      subtbl: tbl1
+    attributes:
+      library:
+        range: string
+        description: Library on which duplicate marking was performed
+      unpaired_reads_examined:
+        range: float
+        description: Number of mapped reads examined which did not have a mapped mate pair
+      read_pairs_examined:
+        range: float
+        description: Number of mapped read pairs examined
+      secondary_or_supplementary_reads:
+        range: float
+        description: Number of reads that were either secondary or supplementary
+      unmapped_reads:
+        range: float
+        description: Total number of unmapped reads examined
+      unpaired_read_duplicates:
+        range: float
+        description: Number of fragments that were marked as duplicates
+      read_pair_duplicates:
+        range: float
+        description: Number of read pairs that were marked as duplicates
+      read_pair_optical_duplicates:
+        range: float
+        description: Number of read pair duplicates caused by optical duplication
+      percent_duplication:
+        range: float
+        description: Fraction of mapped sequence that is marked as duplicate
+      estimated_library_size:
+        range: float
+        description: Estimated number of unique molecules in the library based on PE duplication
+      SPLIT_HERE:
+        range: string
+        description: For splitting metrics and histogram sections
+      bin:
+        range: float
+        description: Coverage bin
+      cov_mult:
+        range: float
+        description: Coverage multiple
+      all_sets:
+        range: float
+        description: All sets
+      optical_sets:
+        range: float
+        description: Optical sets
+      non_optical_sets:
+        range: float
+        description: Non-optical sets
+

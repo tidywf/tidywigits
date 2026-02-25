@@ -147,6 +147,14 @@ jobs:
           environment-file: ${{ env.conda_env_yaml }}/pkgdown.yaml
           activate-environment: pkgdown_env
           miniforge-version: latest
+      - name: 🖼️ Install Mermaid CLI
+        run: npm install -g @mermaid-js/mermaid-cli
+
+      - name: 🎨 Generate schema ER SVGs
+        run: |
+          echo '{"args":["--no-sandbox"]}' > /tmp/puppeteer.json
+          Rscript inst/scripts/gen_er_svgs.R /tmp/puppeteer.json
+
       - name: 🌐 Website publish
         run: |
           Rscript -e "list.files(system.file('extdata', package = 'tidywigits'), recursive = TRUE)"

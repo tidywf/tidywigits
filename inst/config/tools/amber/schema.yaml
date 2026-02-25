@@ -1,0 +1,265 @@
+id: https://example.org/tidywigits/amber
+name: amber
+description: >-
+  AMBER is designed to generate a tumor BAF file for use in PURPLE from a
+  provided VCF of likely heterozygous SNP sites.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  amber: https://example.org/tidywigits/amber/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: amber
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  latest:
+    description: Amber latest version
+
+classes:
+
+  #----Bafpcf----#
+  RawBafpcf:
+    description: BAF segments using PCF algorithm.
+    in_subset: [raw, latest]
+    annotations:
+      name: bafpcf
+      pattern: "\\.amber\\.baf\\.pcf$"
+      ftype: tsv
+    attributes:
+      sampleID:
+        range: string
+      chrom:
+        range: string
+      arm:
+        range: string
+      start.pos:
+        range: integer
+      end.pos:
+        range: integer
+      n.probes:
+        range: integer
+      mean:
+        range: float
+
+  TidyBafpcf:
+    description: BAF segments using PCF algorithm.
+    in_subset: [tidy, latest]
+    annotations:
+      name: bafpcf
+      subtbl: tbl1
+    attributes:
+      sampleid:
+        range: string
+        description: Sample ID
+      chrom:
+        range: string
+        description: Chromosome
+      arm:
+        range: string
+        description: Chromosome arm
+      start_pos:
+        range: integer
+        description: Start position
+      end_pos:
+        range: integer
+        description: End position
+      n_probes:
+        range: integer
+        description: Number of probes
+      mean:
+        range: float
+        description: Mean BAF value
+
+  #----Contaminationtsv----#
+  RawContaminationtsv:
+    description: Entry at each homozygous site in the reference and tumor.
+    in_subset: [raw, latest]
+    annotations:
+      name: contaminationtsv
+      pattern: "\\.amber\\.contamination\\.tsv$"
+      ftype: tsv
+    attributes:
+      chromosome:
+        range: string
+      position:
+        range: integer
+      ref:
+        range: string
+      alt:
+        range: string
+      normalDepth:
+        range: integer
+      normalRefSupport:
+        range: integer
+      normalAltSupport:
+        range: integer
+      tumorDepth:
+        range: integer
+      tumorRefSupport:
+        range: integer
+      tumorAltSupport:
+        range: integer
+
+  TidyContaminationtsv:
+    description: Entry at each homozygous site in the reference and tumor.
+    in_subset: [tidy, latest]
+    annotations:
+      name: contaminationtsv
+      subtbl: tbl1
+    attributes:
+      chrom:
+        range: string
+        description: Chromosome
+      pos:
+        range: integer
+        description: Position of site
+      ref:
+        range: string
+        description: Reference allele
+      alt:
+        range: string
+        description: Alternate allele
+      dp_normal:
+        range: integer
+        description: Normal depth
+      refsup_normal:
+        range: integer
+        description: Normal reference support
+      altsup_normal:
+        range: integer
+        description: Normal alternate support
+      dp_tumor:
+        range: integer
+        description: Tumor depth
+      refsup_tumor:
+        range: integer
+        description: Tumor reference support
+      altsup_tumor:
+        range: integer
+        description: Tumor alternate support
+
+  #----Homozygousregion----#
+  RawHomozygousregion:
+    description: Regions of homozygosity found in the reference.
+    in_subset: [raw, latest]
+    annotations:
+      name: homozygousregion
+      pattern: "\\.amber\\.homozygousregion\\.tsv$"
+      ftype: tsv
+    attributes:
+      chromosome:
+        range: string
+      startPosition:
+        range: integer
+      endPosition:
+        range: integer
+      snpCount:
+        range: integer
+      homCount:
+        range: integer
+      hetCount:
+        range: integer
+      filter:
+        range: string
+
+  TidyHomozygousregion:
+    description: Regions of homozygosity found in the reference.
+    in_subset: [tidy, latest]
+    annotations:
+      name: homozygousregion
+      subtbl: tbl1
+    attributes:
+      chrom:
+        range: string
+        description: Chromosome
+      pos_start:
+        range: integer
+        description: Start position
+      pos_end:
+        range: integer
+        description: End position
+      n_snp:
+        range: integer
+        description: SNP number
+      n_hom:
+        range: integer
+        description: Homozygous number
+      n_het:
+        range: integer
+        description: Heterozygous number
+      filter:
+        range: string
+        description: Filter
+
+  #----Qc----#
+  RawQc:
+    description: QC metrics.
+    in_subset: [raw, latest]
+    annotations:
+      name: qc
+      pattern: "\\.amber\\.qc$"
+      ftype: txt-nohead
+    attributes:
+      QCStatus:
+        range: string
+      Contamination:
+        range: float
+      ConsanguinityProportion:
+        range: float
+      UniparentalDisomy:
+        range: string
+
+  TidyQc:
+    description: AMBER QC.
+    in_subset: [tidy, latest]
+    annotations:
+      name: qc
+      subtbl: tbl1
+    attributes:
+      qc_status:
+        range: string
+        description: QC status
+      contamination:
+        range: float
+        description: Contamination percentage
+      consanguinity:
+        range: float
+        description: Consanguinity proportion
+      uniparental_disomy:
+        range: string
+        description: Uniparental disomy
+
+  #----Version----#
+  RawVersion:
+    description: Version of the tool.
+    in_subset: [raw, latest]
+    annotations:
+      name: version
+      pattern: "^amber\\.version$"
+      ftype: txt
+    attributes:
+      version:
+        range: string
+      build.date:
+        range: string
+
+  TidyVersion:
+    description: Version of the tool.
+    in_subset: [tidy, latest]
+    annotations:
+      name: version
+      subtbl: tbl1
+    attributes:
+      version:
+        range: string
+        description: Version of the tool
+      date_build:
+        range: string
+        description: Build date

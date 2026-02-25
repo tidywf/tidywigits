@@ -1,0 +1,437 @@
+id: https://example.org/tidywigits/cider
+name: cider
+description: >-
+  Lists CDR3 sequences for each of the IG and TCR loci, including an abundance
+  estimate, incomplete rearrangements and IGK-KDE deletions.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  cider: https://example.org/tidywigits/cider/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: cider
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  latest:
+    description: Cider latest version
+
+classes:
+
+  #---- Blastn ----#
+  RawBlastn:
+    description: BLASTn hits.
+    in_subset: [raw, latest]
+    annotations:
+      name: blastn
+      pattern: "\\.cider\\.blastn_match\\.tsv\\.gz$"
+      ftype: tsv
+    attributes:
+      cdr3Seq:
+        range: string
+      cdr3AA:
+        range: string
+      matchType:
+        range: string
+      gene:
+        range: string
+      functionality:
+        range: string
+      pIdent:
+        range: float
+      seqLength:
+        range: float
+      alignStart:
+        range: float
+      alignEnd:
+        range: float
+      alignGaps:
+        range: float
+      alignEValue:
+        range: float
+      alignBitScore:
+        range: float
+      refStrand:
+        range: string
+      refStart:
+        range: float
+      refEnd:
+        range: float
+      refContig:
+        range: string
+      refSeq:
+        range: string
+
+  TidyBlastn:
+    description: BLASTn hits.
+    in_subset: [tidy, latest]
+    annotations:
+      name: blastn
+      subtbl: tbl1
+    attributes:
+      cdr3_seq:
+        range: string
+        description: CDR3 nucleotide sequence. If either the V or J anchor is missing only the first 63 bases of sequence are shown
+      cdr3_aa:
+        range: string
+        description: CDR3 aa sequence. If either the V or J anchor is missing only the first 63 bases of sequence are shown
+      match_type:
+        range: string
+        description: match type
+      gene:
+        range: string
+        description: gene name
+      functionality:
+        range: string
+        description: functionality
+      p_ident:
+        range: float
+        description: percentage of identical positions
+      seq_length:
+        range: float
+        description: sequence length
+      align_start:
+        range: float
+        description: start of alignment in query
+      align_end:
+        range: float
+        description: end of alignment in query
+      align_gaps:
+        range: float
+        description: number of gaps in alignment
+      align_evalue:
+        range: float
+        description: alignment e-value (lower is better)
+      align_bitscore:
+        range: float
+        description: alignment bit score (higher is better)
+      ref_strand:
+        range: string
+        description: reference strand
+      ref_start:
+        range: float
+        description: reference start
+      ref_end:
+        range: float
+        description: reference end
+      ref_contig:
+        range: string
+        description: reference contig
+      ref_seq:
+        range: string
+        description: reference sequence
+
+
+  #---- Locstats ----#
+  RawLocstats:
+    description: Locus stats.
+    in_subset: [raw, latest]
+    annotations:
+      name: locstats
+      pattern: "\\.cider\\.locus_stats\\.tsv$"
+      ftype: tsv
+    attributes:
+      locus:
+        range: string
+      readsUsed:
+        range: float
+      readsTotal:
+        range: float
+      downSampled:
+        range: string
+      sequences:
+        range: float
+      passSequences:
+        range: float
+
+  TidyLocstats:
+    description: Locus stats.
+    in_subset: [tidy, latest]
+    annotations:
+      name: locstats
+      subtbl: tbl1
+    attributes:
+      locus:
+        range: string
+        description: Ig/TCR locus
+      reads_used:
+        range: float
+        description: number of reads used to build the VDJ sequences - differs from readsTotal by quality filtering and downsample.
+      reads_total:
+        range: float
+        description: number of reads found mapped to the locus
+      downsampled:
+        range: string
+        description: true if downsampled
+      sequences:
+        range: float
+        description: number of sequences found
+      sequences_pass:
+        range: float
+        description: number of PASS sequences found
+
+
+  #---- Vdj ----#
+  RawVdj:
+    description: VDJ sequences.
+    in_subset: [raw, latest]
+    annotations:
+      name: vdj
+      pattern: "\\.cider\\.vdj\\.tsv.gz$"
+      ftype: tsv
+    attributes:
+      cdr3Seq:
+        range: string
+      cdr3AA:
+        range: string
+      locus:
+        range: string
+      filter:
+        range: string
+      blastnStatus:
+        range: string
+      minHighQualBaseReads:
+        range: float
+      assignedReads:
+        range: float
+      vAlignedReads:
+        range: float
+      jAlignedReads:
+        range: float
+      inFrame:
+        range: string
+      containsStop:
+        range: string
+      vType:
+        range: string
+      vAnchorStart:
+        range: float
+      vAnchorEnd:
+        range: float
+      vAnchorSeq:
+        range: string
+      vAnchorTemplateSeq:
+        range: string
+      vAnchorAA:
+        range: string
+      vAnchorTemplateAA:
+        range: string
+      vMatchMethod:
+        range: string
+      vSimilarityScore:
+        range: float
+      vNonSplitReads:
+        range: float
+      jType:
+        range: string
+      jAnchorStart:
+        range: float
+      jAnchorEnd:
+        range: float
+      jAnchorSeq:
+        range: string
+      jAnchorTemplateSeq:
+        range: string
+      jAnchorAA:
+        range: string
+      jAnchorTemplateAA:
+        range: string
+      jMatchMethod:
+        range: string
+      jSimilarityScore:
+        range: float
+      jNonSplitReads:
+        range: float
+      vGene:
+        range: string
+      vPIdent:
+        range: float
+      vAlignStart:
+        range: float
+      vAlignEnd:
+        range: float
+      dGene:
+        range: string
+      dPIdent:
+        range: float
+      dAlignStart:
+        range: float
+      dAlignEnd:
+        range: float
+      jGene:
+        range: string
+      jPIdent:
+        range: float
+      jAlignStart:
+        range: float
+      jAlignEnd:
+        range: float
+      vPrimerMatches:
+        range: float
+      jPrimerMatches:
+        range: float
+      layoutId:
+        range: string
+      fullSeq:
+        range: string
+      support:
+        range: string
+
+  TidyVdj:
+    description: VDJ sequences.
+    in_subset: [tidy, latest]
+    annotations:
+      name: vdj
+      subtbl: tbl1
+    attributes:
+      cdr3_seq:
+        range: string
+        description: CDR3 nucleotide sequence. If either the V or J anchor is missing only the first 63 bases of sequence are shown
+      cdr3_aa:
+        range: string
+        description: CDR3 aa sequence. If either the V or J anchor is missing only the first 63 bases of sequence are shown
+      locus:
+        range: string
+        description: Ig/TCR locus of the sequence
+      filter:
+        range: string
+        description: PASS if viable CDR3 sequence or one or more filter reasons
+      blastn_status:
+        range: string
+        description: SKIPPED_BLASTN, V_D_J, V_J, V_D, D_J, V_ONLY, D_ONLY, J_ONLY, NO_REARRANGEMENT, NO_VDJ_ALIGNMENT
+      min_high_qual_base_reads:
+        range: float
+        description: number of reads in the least supported base in the CDR3 region or for the first 63 bases of the candidate CDR3 sequence if only one anchor is found
+      assigned_reads:
+        range: float
+        description: total reads assigned to candidate sequence
+      v_aligned_reads:
+        range: float
+        description: number of reads initially aligned to V gene
+      j_aligned_reads:
+        range: float
+        description: number of reads initially aligned to J gene
+      in_frame:
+        range: string
+        description: CDR3 sequence is inframe
+      contains_stop:
+        range: string
+        description: CDR3 contains stop codon
+      v_type:
+        range: string
+        description: '{IGKV;IGLV;IGHV;TRAV;TRBV;TRDV;TRGV}'
+      v_anchor_start:
+        range: float
+        description: position of V anchor start in nt sequence
+      v_anchor_end:
+        range: float
+        description: position of V anchor end in nt sequence
+      v_anchor_seq:
+        range: string
+        description: V anchor sequence in nt
+      v_anchor_template_seq:
+        range: string
+        description: best scoring V template anchor in nt (or null if read aligned to V anchor)
+      v_anchor_aa:
+        range: string
+        description: V anchor sequence in AA
+      v_anchor_template_aa:
+        range: string
+        description: best scoring V template Anchor in AA (or null if read aligned to V anchor)
+      v_match_method:
+        range: string
+        description: V match method
+      v_similarity_score:
+        range: float
+        description: blosum similarity score for template anchor (or null if read aligned to V anchor)
+      v_non_split_reads:
+        range: float
+        description: count of reads supporting sequence with at least 30 aligned bases either side of last base of conserved C
+      j_type:
+        range: string
+        description: '{IGHJ;IGKJ;IGK-KDE,IGLJ;TRAJ;TRBJ;TRDJ;TRGJ}'
+      j_anchor_start:
+        range: float
+        description: position of J anchor start in nt sequence
+      j_anchor_end:
+        range: float
+        description: position of J anchor end in nt sequence
+      j_anchor_seq:
+        range: string
+        description: J anchor sequence in nt
+      j_anchor_template_seq:
+        range: string
+        description: best scoring J template anchor in nt (or null if read aligned to J anchor)
+      j_anchor_aa:
+        range: string
+        description: J anchor sequence in AA
+      j_anchor_template_aa:
+        range: string
+        description: best scoring J template Anchor in AA (or null if read aligned to J anchor)
+      j_match_method:
+        range: string
+        description: J match method
+      j_similarity_score:
+        range: float
+        description: Blosum62 similarity score for template anchor (or null if read aligned to J anchor)
+      j_non_split_reads:
+        range: float
+        description: count of reads supporting sequence with at least 30 aligned bases either side of first base of conserved W/F
+      v_gene:
+        range: string
+        description: the V gene allele that this sequence is aligned to
+      v_pident:
+        range: float
+        description: the align sequence % identity with the V gene
+      v_align_start:
+        range: float
+        description: start of the alignment with the V gene
+      v_align_end:
+        range: float
+        description: end of the alignment with the V gene
+      d_gene:
+        range: string
+        description: the D gene allele that this sequence is aligned to
+      d_pident:
+        range: float
+        description: the align sequence % identity with the D gene
+      d_align_start:
+        range: float
+        description: start of the alignment with the D gene
+      d_align_end:
+        range: float
+        description: end of the alignment with the D gene
+      j_gene:
+        range: string
+        description: the J gene allele that this sequence is aligned to
+      j_pident:
+        range: float
+        description: the align sequence % identity with the J gene
+      j_align_start:
+        range: float
+        description: start of the alignment with the J gene
+      j_align_end:
+        range: float
+        description: end of the alignment with the J gene
+      v_primer_matches:
+        range: float
+        description: V primer matches
+      j_primer_matches:
+        range: float
+        description: J primer matches
+      layout_id:
+        range: string
+        description: layout ID
+      full_seq:
+        range: string
+        description: full consensus sequence in nucleotides
+      support:
+        range: string
+        description: counts of high quality base support at each nucleotide (radix-36 ASCII encoded)
+

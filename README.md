@@ -77,6 +77,25 @@ system.file("extdata/oa", package = "tidywigits") |>
 │   ├── sample1.cuppa.pred_summ.tsv
 │   ├── sample1.cuppa.vis_data.tsv
 │   └── sample1.cuppa_data.tsv.gz
+├── esvee
+│   ├── sample1.esvee.alignment.tsv
+│   ├── sample1.esvee.assembly.tsv
+│   ├── sample1.esvee.breakend.tsv
+│   ├── sample1.esvee.phased_assembly.tsv
+│   ├── sample1.esvee.prep.disc_stats.tsv
+│   ├── sample1.esvee.prep.fragment_length.tsv
+│   └── sample1.esvee.prep.junction.tsv
+├── flagstats
+│   └── sample1.flagstat
+├── isofox
+│   ├── sample1.isf.alt_splice_junc.csv
+│   ├── sample1.isf.fusions.csv
+│   ├── sample1.isf.gene_collection.csv
+│   ├── sample1.isf.gene_data.csv
+│   ├── sample1.isf.pass_fusions.csv
+│   ├── sample1.isf.retained_intron.csv
+│   ├── sample1.isf.summary.csv
+│   └── sample1.isf.transcript_data.csv
 ├── lilac
 │   ├── sample1.lilac.candidates.coverage.tsv
 │   ├── sample1.lilac.qc.tsv
@@ -164,10 +183,10 @@ res <- w$nemofy(diro = out_dir, format = "parquet", input_id = "parquet_example"
 fs::dir_info(out_dir) |>
   dplyr::mutate(bname = basename(.data$path)) |>
   dplyr::select("bname", "size", "type")
-# A tibble: 86 × 3
+# A tibble: 95 × 3
    bname                                         size type 
    <chr>                                  <fs::bytes> <fct>
- 1 metadata.json                               11.18K file 
+ 1 metadata.json                               12.33K file 
  2 sample1_2_sage_bqrtsv.parquet                4.17K file 
  3 sample1_alignments_dupfreq.parquet           2.84K file 
  4 sample1_amber_bafpcf.parquet                 4.32K file 
@@ -177,7 +196,7 @@ fs::dir_info(out_dir) |>
  8 sample1_bamtools_coverage.parquet            2.65K file 
  9 sample1_bamtools_exoncvg.parquet             3.96K file 
 10 sample1_bamtools_flagstats.parquet           7.54K file 
-# ℹ 76 more rows
+# ℹ 85 more rows
 ```
 
 - PostgreSQL:

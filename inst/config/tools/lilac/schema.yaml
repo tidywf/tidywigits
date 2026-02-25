@@ -1,0 +1,297 @@
+id: https://example.org/tidywigits/lilac
+name: lilac
+description: >-
+  Determine germline HLA Class I types.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  lilac: https://example.org/tidywigits/lilac/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: lilac
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  latest:
+    description: Lilac latest version
+
+classes:
+
+  #---- Summary ----#
+  RawSummary:
+    description: Lilac summary.
+    in_subset: [raw, latest]
+    annotations:
+      name: summary
+      pattern: "\\.lilac\\.tsv$"
+      ftype: tsv
+    attributes:
+      Allele:
+        range: string
+      RefTotal:
+        range: float
+      RefUnique:
+        range: float
+      RefShared:
+        range: float
+      RefWild:
+        range: float
+      TumorTotal:
+        range: float
+      TumorUnique:
+        range: float
+      TumorShared:
+        range: float
+      TumorWild:
+        range: float
+      RnaTotal:
+        range: float
+      RnaUnique:
+        range: float
+      RnaShared:
+        range: float
+      RnaWild:
+        range: float
+      TumorCopyNumber:
+        range: float
+      SomaticMissense:
+        range: float
+      SomaticNonsenseOrFrameshift:
+        range: float
+      SomaticSplice:
+        range: float
+      SomaticSynonymous:
+        range: float
+      SomaticInframeIndel:
+        range: float
+
+  TidySummary:
+    description: Lilac solution summary.
+    in_subset: [tidy, latest]
+    annotations:
+      name: summary
+      subtbl: tbl1
+    attributes:
+      allele:
+        range: string
+        description: Allele ID
+      ref_total:
+        range: float
+        description: Total assigned fragments from reference BAM
+      ref_unique:
+        range: float
+        description: Fragments uniquely assigned to allele
+      ref_shared:
+        range: float
+        description: Fragments assigned to ref allele and others in this solution
+      ref_wild:
+        range: float
+        description: Fragments matched to a wildcard allele
+      tumor_total:
+        range: float
+        description: Total assigned fragments from tumor BAM
+      tumor_unique:
+        range: float
+        description: Fragments uniquely assigned to allele
+      tumor_shared:
+        range: float
+        description: Fragments assigned to allele and others in this solution
+      tumor_wild:
+        range: float
+        description: Fragments matched to a wildcard allele
+      rna_total:
+        range: float
+        description: Total assigned fragments from RNA BAM
+      rna_unique:
+        range: float
+        description: Fragments uniquely assigned to allele
+      rna_shared:
+        range: float
+        description: Fragments assigned to allele and others in this solution
+      rna_wild:
+        range: float
+        description: Fragments matched to a wildcard allele
+      tumor_cn:
+        range: float
+        description: Copy number from Tumor/Ref fragment ratio and Purple copy number
+      somatic_missense:
+        range: float
+        description: Matched missense variants
+      somatic_nonsense_or_frameshift:
+        range: float
+        description: Matched nonsense or frameshift variants
+      somatic_splice:
+        range: float
+        description: Matched splice variants
+      somatic_synonymous:
+        range: float
+        description: Matched synonymous variants
+      somatic_inframe_indel:
+        range: float
+        description: Matched inframe indels
+
+
+  #---- Qc ----#
+  RawQc:
+    description: Lilac QC
+    in_subset: [raw, latest]
+    annotations:
+      name: qc
+      pattern: "\\.lilac\\.qc\\.tsv$"
+      ftype: tsv
+    attributes:
+      Status:
+        range: string
+      ScoreMargin:
+        range: float
+      NextSolutionAlleles:
+        range: string
+      MedianBaseQuality:
+        range: float
+      HlaYAllele:
+        range: string
+      DiscardedIndels:
+        range: float
+      DiscardedIndelMaxFrags:
+        range: float
+      DiscardedAlignmentFragments:
+        range: float
+      A_LowCoverageBases:
+        range: float
+      B_LowCoverageBases:
+        range: float
+      C_LowCoverageBases:
+        range: float
+      ATypes:
+        range: float
+      BTypes:
+        range: float
+      CTypes:
+        range: float
+      TotalFragments:
+        range: float
+      FittedFragments:
+        range: float
+      UnmatchedFragments:
+        range: float
+      UninformativeFragments:
+        range: float
+      HlaYFragments:
+        range: float
+      PercentUnique:
+        range: float
+      PercentShared:
+        range: float
+      PercentWildcard:
+        range: float
+      UnusedAminoAcids:
+        range: float
+      UnusedAminoAcidMaxFrags:
+        range: float
+      UnusedHaplotypes:
+        range: float
+      UnusedHaplotypeMaxFrags:
+        range: float
+      SomaticVariantsMatched:
+        range: float
+      SomaticVariantsUnmatched:
+        range: float
+
+  TidyQc:
+    description: Lilac QC
+    in_subset: [tidy, latest]
+    annotations:
+      name: qc
+      subtbl: tbl1
+    attributes:
+      status:
+        range: string
+        description: Either PASS or 1 or more warnings
+      score_margin:
+        range: float
+        description: Difference in score to second-top solution
+      next_solution_alleles:
+        range: string
+        description: Allele difference in second-top solution
+      median_base_quality:
+        range: float
+        description: Median base quality across all coding bases from all fragments
+      hla_y_allele:
+        range: string
+        description: HLA-Y allele detected if present, else NONE
+      discarded_indels:
+        range: float
+        description: Discarded fragments due to unknown INDELs
+      discarded_indel_max_frags:
+        range: float
+        description: Maximum fragment support for an indel detected but not present in any known allele
+      discarded_alignment_fragments:
+        range: float
+        description: Fragments discarded because 1 read aligns more than 1000 bases from a HLA A,B or C gene
+      a_low_coverage_bases:
+        range: float
+        description: Number of bases with less than 15-depth coverage across all coding bases, also for B and C genes
+      b_low_coverage_bases:
+        range: float
+        description: Number of bases with less than 15-depth coverage across all coding bases, also for A and C genes
+      c_low_coverage_bases:
+        range: float
+        description: Number of bases with less than 15-depth coverage across all coding bases, also for A and B genes
+      a_types:
+        range: float
+        description: '# of distinct HLA-A alleles fitted (0,1 or 2)'
+      b_types:
+        range: float
+        description: '# of distinct HLA-B alleles fitted (0,1 or 2)'
+      c_types:
+        range: float
+        description: '# of distinct HLA-C alleles fitted (0,1 or 2)'
+      total_fragments:
+        range: float
+        description: Total of fragments overlapping a coding base of HLA-A, HLA-B or HLA-C with MAPQ >=1
+      fitted_fragments:
+        range: float
+        description: Total fragments assigned to fitted alleles (ie. exact or wildcard match at every heterozygous location)
+      unmatched_fragments:
+        range: float
+        description: Fragment that do not match any allele exactly in solution at all heterozygous location (eg. due to sequencing error or mapping error)
+      uninformative_fragments:
+        range: float
+        description: Fragments that do not overlap any heterozygous location considered in evidence phase
+      hla_y_fragments:
+        range: float
+        description: Fragments excluded from fit due to allocation to assignment to HLA-Y
+      percent_unique:
+        range: float
+        description: Percentage of fitted fragments that are uniquely assigned to 1 allele
+      percent_shared:
+        range: float
+        description: Percentage of fitted fragments allocated across multiple alleles
+      percent_wildcard:
+        range: float
+        description: Percentage of fitted fragments uniquely assigned to wildcard regions
+      unused_amino_acids:
+        range: float
+        description: '# of amino acids detected with at least 3 fragments support but not present in final allele solution set (excluding PON filtered and regions overlapping wildcards in selected alleles)'
+      unused_amino_acid_max_frags:
+        range: float
+        description: Maximum fragments support for an unmatched amino acid not present in the final allele solution set
+      unused_haplotypes:
+        range: float
+        description: '# of haplotypes phased with at least 3 fragments support but not present in final allele solution set (excluding PON filtered and regions overlapping wildcards in selected alleles)'
+      unused_haplotype_max_frags:
+        range: float
+        description: Maximum support for an unmatched haplotype not present in final allele solution set
+      somatic_variants_matched:
+        range: float
+        description: Somatic variants supported by solution allele
+      somatic_variants_unmatched:
+        range: float
+        description: Somatic variants not supported by solution allele
+

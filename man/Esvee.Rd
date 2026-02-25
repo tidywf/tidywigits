@@ -13,8 +13,7 @@ odir <- tempdir()
 id <- "esvee_run1"
 obj <- cls$new(indir)
 obj$nemofy(diro = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "cobalt.*parquet", full.names = FALSE))
-#TODO: add esvee test data
+(lf <- list.files(odir, pattern = "esvee.*parquet", full.names = FALSE))
 }
 \section{Super class}{
 \code{\link[nemo:Tool]{nemo::Tool}} -> \code{Esvee}

@@ -27,6 +27,8 @@ navbar:
           href: articles/schemas_raw.html
         - text: Schemas Tidy
           href: articles/schemas_tidy.html
+        - text: Schemas Mermaid
+          href: articles/schemas_er.html
         - text: Developers
           href: articles/developers.html
         - text: UML

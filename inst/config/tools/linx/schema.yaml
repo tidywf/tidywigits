@@ -1,0 +1,1409 @@
+id: https://example.org/tidywigits/linx
+name: linx
+description: >-
+  Annotation, interpretation and visualisation tool for structural variants.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  linx: https://example.org/tidywigits/linx/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: linx
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  v1.25:
+    description: Linx version v1.25
+  latest:
+    description: Linx latest version
+
+classes:
+
+  #---- Breakends ----#
+  RawBreakends:
+    description: Impact of each non PON filtered break junction on each overlapping gene.
+    in_subset:
+      - raw
+    annotations:
+      name: breakends
+      pattern: "\\.linx\\.(germline\\.|)breakend\\.tsv$"
+      ftype: tsv
+    attributes:
+      id:
+        range: string
+        in_subset: [v1.25, latest]
+      svId:
+        range: string
+        in_subset: [v1.25, latest]
+      isStart:
+        range: string
+        in_subset: [v1.25, latest]
+      gene:
+        range: string
+        in_subset: [v1.25, latest]
+      transcriptId:
+        range: string
+        in_subset: [v1.25, latest]
+      canonical:
+        range: string
+        in_subset: [v1.25, latest]
+      geneOrientation:
+        range: string
+        in_subset: [v1.25, latest]
+      disruptive:
+        range: string
+        in_subset: [v1.25, latest]
+      reportedDisruption:
+        range: string
+        in_subset: [v1.25, latest]
+      undisruptedCopyNumber:
+        range: float
+        in_subset: [v1.25, latest]
+      regionType:
+        range: string
+        in_subset: [v1.25, latest]
+      codingType:
+        range: string
+        in_subset: [v1.25, latest]
+      biotype:
+        range: string
+        in_subset: [v1.25, latest]
+      exonicBasePhase:
+        range: float
+        in_subset: [v1.25, latest]
+      nextSpliceExonRank:
+        range: float
+        in_subset: [v1.25, latest]
+      nextSpliceExonPhase:
+        range: float
+        in_subset: [v1.25, latest]
+      nextSpliceDistance:
+        range: float
+        in_subset: [v1.25, latest]
+      totalExonCount:
+        range: float
+        in_subset: [v1.25, latest]
+      type:
+        range: string
+        in_subset: [v1.25]
+      chromosome:
+        range: string
+        in_subset: [v1.25]
+      orientation:
+        range: string
+        in_subset: [v1.25]
+      strand:
+        range: string
+        in_subset: [v1.25]
+      chrBand:
+        range: string
+        in_subset: [v1.25]
+      exonUp:
+        range: float
+        in_subset: [v1.25, latest]
+      exonDown:
+        range: float
+        in_subset: [v1.25, latest]
+      junctionCopyNumber:
+        range: float
+        in_subset: [v1.25]
+
+  TidyBreakends:
+    description: Impact of each non PON filtered break junction on each overlapping gene
+    in_subset:
+      - tidy
+    annotations:
+      name: breakends
+      subtbl: tbl1
+    attributes:
+      bnd_id:
+        range: string
+        description: ID of breakend annotation
+        in_subset: [v1.25, latest]
+      sv_id:
+        range: string
+        description: ID of break junction
+        in_subset: [v1.25, latest]
+      is_start:
+        range: string
+        description: annotation relates to the start breakend of the break junction
+        in_subset: [v1.25, latest]
+      gene:
+        range: string
+        description: gene annotated
+        in_subset: [v1.25, latest]
+      transcript_id:
+        range: string
+        description: Ensembl stable transcript ID of annotation
+        in_subset: [v1.25, latest]
+      canonical:
+        range: string
+        description: transcript is the canonical transcript of the gene
+        in_subset: [v1.25, latest]
+      gene_orientation:
+        range: string
+        description: orientation which breakend points relative to the gene taking into account both gene strand and breakend orientation
+        in_subset: [v1.25, latest]
+      disruptive:
+        range: string
+        description: breakend is part of a break junction which disrupts the exonic sequence of the transcript
+        in_subset: [v1.25, latest]
+      reported_disruption:
+        range: string
+        description: breakend is disruptive and gene is flagged as reportable for disruption
+        in_subset: [v1.25, latest]
+      undisrupted_cn:
+        range: float
+        description: number of remaining wildtype alleles of the gene that are not disrupted by the breakend
+        in_subset: [v1.25, latest]
+      region_type:
+        range: string
+        description: Location of the breakend relative to the transcript
+        in_subset: [v1.25, latest]
+      coding_type:
+        range: string
+        description: location of the breakend relative to the coding context of the transcript
+        in_subset: [v1.25, latest]
+      biotype:
+        range: string
+        description: Ensembl biotype of the transcript
+        in_subset: [v1.25, latest]
+      exonic_basephase:
+        range: float
+        description: if regionType = EXONIC, the exact base phase of the breakend, else -1
+        in_subset: [v1.25, latest]
+      next_splice_exon_rank:
+        range: float
+        description: exon rank of the next splice acceptor (if gene orientation is "DOWNSTREAM") or splice donor (if gene orientation is "UPSTREAM")
+        in_subset: [v1.25, latest]
+      next_splice_exon_phase:
+        range: float
+        description: phase of the 1st base after the next splice acceptor (if gene orientation is "DOWNSTREAM") or splice donor (if gene orientation is "UPSTREAM")
+        in_subset: [v1.25, latest]
+      next_splice_distance:
+        range: float
+        description: distance in bases to the next splice site identified in nextSpliceExonRank
+        in_subset: [v1.25, latest]
+      total_exon_count:
+        range: float
+        description: total number of exons in the transcript
+        in_subset: [v1.25, latest]
+      type:
+        range: string
+        description: type of breakend
+        in_subset: [v1.25]
+      chrom:
+        range: string
+        description: chromosome
+        in_subset: [v1.25]
+      orientation:
+        range: string
+        description: orientation
+        in_subset: [v1.25]
+      strand:
+        range: string
+        description: strand
+        in_subset: [v1.25]
+      chr_band:
+        range: string
+        description: chromosome band
+        in_subset: [v1.25]
+      exon_up:
+        range: float
+        description: exon 5p
+        in_subset: [v1.25, latest]
+      exon_down:
+        range: float
+        description: exon 3p
+        in_subset: [v1.25, latest]
+      junction_cn:
+        range: float
+        description: junction cn
+        in_subset: [v1.25]
+
+
+  #---- Clusters ----#
+  RawClusters:
+    description: Clustering of all non PON filtered SV events and their resolved classification.
+    in_subset: [raw, latest]
+    annotations:
+      name: clusters
+      pattern: "\\.linx\\.(germline\\.|)clusters\\.tsv$"
+      ftype: tsv
+    attributes:
+      clusterId:
+        range: string
+      category:
+        range: string
+      synthetic:
+        range: string
+      resolvedType:
+        range: string
+      clusterCount:
+        range: float
+      clusterDesc:
+        range: string
+
+  TidyClusters:
+    description: Clustering of all non PON filtered SV events and their resolved classification.
+    in_subset: [tidy, latest]
+    annotations:
+      name: clusters
+      subtbl: tbl1
+    attributes:
+      cluster_id:
+        range: string
+        description: Unique Id for the cluster
+      category:
+        range: string
+        description: high level categorisation of the cluster classification
+      synthetic:
+        range: string
+        description: set to TRUE if the cluster is resolved to a non complex type by simplification of a short templated insertion (<1kb)
+      resolved_type:
+        range: string
+        description: resolved classification of the cluster.
+      cluster_count:
+        range: float
+        description: number of break junctions in the cluster
+      cluster_desc:
+        range: string
+        description: types and counts of break junctions in the cluster. eg. DEL=2_INV=2
+
+
+  #---- Drivercatalog ----#
+  RawDrivercatalog:
+    description: Reproduction of the driver catalog produced by PURPLE with homozygous disruptions events appended.
+    in_subset: [raw, latest]
+    annotations:
+      name: drivercatalog
+      pattern: "\\.linx\\.(germline\\.|)driver\\.catalog\\.tsv$"
+      ftype: tsv
+    attributes:
+      chromosome:
+        range: string
+      chromosomeBand:
+        range: string
+      gene:
+        range: string
+      transcript:
+        range: string
+      isCanonical:
+        range: string
+      driver:
+        range: string
+      category:
+        range: string
+      likelihoodMethod:
+        range: string
+      driverLikelihood:
+        range: float
+      missense:
+        range: float
+      nonsense:
+        range: float
+      splice:
+        range: float
+      inframe:
+        range: float
+      frameshift:
+        range: float
+      biallelic:
+        range: string
+      minCopyNumber:
+        range: float
+      maxCopyNumber:
+        range: float
+
+  TidyDrivercatalog:
+    description: Reproduction of the driver catalog produced by PURPLE with homozygous disruptions events appended.
+    in_subset: [tidy, latest]
+    annotations:
+      name: drivercatalog
+      subtbl: tbl1
+    attributes:
+      chrom:
+        range: string
+        description: Chromosome of gene
+      chrom_band:
+        range: string
+        description: Chromosome band of driver
+      gene:
+        range: string
+        description: Gene name
+      transcript:
+        range: string
+        description: Transcript name
+      is_canonical:
+        range: string
+        description: Is canonical
+      driver:
+        range: string
+        description: Driver type [AMP, DEL, MUTATION]
+      category:
+        range: string
+        description: Gene driver type [ONCO, TSG]
+      likelihood_method:
+        range: string
+        description: Method used to determine likelihood
+      driver_likelihood:
+        range: float
+        description: Likelihood that gene is a driver
+      missense:
+        range: float
+        description: Number of missense variants in gene
+      nonsense:
+        range: float
+        description: Number of nonsense variants in gene
+      splice:
+        range: float
+        description: Number of splice variants in gene
+      inframe:
+        range: float
+        description: Number of inframe variants in gene
+      frameshift:
+        range: float
+        description: Number of frameshift variants in gene
+      biallelic:
+        range: string
+        description: True if any variants in the gene are biallelic
+      min_cn:
+        range: float
+        description: Minimum CN found in the gene exons
+      max_cn:
+        range: float
+        description: Maximum CN found in the gene exons
+
+
+  #---- Drivers ----#
+  RawDrivers:
+    description: Linkage of drivers from driver catalog to SV cluster which contributed to those drivers including LOH, deletion, disruption and amplification events.
+    in_subset: [raw, latest]
+    annotations:
+      name: drivers
+      pattern: "\\.linx\\.drivers\\.tsv$"
+      ftype: tsv
+    attributes:
+      clusterId:
+        range: string
+      gene:
+        range: string
+      eventType:
+        range: string
+
+  TidyDrivers:
+    description: Linkage of drivers from driver catalog to SV cluster which contributed to those drivers including LOH, deletion, disruption and amplification events.
+    in_subset: [tidy, latest]
+    annotations:
+      name: drivers
+      subtbl: tbl1
+    attributes:
+      cluster_id:
+        range: string
+        description: Id of cluster which break junction associated with driver
+      gene:
+        range: string
+        description: Gene of driver
+      event_type:
+        range: string
+        description: Type of driver
+
+
+  #---- Fusions ----#
+  RawFusions:
+    description: All inframe and out of frame fusions predicted in the sample including HMF fusion knowledgebase annotations.
+    in_subset: [raw, latest]
+    annotations:
+      name: fusions
+      pattern: "\\.linx\\.fusion\\.tsv$"
+      ftype: tsv
+    attributes:
+      fivePrimeBreakendId:
+        range: string
+      threePrimeBreakendId:
+        range: string
+      name:
+        range: string
+      reported:
+        range: string
+      reportedType:
+        range: string
+      reportableReasons:
+        range: string
+      phased:
+        range: string
+      likelihood:
+        range: string
+      chainLength:
+        range: float
+      chainLinks:
+        range: float
+      chainTerminated:
+        range: string
+      domainsKept:
+        range: string
+      domainsLost:
+        range: string
+      skippedExonsUp:
+        range: float
+      skippedExonsDown:
+        range: float
+      fusedExonUp:
+        range: float
+      fusedExonDown:
+        range: float
+      geneStart:
+        range: string
+      geneContextStart:
+        range: string
+      transcriptStart:
+        range: string
+      geneEnd:
+        range: string
+      geneContextEnd:
+        range: string
+      transcriptEnd:
+        range: string
+      junctionCopyNumber:
+        range: float
+
+  TidyFusions:
+    description: All inframe and out of frame fusions predicted in the sample including HMF fusion knowledgebase annotations.
+    in_subset: [tidy, latest]
+    annotations:
+      name: fusions
+      subtbl: tbl1
+    attributes:
+      breakendid5:
+        range: string
+        description: 5prime breakend ID in the fusion
+      breakendid3:
+        range: string
+        description: 3prime breakend ID in the fusion
+      name:
+        range: string
+        description: fusion name in the form 5primeGENE_3primeGENE
+      reported:
+        range: string
+        description: fusion meets all reportable fusion criteria for LINX
+      reported_type:
+        range: string
+        description: if one or both of the genes matches a promiscuous gene or known rearrangement in the HMF fusion knowledgebase, then the type of reportable gene pair
+      reportable_reasons:
+        range: string
+        description: reasons for given reportable status
+      phased:
+        range: string
+        description: set to 1 if a phased fusion can be formed (after allowing for exon skipping)
+      likelihood:
+        range: string
+        description: likelihood
+      chain_length:
+        range: float
+        description: 0 for simple fusions. If fusion is chained equal to the total length of segments chained between 5prime and 3prime partners
+      chain_links:
+        range: float
+        description: 0 for simple fusions. If fusion is chained equal to the number of segments chained between 5prime and 3prime partners
+      chain_terminated:
+        range: string
+        description: True if the fusion is interrupted either on the 5prime partner side by a chained breakend prior to the start of the 5prime gene or by a chained breakend prior to the last coding base of the 3prime gene
+      domains_kept:
+        range: string
+        description: List of 3prime partner domains retained in fusion product (as annotated by PROSITE profiles)
+      domains_lost:
+        range: string
+        description: List of 3prime partner domains lost in fusion product (as annotated by PROSITE profiles)
+      skipped_exons_up:
+        range: float
+        description: Count of splice donors required to be skipped on 5prime partner side to form an inframe fusion
+      skipped_exons_down:
+        range: float
+        description: Count of splice donors required to be skipped on 3prime partner side to form an inframe fusion
+      fused_exon_up:
+        range: float
+        description: Last exon fused on 5prime partner side
+      fused_exon_down:
+        range: float
+        description: First exon fused on 3prime partner side
+      gene_start:
+        range: string
+        description: Gene(s) overlapping start breakend of SV
+      gene_context_start:
+        range: string
+        description: Gene context start
+      transcript_start:
+        range: string
+        description: Transcript start
+      gene_end:
+        range: string
+        description: Gene(s) overlapping end breakend of SV
+      gene_context_end:
+        range: string
+        description: Gene context end
+      transcript_end:
+        range: string
+        description: Transcript end
+      junction_cn:
+        range: float
+        description: Junction copy number
+
+
+  #---- Links ----#
+  RawLinks:
+    description: Chromosomal segments joining break junction pairs predicted to be linked and phased in cis on the derivative chromosome.
+    in_subset: [raw, latest]
+    annotations:
+      name: links
+      pattern: "\\.linx\\.(germline\\.|)links\\.tsv$"
+      ftype: tsv
+    attributes:
+      clusterId:
+        range: string
+      chainId:
+        range: string
+      chainIndex:
+        range: string
+      chainCount:
+        range: float
+      lowerSvId:
+        range: string
+      upperSvId:
+        range: string
+      lowerBreakendIsStart:
+        range: string
+      upperBreakendIsStart:
+        range: string
+      chromosome:
+        range: string
+      arm:
+        range: string
+      assembled:
+        range: string
+      traversedSVCount:
+        range: float
+      length:
+        range: float
+      junctionCopyNumber:
+        range: float
+      junctionCopyNumberUncertainty:
+        range: float
+      pseudogeneInfo:
+        range: string
+      ecDna:
+        range: string
+
+  TidyLinks:
+    description: Chromosomal segments joining break junction pairs predicted to be linked and phased in cis on the derivative chromosome.
+    in_subset: [tidy, latest]
+    annotations:
+      name: links
+      subtbl: tbl1
+    attributes:
+      cluster_id:
+        range: string
+        description: cluster ID which contains the link
+      chain_id:
+        range: string
+        description: chain ID to which the link belongs representing a multi-segment prediction of the derivative chromosome
+      chain_index:
+        range: string
+        description: position of the linked segment in the chain
+      chain_count:
+        range: float
+        description: total count of linked segments in the chan
+      lower_sv_id:
+        range: string
+        description: svId of the leftmost breakend of the linked segment
+      upper_sv_id:
+        range: string
+        description: svId of the rightmost breakend of the linked segment
+      lower_breakend_is_start:
+        range: string
+        description: lower breakend is the start breakend of the break junction
+      upper_breakend_is_start:
+        range: string
+        description: right breakend is the start breakend of the break junction
+      chrom:
+        range: string
+        description: chromosome of the linked segment
+      arm:
+        range: string
+        description: arm (P/Q) of the linked segment
+      assembled:
+        range: string
+        description: segment is linked by a GRIDSS assembly
+      traversed_sv_count:
+        range: float
+        description: number of other breakends that are located on the linked segment
+      length:
+        range: float
+        description: length of the linked segment
+      junction_cn:
+        range: float
+        description: predicted CN of the chain
+      junction_cn_uncertainty:
+        range: float
+        description: uncertainty in the CN of the chain
+      pseudogene_info:
+        range: string
+        description: if the segment precisely matches an exon of an ensembl gene, then contains details of the matching exon
+      ecdna:
+        range: string
+        description: link is predicted to be part of a DM / ecDNA chain
+
+
+  #---- Neoepitope ----#
+  RawNeoepitope:
+    description: Gene fusion neoepitopes.
+    in_subset: [raw, latest]
+    annotations:
+      name: neoepitope
+      pattern: "\\.linx\\.neoepitope\\.tsv$"
+      ftype: tsv
+    attributes:
+      geneIdUp:
+        range: string
+      geneNameUp:
+        range: string
+      chromosomeUp:
+        range: string
+      positionUp:
+        range: float
+      orientationUp:
+        range: float
+      svIdUp:
+        range: string
+      geneIdDown:
+        range: string
+      geneNameDown:
+        range: string
+      chromosomeDown:
+        range: string
+      positionDown:
+        range: float
+      orientationDown:
+        range: float
+      svIdDown:
+        range: string
+      junctionCopyNumber:
+        range: float
+      copyNumber:
+        range: float
+      insertSeq:
+        range: string
+      chainLength:
+        range: float
+      transcriptsUp:
+        range: string
+      transcriptsDown:
+        range: string
+
+  TidyNeoepitope:
+    description: Gene fusion neoepitopes.
+    in_subset: [tidy, latest]
+    annotations:
+      name: neoepitope
+      subtbl: tbl1
+    attributes:
+      gene_id_up:
+        range: string
+      gene_name_up:
+        range: string
+      chrom_up:
+        range: string
+      pos_up:
+        range: float
+      orientation_up:
+        range: float
+      sv_id_up:
+        range: string
+      gene_id_down:
+        range: string
+      gene_name_down:
+        range: string
+      chrom_down:
+        range: string
+      pos_down:
+        range: float
+      orientation_down:
+        range: float
+      sv_id_down:
+        range: string
+      junc_cn:
+        range: float
+      cn:
+        range: float
+      insert_seq:
+        range: string
+      chain_length:
+        range: float
+      transcripts_up:
+        range: string
+      transcripts_down:
+        range: string
+
+
+  #---- Svs ----#
+  RawSvs:
+    description: Additional annotations of each non PON filtered breakjunction.
+    in_subset: [raw, latest]
+    annotations:
+      name: svs
+      pattern: "\\.linx\\.(germline\\.|)svs\\.tsv$"
+      ftype: tsv
+    attributes:
+      vcfId:
+        range: string
+      svId:
+        range: string
+      clusterId:
+        range: string
+      clusterReason:
+        range: string
+      fragileSiteStart:
+        range: string
+      fragileSiteEnd:
+        range: string
+      isFoldback:
+        range: string
+      lineTypeStart:
+        range: string
+      lineTypeEnd:
+        range: string
+      junctionCopyNumberMin:
+        range: float
+      junctionCopyNumberMax:
+        range: float
+      geneStart:
+        range: string
+      geneEnd:
+        range: string
+      localTopologyIdStart:
+        range: string
+      localTopologyIdEnd:
+        range: string
+      localTopologyStart:
+        range: string
+      localTopologyEnd:
+        range: string
+      localTICountStart:
+        range: float
+      localTICountEnd:
+        range: float
+
+  TidySvs:
+    description: Additional annotations of each non PON filtered breakjunction.
+    in_subset: [tidy, latest]
+    annotations:
+      name: svs
+      subtbl: tbl1
+    attributes:
+      vcf_id:
+        range: string
+        description: ID of break junction for mapping to GRIDSS / PURPLE vcf
+      sv_id:
+        range: string
+        description: ID of break junction
+      cluster_id:
+        range: string
+        description: ID of cluster which break junction is assigned to
+      cluster_reason:
+        range: string
+        description: Reason for clustering and svId of clustered break junction for other break junction(s) to which the variant has been clustered
+      fragile_site_start:
+        range: string
+        description: Start breakend of break junction is in a known fragile site (T/F)
+      fragile_site_end:
+        range: string
+        description: End breakend of break junction is in a known fragile site (T/F)
+      is_foldback:
+        range: string
+        description: Break junction is classified as a foldback (T/F)
+      linetype_start:
+        range: string
+        description: Start breakend of break junction is in a known or suspected line source region
+      linetype_end:
+        range: string
+        description: End breakend of break junction is in a known or suspected line source region
+      junction_cn_min:
+        range: float
+        description: Minimum bound JCN estimate for breakjunction
+      junction_cn_max:
+        range: float
+        description: Maximum bound JCN estimate for breakjunction
+      gene_start:
+        range: string
+        description: Gene(s) overlapping start breakend of SV
+      gene_end:
+        range: string
+        description: Gene(s) overlapping end breakend of SV
+      local_topology_id_start:
+        range: string
+        description: ID for group of proximate breakends to the start breakend of break junction within an extending 5kb window
+      local_topology_id_end:
+        range: string
+        description: ID for group of proximate breakends to the end breakend of break junction within an extending 5kb window
+      local_topology_start:
+        range: string
+        description: Local breakend topology type at site of start breakend
+      local_topology_end:
+        range: string
+        description: Local breakend topology type at site of end breakend.
+      local_ti_count_start:
+        range: float
+        description: Number of chained templated insertions in local topology group of start breakend
+      local_ti_count_end:
+        range: float
+        description: Number of chained templated insertions in local topology group of end breakend
+
+
+  #---- Viscn ----#
+  RawViscn:
+    description: ""
+    in_subset:
+      - raw
+    annotations:
+      name: viscn
+      pattern: "\\.linx\\.vis_copy_number\\.tsv$"
+      ftype: tsv
+    attributes:
+      SampleId:
+        range: string
+        in_subset: [v1.25]
+      Chromosome:
+        range: string
+        in_subset: [v1.25, latest]
+      Start:
+        range: float
+        in_subset: [v1.25, latest]
+      End:
+        range: float
+        in_subset: [v1.25, latest]
+      CopyNumber:
+        range: float
+        in_subset: [v1.25, latest]
+      BAF:
+        range: float
+        in_subset: [v1.25, latest]
+
+  TidyViscn:
+    description: ""
+    in_subset:
+      - tidy
+    annotations:
+      name: viscn
+      subtbl: tbl1
+    attributes:
+      sample_id:
+        range: string
+        description: sample ID
+        in_subset: [v1.25]
+      chrom:
+        range: string
+        in_subset: [v1.25, latest]
+      start:
+        range: float
+        in_subset: [v1.25, latest]
+      end:
+        range: float
+        in_subset: [v1.25, latest]
+      cn:
+        range: float
+        in_subset: [v1.25, latest]
+      baf:
+        range: float
+        in_subset: [v1.25, latest]
+
+
+  #---- Visfusion ----#
+  RawVisfusion:
+    description: ""
+    in_subset:
+      - raw
+    annotations:
+      name: visfusion
+      pattern: "\\.linx\\.vis_fusion\\.tsv$"
+      ftype: tsv
+    attributes:
+      SampleId:
+        range: string
+        in_subset: [v1.25]
+      ClusterId:
+        range: string
+        in_subset: [v1.25, latest]
+      Reportable:
+        range: string
+        in_subset: [v1.25, latest]
+      GeneNameUp:
+        range: string
+        in_subset: [v1.25, latest]
+      TranscriptUp:
+        range: string
+        in_subset: [v1.25, latest]
+      ChrUp:
+        range: string
+        in_subset: [v1.25, latest]
+      PosUp:
+        range: string
+        in_subset: [v1.25, latest]
+      StrandUp:
+        range: string
+        in_subset: [v1.25, latest]
+      RegionTypeUp:
+        range: string
+        in_subset: [v1.25, latest]
+      FusedExonUp:
+        range: string
+        in_subset: [v1.25, latest]
+      GeneNameDown:
+        range: string
+        in_subset: [v1.25, latest]
+      TranscriptDown:
+        range: string
+        in_subset: [v1.25, latest]
+      ChrDown:
+        range: string
+        in_subset: [v1.25, latest]
+      PosDown:
+        range: string
+        in_subset: [v1.25, latest]
+      StrandDown:
+        range: string
+        in_subset: [v1.25, latest]
+      RegionTypeDown:
+        range: string
+        in_subset: [v1.25, latest]
+      FusedExonDown:
+        range: string
+        in_subset: [v1.25, latest]
+
+  TidyVisfusion:
+    description: ""
+    in_subset:
+      - tidy
+    annotations:
+      name: visfusion
+      subtbl: tbl1
+    attributes:
+      sample_id:
+        range: string
+        description: sample ID
+        in_subset: [v1.25]
+      cluster_id:
+        range: string
+        in_subset: [v1.25, latest]
+      reportable:
+        range: string
+        in_subset: [v1.25, latest]
+      gene_name_up:
+        range: string
+        in_subset: [v1.25, latest]
+      transcript_up:
+        range: string
+        in_subset: [v1.25, latest]
+      chr_up:
+        range: string
+        in_subset: [v1.25, latest]
+      pos_up:
+        range: string
+        in_subset: [v1.25, latest]
+      strand_up:
+        range: string
+        in_subset: [v1.25, latest]
+      region_type_up:
+        range: string
+        in_subset: [v1.25, latest]
+      fused_exon_up:
+        range: string
+        in_subset: [v1.25, latest]
+      gene_name_down:
+        range: string
+        in_subset: [v1.25, latest]
+      transcript_down:
+        range: string
+        in_subset: [v1.25, latest]
+      chr_down:
+        range: string
+        in_subset: [v1.25, latest]
+      pos_down:
+        range: string
+        in_subset: [v1.25, latest]
+      strand_down:
+        range: string
+        in_subset: [v1.25, latest]
+      region_type_down:
+        range: string
+        in_subset: [v1.25, latest]
+      fused_exon_down:
+        range: string
+        in_subset: [v1.25, latest]
+
+
+  #---- Visgeneexon ----#
+  RawVisgeneexon:
+    description: ""
+    in_subset:
+      - raw
+    annotations:
+      name: visgeneexon
+      pattern: "\\.linx\\.vis_gene_exon\\.tsv$"
+      ftype: tsv
+    attributes:
+      SampleId:
+        range: string
+        in_subset: [v1.25]
+      ClusterId:
+        range: string
+        in_subset: [v1.25, latest]
+      Gene:
+        range: string
+        in_subset: [v1.25, latest]
+      Transcript:
+        range: string
+        in_subset: [v1.25, latest]
+      Chromosome:
+        range: string
+        in_subset: [v1.25, latest]
+      AnnotationType:
+        range: string
+        in_subset: [v1.25, latest]
+      ExonRank:
+        range: string
+        in_subset: [v1.25, latest]
+      ExonStart:
+        range: string
+        in_subset: [v1.25, latest]
+      ExonEnd:
+        range: string
+        in_subset: [v1.25, latest]
+
+  TidyVisgeneexon:
+    description: ""
+    in_subset:
+      - tidy
+    annotations:
+      name: visgeneexon
+      subtbl: tbl1
+    attributes:
+      sample_id:
+        range: string
+        description: sample ID
+        in_subset: [v1.25]
+      cluster_id:
+        range: string
+        in_subset: [v1.25, latest]
+      gene:
+        range: string
+        in_subset: [v1.25, latest]
+      transcript:
+        range: string
+        in_subset: [v1.25, latest]
+      chrom:
+        range: string
+        in_subset: [v1.25, latest]
+      annotation_type:
+        range: string
+        in_subset: [v1.25, latest]
+      exon_rank:
+        range: string
+        in_subset: [v1.25, latest]
+      exon_start:
+        range: string
+        in_subset: [v1.25, latest]
+      exon_end:
+        range: string
+        in_subset: [v1.25, latest]
+
+
+  #---- Visproteindomain ----#
+  RawVisproteindomain:
+    description: ""
+    in_subset:
+      - raw
+    annotations:
+      name: visproteindomain
+      pattern: "\\.linx\\.vis_protein_domain\\.tsv$"
+      ftype: tsv
+    attributes:
+      SampleId:
+        range: string
+        in_subset: [v1.25]
+      ClusterId:
+        range: string
+        in_subset: [v1.25, latest]
+      Transcript:
+        range: string
+        in_subset: [v1.25, latest]
+      Chromosome:
+        range: string
+        in_subset: [v1.25, latest]
+      Start:
+        range: string
+        in_subset: [v1.25, latest]
+      End:
+        range: string
+        in_subset: [v1.25, latest]
+      Info:
+        range: string
+        in_subset: [v1.25, latest]
+
+  TidyVisproteindomain:
+    description: ""
+    in_subset:
+      - tidy
+    annotations:
+      name: visproteindomain
+      subtbl: tbl1
+    attributes:
+      sample_id:
+        range: string
+        description: sample ID
+        in_subset: [v1.25]
+      cluster_id:
+        range: string
+        in_subset: [v1.25, latest]
+      transcript:
+        range: string
+        in_subset: [v1.25, latest]
+      chrom:
+        range: string
+        in_subset: [v1.25, latest]
+      start:
+        range: string
+        in_subset: [v1.25, latest]
+      end:
+        range: string
+        in_subset: [v1.25, latest]
+      info:
+        range: string
+        in_subset: [v1.25, latest]
+
+
+  #---- Vissegments ----#
+  RawVissegments:
+    description: ""
+    in_subset:
+      - raw
+    annotations:
+      name: vissegments
+      pattern: "\\.linx\\.vis_segments\\.tsv$"
+      ftype: tsv
+    attributes:
+      SampleId:
+        range: string
+        in_subset: [v1.25]
+      ClusterId:
+        range: string
+        in_subset: [v1.25, latest]
+      ChainId:
+        range: string
+        in_subset: [v1.25, latest]
+      Chromosome:
+        range: string
+        in_subset: [v1.25, latest]
+      PosStart:
+        range: string
+        in_subset: [v1.25, latest]
+      PosEnd:
+        range: string
+        in_subset: [v1.25, latest]
+      LinkPloidy:
+        range: float
+        in_subset: [v1.25, latest]
+      InDoubleMinute:
+        range: string
+        in_subset: [v1.25, latest]
+
+  TidyVissegments:
+    description: ""
+    in_subset:
+      - tidy
+    annotations:
+      name: vissegments
+      subtbl: tbl1
+    attributes:
+      sample_id:
+        range: string
+        description: sample ID
+        in_subset: [v1.25]
+      cluster_id:
+        range: string
+        in_subset: [v1.25, latest]
+      chain_id:
+        range: string
+        in_subset: [v1.25, latest]
+      chrom:
+        range: string
+        in_subset: [v1.25, latest]
+      pos_start:
+        range: string
+        in_subset: [v1.25, latest]
+      pos_end:
+        range: string
+        in_subset: [v1.25, latest]
+      link_ploidy:
+        range: float
+        in_subset: [v1.25, latest]
+      in_double_minute:
+        range: string
+        in_subset: [v1.25, latest]
+
+
+  #---- Vissvdata ----#
+  RawVissvdata:
+    description: ""
+    in_subset:
+      - raw
+    annotations:
+      name: vissvdata
+      pattern: "\\.linx\\.vis_sv_data\\.tsv$"
+      ftype: tsv
+    attributes:
+      SampleId:
+        range: string
+        in_subset: [v1.25]
+      ClusterId:
+        range: string
+        in_subset: [v1.25, latest]
+      ChainId:
+        range: string
+        in_subset: [v1.25, latest]
+      SvId:
+        range: string
+        in_subset: [v1.25, latest]
+      Type:
+        range: string
+        in_subset: [v1.25, latest]
+      ResolvedType:
+        range: string
+        in_subset: [v1.25, latest]
+      IsSynthetic:
+        range: string
+        in_subset: [v1.25, latest]
+      ChrStart:
+        range: string
+        in_subset: [v1.25, latest]
+      ChrEnd:
+        range: string
+        in_subset: [v1.25, latest]
+      PosStart:
+        range: float
+        in_subset: [v1.25, latest]
+      PosEnd:
+        range: float
+        in_subset: [v1.25, latest]
+      OrientStart:
+        range: float
+        in_subset: [v1.25, latest]
+      OrientEnd:
+        range: float
+        in_subset: [v1.25, latest]
+      InfoStart:
+        range: string
+        in_subset: [v1.25, latest]
+      InfoEnd:
+        range: string
+        in_subset: [v1.25, latest]
+      JunctionCopyNumber:
+        range: float
+        in_subset: [v1.25, latest]
+      InDoubleMinute:
+        range: string
+        in_subset: [v1.25, latest]
+
+  TidyVissvdata:
+    description: ""
+    in_subset:
+      - tidy
+    annotations:
+      name: vissvdata
+      subtbl: tbl1
+    attributes:
+      sample_id:
+        range: string
+        description: sample ID
+        in_subset: [v1.25]
+      cluster_id:
+        range: string
+        in_subset: [v1.25, latest]
+      chain_id:
+        range: string
+        in_subset: [v1.25, latest]
+      sv_id:
+        range: string
+        in_subset: [v1.25, latest]
+      type:
+        range: string
+        in_subset: [v1.25, latest]
+      resolved_type:
+        range: string
+        in_subset: [v1.25, latest]
+      is_synthetic:
+        range: string
+        in_subset: [v1.25, latest]
+      chr_start:
+        range: string
+        in_subset: [v1.25, latest]
+      chr_end:
+        range: string
+        in_subset: [v1.25, latest]
+      pos_start:
+        range: float
+        in_subset: [v1.25, latest]
+      pos_end:
+        range: float
+        in_subset: [v1.25, latest]
+      orient_start:
+        range: float
+        in_subset: [v1.25, latest]
+      orient_end:
+        range: float
+        in_subset: [v1.25, latest]
+      info_start:
+        range: string
+        in_subset: [v1.25, latest]
+      info_end:
+        range: string
+        in_subset: [v1.25, latest]
+      junction_cn:
+        range: float
+        in_subset: [v1.25, latest]
+      in_double_minute:
+        range: string
+        in_subset: [v1.25, latest]
+
+
+  #---- Version ----#
+  RawVersion:
+    description: Version of the tool.
+    in_subset: [raw, latest]
+    annotations:
+      name: version
+      pattern: "^linx\\.version$"
+      ftype: txt
+    attributes:
+      version:
+        range: string
+      "build.date":
+        range: string
+
+  TidyVersion:
+    description: Version of the tool
+    in_subset: [tidy, latest]
+    annotations:
+      name: version
+      subtbl: tbl1
+    attributes:
+      version:
+        range: string
+        description: version of the tool
+      date_build:
+        range: string
+        description: build date
+

@@ -1,0 +1,108 @@
+id: https://example.org/tidywigits/flagstats
+name: flagstats
+description: >-
+  Counts of alignments for each FLAG type.
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  flagstats: https://example.org/tidywigits/flagstats/
+
+imports:
+  - linkml:types
+
+default_range: string
+default_prefix: flagstats
+
+subsets:
+  raw:
+    description: Raw input file schema
+  tidy:
+    description: Tidy output schema
+  latest:
+    description: Flagstats latest version
+
+classes:
+
+  #---- Flagstats ----#
+  RawFlagstats:
+    description: Counts of alignments for each FLAG type.
+    in_subset: [raw, latest]
+    annotations:
+      name: flagstats
+      pattern: "\\.flagstat$"
+      ftype: txt
+    attributes:
+      dummy:
+        range: string
+
+  TidyFlagstats:
+    description: Counts of alignments for each FLAG type.
+    in_subset: [tidy, latest]
+    annotations:
+      name: flagstats
+      subtbl: tbl1
+    attributes:
+      passed_or_failed:
+        range: string
+        description: QC passed or failed
+      total:
+        range: float
+        description: total number of reads that are QC pass and fail
+      primary:
+        range: float
+        description: neither secondary nor supplementary
+      secondary:
+        range: float
+        description: secondary
+      suppl:
+        range: float
+        description: supplementary
+      dup:
+        range: float
+        description: dup
+      primary_dup:
+        range: float
+        description: dup and neither secondary nor supplementary
+      mapped:
+        range: float
+        description: not unmap
+      primary_map:
+        range: float
+        description: not unmap, not secondary, and not supplementary
+      paired_in_seq:
+        range: float
+        description: paired
+      read1:
+        range: float
+        description: both paired and read1
+      read2:
+        range: float
+        description: both paired and read2
+      proper_pair:
+        range: float
+        description: both paired and proper_pair, not unmap
+      both_map:
+        range: float
+        description: paired and neither unmap nor munmap
+      singletons:
+        range: float
+        description: both paired and munmap, and not unmap
+      matemap_diff:
+        range: float
+        description: paired and neither unmap nor munmap, and mrnm not equal to rname
+      matemap_diff_mapq5:
+        range: float
+        description: paired and neither unmap nor munmap, and mrnm not equal to rname, and mapq >= 5
+      mapped_pct:
+        range: float
+        description: percentage of total reads mapped
+      primary_map_pct:
+        range: float
+        description: percentage of total primary reads
+      proper_pair_pct:
+        range: float
+        description: percentage against total pairs
+      singletons_pct:
+        range: float
+        description: percentage against total pairs
+
