@@ -1,4 +1,6 @@
 url: https://umccr.github.io/tidywigits
+development:
+  mode: auto
 title: tidywigits
 authors:
   Peter Diakumis:
