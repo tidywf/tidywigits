@@ -186,7 +186,7 @@ fs::dir_info(out_dir) |>
 # A tibble: 95 × 3
    bname                                         size type 
    <chr>                                  <fs::bytes> <fct>
- 1 metadata.json                               12.33K file 
+ 1 metadata.json                               12.34K file 
  2 sample1_2_sage_bqrtsv.parquet                4.17K file 
  3 sample1_alignments_dupfreq.parquet           2.84K file 
  4 sample1_amber_bafpcf.parquet                 4.32K file 
@@ -226,7 +226,7 @@ Using {remotes} directly from GitHub:
 ``` r
 install.packages("remotes")
 remotes::install_github("umccr/tidywigits") # latest main commit
-remotes::install_github("umccr/tidywigits@v0.0.7") # released version
+remotes::install_github("umccr/tidywigits@v0.0.7.9000") # released version
 ```
 
 Alternatively:
@@ -254,7 +254,7 @@ export PATH="${tw_cli}:${PATH}"
 ```
 
     $ tidywigits.R --version
-    tidywigits 0.0.7
+    tidywigits 0.0.7.9000
 
     #-----------------------------------#
     $ tidywigits.R --help
