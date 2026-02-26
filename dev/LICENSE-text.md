@@ -1,0 +1,4 @@
+# License
+
+    YEAR: 2026
+    COPYRIGHT HOLDER: Collaborative Centre for Genomic Cancer Medicine (CCGCM) - Genomics Platform Group
