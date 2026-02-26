@@ -1,9 +1,10 @@
 name: pkgdown_env
 channels:
+  - umccr/label/dev
   - umccr
   - conda-forge
 dependencies:
-  - umccr::r-tidywigits
+  - r-tidywigits
   - r-pkgdown
   - r-quarto
   - quarto
