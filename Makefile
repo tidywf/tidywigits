@@ -6,6 +6,9 @@ readme:
 air:
 	@air format
 
+check:
+	@R -e "devtools::check()" --quiet --no-restore --no-save
+
 pkgdown:
 	@R -e "pkgdown::build_site()" --quiet --no-restore --no-save
 

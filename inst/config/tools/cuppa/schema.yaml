@@ -186,16 +186,13 @@ classes:
       clf_name:
         range: string
         description: classifier name
-      pred_class_rank:
+      rank:
         range: integer
-        description: prediction class rank
-      pred_class:
+        description: prediction rank
+      class:
         range: string
         description: prediction class
-      pred_prob_rank:
-        range: integer
-        description: prediction probability rank
-      pred_prob:
+      prob:
         range: float
         description: prediction probability
       extra_info:

@@ -112,21 +112,13 @@ Cuppa <- R6::R6Class(
       version <- nemo::get_tbl_version_attr(x)
       d <- x |>
         tidyr::pivot_longer(
-          dplyr::contains("pred_class_"),
-          names_prefix = "pred_class_",
-          names_to = "pred_class_rank",
-          values_to = "pred_class",
-          names_transform = list(pred_class_rank = as.integer)
+          dplyr::matches("pred_class|pred_prob"),
+          names_to = c(".value", "rank"),
+          names_pattern = "(pred_class|pred_prob)_(\\d+)",
+          names_transform = list(rank = as.integer)
         ) |>
-        tidyr::pivot_longer(
-          dplyr::contains("pred_prob_"),
-          names_prefix = "pred_prob_",
-          names_to = "pred_prob_rank",
-          values_to = "pred_prob",
-          names_transform = list(pred_prob_rank = as.integer)
-        ) |>
-        dplyr::relocate("extra_info", .after = dplyr::last_col()) |>
-        dplyr::relocate("extra_info_format", .after = dplyr::last_col()) |>
+        dplyr::relocate(dplyr::contains("extra_info"), .after = dplyr::last_col()) |>
+        dplyr::rename(class = "pred_class", prob = "pred_prob") |>
         nemo::set_tbl_version_attr(version)
       schema <- self$get_tidy_schema("predsum")
       stopifnot(identical(colnames(d), schema[["field"]]))
