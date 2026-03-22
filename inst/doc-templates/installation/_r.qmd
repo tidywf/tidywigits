@@ -2,6 +2,6 @@ Using {remotes} directly from GitHub:
 
 ```r
 install.packages("remotes")
-remotes::install_github("umccr/tidywigits") # latest main commit
-remotes::install_github("umccr/tidywigits@v0.0.7.9000") # released version
+remotes::install_github("tidywf/tidywigits") # latest main commit
+remotes::install_github("tidywf/tidywigits@v0.0.7.9000") # released version
 ```

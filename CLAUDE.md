@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/claude-code) when working 
 
 ## Project Overview
 
-tidywigits is a nemo (https://github.com/umccr/nemo) 'child' R package that parses and tidies outputs from the
+tidywigits is a nemo (https://github.com/tidywf/nemo) 'child' R package that parses and tidies outputs from the
 **WiGiTS suite** (Hartwig Medical Foundation) — a comprehensive set of cancer
 genome and transcriptome analysis tools. It can write tidy outputs to parquet,
 TSV, CSV, RDS, or database formats (only PostgreSQL tested for now) for downstream ingestion.

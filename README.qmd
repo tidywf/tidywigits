@@ -22,23 +22,23 @@ use("tidywigits")
 options(width = 100)
 ```
 
-<a href="https://umccr.github.io/tidywigits"><img src="man/figures/logo.png" alt="logo" align="left" height="100" /></a>
+<a href="https://tidywf.github.io/tidywigits"><img src="man/figures/logo.png" alt="logo" align="left" height="100" /></a>
 
 # 🧬✨ Tidy WiGiTS Outputs
 
 
 [![conda-latest1]](https://anaconda.org/umccr/r-tidywigits)
-[![gha]](https://github.com/umccr/tidywigits/actions/workflows/deploy.yaml)
+[![gha]](https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml)
 
 [conda-latest1]: <https://anaconda.org/umccr/r-tidywigits/badges/latest_release_date.svg> "Conda Latest Release"
-[gha]: <https://github.com/umccr/tidywigits/actions/workflows/deploy.yaml/badge.svg> "GitHub Actions"
+[gha]: <https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml/badge.svg> "GitHub Actions"
 
-- 📚 Docs: <https://umccr.github.io/tidywigits>:
-  - [Installation](https://umccr.github.io/tidywigits/articles/installation)
-  - [Files/tables supported](https://umccr.github.io/tidywigits/articles/schemas_raw)
-  - [Tidy schemas](https://umccr.github.io/tidywigits/articles/schemas_tidy)
-  - [Developer notes](https://umccr.github.io/tidywigits/articles/developers)
-  - [Changelog](https://umccr.github.io/tidywigits/articles/NEWS)
+- 📚 Docs: <https://tidywf.github.io/tidywigits>:
+  - [Installation](https://tidywf.github.io/tidywigits/articles/installation)
+  - [Files/tables supported](https://tidywf.github.io/tidywigits/articles/schemas_raw)
+  - [Tidy schemas](https://tidywf.github.io/tidywigits/articles/schemas_tidy)
+  - [Developer notes](https://tidywf.github.io/tidywigits/articles/developers)
+  - [Changelog](https://tidywf.github.io/tidywigits/articles/NEWS)
 
 ## Overview
 
@@ -48,7 +48,7 @@ options(width = 100)
 
 The starting point of {tidywigits} is a directory with WiGiTS results. Let's
 look at some sample data (tracked via [DVC]) under
-<https://github.com/umccr/tidywigits/tree/main/inst/extdata/oa>:
+<https://github.com/tidywf/tidywigits/tree/main/inst/extdata/oa>:
 
 [DVC]: <https://dvc.org/>
 
@@ -80,9 +80,9 @@ a PostgreSQL database as follows:
 Alternatively:
 
 - conda package: <https://anaconda.org/umccr/r-tidywigits>
-- Docker image: <https://github.com/umccr/tidywigits/pkgs/container/tidywigits>
+- Docker image: <https://github.com/tidywf/tidywigits/pkgs/container/tidywigits>
 
-For more details see: <https://umccr.github.io/tidywigits/articles/installation>
+For more details see: <https://tidywf.github.io/tidywigits/articles/installation>
 
 ## 🌀 CLI
 

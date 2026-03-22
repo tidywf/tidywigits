@@ -2,22 +2,22 @@
 
 <!-- README.md is generated from README.qmd. Please edit that file -->
 
-<a href="https://umccr.github.io/tidywigits"><img src="man/figures/logo.png" alt="logo" align="left" height="100" /></a>
+<a href="https://tidywf.github.io/tidywigits"><img src="man/figures/logo.png" alt="logo" align="left" height="100" /></a>
 
 # 🧬✨ Tidy WiGiTS Outputs
 
 [![conda-latest1](https://anaconda.org/umccr/r-tidywigits/badges/latest_release_date.svg "Conda Latest Release")](https://anaconda.org/umccr/r-tidywigits)
-[![gha](https://github.com/umccr/tidywigits/actions/workflows/deploy.yaml/badge.svg "GitHub Actions")](https://github.com/umccr/tidywigits/actions/workflows/deploy.yaml)
+[![gha](https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml/badge.svg "GitHub Actions")](https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml)
 
-- 📚 Docs: <https://umccr.github.io/tidywigits>:
-  - [Installation](https://umccr.github.io/tidywigits/articles/installation)
+- 📚 Docs: <https://tidywf.github.io/tidywigits>:
+  - [Installation](https://tidywf.github.io/tidywigits/articles/installation)
   - [Files/tables
-    supported](https://umccr.github.io/tidywigits/articles/schemas_raw)
+    supported](https://tidywf.github.io/tidywigits/articles/schemas_raw)
   - [Tidy
-    schemas](https://umccr.github.io/tidywigits/articles/schemas_tidy)
+    schemas](https://tidywf.github.io/tidywigits/articles/schemas_tidy)
   - [Developer
-    notes](https://umccr.github.io/tidywigits/articles/developers)
-  - [Changelog](https://umccr.github.io/tidywigits/articles/NEWS)
+    notes](https://tidywf.github.io/tidywigits/articles/developers)
+  - [Changelog](https://tidywf.github.io/tidywigits/articles/NEWS)
 
 ## Overview
 
@@ -36,7 +36,7 @@ e.g. Apache Parquet, PostgreSQL, TSV, RDS.
 
 The starting point of {tidywigits} is a directory with WiGiTS results.
 Let’s look at some sample data (tracked via [DVC](https://dvc.org/))
-under <https://github.com/umccr/tidywigits/tree/main/inst/extdata/oa>:
+under <https://github.com/tidywf/tidywigits/tree/main/inst/extdata/oa>:
 
 <details class="code-fold">
 <summary>Click here</summary>
@@ -225,18 +225,18 @@ Using {remotes} directly from GitHub:
 
 ``` r
 install.packages("remotes")
-remotes::install_github("umccr/tidywigits") # latest main commit
-remotes::install_github("umccr/tidywigits@v0.0.7.9000") # released version
+remotes::install_github("tidywf/tidywigits") # latest main commit
+remotes::install_github("tidywf/tidywigits@v0.0.7.9000") # released version
 ```
 
 Alternatively:
 
 - conda package: <https://anaconda.org/umccr/r-tidywigits>
 - Docker image:
-  <https://github.com/umccr/tidywigits/pkgs/container/tidywigits>
+  <https://github.com/tidywf/tidywigits/pkgs/container/tidywigits>
 
 For more details see:
-<https://umccr.github.io/tidywigits/articles/installation>
+<https://tidywf.github.io/tidywigits/articles/installation>
 
 ## 🌀 CLI
 

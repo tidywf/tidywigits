@@ -1,9 +1,9 @@
 FROM ubuntu:24.04
 LABEL org.opencontainers.image.authors="peterdiakumis@gmail.com" \
       org.opencontainers.image.description="WiGiTS workflow tidying" \
-      org.opencontainers.image.source="https://github.com/umccr/tidywigits" \
-      org.opencontainers.image.url="https://github.com/umccr/tidywigits" \
-      org.opencontainers.image.documentation="https://umccr.github.io/tidywigits" \
+      org.opencontainers.image.source="https://github.com/tidywf/tidywigits" \
+      org.opencontainers.image.url="https://github.com/tidywf/tidywigits" \
+      org.opencontainers.image.documentation="https://tidywf.github.io/tidywigits" \
       org.opencontainers.image.licenses="MIT"
 
 ARG MINIF="miniforge"
