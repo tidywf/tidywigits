@@ -53,13 +53,13 @@ tests:
     - tidywigits.R --version
 
 about:
-  homepage: https://github.com/umccr/tidywigits
+  homepage: https://github.com/tidywf/tidywigits
   summary: WiGiTS workflow tidying
   description: WiGiTS workflow tidying
   license: MIT
   license_file: LICENSE
-  repository: https://github.com/umccr/tidywigits
-  documentation: https://umccr.github.io/tidywigits/
+  repository: https://github.com/tidywf/tidywigits
+  documentation: https://tidywf.github.io/tidywigits/
 
 extra:
   recipe-maintainers:

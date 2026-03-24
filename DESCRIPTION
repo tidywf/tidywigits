@@ -12,13 +12,13 @@ Authors@R:
            email = "peterdiakumis@gmail.com",
            comment = c(ORCID = "0000-0002-7502-7545"))
      )
-URL: https://github.com/umccr/tidywigits, https://umccr.github.io/tidywigits/
-BugReports: https://github.com/umccr/tidywigits/issues
+URL: https://github.com/tidywf/tidywigits, https://tidywf.github.io/tidywigits/
+BugReports: https://github.com/tidywf/tidywigits/issues
 License: MIT + file LICENSE
 Depends:
     R (>= 4.4)
 Remotes:
-    umccr/nemo
+    tidywf/nemo
 Imports:
     dplyr,
     fs,

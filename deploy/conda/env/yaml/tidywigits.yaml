@@ -1,6 +1,6 @@
 name: tidywigits_env
 channels:
-  - umccr
+  - tidywf
   - conda-forge
 dependencies:
   - r-tidywigits ==0.0.7.9000 # bump

@@ -22,7 +22,7 @@ knitr:
 ```
 
 ```{r echo=FALSE}
-repo <- "https://github.com/umccr/tidywigits"
+repo <- "https://github.com/tidywf/tidywigits"
 vdiff <- function(new, old) {
   stopifnot(utils::compareVersion(new, old) == 1)
   htmltools::a(
@@ -73,7 +73,7 @@ pr <- function(n) {
 
 - `r vdiff("0.0.5", "0.0.4")`
 
-Major refactor, moving core functionality to [nemo](https://github.com/umccr/nemo)
+Major refactor, moving core functionality to [nemo](https://github.com/tidywf/nemo)
 
 - move Config, Tool, Workflow classes to nemo
 - move utils to nemo
