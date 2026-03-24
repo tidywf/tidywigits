@@ -139,20 +139,20 @@ Use `make bump VERSION=x.y.z` to bump the version. This runs `bump-my-version` (
 
 ## CI/CD: `.github/workflows/deploy.yaml`
 
-The `conda-docs` workflow triggers on pushes to `main` or `dev`, but only runs when the commit message starts with `Bump version:`.
+The `conda-docker-docs` workflow triggers on pushes to `main` or `dev`, but only runs when the commit message starts with `Bump version:`.
 
 ### Jobs
 
-**`conda`** — builds and uploads the conda package:
-1. Builds the package with `rattler-build` using the recipe at `deploy/conda/recipe/recipe.yaml`
+**`condarise-dockerise`** — builds the conda package, publishes it, locks deps, and builds the Docker image:
+1. Builds the conda package with `rattler-build` using the recipe at `deploy/conda/recipe/recipe.yaml`
 2. Uploads to Anaconda under the `tidywf` owner; uses `--channel dev` label when on the `dev` branch
 3. Regenerates the conda lock file (`deploy/conda/env/lock/conda-linux-64.lock`) for `linux-64`
 4. Commits and pushes the updated lock file as a bot commit (`[bot] Updating conda-lock files (v<VERSION>)`)
-5. Creates a git tag (`vVERSION`) — only on `main`
+5. Creates a git tag (`vVERSION`) — on both branches
+6. Builds and pushes a Docker image to `ghcr.io/<repo>:<VERSION>` for `linux/amd64` (from the release tag, on both branches)
 
-**`pkgdown`** (depends on `conda`) — publishes the documentation site:
-- On `main`: checks out the tagged release commit, then deploys via `pkgdown::deploy_to_branch()`
-- On `dev`: checks out the branch tip and deploys
+**`pkgdown`** (depends on `condarise-dockerise`) — publishes the documentation site:
+- Checks out the release tag (`v${{ VERSION }}`), pulls DVC data, installs the R package, generates schema ER SVGs, and deploys via `pkgdown::deploy_to_branch()` — same flow on both branches
 
 ### Key variables
 

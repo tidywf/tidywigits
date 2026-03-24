@@ -31,10 +31,17 @@ jobs:
       packages: write # for docker
 
     steps:
+      - name: 🤖 Generate app token
+        uses: actions/create-github-app-token@v3
+        id: app-token1
+        with:
+          app_id: ${{ vars.BOT1_APP_ID }}
+          private_key: ${{ secrets.BOT1_APP_PRIVATE_KEY }}
       - name: 🚚 Code checkout
         uses: actions/checkout@v6
         with:
-          ssh-key: ${{ secrets.BOT_DEPLOY_KEY }} # for overriding branch protection rules
+          token: ${{ steps.app-token1.outputs.token }} # branch write override
+          persist-credentials: false
       - name: 👾 Miniforge setup
         uses: conda-incubator/setup-miniconda@v3
         with:
@@ -76,10 +83,12 @@ jobs:
           && rm conda-lock.yml \
           && mv conda-linux-64.lock ${{ env.conda_env_lock }}/
       - name: 💾 Commit lockfiles
+        env:
+          APP_ID: ${{ vars.BOT1_APP_ID }}
         run: |
           git status
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
+          git config --local user.email "${APP_ID}+tidywf-ci-bot[bot]@users.noreply.github.com"
+          git config --local user.name "tidywf-ci-bot[bot]"
           MSG="[bot] Updating conda-lock files (v${{ env.VERSION }})"
           git add .
           git commit -m "${MSG}"
@@ -92,7 +101,6 @@ jobs:
           LATEST_COMMIT_HASH="$(git --no-pager log -1 --format='%H')"
           echo "latest_commit_hash=${LATEST_COMMIT_HASH}" >> $GITHUB_OUTPUT
       - name: 🔖 Create tag
-        if: github.ref == 'refs/heads/main'
         uses: actions/github-script@v8
         env:
           LATEST_COMMIT_HASH: ${{ steps.pull_lock_commit.outputs.latest_commit_hash }}
@@ -106,12 +114,10 @@ jobs:
               ref: the_tag_name,
               sha: the_sha
             })
-      - name: 🚚 Code checkout (release tag)
-        if: github.ref == 'refs/heads/main'
+      - name: 🚚 Code checkout (including lockfiles)
         uses: actions/checkout@v6
         with:
           ref: v${{ env.VERSION }}
-          ssh-key: ${{ secrets.BOT_DEPLOY_KEY }} # for overriding branch protection rules
       - name: 🏰 QEMU setup
         uses: docker/setup-qemu-action@v4
       - name: 🏯 Buildx setup
@@ -145,17 +151,18 @@ jobs:
     permissions:
       contents: write # for committing
     steps:
-      - name: 🚚 Code checkout (release)
-        if: github.ref == 'refs/heads/main'
+      - name: 🤖 Generate app token
+        uses: actions/create-github-app-token@v3
+        id: app-token2
+        with:
+          app_id: ${{ vars.BOT1_APP_ID }}
+          private_key: ${{ secrets.BOT1_APP_PRIVATE_KEY }}
+      - name: 🚚 Code checkout
         uses: actions/checkout@v6
         with:
           ref: v${{ env.VERSION }}
-          ssh-key: ${{ secrets.BOT_DEPLOY_KEY }} # for overriding branch protection rules
-      - name: 🚚 Code checkout (dev)
-        if: github.ref == 'refs/heads/dev'
-        uses: actions/checkout@v6
-        with:
-          ssh-key: ${{ secrets.BOT_DEPLOY_KEY }} # for overriding branch protection rules
+          token: ${{ steps.app-token2.outputs.token }} # branch write override
+          persist-credentials: false
       - name: DVC setup
         uses: iterative/setup-dvc@v2
       - name: DVC pull
@@ -169,19 +176,20 @@ jobs:
           environment-file: ${{ env.conda_env_yaml }}/pkgdown.yaml
           activate-environment: pkgdown_env
           miniforge-version: latest
+      # install R pkg from source to use the DVC-pulled data for pkgdown generation
       - name: 📦 Install R pkg from source
         run: R CMD INSTALL --no-test-load .
       - name: 🖼️ Install Mermaid CLI
         run: npm install -g @mermaid-js/mermaid-cli
-
       - name: 🎨 Generate schema ER SVGs
         run: |
           echo '{"args":["--no-sandbox"]}' > /tmp/puppeteer.json
           Rscript inst/scripts/gen_er_svgs.R /tmp/puppeteer.json
-
       - name: 🌐 Website publish
+        env:
+          APP_ID: ${{ vars.BOT1_APP_ID }}
         run: |
           Rscript -e "list.files(system.file('extdata', package = 'tidywigits'), recursive = TRUE)"
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
+          git config --local user.email "${APP_ID}+tidywf-ci-bot[bot]@users.noreply.github.com"
+          git config --local user.name "tidywf-ci-bot[bot]"
           Rscript -e "pkgdown::deploy_to_branch(pkg = '.', new_process = FALSE)"
