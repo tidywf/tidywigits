@@ -1,15 +1,15 @@
-[![conda-version] ![conda-latest]](https://anaconda.org/umccr/r-tidywigits)
+[![conda-version] ![conda-latest]](https://anaconda.org/tidywf/r-tidywigits)
 
-[conda-version]: <https://anaconda.org/umccr/r-tidywigits/badges/version.svg> "Conda package version"
-[conda-latest]: <https://anaconda.org/umccr/r-tidywigits/badges/latest_release_date.svg> "Conda package latest release date"
+[conda-version]: <https://anaconda.org/tidywf/r-tidywigits/badges/version.svg> "Conda package version"
+[conda-latest]: <https://anaconda.org/tidywf/r-tidywigits/badges/latest_release_date.svg> "Conda package latest release date"
 
-The conda package is available from the umccr channel at
-<https://anaconda.org/umccr/r-tidywigits>.
+The conda package is available from the tidywf channel at
+<https://anaconda.org/tidywf/r-tidywigits>.
 
 ```bash
 conda create \
   -n tidywigits_env \
-  -c umccr -c conda-forge \
+  -c tidywf -c conda-forge \
   r-tidywigits==0.0.7.9000
 
 conda activate tidywigits_env

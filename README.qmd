@@ -27,10 +27,10 @@ options(width = 100)
 # 🧬✨ Tidy WiGiTS Outputs
 
 
-[![conda-latest1]](https://anaconda.org/umccr/r-tidywigits)
+[![conda-latest1]](https://anaconda.org/tidywf/r-tidywigits)
 [![gha]](https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml)
 
-[conda-latest1]: <https://anaconda.org/umccr/r-tidywigits/badges/latest_release_date.svg> "Conda Latest Release"
+[conda-latest1]: <https://anaconda.org/tidywf/r-tidywigits/badges/latest_release_date.svg> "Conda Latest Release"
 [gha]: <https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml/badge.svg> "GitHub Actions"
 
 - 📚 Docs: <https://tidywf.github.io/tidywigits>:
@@ -79,7 +79,7 @@ a PostgreSQL database as follows:
 
 Alternatively:
 
-- conda package: <https://anaconda.org/umccr/r-tidywigits>
+- conda package: <https://anaconda.org/tidywf/r-tidywigits>
 - Docker image: <https://github.com/tidywf/tidywigits/pkgs/container/tidywigits>
 
 For more details see: <https://tidywf.github.io/tidywigits/articles/installation>

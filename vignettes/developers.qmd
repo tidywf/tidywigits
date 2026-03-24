@@ -36,7 +36,7 @@ knitr::opts_chunk$set(
 | `conda create --file env.yml --prefix ./bar`                                            | install conda pkgs listed in `env.yml` into the `./bar` directory |
 | `conda info -e`                                                                         | list conda environments installed on this machine                 |
 | `rattler-build build -r recipe.yaml --output-dir ${HOME}/tmp`                           | build conda pkg from a recipe file                                |
-| `rattler-build upload anaconda -o umccr --api-key <xxx> ${HOME}/tmp/r-tidywigits.conda` | upload conda pkg to anaconda                                      |
+| `rattler-build upload anaconda -o tidywf --api-key <xxx> ${HOME}/tmp/r-tidywigits.conda` | upload conda pkg to anaconda                                      |
 
 ### pkgdown
 
