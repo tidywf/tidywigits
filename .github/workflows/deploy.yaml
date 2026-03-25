@@ -11,6 +11,8 @@ jobs:
     if: "startsWith(github.event.head_commit.message, 'Bump version:')"
     name: Condarise and Tag
     uses: tidywf/.github/.github/workflows/condarise-and-tag.yaml@main
+    permissions:
+      contents: write
     with:
       pkg_name: tidywigits
       pkg_version: '0.0.7.9000' # bump
@@ -20,6 +22,8 @@ jobs:
     name: Dockerise
     needs: [condarise_and_tag]
     uses: tidywf/.github/.github/workflows/dockerise.yaml@main
+    permissions:
+      packages: write
     with:
       pkg_version: '0.0.7.9000' # bump
 
@@ -27,6 +31,8 @@ jobs:
     name: Pkgdownise
     needs: [condarise_and_tag]
     uses: tidywf/.github/.github/workflows/pkgdownise.yaml@main
+    permissions:
+      contents: write
     with:
       pkg_name: tidywigits
       pkg_version: '0.0.7.9000' # bump
