@@ -139,28 +139,23 @@ Use `make bump VERSION=x.y.z` to bump the version. This runs `bump-my-version` (
 
 ## CI/CD: `.github/workflows/deploy.yaml`
 
-The `conda-docker-docs` workflow triggers on pushes to `main` or `dev`, but only runs when the commit message starts with `Bump version:`.
+The `conda-docker-docs` workflow triggers on pushes to `main` or `dev`, but only runs when the commit message starts with `Bump version:`. All three jobs call reusable workflows from `tidywf/.github`.
 
 ### Jobs
 
-**`condarise-dockerise`** — builds the conda package, publishes it, locks deps, and builds the Docker image:
-1. Builds the conda package with `rattler-build` using the recipe at `deploy/conda/recipe/recipe.yaml`
-2. Uploads to Anaconda under the `tidywf` owner; uses `--channel dev` label when on the `dev` branch
+**`condarise_and_tag`** — delegates to `tidywf/.github/.github/workflows/condarise-and-tag.yaml`:
+1. Builds the conda package with `rattler-build`
+2. Uploads to Anaconda under the `tidywf` owner; uses `--channel dev` label on `dev`
 3. Regenerates the conda lock file (`deploy/conda/env/lock/conda-linux-64.lock`) for `linux-64`
-4. Commits and pushes the updated lock file as a bot commit (`[bot] Updating conda-lock files (v<VERSION>)`)
+4. Commits and pushes the updated lock file as a bot commit
 5. Creates a git tag (`vVERSION`) — on both branches
-6. Builds and pushes a Docker image to `ghcr.io/<repo>:<VERSION>` for `linux/amd64` (from the release tag, on both branches)
 
-**`pkgdown`** (depends on `condarise-dockerise`) — publishes the documentation site:
-- Checks out the release tag (`v${{ VERSION }}`), pulls DVC data, installs the R package, generates schema ER SVGs, and deploys via `pkgdown::deploy_to_branch()` — same flow on both branches
+**`dockerise`** (depends on `condarise_and_tag`) — delegates to `tidywf/.github/.github/workflows/dockerise.yaml`:
+- Checks out the release tag and builds/pushes a Docker image to `ghcr.io/<repo>:<VERSION>` for `linux/amd64` — on both branches
 
-### Key variables
+**`pkgdownise`** (depends on `condarise_and_tag`) — delegates to `tidywf/.github/.github/workflows/pkgdownise.yaml`:
+- Checks out the release tag, pulls DVC data, installs the R package, generates schema ER SVGs, and deploys via `pkgdown::deploy_to_branch()` — same flow on both branches
 
-| Variable | Value |
-|----------|-------|
-| `VERSION` | Set manually in the workflow file (line 14) when bumping the package version |
-| `conda_recipe` | `deploy/conda/recipe` |
-| `conda_env_yaml` | `deploy/conda/env/yaml` |
-| `conda_env_lock` | `deploy/conda/env/lock` |
+### Version
 
-> When releasing, update `VERSION` in `deploy.yaml` to match the new package version before committing the version bump.
+The version is set via `pkg_version:` in the `with:` blocks of each job. `make bump VERSION=x.y.z` updates all occurrences automatically.
