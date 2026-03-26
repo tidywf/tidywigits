@@ -16,4 +16,5 @@ jobs:
     with:
       pkg_name: tidywigits
       pkg_version: ${{ inputs.version }}
+      dvc: true
     secrets: inherit
