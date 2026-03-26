@@ -6,7 +6,7 @@
 
 # 🧬✨ Tidy WiGiTS Outputs
 
-[![conda-latest1](https://anaconda.org/umccr/r-tidywigits/badges/latest_release_date.svg "Conda Latest Release")](https://anaconda.org/umccr/r-tidywigits)
+[![conda-latest1](https://anaconda.org/tidywf/r-tidywigits/badges/latest_release_date.svg "Conda Latest Release")](https://anaconda.org/tidywf/r-tidywigits)
 [![gha](https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml/badge.svg "GitHub Actions")](https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml)
 
 - 📚 Docs: <https://tidywf.github.io/tidywigits>:
@@ -44,7 +44,7 @@ under <https://github.com/tidywf/tidywigits/tree/main/inst/extdata/oa>:
 ``` r
 system.file("extdata/oa", package = "tidywigits") |>
   fs::dir_tree(invert = TRUE, glob = "*.dvc")
-/Users/pdiakumis/Library/R/arm64/4.5/library/tidywigits/extdata/oa
+/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa
 ├── alignments
 │   └── sample1.duplicate_freq.tsv
 ├── amber
@@ -186,16 +186,16 @@ fs::dir_info(out_dir) |>
 # A tibble: 95 × 3
    bname                                         size type 
    <chr>                                  <fs::bytes> <fct>
- 1 metadata.json                               12.34K file 
- 2 sample1_2_sage_bqrtsv.parquet                4.17K file 
- 3 sample1_alignments_dupfreq.parquet           2.84K file 
- 4 sample1_amber_bafpcf.parquet                 4.32K file 
- 5 sample1_amber_contaminationtsv.parquet       5.27K file 
- 6 sample1_amber_homozygousregion.parquet       4.24K file 
- 7 sample1_amber_qc.parquet                     3.28K file 
- 8 sample1_bamtools_coverage.parquet            2.65K file 
- 9 sample1_bamtools_exoncvg.parquet             3.96K file 
-10 sample1_bamtools_flagstats.parquet           7.54K file 
+ 1 metadata.json                               12.33K file 
+ 2 sample1_2_sage_bqrtsv.parquet                4.19K file 
+ 3 sample1_alignments_dupfreq.parquet           2.86K file 
+ 4 sample1_amber_bafpcf.parquet                 4.34K file 
+ 5 sample1_amber_contaminationtsv.parquet        5.3K file 
+ 6 sample1_amber_homozygousregion.parquet       4.26K file 
+ 7 sample1_amber_qc.parquet                     3.29K file 
+ 8 sample1_bamtools_coverage.parquet            2.66K file 
+ 9 sample1_bamtools_exoncvg.parquet             3.98K file 
+10 sample1_bamtools_flagstats.parquet           7.58K file 
 # ℹ 85 more rows
 ```
 
@@ -226,12 +226,12 @@ Using {remotes} directly from GitHub:
 ``` r
 install.packages("remotes")
 remotes::install_github("tidywf/tidywigits") # latest main commit
-remotes::install_github("tidywf/tidywigits@v0.0.7.9000") # released version
+remotes::install_github("tidywf/tidywigits@v0.0.7.9001") # released version
 ```
 
 Alternatively:
 
-- conda package: <https://anaconda.org/umccr/r-tidywigits>
+- conda package: <https://anaconda.org/tidywf/r-tidywigits>
 - Docker image:
   <https://github.com/tidywf/tidywigits/pkgs/container/tidywigits>
 
@@ -280,14 +280,12 @@ export PATH="${tw_cli}:${PATH}"
 
     options:
       -h, --help            show this help message and exit
-      -d IN_DIR, --in_dir IN_DIR
-                            Input directory.
-      -o OUT_DIR, --out_dir OUT_DIR
+      -d, --in_dir IN_DIR   Input directory.
+      -o, --out_dir OUT_DIR
                             Output directory.
-      -f FORMAT, --format FORMAT
-                            Format of output [def: parquet] (parquet, db, tsv,
+      -f, --format FORMAT   Format of output [def: parquet] (parquet, db, tsv,
                             csv, rds)
-      -i ID, --id ID        ID to use for this run.
+      -i, --id ID           ID to use for this run.
       --dbname DBNAME       Database name.
       --dbuser DBUSER       Database user.
       --include INCLUDE     Include only these files (comma,sep).
@@ -300,9 +298,7 @@ export PATH="${tw_cli}:${PATH}"
     usage: tidywigits.R list [-h] -d IN_DIR [-f FORMAT] [-q]
 
     options:
-      -h, --help            show this help message and exit
-      -d IN_DIR, --in_dir IN_DIR
-                            Input directory.
-      -f FORMAT, --format FORMAT
-                            Format of list output [def: pretty] (tsv, pretty)
-      -q, --quiet           Shush all the logs.
+      -h, --help           show this help message and exit
+      -d, --in_dir IN_DIR  Input directory.
+      -f, --format FORMAT  Format of list output [def: pretty] (tsv, pretty)
+      -q, --quiet          Shush all the logs.

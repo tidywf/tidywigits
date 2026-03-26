@@ -10,7 +10,7 @@ The conda package is available from the tidywf channel at
 conda create \
   -n tidywigits_env \
   -c tidywf -c conda-forge \
-  r-tidywigits==0.0.7.9000
+  r-tidywigits==0.0.7.9001
 
 conda activate tidywigits_env
 ```

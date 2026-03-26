@@ -15,7 +15,7 @@ jobs:
       contents: write
     with:
       pkg_name: tidywigits
-      pkg_version: '0.0.7.9000' # bump
+      pkg_version: '0.0.7.9001' # bump
     secrets: inherit
 
   dockerise:
@@ -25,7 +25,7 @@ jobs:
     permissions:
       packages: write
     with:
-      pkg_version: '0.0.7.9000' # bump
+      pkg_version: '0.0.7.9001' # bump
 
   pkgdownise:
     name: Pkgdownise
@@ -35,7 +35,7 @@ jobs:
       contents: write
     with:
       pkg_name: tidywigits
-      pkg_version: '0.0.7.9000' # bump
+      pkg_version: '0.0.7.9001' # bump
       dvc: true
       mermaid: true
     secrets: inherit
