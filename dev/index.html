@@ -19,7 +19,7 @@
 ">
 <meta property="og:description" content="Parse and tidy outputs from the Hartwig Medical Foundation's WiGiTS pipeline.
 ">
-<meta property="og:image" content="https://umccr.github.io/tidywigits/logo.png">
+<meta property="og:image" content="https://tidywf.github.io/tidywigits/logo.png">
 <meta name="robots" content="noindex">
 </head>
 <body>
@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +59,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/umccr/tidywigits/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/tidywf/tidywigits/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -73,15 +73,15 @@
 <img src="logo.png" class="logo" alt=""><h1 id="dnasparkles-tidy-wigits-outputs">🧬✨ Tidy WiGiTS Outputs<a class="anchor" aria-label="anchor" href="#dnasparkles-tidy-wigits-outputs"></a>
 </h1>
 </div>
-<p><a href="https://anaconda.org/umccr/r-tidywigits" class="external-link"><img src="https://anaconda.org/umccr/r-tidywigits/badges/latest_release_date.svg" title="Conda Latest Release" alt="conda-latest1"></a> <a href="https://github.com/umccr/tidywigits/actions/workflows/deploy.yaml" class="external-link"><img src="https://github.com/umccr/tidywigits/actions/workflows/deploy.yaml/badge.svg" title="GitHub Actions" alt="gha"></a></p>
+<p><a href="https://anaconda.org/tidywf/r-tidywigits" class="external-link"><img src="https://anaconda.org/tidywf/r-tidywigits/badges/latest_release_date.svg" title="Conda Latest Release" alt="conda-latest1"></a> <a href="https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml" class="external-link"><img src="https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml/badge.svg" title="GitHub Actions" alt="gha"></a></p>
 <ul>
-<li>📚 Docs: <a href="https://umccr.github.io/tidywigits" class="uri">https://umccr.github.io/tidywigits</a>:
+<li>📚 Docs: <a href="https://tidywf.github.io/tidywigits" class="uri">https://tidywf.github.io/tidywigits</a>:
 <ul>
-<li><a href="https://umccr.github.io/tidywigits/articles/installation">Installation</a></li>
-<li><a href="https://umccr.github.io/tidywigits/articles/schemas_raw">Files/tables supported</a></li>
-<li><a href="https://umccr.github.io/tidywigits/articles/schemas_tidy">Tidy schemas</a></li>
-<li><a href="https://umccr.github.io/tidywigits/articles/developers">Developer notes</a></li>
-<li><a href="https://umccr.github.io/tidywigits/articles/NEWS">Changelog</a></li>
+<li><a href="https://tidywf.github.io/tidywigits/articles/installation">Installation</a></li>
+<li><a href="https://tidywf.github.io/tidywigits/articles/schemas_raw">Files/tables supported</a></li>
+<li><a href="https://tidywf.github.io/tidywigits/articles/schemas_tidy">Tidy schemas</a></li>
+<li><a href="https://tidywf.github.io/tidywigits/articles/developers">Developer notes</a></li>
+<li><a href="https://tidywf.github.io/tidywigits/articles/NEWS">Changelog</a></li>
 </ul>
 </li>
 </ul>
@@ -94,12 +94,12 @@
 <div class="section level2">
 <h2 id="art-quick-start">🎨 Quick Start<a class="anchor" aria-label="anchor" href="#art-quick-start"></a>
 </h2>
-<p>The starting point of {tidywigits} is a directory with WiGiTS results. Let’s look at some sample data (tracked via <a href="https://dvc.org/" class="external-link">DVC</a>) under <a href="https://github.com/umccr/tidywigits/tree/main/inst/extdata/oa" class="external-link uri">https://github.com/umccr/tidywigits/tree/main/inst/extdata/oa</a>:</p>
+<p>The starting point of {tidywigits} is a directory with WiGiTS results. Let’s look at some sample data (tracked via <a href="https://dvc.org/" class="external-link">DVC</a>) under <a href="https://github.com/tidywf/tidywigits/tree/main/inst/extdata/oa" class="external-link uri">https://github.com/tidywf/tidywigits/tree/main/inst/extdata/oa</a>:</p>
 <details class="code-fold"><summary>
 Click here
 </summary><div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">system.file</span>(<span class="st">"extdata/oa"</span>, <span class="at">package =</span> <span class="st">"tidywigits"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  fs<span class="sc">::</span><span class="fu">dir_tree</span>(<span class="at">invert =</span> <span class="cn">TRUE</span>, <span class="at">glob =</span> <span class="st">"*.dvc"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="sc">/</span>Users<span class="sc">/</span>pdiakumis<span class="sc">/</span>Library<span class="sc">/</span>R<span class="sc">/</span>arm64<span class="sc">/</span><span class="fl">4.5</span><span class="sc">/</span>library<span class="sc">/</span>tidywigits<span class="sc">/</span>extdata<span class="sc">/</span>oa</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="sc">/</span>home<span class="sc">/</span>runner<span class="sc">/</span>miniconda3<span class="sc">/</span>envs<span class="sc">/</span>pkgdown_env<span class="sc">/</span>lib<span class="sc">/</span>R<span class="sc">/</span>library<span class="sc">/</span>tidywigits<span class="sc">/</span>extdata<span class="sc">/</span>oa</span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>├── alignments</span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>│   └── sample1.duplicate_freq.tsv</span>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>├── amber</span>
@@ -235,16 +235,16 @@ Click here
 <span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co"># A tibble: 95 × 3</span></span>
 <span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>   bname                                         size type </span>
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>   <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>                                  <span class="er">&lt;</span>fs<span class="sc">::</span>bytes<span class="sc">&gt;</span> <span class="er">&lt;</span>fct<span class="sc">&gt;</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a> <span class="dv">1</span> metadata.json                               <span class="fl">12.34</span>K file </span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a> <span class="dv">2</span> sample1_2_sage_bqrtsv.parquet                <span class="fl">4.17</span>K file </span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a> <span class="dv">3</span> sample1_alignments_dupfreq.parquet           <span class="fl">2.84</span>K file </span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a> <span class="dv">4</span> sample1_amber_bafpcf.parquet                 <span class="fl">4.32</span>K file </span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a> <span class="dv">5</span> sample1_amber_contaminationtsv.parquet       <span class="fl">5.27</span>K file </span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a> <span class="dv">6</span> sample1_amber_homozygousregion.parquet       <span class="fl">4.24</span>K file </span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a> <span class="dv">7</span> sample1_amber_qc.parquet                     <span class="fl">3.28</span>K file </span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a> <span class="dv">8</span> sample1_bamtools_coverage.parquet            <span class="fl">2.65</span>K file </span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a> <span class="dv">9</span> sample1_bamtools_exoncvg.parquet             <span class="fl">3.96</span>K file </span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="dv">10</span> sample1_bamtools_flagstats.parquet           <span class="fl">7.54</span>K file </span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a> <span class="dv">1</span> metadata.json                               <span class="fl">12.33</span>K file </span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a> <span class="dv">2</span> sample1_2_sage_bqrtsv.parquet                <span class="fl">4.19</span>K file </span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a> <span class="dv">3</span> sample1_alignments_dupfreq.parquet           <span class="fl">2.86</span>K file </span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a> <span class="dv">4</span> sample1_amber_bafpcf.parquet                 <span class="fl">4.34</span>K file </span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a> <span class="dv">5</span> sample1_amber_contaminationtsv.parquet        <span class="fl">5.3</span>K file </span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a> <span class="dv">6</span> sample1_amber_homozygousregion.parquet       <span class="fl">4.26</span>K file </span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a> <span class="dv">7</span> sample1_amber_qc.parquet                     <span class="fl">3.29</span>K file </span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a> <span class="dv">8</span> sample1_bamtools_coverage.parquet            <span class="fl">2.66</span>K file </span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a> <span class="dv">9</span> sample1_bamtools_exoncvg.parquet             <span class="fl">3.98</span>K file </span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="dv">10</span> sample1_bamtools_flagstats.parquet           <span class="fl">7.58</span>K file </span>
 <span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co"># ℹ 85 more rows</span></span></code></pre></div>
 <ul>
 <li>PostgreSQL:</li>
@@ -271,16 +271,16 @@ Click here
 <p>Using {remotes} directly from GitHub:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"umccr/tidywigits"</span><span class="op">)</span> <span class="co"># latest main commit</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"umccr/tidywigits@v0.0.7.9000"</span><span class="op">)</span> <span class="co"># released version</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits"</span><span class="op">)</span> <span class="co"># latest main commit</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits@v0.0.7.9001"</span><span class="op">)</span> <span class="co"># released version</span></span></code></pre></div>
 <p>Alternatively:</p>
 <ul>
-<li>conda package: <a href="https://anaconda.org/umccr/r-tidywigits" class="external-link uri">https://anaconda.org/umccr/r-tidywigits</a>
+<li>conda package: <a href="https://anaconda.org/tidywf/r-tidywigits" class="external-link uri">https://anaconda.org/tidywf/r-tidywigits</a>
 </li>
-<li>Docker image: <a href="https://github.com/umccr/tidywigits/pkgs/container/tidywigits" class="external-link uri">https://github.com/umccr/tidywigits/pkgs/container/tidywigits</a>
+<li>Docker image: <a href="https://github.com/tidywf/tidywigits/pkgs/container/tidywigits" class="external-link uri">https://github.com/tidywf/tidywigits/pkgs/container/tidywigits</a>
 </li>
 </ul>
-<p>For more details see: <a href="https://umccr.github.io/tidywigits/articles/installation" class="uri">https://umccr.github.io/tidywigits/articles/installation</a></p>
+<p>For more details see: <a href="https://tidywf.github.io/tidywigits/articles/installation" class="uri">https://tidywf.github.io/tidywigits/articles/installation</a></p>
 </div>
 <div class="section level2">
 <h2 id="cyclone-cli">🌀 CLI<a class="anchor" aria-label="anchor" href="#cyclone-cli"></a>
@@ -319,40 +319,36 @@ Click here
 <span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a></span>
 <span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a>options<span class="sc">:</span></span>
 <span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a>  <span class="sc">-</span>h, <span class="sc">--</span>help            show this help message and exit</span>
-<span id="cb6-28"><a href="#cb6-28" tabindex="-1"></a>  <span class="sc">-</span>d IN_DIR, <span class="sc">--</span>in_dir IN_DIR</span>
-<span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a>                        Input directory.</span>
-<span id="cb6-30"><a href="#cb6-30" tabindex="-1"></a>  <span class="sc">-</span>o OUT_DIR, <span class="sc">--</span>out_dir OUT_DIR</span>
-<span id="cb6-31"><a href="#cb6-31" tabindex="-1"></a>                        Output directory.</span>
-<span id="cb6-32"><a href="#cb6-32" tabindex="-1"></a>  <span class="sc">-</span>f FORMAT, <span class="sc">--</span>format FORMAT</span>
-<span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a>                        Format of output [def<span class="sc">:</span> parquet] (parquet, db, tsv,</span>
-<span id="cb6-34"><a href="#cb6-34" tabindex="-1"></a>                        csv, rds)</span>
-<span id="cb6-35"><a href="#cb6-35" tabindex="-1"></a>  <span class="sc">-</span>i ID, <span class="sc">--</span>id ID        ID to use <span class="cf">for</span> this run.</span>
-<span id="cb6-36"><a href="#cb6-36" tabindex="-1"></a>  <span class="sc">--</span>dbname DBNAME       Database name.</span>
-<span id="cb6-37"><a href="#cb6-37" tabindex="-1"></a>  <span class="sc">--</span>dbuser DBUSER       Database user.</span>
-<span id="cb6-38"><a href="#cb6-38" tabindex="-1"></a>  <span class="sc">--</span>include INCLUDE     Include only these <span class="fu">files</span> (comma,sep).</span>
-<span id="cb6-39"><a href="#cb6-39" tabindex="-1"></a>  <span class="sc">--</span>exclude EXCLUDE     Exclude these <span class="fu">files</span> (comma,sep).</span>
-<span id="cb6-40"><a href="#cb6-40" tabindex="-1"></a>  <span class="sc">-</span>q, <span class="sc">--</span>quiet           Shush all the logs.</span>
-<span id="cb6-41"><a href="#cb6-41" tabindex="-1"></a></span>
-<span id="cb6-42"><a href="#cb6-42" tabindex="-1"></a><span class="co">#-----------------------------------#</span></span>
-<span id="cb6-43"><a href="#cb6-43" tabindex="-1"></a><span class="co">#------- List ----------------------#</span></span>
-<span id="cb6-44"><a href="#cb6-44" tabindex="-1"></a><span class="sc">$</span> tidywigits.R list <span class="sc">--</span>help</span>
-<span id="cb6-45"><a href="#cb6-45" tabindex="-1"></a>usage<span class="sc">:</span> tidywigits.R list [<span class="sc">-</span>h] <span class="sc">-</span>d IN_DIR [<span class="sc">-</span>f FORMAT] [<span class="sc">-</span>q]</span>
-<span id="cb6-46"><a href="#cb6-46" tabindex="-1"></a></span>
-<span id="cb6-47"><a href="#cb6-47" tabindex="-1"></a>options<span class="sc">:</span></span>
-<span id="cb6-48"><a href="#cb6-48" tabindex="-1"></a>  <span class="sc">-</span>h, <span class="sc">--</span>help            show this help message and exit</span>
-<span id="cb6-49"><a href="#cb6-49" tabindex="-1"></a>  <span class="sc">-</span>d IN_DIR, <span class="sc">--</span>in_dir IN_DIR</span>
-<span id="cb6-50"><a href="#cb6-50" tabindex="-1"></a>                        Input directory.</span>
-<span id="cb6-51"><a href="#cb6-51" tabindex="-1"></a>  <span class="sc">-</span>f FORMAT, <span class="sc">--</span>format FORMAT</span>
-<span id="cb6-52"><a href="#cb6-52" tabindex="-1"></a>                        Format of list output [def<span class="sc">:</span> pretty] (tsv, pretty)</span>
-<span id="cb6-53"><a href="#cb6-53" tabindex="-1"></a>  <span class="sc">-</span>q, <span class="sc">--</span>quiet           Shush all the logs.</span></code></pre></div>
+<span id="cb6-28"><a href="#cb6-28" tabindex="-1"></a>  <span class="sc">-</span>d, <span class="sc">--</span>in_dir IN_DIR   Input directory.</span>
+<span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a>  <span class="sc">-</span>o, <span class="sc">--</span>out_dir OUT_DIR</span>
+<span id="cb6-30"><a href="#cb6-30" tabindex="-1"></a>                        Output directory.</span>
+<span id="cb6-31"><a href="#cb6-31" tabindex="-1"></a>  <span class="sc">-</span>f, <span class="sc">--</span>format FORMAT   Format of output [def<span class="sc">:</span> parquet] (parquet, db, tsv,</span>
+<span id="cb6-32"><a href="#cb6-32" tabindex="-1"></a>                        csv, rds)</span>
+<span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a>  <span class="sc">-</span>i, <span class="sc">--</span>id ID           ID to use <span class="cf">for</span> this run.</span>
+<span id="cb6-34"><a href="#cb6-34" tabindex="-1"></a>  <span class="sc">--</span>dbname DBNAME       Database name.</span>
+<span id="cb6-35"><a href="#cb6-35" tabindex="-1"></a>  <span class="sc">--</span>dbuser DBUSER       Database user.</span>
+<span id="cb6-36"><a href="#cb6-36" tabindex="-1"></a>  <span class="sc">--</span>include INCLUDE     Include only these <span class="fu">files</span> (comma,sep).</span>
+<span id="cb6-37"><a href="#cb6-37" tabindex="-1"></a>  <span class="sc">--</span>exclude EXCLUDE     Exclude these <span class="fu">files</span> (comma,sep).</span>
+<span id="cb6-38"><a href="#cb6-38" tabindex="-1"></a>  <span class="sc">-</span>q, <span class="sc">--</span>quiet           Shush all the logs.</span>
+<span id="cb6-39"><a href="#cb6-39" tabindex="-1"></a></span>
+<span id="cb6-40"><a href="#cb6-40" tabindex="-1"></a><span class="co">#-----------------------------------#</span></span>
+<span id="cb6-41"><a href="#cb6-41" tabindex="-1"></a><span class="co">#------- List ----------------------#</span></span>
+<span id="cb6-42"><a href="#cb6-42" tabindex="-1"></a><span class="sc">$</span> tidywigits.R list <span class="sc">--</span>help</span>
+<span id="cb6-43"><a href="#cb6-43" tabindex="-1"></a>usage<span class="sc">:</span> tidywigits.R list [<span class="sc">-</span>h] <span class="sc">-</span>d IN_DIR [<span class="sc">-</span>f FORMAT] [<span class="sc">-</span>q]</span>
+<span id="cb6-44"><a href="#cb6-44" tabindex="-1"></a></span>
+<span id="cb6-45"><a href="#cb6-45" tabindex="-1"></a>options<span class="sc">:</span></span>
+<span id="cb6-46"><a href="#cb6-46" tabindex="-1"></a>  <span class="sc">-</span>h, <span class="sc">--</span>help           show this help message and exit</span>
+<span id="cb6-47"><a href="#cb6-47" tabindex="-1"></a>  <span class="sc">-</span>d, <span class="sc">--</span>in_dir IN_DIR  Input directory.</span>
+<span id="cb6-48"><a href="#cb6-48" tabindex="-1"></a>  <span class="sc">-</span>f, <span class="sc">--</span>format FORMAT  Format of list output [def<span class="sc">:</span> pretty] (tsv, pretty)</span>
+<span id="cb6-49"><a href="#cb6-49" tabindex="-1"></a>  <span class="sc">-</span>q, <span class="sc">--</span>quiet          Shush all the logs.</span></code></pre></div>
 </div>
 </div>
 
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/umccr/tidywigits/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/umccr/tidywigits/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/tidywf/tidywigits/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/tidywf/tidywigits/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -389,7 +385,7 @@ Click here
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://umccr.github.io/tidywigits"><img src="reference/figures/logo.png" alt="logo" align="left" height="100"></a></li>
+<li><a href="https://tidywf.github.io/tidywigits"><img src="reference/figures/logo.png" alt="logo" align="left" height="100"></a></li>
 </ul>
 </div>
 

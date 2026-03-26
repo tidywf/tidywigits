@@ -8,11 +8,11 @@ downstream ingestion into data warehouses and databases.
 
 Useful links:
 
-- <https://github.com/umccr/tidywigits>
+- <https://github.com/tidywf/tidywigits>
 
-- <https://umccr.github.io/tidywigits/>
+- <https://tidywf.github.io/tidywigits/>
 
-- Report bugs at <https://github.com/umccr/tidywigits/issues>
+- Report bugs at <https://github.com/tidywf/tidywigits/issues>
 
 ## Author
 
