@@ -54,7 +54,7 @@ Flagstats <- R6::R6Class(
       # name cleanup
       d <- d0 |>
         dplyr::mutate(
-          metric_clean = dplyr::case_match(
+          metric_clean = dplyr::recode_values(
             .data$metric2,
             "in total (QC-passed reads + QC-failed reads)" ~ "total",
             "supplementary" ~ "suppl",
@@ -66,7 +66,7 @@ Flagstats <- R6::R6Class(
             "with itself and mate mapped" ~ "both_map",
             "with mate mapped to a different chr" ~ "matemap_diff",
             "with mate mapped to a different chr (mapQ>=5)" ~ "matemap_diff_mapq5",
-            .default = .data$metric2
+            default = .data$metric2
           )
         )
       # deal with counts first
