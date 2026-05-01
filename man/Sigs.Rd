@@ -22,17 +22,16 @@ obj$nemofy(diro = odir, format = "parquet", input_id = id)
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Sigs-new}{\code{Sigs$new()}}
-\item \href{#method-Sigs-parse_allocation}{\code{Sigs$parse_allocation()}}
-\item \href{#method-Sigs-tidy_allocation}{\code{Sigs$tidy_allocation()}}
 \item \href{#method-Sigs-parse_snvcounts}{\code{Sigs$parse_snvcounts()}}
-\item \href{#method-Sigs-tidy_snvcounts}{\code{Sigs$tidy_snvcounts()}}
 \item \href{#method-Sigs-clone}{\code{Sigs$clone()}}
 }
 }
 \if{html}{\out{
 <details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".eval_func"><a href='../../nemo/html/Tool.html#method-Tool-.eval_func'><code>nemo::Tool$.eval_func()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".dispatch_parse"><a href='../../nemo/html/Tool.html#method-Tool-.dispatch_parse'><code>nemo::Tool$.dispatch_parse()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".dispatch_tidy"><a href='../../nemo/html/Tool.html#method-Tool-.dispatch_tidy'><code>nemo::Tool$.dispatch_tidy()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_by_ftype"><a href='../../nemo/html/Tool.html#method-Tool-.parse_by_ftype'><code>nemo::Tool$.parse_by_ftype()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file'><code>nemo::Tool$.parse_file()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_keyvalue"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_keyvalue'><code>nemo::Tool$.parse_file_keyvalue()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_nohead"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_nohead'><code>nemo::Tool$.parse_file_nohead()</code></a></span></li>
@@ -69,66 +68,12 @@ Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sigs-parse_allocation"></a>}}
-\if{latex}{\out{\hypertarget{method-Sigs-parse_allocation}{}}}
-\subsection{Method \code{parse_allocation()}}{
-Read \code{allocation.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sigs$parse_allocation(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sigs-tidy_allocation"></a>}}
-\if{latex}{\out{\hypertarget{method-Sigs-tidy_allocation}{}}}
-\subsection{Method \code{tidy_allocation()}}{
-Tidy \code{allocation.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sigs$tidy_allocation(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Sigs-parse_snvcounts"></a>}}
 \if{latex}{\out{\hypertarget{method-Sigs-parse_snvcounts}{}}}
 \subsection{Method \code{parse_snvcounts()}}{
 Read \code{snv_counts.csv} file.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Sigs$parse_snvcounts(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sigs-tidy_snvcounts"></a>}}
-\if{latex}{\out{\hypertarget{method-Sigs-tidy_snvcounts}{}}}
-\subsection{Method \code{tidy_snvcounts()}}{
-Tidy \code{snv_counts.csv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sigs$tidy_snvcounts(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
