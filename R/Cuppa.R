@@ -32,44 +32,6 @@ Cuppa <- R6::R6Class(
     parse_datacsv = function(x) {
       self$.parse_file(x, "datacsv", delim = ",")
     },
-    #' @description Tidy `cup.data.csv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_datacsv = function(x) {
-      # hack to handle raw tibble input since other funcs use .tidy_file
-      if (!tibble::is_tibble(x)) {
-        x <- self$parse_predsum(x)
-      }
-      # add a 'plot_section' column for potential easier grouping
-      d <- x |>
-        dplyr::mutate(
-          plot_section = dplyr::case_when(
-            (.data$ResultType == "CLASSIFIER" & .data$DataType != "GENDER") |
-              (.data$ResultType == "PREVALENCE" & .data$DataType == "GENDER") ~
-              "classifier",
-            (.data$ResultType == "PERCENTILE" & .data$Category == "SNV") ~ "sigs",
-            (.data$ResultType == "PERCENTILE" & .data$Category != "SNV") ~ "percentiles",
-            (.data$Category == "FEATURE" & .data$ResultType == "PREVALENCE") ~ "features",
-            .default = "other"
-          )
-        )
-      schema <- self$get_tidy_schema("datacsv")
-      colnames(d) <- schema[["field"]]
-      list(datacsv = d) |>
-        nemo::enframe_data()
-    },
-    #' @description Read `cuppa_data.tsv.gz` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_feat = function(x) {
-      self$.parse_file(x, "feat")
-    },
-    #' @description Tidy `cuppa_data.tsv.gz` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_feat = function(x) {
-      self$.tidy_file(x, "feat")
-    },
     #' @description Read `cuppa.pred_summ.tsv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
@@ -120,22 +82,8 @@ Cuppa <- R6::R6Class(
         dplyr::relocate(dplyr::contains("extra_info"), .after = dplyr::last_col()) |>
         dplyr::rename(class = "pred_class", prob = "pred_prob") |>
         nemo::set_tbl_version_attr(version)
-      schema <- self$get_tidy_schema("predsum")
-      stopifnot(identical(colnames(d), schema[["field"]]))
       list(predsum = d) |>
         nemo::enframe_data()
-    },
-    #' @description Read `cuppa.vis_data.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_datatsv = function(x) {
-      self$.parse_file(x, "datatsv")
-    },
-    #' @description Tidy `cuppa.vis_data.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_datatsv = function(x) {
-      self$.tidy_file(x, "datatsv")
     }
   ) # end public
 )
