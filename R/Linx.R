@@ -11,7 +11,7 @@
 #' obj$nemofy(diro = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "linx.*parquet", full.names = FALSE))
 #' @testexamples
-#' expect_equal(length(lf), 20)
+#' expect_equal(length(lf), 30)
 #' @export
 Linx <- R6::R6Class(
   "Linx",
