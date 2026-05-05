@@ -4,36 +4,41 @@ tables:
     pattern: "\\.cup\\.data\\.csv$"
     ftype: 'txt'
     columns:
+      - raw: 'SampleId'
+        tidy: 'sample_id'
+        type: 'char'
+        description: 'sample ID'
+        versions: ['v1.4']
       - raw: 'Category'
         tidy: 'category'
         type: 'char'
         description: 'category'
-        versions: ['latest']
+        versions: ['latest', 'v1.4']
       - raw: 'ResultType'
         tidy: 'result_type'
         type: 'char'
         description: 'result type'
-        versions: ['latest']
+        versions: ['latest', 'v1.4']
       - raw: 'DataType'
         tidy: 'data_type'
         type: 'char'
         description: 'data type'
-        versions: ['latest']
+        versions: ['latest', 'v1.4']
       - raw: 'Value'
         tidy: 'value'
         type: 'char'
         description: 'value'
-        versions: ['latest']
+        versions: ['latest', 'v1.4']
       - raw: 'RefCancerType'
         tidy: 'ref_cancer_type'
         type: 'char'
         description: 'ref cancer type'
-        versions: ['latest']
+        versions: ['latest', 'v1.4']
       - raw: 'RefValue'
         tidy: 'ref_value'
         type: 'float'
         description: 'ref value'
-        versions: ['latest']
+        versions: ['latest', 'v1.4']
   predsum:
     description: 'Prediction summary.'
     pattern: "\\.cuppa\\.pred_summ\\.tsv$"

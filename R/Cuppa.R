@@ -11,7 +11,7 @@
 #' obj$nemofy(diro = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "cuppa.*parquet", full.names = FALSE))
 #' @testexamples
-#' expect_equal(length(lf), 3)
+#' expect_equal(length(lf), 4)
 #' @export
 Cuppa <- R6::R6Class(
   "Cuppa",
