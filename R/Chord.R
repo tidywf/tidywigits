@@ -26,18 +26,6 @@ Chord <- R6::R6Class(
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "chord", pkg = pkg_name, path = path, files_tbl = files_tbl)
     },
-    #' @description Read `prediction.txt` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_prediction = function(x) {
-      self$.parse_file(x, "prediction")
-    },
-    #' @description Tidy `prediction.txt` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_prediction = function(x) {
-      self$.tidy_file(x, "prediction")
-    },
     #' @description Read `signatures.txt` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
@@ -77,8 +65,6 @@ Chord <- R6::R6Class(
         ) |>
         dplyr::select("signature", "count") |>
         nemo::set_tbl_version_attr(version)
-      schema <- self$get_tidy_schema("signatures")
-      stopifnot(identical(colnames(d), schema[["field"]]))
       list(signatures = d) |>
         nemo::enframe_data()
     }

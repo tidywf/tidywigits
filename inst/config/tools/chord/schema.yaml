@@ -1,400 +1,781 @@
-id: https://example.org/tidywigits/chord
-name: chord
-description: >-
-  Classifier of HOmologous Recombination Deficiency.
-
-prefixes:
-  linkml: https://w3id.org/linkml/
-  chord: https://example.org/tidywigits/chord/
-
-imports:
-  - linkml:types
-
-default_range: string
-default_prefix: chord
-
-subsets:
-  raw:
-    description: Raw input file schema
-  tidy:
-    description: Tidy output schema
-  latest:
-    description: Chord latest version
-
-classes:
-
-  #---- Prediction ----#
-  RawPrediction:
-    description: Predictions from the CHORD random forest.
-    in_subset: [raw, latest]
-    annotations:
-      name: prediction
-      pattern: "_chord_prediction\\.txt$|\\.chord\\.prediction\\.tsv$"
-      ftype: tsv
-    attributes:
-      sample:
-        range: string
-      p_BRCA1:
-        range: float
-      p_BRCA2:
-        range: float
-      p_hrd:
-        range: float
-      hr_status:
-        range: string
-      hrd_type:
-        range: string
-      remarks_hr_status:
-        range: string
-      remarks_hrd_type:
-        range: string
-
-  TidyPrediction:
-    description: Predictions from the CHORD random forest.
-    in_subset: [tidy, latest]
-    annotations:
-      name: prediction
-      subtbl: tbl1
-    attributes:
-      sample_id:
-        range: string
-        description: sample ID
-      p_brca1:
-        range: float
-        description: probability of BRCA1-type HRD
-      p_brca2:
-        range: float
-        description: probability of BRCA2-type HRD
-      p_hrd:
-        range: float
-        description: probability of HRD
-      hr_status:
-        range: string
-        description: HR status (deficient or proficient)
-      hrd_type:
-        range: string
-        description: HRD type (BRCA1 or BRCA2)
-      remarks_hr_status:
-        range: string
-        description: remarks on HR status
-      remarks_hrd_type:
-        range: string
-        description: remarks on HRD type
-
-
-  #---- Signatures ----#
-  RawSignatures:
-    description: Counts of SNV, INDEL and SV contexts.
-    in_subset: [raw, latest]
-    annotations:
-      name: signatures
-      pattern: "_chord_signatures\\.txt$|\\.chord\\.mutation_contexts\\.tsv$"
-      ftype: tsv
-    attributes:
-      sample_id:
-        range: string
-      "A[C>A]A":
-        range: integer
-      "A[C>A]C":
-        range: integer
-      "A[C>A]G":
-        range: integer
-      "A[C>A]T":
-        range: integer
-      "C[C>A]A":
-        range: integer
-      "C[C>A]C":
-        range: integer
-      "C[C>A]G":
-        range: integer
-      "C[C>A]T":
-        range: integer
-      "G[C>A]A":
-        range: integer
-      "G[C>A]C":
-        range: integer
-      "G[C>A]G":
-        range: integer
-      "G[C>A]T":
-        range: integer
-      "T[C>A]A":
-        range: integer
-      "T[C>A]C":
-        range: integer
-      "T[C>A]G":
-        range: integer
-      "T[C>A]T":
-        range: integer
-      "A[C>G]A":
-        range: integer
-      "A[C>G]C":
-        range: integer
-      "A[C>G]G":
-        range: integer
-      "A[C>G]T":
-        range: integer
-      "C[C>G]A":
-        range: integer
-      "C[C>G]C":
-        range: integer
-      "C[C>G]G":
-        range: integer
-      "C[C>G]T":
-        range: integer
-      "G[C>G]A":
-        range: integer
-      "G[C>G]C":
-        range: integer
-      "G[C>G]G":
-        range: integer
-      "G[C>G]T":
-        range: integer
-      "T[C>G]A":
-        range: integer
-      "T[C>G]C":
-        range: integer
-      "T[C>G]G":
-        range: integer
-      "T[C>G]T":
-        range: integer
-      "A[C>T]A":
-        range: integer
-      "A[C>T]C":
-        range: integer
-      "A[C>T]G":
-        range: integer
-      "A[C>T]T":
-        range: integer
-      "C[C>T]A":
-        range: integer
-      "C[C>T]C":
-        range: integer
-      "C[C>T]G":
-        range: integer
-      "C[C>T]T":
-        range: integer
-      "G[C>T]A":
-        range: integer
-      "G[C>T]C":
-        range: integer
-      "G[C>T]G":
-        range: integer
-      "G[C>T]T":
-        range: integer
-      "T[C>T]A":
-        range: integer
-      "T[C>T]C":
-        range: integer
-      "T[C>T]G":
-        range: integer
-      "T[C>T]T":
-        range: integer
-      "A[T>A]A":
-        range: integer
-      "A[T>A]C":
-        range: integer
-      "A[T>A]G":
-        range: integer
-      "A[T>A]T":
-        range: integer
-      "C[T>A]A":
-        range: integer
-      "C[T>A]C":
-        range: integer
-      "C[T>A]G":
-        range: integer
-      "C[T>A]T":
-        range: integer
-      "G[T>A]A":
-        range: integer
-      "G[T>A]C":
-        range: integer
-      "G[T>A]G":
-        range: integer
-      "G[T>A]T":
-        range: integer
-      "T[T>A]A":
-        range: integer
-      "T[T>A]C":
-        range: integer
-      "T[T>A]G":
-        range: integer
-      "T[T>A]T":
-        range: integer
-      "A[T>C]A":
-        range: integer
-      "A[T>C]C":
-        range: integer
-      "A[T>C]G":
-        range: integer
-      "A[T>C]T":
-        range: integer
-      "C[T>C]A":
-        range: integer
-      "C[T>C]C":
-        range: integer
-      "C[T>C]G":
-        range: integer
-      "C[T>C]T":
-        range: integer
-      "G[T>C]A":
-        range: integer
-      "G[T>C]C":
-        range: integer
-      "G[T>C]G":
-        range: integer
-      "G[T>C]T":
-        range: integer
-      "T[T>C]A":
-        range: integer
-      "T[T>C]C":
-        range: integer
-      "T[T>C]G":
-        range: integer
-      "T[T>C]T":
-        range: integer
-      "A[T>G]A":
-        range: integer
-      "A[T>G]C":
-        range: integer
-      "A[T>G]G":
-        range: integer
-      "A[T>G]T":
-        range: integer
-      "C[T>G]A":
-        range: integer
-      "C[T>G]C":
-        range: integer
-      "C[T>G]G":
-        range: integer
-      "C[T>G]T":
-        range: integer
-      "G[T>G]A":
-        range: integer
-      "G[T>G]C":
-        range: integer
-      "G[T>G]G":
-        range: integer
-      "G[T>G]T":
-        range: integer
-      "T[T>G]A":
-        range: integer
-      "T[T>G]C":
-        range: integer
-      "T[T>G]G":
-        range: integer
-      "T[T>G]T":
-        range: integer
-      "del.rep.len.1":
-        range: integer
-      "del.rep.len.2":
-        range: integer
-      "del.rep.len.3":
-        range: integer
-      "del.rep.len.4":
-        range: integer
-      "del.rep.len.5":
-        range: integer
-      "ins.rep.len.1":
-        range: integer
-      "ins.rep.len.2":
-        range: integer
-      "ins.rep.len.3":
-        range: integer
-      "ins.rep.len.4":
-        range: integer
-      "ins.rep.len.5":
-        range: integer
-      "del.mh.bimh.1":
-        range: integer
-      "del.mh.bimh.2":
-        range: integer
-      "del.mh.bimh.3":
-        range: integer
-      "del.mh.bimh.4":
-        range: integer
-      "del.mh.bimh.5":
-        range: integer
-      "ins.mh.bimh.1":
-        range: integer
-      "ins.mh.bimh.2":
-        range: integer
-      "ins.mh.bimh.3":
-        range: integer
-      "ins.mh.bimh.4":
-        range: integer
-      "ins.mh.bimh.5":
-        range: integer
-      "del.none.len.1":
-        range: integer
-      "del.none.len.2":
-        range: integer
-      "del.none.len.3":
-        range: integer
-      "del.none.len.4":
-        range: integer
-      "del.none.len.5":
-        range: integer
-      "ins.none.len.1":
-        range: integer
-      "ins.none.len.2":
-        range: integer
-      "ins.none.len.3":
-        range: integer
-      "ins.none.len.4":
-        range: integer
-      "ins.none.len.5":
-        range: integer
-      DEL_0e00_1e03_bp:
-        range: integer
-      DEL_1e03_1e04_bp:
-        range: integer
-      DEL_1e04_1e05_bp:
-        range: integer
-      DEL_1e05_1e06_bp:
-        range: integer
-      DEL_1e06_1e07_bp:
-        range: integer
-      DEL_1e07_Inf_bp:
-        range: integer
-      DUP_0e00_1e03_bp:
-        range: integer
-      DUP_1e03_1e04_bp:
-        range: integer
-      DUP_1e04_1e05_bp:
-        range: integer
-      DUP_1e05_1e06_bp:
-        range: integer
-      DUP_1e06_1e07_bp:
-        range: integer
-      DUP_1e07_Inf_bp:
-        range: integer
-      INV_0e00_1e03_bp:
-        range: integer
-      INV_1e03_1e04_bp:
-        range: integer
-      INV_1e04_1e05_bp:
-        range: integer
-      INV_1e05_1e06_bp:
-        range: integer
-      INV_1e06_1e07_bp:
-        range: integer
-      INV_1e07_Inf_bp:
-        range: integer
-      TRA:
-        range: integer
-
-  TidySignatures:
-    description: Counts of SNV, INDEL and SV contexts.
-    in_subset: [tidy, latest]
-    annotations:
-      name: signatures
-      subtbl: tbl1
-    attributes:
-      signature:
-        range: string
-        description: signature context
-      count:
-        range: integer
-        description: count of signature
-
+tables:
+  prediction:
+    description: 'Predictions from the CHORD random forest.'
+    pattern: "_chord_prediction\\.txt$|\\.chord\\.prediction\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'sample'
+        tidy: 'sample_id'
+        type: 'char'
+        description: 'sample ID'
+        versions: ['latest']
+      - raw: 'p_BRCA1'
+        tidy: 'p_brca1'
+        type: 'float'
+        description: 'probability of BRCA1-type HRD'
+        versions: ['latest']
+      - raw: 'p_BRCA2'
+        tidy: 'p_brca2'
+        type: 'float'
+        description: 'probability of BRCA2-type HRD'
+        versions: ['latest']
+      - raw: 'p_hrd'
+        tidy: 'p_hrd'
+        type: 'float'
+        description: 'probability of HRD'
+        versions: ['latest']
+      - raw: 'hr_status'
+        tidy: 'hr_status'
+        type: 'char'
+        description: 'HR status (deficient or proficient)'
+        versions: ['latest']
+      - raw: 'hrd_type'
+        tidy: 'hrd_type'
+        type: 'char'
+        description: 'HRD type (BRCA1 or BRCA2)'
+        versions: ['latest']
+      - raw: 'remarks_hr_status'
+        tidy: 'remarks_hr_status'
+        type: 'char'
+        description: 'remarks on HR status'
+        versions: ['latest']
+      - raw: 'remarks_hrd_type'
+        tidy: 'remarks_hrd_type'
+        type: 'char'
+        description: 'remarks on HRD type'
+        versions: ['latest']
+  signatures:
+    description: 'Counts of SNV, INDEL and SV contexts.'
+    pattern: "_chord_signatures\\.txt$|\\.chord\\.mutation_contexts\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'sample_id'
+        tidy: 'sample_id'
+        type: 'char'
+        description: 'sample ID'
+        versions: ['latest']
+      - raw: 'A[C>A]A'
+        tidy: 'A[C>A]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[C>A]C'
+        tidy: 'A[C>A]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[C>A]G'
+        tidy: 'A[C>A]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[C>A]T'
+        tidy: 'A[C>A]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[C>A]A'
+        tidy: 'C[C>A]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[C>A]C'
+        tidy: 'C[C>A]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[C>A]G'
+        tidy: 'C[C>A]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[C>A]T'
+        tidy: 'C[C>A]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[C>A]A'
+        tidy: 'G[C>A]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[C>A]C'
+        tidy: 'G[C>A]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[C>A]G'
+        tidy: 'G[C>A]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[C>A]T'
+        tidy: 'G[C>A]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[C>A]A'
+        tidy: 'T[C>A]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[C>A]C'
+        tidy: 'T[C>A]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[C>A]G'
+        tidy: 'T[C>A]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[C>A]T'
+        tidy: 'T[C>A]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[C>G]A'
+        tidy: 'A[C>G]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[C>G]C'
+        tidy: 'A[C>G]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[C>G]G'
+        tidy: 'A[C>G]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[C>G]T'
+        tidy: 'A[C>G]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[C>G]A'
+        tidy: 'C[C>G]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[C>G]C'
+        tidy: 'C[C>G]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[C>G]G'
+        tidy: 'C[C>G]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[C>G]T'
+        tidy: 'C[C>G]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[C>G]A'
+        tidy: 'G[C>G]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[C>G]C'
+        tidy: 'G[C>G]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[C>G]G'
+        tidy: 'G[C>G]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[C>G]T'
+        tidy: 'G[C>G]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[C>G]A'
+        tidy: 'T[C>G]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[C>G]C'
+        tidy: 'T[C>G]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[C>G]G'
+        tidy: 'T[C>G]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[C>G]T'
+        tidy: 'T[C>G]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[C>T]A'
+        tidy: 'A[C>T]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[C>T]C'
+        tidy: 'A[C>T]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[C>T]G'
+        tidy: 'A[C>T]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[C>T]T'
+        tidy: 'A[C>T]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[C>T]A'
+        tidy: 'C[C>T]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[C>T]C'
+        tidy: 'C[C>T]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[C>T]G'
+        tidy: 'C[C>T]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[C>T]T'
+        tidy: 'C[C>T]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[C>T]A'
+        tidy: 'G[C>T]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[C>T]C'
+        tidy: 'G[C>T]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[C>T]G'
+        tidy: 'G[C>T]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[C>T]T'
+        tidy: 'G[C>T]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[C>T]A'
+        tidy: 'T[C>T]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[C>T]C'
+        tidy: 'T[C>T]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[C>T]G'
+        tidy: 'T[C>T]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[C>T]T'
+        tidy: 'T[C>T]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[T>A]A'
+        tidy: 'A[T>A]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[T>A]C'
+        tidy: 'A[T>A]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[T>A]G'
+        tidy: 'A[T>A]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[T>A]T'
+        tidy: 'A[T>A]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[T>A]A'
+        tidy: 'C[T>A]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[T>A]C'
+        tidy: 'C[T>A]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[T>A]G'
+        tidy: 'C[T>A]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[T>A]T'
+        tidy: 'C[T>A]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[T>A]A'
+        tidy: 'G[T>A]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[T>A]C'
+        tidy: 'G[T>A]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[T>A]G'
+        tidy: 'G[T>A]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[T>A]T'
+        tidy: 'G[T>A]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[T>A]A'
+        tidy: 'T[T>A]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[T>A]C'
+        tidy: 'T[T>A]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[T>A]G'
+        tidy: 'T[T>A]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[T>A]T'
+        tidy: 'T[T>A]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[T>C]A'
+        tidy: 'A[T>C]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[T>C]C'
+        tidy: 'A[T>C]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[T>C]G'
+        tidy: 'A[T>C]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[T>C]T'
+        tidy: 'A[T>C]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[T>C]A'
+        tidy: 'C[T>C]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[T>C]C'
+        tidy: 'C[T>C]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[T>C]G'
+        tidy: 'C[T>C]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[T>C]T'
+        tidy: 'C[T>C]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[T>C]A'
+        tidy: 'G[T>C]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[T>C]C'
+        tidy: 'G[T>C]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[T>C]G'
+        tidy: 'G[T>C]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[T>C]T'
+        tidy: 'G[T>C]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[T>C]A'
+        tidy: 'T[T>C]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[T>C]C'
+        tidy: 'T[T>C]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[T>C]G'
+        tidy: 'T[T>C]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[T>C]T'
+        tidy: 'T[T>C]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[T>G]A'
+        tidy: 'A[T>G]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[T>G]C'
+        tidy: 'A[T>G]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[T>G]G'
+        tidy: 'A[T>G]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'A[T>G]T'
+        tidy: 'A[T>G]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[T>G]A'
+        tidy: 'C[T>G]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[T>G]C'
+        tidy: 'C[T>G]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[T>G]G'
+        tidy: 'C[T>G]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'C[T>G]T'
+        tidy: 'C[T>G]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[T>G]A'
+        tidy: 'G[T>G]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[T>G]C'
+        tidy: 'G[T>G]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[T>G]G'
+        tidy: 'G[T>G]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'G[T>G]T'
+        tidy: 'G[T>G]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[T>G]A'
+        tidy: 'T[T>G]A'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[T>G]C'
+        tidy: 'T[T>G]C'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[T>G]G'
+        tidy: 'T[T>G]G'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'T[T>G]T'
+        tidy: 'T[T>G]T'
+        type: 'int'
+        description: 'mutation context count'
+        versions: ['latest']
+      - raw: 'del.rep.len.1'
+        tidy: 'del.rep.len.1'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'del.rep.len.2'
+        tidy: 'del.rep.len.2'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'del.rep.len.3'
+        tidy: 'del.rep.len.3'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'del.rep.len.4'
+        tidy: 'del.rep.len.4'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'del.rep.len.5'
+        tidy: 'del.rep.len.5'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'ins.rep.len.1'
+        tidy: 'ins.rep.len.1'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'ins.rep.len.2'
+        tidy: 'ins.rep.len.2'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'ins.rep.len.3'
+        tidy: 'ins.rep.len.3'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'ins.rep.len.4'
+        tidy: 'ins.rep.len.4'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'ins.rep.len.5'
+        tidy: 'ins.rep.len.5'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'del.mh.bimh.1'
+        tidy: 'del.mh.bimh.1'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'del.mh.bimh.2'
+        tidy: 'del.mh.bimh.2'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'del.mh.bimh.3'
+        tidy: 'del.mh.bimh.3'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'del.mh.bimh.4'
+        tidy: 'del.mh.bimh.4'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'del.mh.bimh.5'
+        tidy: 'del.mh.bimh.5'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'ins.mh.bimh.1'
+        tidy: 'ins.mh.bimh.1'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'ins.mh.bimh.2'
+        tidy: 'ins.mh.bimh.2'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'ins.mh.bimh.3'
+        tidy: 'ins.mh.bimh.3'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'ins.mh.bimh.4'
+        tidy: 'ins.mh.bimh.4'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'ins.mh.bimh.5'
+        tidy: 'ins.mh.bimh.5'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'del.none.len.1'
+        tidy: 'del.none.len.1'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'del.none.len.2'
+        tidy: 'del.none.len.2'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'del.none.len.3'
+        tidy: 'del.none.len.3'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'del.none.len.4'
+        tidy: 'del.none.len.4'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'del.none.len.5'
+        tidy: 'del.none.len.5'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'ins.none.len.1'
+        tidy: 'ins.none.len.1'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'ins.none.len.2'
+        tidy: 'ins.none.len.2'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'ins.none.len.3'
+        tidy: 'ins.none.len.3'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'ins.none.len.4'
+        tidy: 'ins.none.len.4'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'ins.none.len.5'
+        tidy: 'ins.none.len.5'
+        type: 'int'
+        description: 'INDEL context count'
+        versions: ['latest']
+      - raw: 'DEL_0e00_1e03_bp'
+        tidy: 'DEL_0e00_1e03_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'DEL_1e03_1e04_bp'
+        tidy: 'DEL_1e03_1e04_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'DEL_1e04_1e05_bp'
+        tidy: 'DEL_1e04_1e05_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'DEL_1e05_1e06_bp'
+        tidy: 'DEL_1e05_1e06_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'DEL_1e06_1e07_bp'
+        tidy: 'DEL_1e06_1e07_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'DEL_1e07_Inf_bp'
+        tidy: 'DEL_1e07_Inf_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'DUP_0e00_1e03_bp'
+        tidy: 'DUP_0e00_1e03_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'DUP_1e03_1e04_bp'
+        tidy: 'DUP_1e03_1e04_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'DUP_1e04_1e05_bp'
+        tidy: 'DUP_1e04_1e05_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'DUP_1e05_1e06_bp'
+        tidy: 'DUP_1e05_1e06_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'DUP_1e06_1e07_bp'
+        tidy: 'DUP_1e06_1e07_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'DUP_1e07_Inf_bp'
+        tidy: 'DUP_1e07_Inf_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'INV_0e00_1e03_bp'
+        tidy: 'INV_0e00_1e03_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'INV_1e03_1e04_bp'
+        tidy: 'INV_1e03_1e04_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'INV_1e04_1e05_bp'
+        tidy: 'INV_1e04_1e05_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'INV_1e05_1e06_bp'
+        tidy: 'INV_1e05_1e06_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'INV_1e06_1e07_bp'
+        tidy: 'INV_1e06_1e07_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'INV_1e07_Inf_bp'
+        tidy: 'INV_1e07_Inf_bp'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
+      - raw: 'TRA'
+        tidy: 'TRA'
+        type: 'int'
+        description: 'SV context count'
+        versions: ['latest']
