@@ -26,18 +26,6 @@ Alignments <- R6::R6Class(
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "alignments", pkg = pkg_name, path = path, files_tbl = files_tbl)
     },
-    #' @description Read `duplicate_freq.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_dupfreq = function(x) {
-      self$.parse_file(x, "dupfreq")
-    },
-    #' @description Tidy `duplicate_freq.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_dupfreq = function(x) {
-      self$.tidy_file(x, "dupfreq")
-    },
     #' @description Read `md.metrics` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
