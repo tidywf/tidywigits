@@ -11,7 +11,7 @@
 #' obj$nemofy(diro = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "bamtools.*parquet", full.names = FALSE))
 #' @testexamples
-#' expect_equal(length(lf), 11)
+#' expect_equal(length(lf), 6)
 #' @export
 Bamtools <- R6::R6Class(
   "Bamtools",
@@ -132,7 +132,7 @@ Bamtools <- R6::R6Class(
       # name cleanup
       d <- d0 |>
         dplyr::mutate(
-          metric_clean = dplyr::case_match(
+          metric_clean = dplyr::recode_values(
             .data$metric2,
             "in total (QC-passed reads + QC-failed reads)" ~ "total",
             "supplementary" ~ "suppl",
@@ -144,7 +144,7 @@ Bamtools <- R6::R6Class(
             "with itself and mate mapped" ~ "both_map",
             "with mate mapped to a different chr" ~ "matemap_diff",
             "with mate mapped to a different chr (mapQ>=5)" ~ "matemap_diff_mapq5",
-            .default = .data$metric2
+            default = .data$metric2
           )
         )
       # deal with counts first
@@ -201,42 +201,6 @@ Bamtools <- R6::R6Class(
       list(flagstats = d) |>
         nemo::enframe_data()
     },
-    #' @description Read `coverage.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_coverage = function(x) {
-      self$.parse_file(x, "coverage")
-    },
-    #' @description Tidy `coverage.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_coverage = function(x) {
-      self$.tidy_file(x, "coverage")
-    },
-    #' @description Read `frag_length.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_fraglength = function(x) {
-      self$.parse_file(x, "fraglength")
-    },
-    #' @description Tidy `frag_length.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_fraglength = function(x) {
-      self$.tidy_file(x, "fraglength")
-    },
-    #' @description Read `partition_stats.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_partitionstats = function(x) {
-      self$.parse_file(x, "partitionstats")
-    },
-    #' @description Tidy `partition_stats.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_partitionstats = function(x) {
-      self$.tidy_file(x, "partitionstats")
-    },
     #' @description Read `gene_coverage.tsv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
@@ -266,18 +230,6 @@ Bamtools <- R6::R6Class(
         nemo::set_tbl_version_attr(version)
       list(genes = genes, cvg = cvg) |>
         nemo::enframe_data()
-    },
-    #' @description Read `exon_medians.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_exoncvg = function(x) {
-      self$.parse_file(x, "exoncvg")
-    },
-    #' @description Tidy `exon_medians.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_exoncvg = function(x) {
-      self$.tidy_file(x, "exoncvg")
     }
   )
 )
