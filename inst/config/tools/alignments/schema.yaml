@@ -69,33 +69,3 @@ tables:
         type: 'float'
         description: 'estimated number of unique molecules in the library based on PE duplication'
         versions: ['latest']
-      - raw: 'SPLIT_HERE'
-        tidy: 'SPLIT_HERE'
-        type: 'char'
-        description: 'sentinel for splitting metrics and histogram sections'
-        versions: ['latest']
-      - raw: 'BIN'
-        tidy: 'bin'
-        type: 'float'
-        description: 'coverage bin'
-        versions: ['latest']
-      - raw: 'CoverageMult'
-        tidy: 'cov_mult'
-        type: 'float'
-        description: 'coverage multiple'
-        versions: ['latest']
-      - raw: 'all_sets'
-        tidy: 'all_sets'
-        type: 'float'
-        description: 'all sets'
-        versions: ['latest']
-      - raw: 'optical_sets'
-        tidy: 'optical_sets'
-        type: 'float'
-        description: 'optical sets'
-        versions: ['latest']
-      - raw: 'non_optical_sets'
-        tidy: 'non_optical_sets'
-        type: 'float'
-        description: 'non-optical sets'
-        versions: ['latest']

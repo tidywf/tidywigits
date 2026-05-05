@@ -23,7 +23,6 @@ obj$nemofy(diro = odir, format = "parquet", input_id = id)
 \itemize{
 \item \href{#method-Alignments-new}{\code{Alignments$new()}}
 \item \href{#method-Alignments-parse_markdup}{\code{Alignments$parse_markdup()}}
-\item \href{#method-Alignments-tidy_markdup}{\code{Alignments$tidy_markdup()}}
 \item \href{#method-Alignments-clone}{\code{Alignments$clone()}}
 }
 }
@@ -75,24 +74,6 @@ Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
 Read \code{md.metrics} file.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Alignments$parse_markdup(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Alignments-tidy_markdup"></a>}}
-\if{latex}{\out{\hypertarget{method-Alignments-tidy_markdup}{}}}
-\subsection{Method \code{tidy_markdup()}}{
-Tidy \code{md.metrics} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Alignments$tidy_markdup(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
