@@ -11,6 +11,6 @@ test_that("Function Cobalt() @ L16", {
   obj <- cls$new(indir)
   obj$nemofy(diro = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "cobalt.*parquet", full.names = FALSE))
-  expect_equal(length(lf), 5)
+  expect_equal(length(lf), 4)
 })
 

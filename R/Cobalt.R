@@ -11,7 +11,7 @@
 #' obj$nemofy(diro = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "cobalt.*parquet", full.names = FALSE))
 #' @testexamples
-#' expect_equal(length(lf), 5)
+#' expect_equal(length(lf), 4)
 #' @export
 Cobalt <- R6::R6Class(
   "Cobalt",
@@ -26,79 +26,17 @@ Cobalt <- R6::R6Class(
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "cobalt", pkg = pkg_name, path = path, files_tbl = files_tbl)
     },
-    #' @description Read `gc.median.tsv` file.
+    #' @description Read `gc.median.tsv` file (sample mean/median only).
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_gcmed = function(x) {
-      # first two rows are mean/median + their values
-      d1 <- readr::read_tsv(x, col_names = TRUE, col_types = "dd", n_max = 1)
-      # next rows are median per bucket
-      d2 <- self$.parse_file(x, "gcmed", skip = 2)
-      list(sample_stats = d1[], bucket_stats = d2) |>
-        nemo::enframe_data()
-    },
-    #' @description Tidy `gc.median.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_gcmed = function(x) {
-      # hack to handle raw tibble input since other funcs use .tidy_file
-      if (!tibble::is_tibble(x)) {
-        x <- self$parse_gcmed(x)
-      }
-      d <- x |> tibble::deframe()
-      stopifnot(identical(names(d), c("sample_stats", "bucket_stats")))
-      schema <- self$get_tidy_schema("gcmed")
-      colnames(d[["bucket_stats"]]) <- schema[["field"]]
-      colnames(d[["sample_stats"]]) <- c("mean", "median")
-      nemo::enframe_data(d)
-    },
-    #' @description Read `ratio.median.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_ratiomed = function(x) {
-      self$.parse_file(x, "ratiomed")
-    },
-    #' @description Tidy `ratio.median.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_ratiomed = function(x) {
-      self$.tidy_file(x, "ratiomed")
-    },
-    #' @description Read `ratio.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_ratiotsv = function(x) {
-      self$.parse_file(x, "ratiotsv")
-    },
-    #' @description Tidy `ratio.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_ratiotsv = function(x) {
-      self$.tidy_file(x, "ratiotsv")
-    },
-    #' @description Read `ratio.pcf` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_ratiopcf = function(x) {
-      self$.parse_file(x, "ratiopcf")
-    },
-    #' @description Tidy `ratio.pcf` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_ratiopcf = function(x) {
-      self$.tidy_file(x, "ratiopcf")
+      self$.parse_file(x, "gcmed", n_max = 1)
     },
     #' @description Read `cobalt.version` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_version = function(x) {
       self$.parse_file_keyvalue(x, "version", delim = "=")
-    },
-    #' @description Tidy `cobalt.version` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_version = function(x) {
-      self$.tidy_file(x, "version")
     }
   ) # end public
 )
