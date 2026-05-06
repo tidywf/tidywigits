@@ -7,10 +7,10 @@ on:
       - dev
 
 jobs:
-  condarise_and_tag:
+  condarise:
+    name: 🐍 Condarise
     if: "startsWith(github.event.head_commit.message, 'Bump version:')"
-    name: Condarise and Tag
-    uses: tidywf/.github/.github/workflows/condarise-and-tag.yaml@main
+    uses: tidywf/actions/.github/workflows/condarise.yaml@main
     permissions:
       contents: write
     with:
@@ -18,24 +18,33 @@ jobs:
       pkg_version: '0.0.7.9001' # bump
     secrets: inherit
 
+  tag:
+    name: 🔖 Tag
+    needs: [condarise]
+    uses: tidywf/actions/.github/workflows/tag.yaml@main
+    permissions:
+      contents: write
+    with:
+      pkg_version: '0.0.7.9001' # bump
+    secrets: inherit
+
   dockerise:
-    name: Dockerise
-    needs: [condarise_and_tag]
-    uses: tidywf/.github/.github/workflows/dockerise.yaml@main
+    name: 🐳 Dockerise
+    needs: [tag]
+    uses: tidywf/actions/.github/workflows/dockerise.yaml@main
     permissions:
       packages: write
     with:
       pkg_version: '0.0.7.9001' # bump
 
   pkgdownise:
-    name: Pkgdownise
-    needs: [condarise_and_tag]
-    uses: tidywf/.github/.github/workflows/pkgdownise.yaml@main
+    name: 🌐 Pkgdownise
+    needs: [tag]
+    uses: tidywf/actions/.github/workflows/pkgdownise.yaml@main
     permissions:
       contents: write
     with:
       pkg_name: tidywigits
       pkg_version: '0.0.7.9001' # bump
       dvc: true
-      mermaid: true
     secrets: inherit
