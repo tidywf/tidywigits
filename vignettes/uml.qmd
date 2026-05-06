@@ -8,9 +8,23 @@ knitr:
   opts_chunk:
     collapse: true
     comment: '#>'
-lightbox: true
+    echo: false
 ---
 
-### tidywigits R6 Class UML diagram
+```{r}
+#| label: pkgs
+#| include: false
+use("nemo", "nemo_uml")
+```
 
-![](fig/uml/tidywigits.svg "tidywigits UML diagram"){.lightbox}
+```{r}
+#| label: uml
+#| output: asis
+# fmt: skip
+x <- c(
+  "Alignments", "Amber", "Bamtools", "Chord", "Cider", "Cobalt", "Config", "Cuppa",
+  "Esvee", "Isofox", "Lilac", "Linx", "Neo", "Peach", "Purple", "Sage",
+  "Sigs", "Teal", "Tool", "Virusbreakend", "Virusinterpreter", "Wigits", "Workflow"
+)
+cat(nemo_uml(classes = x, pkg = "tidywigits"))
+```
