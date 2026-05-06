@@ -22,19 +22,15 @@ obj$nemofy(diro = odir, format = "parquet", input_id = id)
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Sage-new}{\code{Sage$new()}}
-\item \href{#method-Sage-parse_bqrtsv}{\code{Sage$parse_bqrtsv()}}
-\item \href{#method-Sage-tidy_bqrtsv}{\code{Sage$tidy_bqrtsv()}}
-\item \href{#method-Sage-parse_genecvg}{\code{Sage$parse_genecvg()}}
-\item \href{#method-Sage-tidy_genecvg}{\code{Sage$tidy_genecvg()}}
-\item \href{#method-Sage-parse_exoncvg}{\code{Sage$parse_exoncvg()}}
-\item \href{#method-Sage-tidy_exoncvg}{\code{Sage$tidy_exoncvg()}}
 \item \href{#method-Sage-clone}{\code{Sage$clone()}}
 }
 }
 \if{html}{\out{
 <details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".eval_func"><a href='../../nemo/html/Tool.html#method-Tool-.eval_func'><code>nemo::Tool$.eval_func()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".dispatch_parse"><a href='../../nemo/html/Tool.html#method-Tool-.dispatch_parse'><code>nemo::Tool$.dispatch_parse()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".dispatch_tidy"><a href='../../nemo/html/Tool.html#method-Tool-.dispatch_tidy'><code>nemo::Tool$.dispatch_tidy()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_by_ftype"><a href='../../nemo/html/Tool.html#method-Tool-.parse_by_ftype'><code>nemo::Tool$.parse_by_ftype()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file'><code>nemo::Tool$.parse_file()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_keyvalue"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_keyvalue'><code>nemo::Tool$.parse_file_keyvalue()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_nohead"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_nohead'><code>nemo::Tool$.parse_file_nohead()</code></a></span></li>
@@ -66,114 +62,6 @@ ignored.}
 
 \item{\code{files_tbl}}{(\code{tibble(n)})\cr
 Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sage-parse_bqrtsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Sage-parse_bqrtsv}{}}}
-\subsection{Method \code{parse_bqrtsv()}}{
-Read \code{bqr.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sage$parse_bqrtsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sage-tidy_bqrtsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Sage-tidy_bqrtsv}{}}}
-\subsection{Method \code{tidy_bqrtsv()}}{
-Tidy \code{bqr.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sage$tidy_bqrtsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sage-parse_genecvg"></a>}}
-\if{latex}{\out{\hypertarget{method-Sage-parse_genecvg}{}}}
-\subsection{Method \code{parse_genecvg()}}{
-Read \code{gene.coverage.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sage$parse_genecvg(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sage-tidy_genecvg"></a>}}
-\if{latex}{\out{\hypertarget{method-Sage-tidy_genecvg}{}}}
-\subsection{Method \code{tidy_genecvg()}}{
-Tidy \code{gene.coverage.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sage$tidy_genecvg(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sage-parse_exoncvg"></a>}}
-\if{latex}{\out{\hypertarget{method-Sage-parse_exoncvg}{}}}
-\subsection{Method \code{parse_exoncvg()}}{
-Read \code{exon.medians.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sage$parse_exoncvg(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sage-tidy_exoncvg"></a>}}
-\if{latex}{\out{\hypertarget{method-Sage-tidy_exoncvg}{}}}
-\subsection{Method \code{tidy_exoncvg()}}{
-Tidy \code{exon.medians.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sage$tidy_exoncvg(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
 }
 \if{html}{\out{</div>}}
 }
