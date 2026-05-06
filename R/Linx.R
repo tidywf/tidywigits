@@ -33,18 +33,16 @@ Linx <- R6::R6Class(
     #' See `fs::dir_info`.
     #' @return A tibble of file paths.
     list_files = function(type = "file") {
-      res <- super$list_files(type = type)
-      if (nrow(res) == 0) {
-        return(res)
-      }
-      res |>
+      list_files_with_prefix_fn(self, type, \(d) {
         dplyr::mutate(
+          d,
           prefix = dplyr::if_else(
             grepl("linx\\.germline", .data$bname),
             glue("{.data$prefix}_germline"),
-            glue("{.data$prefix}")
+            .data$prefix
           )
         )
+      })
     },
     #' @description Read `linx.version` file.
     #' @param x (`character(1)`)\cr
