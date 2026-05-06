@@ -2,7 +2,7 @@ tables:
   datacsv:
     description: 'Visualisation data (CUPPA v1).'
     pattern: "\\.cup\\.data\\.csv$"
-    ftype: 'txt'
+    ftype: 'csv'
     columns:
       - raw: 'SampleId'
         tidy: 'sample_id'

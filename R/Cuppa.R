@@ -26,12 +26,6 @@ Cuppa <- R6::R6Class(
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "cuppa", pkg = pkg_name, path = path, files_tbl = files_tbl)
     },
-    #' @description Read `cup.data.csv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_datacsv = function(x) {
-      self$.parse_file(x, "datacsv", delim = ",")
-    },
     #' @description Read `cuppa.pred_summ.tsv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.

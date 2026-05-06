@@ -22,7 +22,6 @@ obj$nemofy(diro = odir, format = "parquet", input_id = id)
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Cuppa-new}{\code{Cuppa$new()}}
-\item \href{#method-Cuppa-parse_datacsv}{\code{Cuppa$parse_datacsv()}}
 \item \href{#method-Cuppa-parse_predsum}{\code{Cuppa$parse_predsum()}}
 \item \href{#method-Cuppa-tidy_predsum}{\code{Cuppa$tidy_predsum()}}
 \item \href{#method-Cuppa-clone}{\code{Cuppa$clone()}}
@@ -65,24 +64,6 @@ ignored.}
 
 \item{\code{files_tbl}}{(\code{tibble(n)})\cr
 Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cuppa-parse_datacsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Cuppa-parse_datacsv}{}}}
-\subsection{Method \code{parse_datacsv()}}{
-Read \code{cup.data.csv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cuppa$parse_datacsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
 }
 \if{html}{\out{</div>}}
 }
