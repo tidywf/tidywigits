@@ -50,6 +50,26 @@ pr <- function(n) {
 }
 ```
 
+## dev (2026-05-07)
+
+- Change GitHub org from `umccr` to `tidywf`
+
+- **Schema refactor**: all tools migrated from old nemo `raw.yaml` + `tidy.yaml`
+configs to a single `schema.yaml` (initially LinkML via `r pr(174)`, then moved
+away from LinkML since it feels overkill). Old config files removed. Parsing
+simplified across all tools.
+
+- Flagstats: remove standalone class (covered by Bamtools)
+- Bamtools: drop histogram parser; genecoverage returned as single table
+- Alignments: drop histogram from markdup parser
+- Linx: fix germline file handling with `list_files_with_prefix_fn`; add v1.25 test data
+- Sage: genecoverage returned as single table; add v3.4.4 test data
+- Cuppa: handle v1.4 `sampleId` column (fixes `r iss(172)`); use csv ftype for datacsv; add plotter functions (`r pr(173)`); predsum tidy schema fix (`r pr(179)`, `r iss(178)`)
+- Vignettes: add `schema_walkthrough`, `schema_table`, `cicd`; refactor `uml`; remove `schemas_raw` + `schemas_tidy`
+- **GHA**: use reusable workflows for conda/docker/pkgdown (`r pr(181)`); add version-bumping workflow (`r pr(183)`, `r pr(185)`); fix permissions (`r pr(182)`); refactor deploy workflow (`r pr(175)`, `r pr(176)`)
+- Move shiny and website to separate repos (`r pr(171)`)
+- Add air formatter to pre-commit hooks; add `CLAUDE.md` + `new-tool` skill (`r pr(180)`)
+
 ## v0.0.7 (2026-02-09)
 
 - cuppa: handle rna predsum (`r pr(170)`, `r iss(169)`)
