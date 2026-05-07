@@ -1,18 +1,18 @@
 tables:
   gcmed:
-    description: 'GC median sample-level mean and median read depth.'
+    description: 'GC median read depth per GC bucket.'
     pattern: "\\.cobalt\\.gc\\.median\\.tsv$"
     ftype: 'txt'
     columns:
-      - raw: '#sampleMean'
-        tidy: 'mean'
-        type: 'float'
-        description: 'sample mean read depth'
+      - raw: '#gcBucket'
+        tidy: 'gc_bucket'
+        type: 'char'
+        description: 'GC bucket number'
         versions: ['latest']
-      - raw: 'sampleMedian'
+      - raw: 'median'
         tidy: 'median'
         type: 'float'
-        description: 'sample median read depth'
+        description: 'median read depth in bucket'
         versions: ['latest']
   ratiomed:
     description: 'Chromosome median ratios.'
