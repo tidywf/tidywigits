@@ -22,7 +22,9 @@ obj$nemofy(diro = odir, format = "parquet", input_id = id)
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Bamtools-new}{\code{Bamtools$new()}}
+\item \href{#method-Bamtools-tidy_summary}{\code{Bamtools$tidy_summary()}}
 \item \href{#method-Bamtools-parse_wgsmetrics}{\code{Bamtools$parse_wgsmetrics()}}
+\item \href{#method-Bamtools-tidy_wgsmetrics}{\code{Bamtools$tidy_wgsmetrics()}}
 \item \href{#method-Bamtools-parse_flagstats}{\code{Bamtools$parse_flagstats()}}
 \item \href{#method-Bamtools-tidy_flagstats}{\code{Bamtools$tidy_flagstats()}}
 \item \href{#method-Bamtools-tidy_genecvg}{\code{Bamtools$tidy_genecvg()}}
@@ -71,12 +73,53 @@ Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Bamtools-tidy_summary"></a>}}
+\if{latex}{\out{\hypertarget{method-Bamtools-tidy_summary}{}}}
+\subsection{Method \code{tidy_summary()}}{
+Tidy \code{summary.tsv} file. Generates 2 sub-tbls:
+\emph{stats} with the main stats and \emph{dp} with the percentage of bases
+covered by at least X reads.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_summary(x)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{(\code{character(1)})\cr
+Path to file.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Bamtools-parse_wgsmetrics"></a>}}
 \if{latex}{\out{\hypertarget{method-Bamtools-parse_wgsmetrics}{}}}
 \subsection{Method \code{parse_wgsmetrics()}}{
 Read \code{wgsmetrics} file.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Bamtools$parse_wgsmetrics(x)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{(\code{character(1)})\cr
+Path to file.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Bamtools-tidy_wgsmetrics"></a>}}
+\if{latex}{\out{\hypertarget{method-Bamtools-tidy_wgsmetrics}{}}}
+\subsection{Method \code{tidy_wgsmetrics()}}{
+Tidy \code{wgsmetrics} file. Generates 3 sub-tbls:
+\emph{stats} with the main stats, \emph{dp} with the percentage of bases
+covered by at least X reads, and \emph{histo} with the distribution
+of base coverage.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_wgsmetrics(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
