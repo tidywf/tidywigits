@@ -5,27 +5,27 @@ tables:
     ftype: 'txt'
     columns:
       - raw: 'GENOME_TERRITORY'
-        tidy: 'genome_territory'
+        tidy: 'tot_region_bases'
         type: 'float'
         description: 'number of bases in the genome'
         versions: ['latest']
       - raw: 'MEAN_COVERAGE'
-        tidy: 'mean_coverage'
+        tidy: 'cov_mean'
         type: 'float'
         description: 'mean coverage'
         versions: ['latest']
       - raw: 'SD_COVERAGE'
-        tidy: 'sd_coverage'
+        tidy: 'cov_sd'
         type: 'float'
         description: 'standard deviation of coverage'
         versions: ['latest']
       - raw: 'MEDIAN_COVERAGE'
-        tidy: 'median_coverage'
+        tidy: 'cov_median'
         type: 'float'
         description: 'median coverage'
         versions: ['latest']
       - raw: 'MAD_COVERAGE'
-        tidy: 'mad_coverage'
+        tidy: 'cov_mad'
         type: 'float'
         description: 'median absolute deviation of coverage'
         versions: ['latest']
@@ -35,37 +35,37 @@ tables:
         description: 'fraction of bases excluded due to adapter'
         versions: ['latest']
       - raw: 'PCT_EXC_MAPQ'
-        tidy: 'pct_exc_mapq'
+        tidy: 'lowmapq_pct'
         type: 'float'
         description: 'fraction of bases excluded due to mapping quality'
         versions: ['latest']
       - raw: 'PCT_EXC_DUPE'
-        tidy: 'pct_exc_dupe'
+        tidy: 'dup_pct'
         type: 'float'
         description: 'fraction of bases excluded due to duplication'
         versions: ['latest']
       - raw: 'PCT_EXC_UNPAIRED'
-        tidy: 'pct_exc_unpaired'
+        tidy: 'unpaired_pct'
         type: 'float'
         description: 'fraction of bases excluded due to being unpaired'
         versions: ['latest']
       - raw: 'PCT_EXC_BASEQ'
-        tidy: 'pct_exc_baseq'
+        tidy: 'lowbaseq_pct'
         type: 'float'
         description: 'fraction of bases excluded due to base quality'
         versions: ['latest']
       - raw: 'PCT_EXC_OVERLAP'
-        tidy: 'pct_exc_overlap'
+        tidy: 'overlap_read_pct'
         type: 'float'
         description: 'fraction of bases excluded due to overlap'
         versions: ['latest']
       - raw: 'PCT_EXC_CAPPED'
-        tidy: 'pct_exc_capped'
+        tidy: 'cov_capped'
         type: 'float'
         description: 'fraction of bases excluded due to capping'
         versions: ['latest']
       - raw: 'PCT_EXC_TOTAL'
-        tidy: 'pct_exc_total'
+        tidy: 'total_exc_pct'
         type: 'float'
         description: 'total fraction of bases excluded'
         versions: ['latest']
@@ -511,7 +511,7 @@ tables:
         versions: ['latest']
   genecvg:
     description: 'Gene coverage depth ranges.'
-    pattern: "\\.bam_metric\\.gene_coverage\\.tsv$"
+    pattern: "\\.bam_metric\\.gene_coverage\\.tsv$|\\.sage\\.gene\\.coverage\\.tsv$"
     ftype: 'txt'
     columns:
       - raw: 'gene'

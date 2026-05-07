@@ -11,7 +11,7 @@
 #' obj$nemofy(diro = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "sage.*parquet", full.names = FALSE))
 #' @testexamples
-#' expect_equal(length(lf), 9)
+#' expect_equal(length(lf), 7)
 #' @export
 Sage <- R6::R6Class(
   "Sage",
