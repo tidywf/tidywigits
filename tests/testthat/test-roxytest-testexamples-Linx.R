@@ -11,6 +11,6 @@ test_that("Function Linx() @ L16", {
   obj <- cls$new(indir)
   obj$nemofy(diro = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "linx.*parquet", full.names = FALSE))
-  expect_equal(length(lf), 20)
+  expect_equal(length(lf), 30)
 })
 

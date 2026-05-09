@@ -26,54 +26,6 @@ Amber <- R6::R6Class(
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "amber", pkg = pkg_name, path = path, files_tbl = files_tbl)
     },
-    #' @description Read `baf.pcf` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_bafpcf = function(x) {
-      self$.parse_file(x, "bafpcf")
-    },
-    #' @description Tidy `baf.pcf` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_bafpcf = function(x) {
-      self$.tidy_file(x, "bafpcf")
-    },
-    #' @description Read `baf.tsv.gz` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_baftsv = function(x) {
-      self$.parse_file(x, "baftsv")
-    },
-    #' @description Tidy `baf.tsv.gz` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_baftsv = function(x) {
-      self$.tidy_file(x, "baftsv")
-    },
-    #' @description Read `contamination.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_contaminationtsv = function(x) {
-      self$.parse_file(x, "contaminationtsv")
-    },
-    #' @description Tidy `contamination.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_contaminationtsv = function(x) {
-      self$.tidy_file(x, "contaminationtsv")
-    },
-    #' @description Read `homozygousregion.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_homozygousregion = function(x) {
-      self$.parse_file(x, "homozygousregion")
-    },
-    #' @description Tidy `homozygousregion.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_homozygousregion = function(x) {
-      self$.tidy_file(x, "homozygousregion")
-    },
     #' @description Read `qc` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.

@@ -25,30 +25,6 @@ Teal <- R6::R6Class(
     #' Tibble of files from [nemo::list_files_dir()].
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "teal", pkg = pkg_name, path = path, files_tbl = files_tbl)
-    },
-    #' @description Read `breakend.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_breakend = function(x) {
-      self$.parse_file(x, "breakend")
-    },
-    #' @description Tidy `breakend.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_breakend = function(x) {
-      self$.tidy_file(x, "breakend")
-    },
-    #' @description Read `tellength.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_tellength = function(x) {
-      self$.parse_file(x, "tellength")
-    },
-    #' @description Tidy `tellength.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_tellength = function(x) {
-      self$.tidy_file(x, "tellength")
     }
   )
 )

@@ -25,42 +25,6 @@ Cider <- R6::R6Class(
     #' Tibble of files from [nemo::list_files_dir()].
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "cider", pkg = pkg_name, path = path, files_tbl = files_tbl)
-    },
-    #' @description Read `blastn_match.tsv.gz` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_blastn = function(x) {
-      self$.parse_file(x, "blastn")
-    },
-    #' @description Tidy `blastn_match.tsv.gz` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_blastn = function(x) {
-      self$.tidy_file(x, "blastn")
-    },
-    #' @description Read `locus_stats.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_locstats = function(x) {
-      self$.parse_file(x, "locstats")
-    },
-    #' @description Tidy `locus_stats.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_locstats = function(x) {
-      self$.tidy_file(x, "locstats")
-    },
-    #' @description Read `vdj.tsv.gz` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_vdj = function(x) {
-      self$.parse_file(x, "vdj")
-    },
-    #' @description Tidy `vdj.tsv.gz` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_vdj = function(x) {
-      self$.tidy_file(x, "vdj")
     }
   )
 )

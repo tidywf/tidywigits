@@ -11,6 +11,6 @@ test_that("Function Sage() @ L16", {
   obj <- cls$new(indir)
   obj$nemofy(diro = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "sage.*parquet", full.names = FALSE))
-  expect_equal(length(lf), 10)
+  expect_equal(length(lf), 7)
 })
 

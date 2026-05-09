@@ -30,8 +30,8 @@ Virusbreakend <- R6::R6Class(
     #' @description Read `vcf.summary.tsv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    parse_summary = function(x) {
-      schema <- self$get_raw_schema("summary", v = "latest") |>
+    parse_vcfsummary = function(x) {
+      schema <- self$get_raw_schema("vcfsummary", v = "latest") |>
         dplyr::select("field", "type")
       # file is either completely empty, or with colnames + data
       hdr <- nemo::file_hdr(x)
@@ -41,14 +41,8 @@ Virusbreakend <- R6::R6Class(
           nemo::set_tbl_version_attr("latest")
         return(etbl)
       }
-      self$.parse_file(x, "summary") |>
+      self$.parse_file(x, "vcfsummary") |>
         nemo::set_tbl_version_attr("latest")
-    },
-    #' @description Tidy `vcf.summary.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_summary = function(x) {
-      self$.tidy_file(x, "summary")
     }
   ) # end public
 )

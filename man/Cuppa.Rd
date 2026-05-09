@@ -22,21 +22,17 @@ obj$nemofy(diro = odir, format = "parquet", input_id = id)
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Cuppa-new}{\code{Cuppa$new()}}
-\item \href{#method-Cuppa-parse_datacsv}{\code{Cuppa$parse_datacsv()}}
-\item \href{#method-Cuppa-tidy_datacsv}{\code{Cuppa$tidy_datacsv()}}
-\item \href{#method-Cuppa-parse_feat}{\code{Cuppa$parse_feat()}}
-\item \href{#method-Cuppa-tidy_feat}{\code{Cuppa$tidy_feat()}}
 \item \href{#method-Cuppa-parse_predsum}{\code{Cuppa$parse_predsum()}}
 \item \href{#method-Cuppa-tidy_predsum}{\code{Cuppa$tidy_predsum()}}
-\item \href{#method-Cuppa-parse_datatsv}{\code{Cuppa$parse_datatsv()}}
-\item \href{#method-Cuppa-tidy_datatsv}{\code{Cuppa$tidy_datatsv()}}
 \item \href{#method-Cuppa-clone}{\code{Cuppa$clone()}}
 }
 }
 \if{html}{\out{
 <details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".eval_func"><a href='../../nemo/html/Tool.html#method-Tool-.eval_func'><code>nemo::Tool$.eval_func()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".dispatch_parse"><a href='../../nemo/html/Tool.html#method-Tool-.dispatch_parse'><code>nemo::Tool$.dispatch_parse()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".dispatch_tidy"><a href='../../nemo/html/Tool.html#method-Tool-.dispatch_tidy'><code>nemo::Tool$.dispatch_tidy()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_by_ftype"><a href='../../nemo/html/Tool.html#method-Tool-.parse_by_ftype'><code>nemo::Tool$.parse_by_ftype()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file'><code>nemo::Tool$.parse_file()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_keyvalue"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_keyvalue'><code>nemo::Tool$.parse_file_keyvalue()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_nohead"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_nohead'><code>nemo::Tool$.parse_file_nohead()</code></a></span></li>
@@ -73,78 +69,6 @@ Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cuppa-parse_datacsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Cuppa-parse_datacsv}{}}}
-\subsection{Method \code{parse_datacsv()}}{
-Read \code{cup.data.csv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cuppa$parse_datacsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cuppa-tidy_datacsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Cuppa-tidy_datacsv}{}}}
-\subsection{Method \code{tidy_datacsv()}}{
-Tidy \code{cup.data.csv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cuppa$tidy_datacsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cuppa-parse_feat"></a>}}
-\if{latex}{\out{\hypertarget{method-Cuppa-parse_feat}{}}}
-\subsection{Method \code{parse_feat()}}{
-Read \code{cuppa_data.tsv.gz} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cuppa$parse_feat(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cuppa-tidy_feat"></a>}}
-\if{latex}{\out{\hypertarget{method-Cuppa-tidy_feat}{}}}
-\subsection{Method \code{tidy_feat()}}{
-Tidy \code{cuppa_data.tsv.gz} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cuppa$tidy_feat(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Cuppa-parse_predsum"></a>}}
 \if{latex}{\out{\hypertarget{method-Cuppa-parse_predsum}{}}}
 \subsection{Method \code{parse_predsum()}}{
@@ -169,42 +93,6 @@ Path to file.}
 Tidy \code{cuppa.pred_summ.tsv} file.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cuppa$tidy_predsum(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cuppa-parse_datatsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Cuppa-parse_datatsv}{}}}
-\subsection{Method \code{parse_datatsv()}}{
-Read \code{cuppa.vis_data.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cuppa$parse_datatsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cuppa-tidy_datatsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Cuppa-tidy_datatsv}{}}}
-\subsection{Method \code{tidy_datatsv()}}{
-Tidy \code{cuppa.vis_data.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cuppa$tidy_datatsv(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

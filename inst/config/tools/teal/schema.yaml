@@ -1,247 +1,196 @@
-id: https://example.org/tidywigits/teal
-name: teal
-description: >-
-  Telomere characterisation.
-
-prefixes:
-  linkml: https://w3id.org/linkml/
-  teal: https://example.org/tidywigits/teal/
-
-imports:
-  - linkml:types
-
-default_range: string
-default_prefix: teal
-
-subsets:
-  raw:
-    description: Raw input file schema
-  tidy:
-    description: Tidy output schema
-  latest:
-    description: Teal latest version
-
-classes:
-
-  #---- Breakend ----#
-  RawBreakend:
-    description: Telomeric rearrangements.
-    in_subset: [raw, latest]
-    annotations:
-      name: breakend
-      pattern: "\\.teal\\.breakend\\.tsv\\.gz$"
-      ftype: tsv
-    attributes:
-      chromosome:
-        range: string
-      position:
-        range: float
-      orientation:
-        range: float
-      cOrGRich:
-        range: string
-      filter:
-        range: string
-      inTumor:
-        range: string
-      inGermline:
-        range: string
-      distanceToTelomere:
-        range: float
-      maxTelomericLength:
-        range: float
-      maxAnchorLength:
-        range: float
-      tumorSRTelDPTel:
-        range: float
-      tumorSRTelDPNotTel:
-        range: float
-      tumorSRTelNoDP:
-        range: float
-      tumorSRNotTelDPTel:
-        range: float
-      tumorDPTelNoSR:
-        range: float
-      tumorTotalSupport:
-        range: float
-      tumorMAPQ:
-        range: float
-      germlineSRTelDPTel:
-        range: float
-      germlineSRTelDPNotTel:
-        range: float
-      germlineSRTelNoDP:
-        range: float
-      germlineSRNotTelDPTel:
-        range: float
-      germlineDPTelNoSR:
-        range: float
-      germlineTotalSupport:
-        range: float
-      germlineMAPQ:
-        range: float
-
-  TidyBreakend:
-    description: Telomeric rearrangements.
-    in_subset: [tidy, latest]
-    annotations:
-      name: breakend
-      subtbl: tbl1
-    attributes:
-      chrom:
-        range: string
-        description: Chromosome of breakend
-      position:
-        range: float
-        description: Position of Breakend
-      orientation:
-        range: float
-        description: 1 = breakend on left side; -1 = breakend on right side
-      cg_rich:
-        range: string
-        description: C or G
-      filter:
-        range: string
-        description: PASS or one or more of the specified filters
-      in_tumor:
-        range: string
-        description: true if in tumor
-      in_germline:
-        range: string
-        description: true if in germline
-      distance_to_telomere:
-        range: float
-        description: Distance to nearest reference telomere in nucleotides
-      max_telomeric_length:
-        range: float
-        description: Longest continuous telomeric segment on any fragment supporting the rearrangement
-      max_anchor_length:
-        range: float
-        description: Longest locally anchored segment on any fragment supporting the rearrangement
-      tumor_sr_tel_dp_tel:
-        range: float
-        description: Count of fragments in tumor with 1 read with soft clip supporting the breakend and containing telomeric sequence with the paired read discordant and containing telomeric sequence
-      tumor_sr_tel_dp_no_tel:
-        range: float
-        description: Count of fragments in tumor with 1 read with soft clip supporting the breakend and containing telomeric sequence with the paired read discordant but not containing telomeric sequence (may indicate telomeric insertion)
-      tumor_sr_tel_no_dp:
-        range: float
-        description: Count of fragments in tumor with 1 read with soft clip supporting the breakend and containing telomeric sequence with the paired read locally anchored
-      tumor_sr_no_tel_dp_tel:
-        range: float
-        description: Count of fragments in tumor with 1 read with soft clip supporting the breakend but NOT containing telomeric sequence with the paired read discordant and containing telomeric sequence
-      tumor_dp_tel_no_sr:
-        range: float
-        description: Count of fragments in tumor with 1 read locally anchored but not spanning the breakend and the paired read discordant and containing telomeric sequence
-      tumor_total_support:
-        range: float
-        description: Tumor total support
-      tumor_mapq:
-        range: float
-        description: Sum of MAPQ of locally anchored reads in fragments supporting the rearrangement in tumor
-      germ_sr_tel_dp_tel:
-        range: float
-        description: Count of fragments in germline with 1 read with soft clip supporting the breakend and containing telomeric sequence with the paired read discordant and containing telomeric sequence
-      germ_sr_tel_dp_no_tel:
-        range: float
-        description: Count of fragments in germline with 1 read with soft clip supporting the breakend and containing telomeric sequence with the paired read discordant but not containing telomeric sequence (may indicate telomeric insertion)
-      germ_sr_tel_no_dp:
-        range: float
-        description: Count of fragments in germline with 1 read with soft clip supporting the breakend and containing telomeric sequence with the paired read locally anchored
-      germ_sr_no_tel_dp_tel:
-        range: float
-        description: Count of fragments in germline with 1 read with soft clip supporting the breakend but NOT containing telomeric sequence with the paired read discordant and containing telomeric sequence
-      germ_dp_tel_no_sr:
-        range: float
-        description: Count of fragments in germline with 1 read locally anchored but not spanning the breakend and the paired read discordant and containing telomeric sequence
-      germ_total_support:
-        range: float
-        description: Germline total support
-      germ_mapq:
-        range: float
-        description: Sum of MAPQ of locally anchored reads in fragments supporting the rearrangement in germline
-
-
-  #---- Tellength ----#
-  RawTellength:
-    description: Telomeric length and content.
-    in_subset: [raw, latest]
-    annotations:
-      name: tellength
-      pattern: "\\.teal\\.tellength\\.tsv$"
-      ftype: tsv
-    attributes:
-      sampleId:
-        range: string
-      type:
-        range: string
-      rawTelomereLength:
-        range: float
-      finalTelomereLength:
-        range: float
-      fullFragments:
-        range: float
-      cRichPartialFragments:
-        range: float
-      gRichPartialFragments:
-        range: float
-      totalTelomericReads:
-        range: float
-      purity:
-        range: float
-      ploidy:
-        range: float
-      duplicateProportion:
-        range: float
-      meanReadDepth:
-        range: float
-      gc50ReadDepth:
-        range: float
-
-  TidyTellength:
-    description: Telomeric length and content.
-    in_subset: [tidy, latest]
-    annotations:
-      name: tellength
-      subtbl: tbl1
-    attributes:
-      sample_id:
-        range: string
-        description: Sample ID
-      type:
-        range: string
-        description: tumor or ref
-      tel_length_raw:
-        range: float
-        description: Raw telomere length
-      tel_length_final:
-        range: float
-        description: Final telomere length adjusted for purity (= raw length for ref sample)
-      fragments_full:
-        range: float
-        description: Count of fragments with both reads classified as telomeric
-      fragments_c_rich_partial:
-        range: float
-        description: Count of fragments with 1 read non telomeric and the other telomeric oriented in a C-rich orientation
-      fragments_g_rich_partial:
-        range: float
-        description: Count of fragments with 1 read non telomeric and the other telomeric oriented in a G-rich orientation
-      reads_telomeric_total:
-        range: float
-        description: Total telomeric reads
-      purity:
-        range: float
-        description: Purity from PURPLE (=1 for ref)
-      ploidy:
-        range: float
-        description: Ploidy from PURPLE (=2 for ref)
-      dup_prop:
-        range: float
-        description: Duplicate proportion (from WGS metrics)
-      dp_read_mean:
-        range: float
-        description: Mean read depth (from COBALT)
-      dp_read_gc50:
-        range: float
-        description: Read depth GC 50 (from COBALT)
-
+tables:
+  breakend:
+    description: 'Telomeric rearrangements.'
+    pattern: "\\.teal\\.breakend\\.tsv\\.gz$"
+    ftype: 'txt'
+    columns:
+      - raw: 'chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'Chromosome of breakend'
+        versions: ['latest']
+      - raw: 'position'
+        tidy: 'position'
+        type: 'float'
+        description: 'Position of Breakend'
+        versions: ['latest']
+      - raw: 'orientation'
+        tidy: 'orientation'
+        type: 'float'
+        description: '1 = breakend on left side; -1 = breakend on right side'
+        versions: ['latest']
+      - raw: 'cOrGRich'
+        tidy: 'cg_rich'
+        type: 'char'
+        description: 'C or G'
+        versions: ['latest']
+      - raw: 'filter'
+        tidy: 'filter'
+        type: 'char'
+        description: 'PASS or one or more of the specified filters'
+        versions: ['latest']
+      - raw: 'inTumor'
+        tidy: 'in_tumor'
+        type: 'char'
+        description: 'true if in tumor'
+        versions: ['latest']
+      - raw: 'inGermline'
+        tidy: 'in_germline'
+        type: 'char'
+        description: 'true if in germline'
+        versions: ['latest']
+      - raw: 'distanceToTelomere'
+        tidy: 'distance_to_telomere'
+        type: 'float'
+        description: 'Distance to nearest reference telomere in nucleotides'
+        versions: ['latest']
+      - raw: 'maxTelomericLength'
+        tidy: 'max_telomeric_length'
+        type: 'float'
+        description: 'Longest continuous telomeric segment on any fragment supporting the rearrangement'
+        versions: ['latest']
+      - raw: 'maxAnchorLength'
+        tidy: 'max_anchor_length'
+        type: 'float'
+        description: 'Longest locally anchored segment on any fragment supporting the rearrangement'
+        versions: ['latest']
+      - raw: 'tumorSRTelDPTel'
+        tidy: 'tumor_sr_tel_dp_tel'
+        type: 'float'
+        description: 'Count of fragments in tumor with 1 read with soft clip supporting the breakend and containing telomeric sequence with the paired read discordant and containing telomeric sequence'
+        versions: ['latest']
+      - raw: 'tumorSRTelDPNotTel'
+        tidy: 'tumor_sr_tel_dp_no_tel'
+        type: 'float'
+        description: 'Count of fragments in tumor with 1 read with soft clip supporting the breakend and containing telomeric sequence with the paired read discordant but not containing telomeric sequence'
+        versions: ['latest']
+      - raw: 'tumorSRTelNoDP'
+        tidy: 'tumor_sr_tel_no_dp'
+        type: 'float'
+        description: 'Count of fragments in tumor with 1 read with soft clip supporting the breakend and containing telomeric sequence with the paired read locally anchored'
+        versions: ['latest']
+      - raw: 'tumorSRNotTelDPTel'
+        tidy: 'tumor_sr_no_tel_dp_tel'
+        type: 'float'
+        description: 'Count of fragments in tumor with 1 read with soft clip supporting the breakend but NOT containing telomeric sequence with the paired read discordant and containing telomeric sequence'
+        versions: ['latest']
+      - raw: 'tumorDPTelNoSR'
+        tidy: 'tumor_dp_tel_no_sr'
+        type: 'float'
+        description: 'Count of fragments in tumor with 1 read locally anchored but not spanning the breakend and the paired read discordant and containing telomeric sequence'
+        versions: ['latest']
+      - raw: 'tumorTotalSupport'
+        tidy: 'tumor_total_support'
+        type: 'float'
+        description: 'Tumor total support'
+        versions: ['latest']
+      - raw: 'tumorMAPQ'
+        tidy: 'tumor_mapq'
+        type: 'float'
+        description: 'Sum of MAPQ of locally anchored reads in fragments supporting the rearrangement in tumor'
+        versions: ['latest']
+      - raw: 'germlineSRTelDPTel'
+        tidy: 'germ_sr_tel_dp_tel'
+        type: 'float'
+        description: 'Count of fragments in germline with 1 read with soft clip supporting the breakend and containing telomeric sequence with the paired read discordant and containing telomeric sequence'
+        versions: ['latest']
+      - raw: 'germlineSRTelDPNotTel'
+        tidy: 'germ_sr_tel_dp_no_tel'
+        type: 'float'
+        description: 'Count of fragments in germline with 1 read with soft clip supporting the breakend and containing telomeric sequence with the paired read discordant but not containing telomeric sequence'
+        versions: ['latest']
+      - raw: 'germlineSRTelNoDP'
+        tidy: 'germ_sr_tel_no_dp'
+        type: 'float'
+        description: 'Count of fragments in germline with 1 read with soft clip supporting the breakend and containing telomeric sequence with the paired read locally anchored'
+        versions: ['latest']
+      - raw: 'germlineSRNotTelDPTel'
+        tidy: 'germ_sr_no_tel_dp_tel'
+        type: 'float'
+        description: 'Count of fragments in germline with 1 read with soft clip supporting the breakend but NOT containing telomeric sequence with the paired read discordant and containing telomeric sequence'
+        versions: ['latest']
+      - raw: 'germlineDPTelNoSR'
+        tidy: 'germ_dp_tel_no_sr'
+        type: 'float'
+        description: 'Count of fragments in germline with 1 read locally anchored but not spanning the breakend and the paired read discordant and containing telomeric sequence'
+        versions: ['latest']
+      - raw: 'germlineTotalSupport'
+        tidy: 'germ_total_support'
+        type: 'float'
+        description: 'Germline total support'
+        versions: ['latest']
+      - raw: 'germlineMAPQ'
+        tidy: 'germ_mapq'
+        type: 'float'
+        description: 'Sum of MAPQ of locally anchored reads in fragments supporting the rearrangement in germline'
+        versions: ['latest']
+  tellength:
+    description: 'Telomeric length and content.'
+    pattern: "\\.teal\\.tellength\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'sampleId'
+        tidy: 'sample_id'
+        type: 'char'
+        description: 'Sample ID'
+        versions: ['latest']
+      - raw: 'type'
+        tidy: 'type'
+        type: 'char'
+        description: 'tumor or ref'
+        versions: ['latest']
+      - raw: 'rawTelomereLength'
+        tidy: 'tel_length_raw'
+        type: 'float'
+        description: 'Raw telomere length'
+        versions: ['latest']
+      - raw: 'finalTelomereLength'
+        tidy: 'tel_length_final'
+        type: 'float'
+        description: 'Final telomere length adjusted for purity (= raw length for ref sample)'
+        versions: ['latest']
+      - raw: 'fullFragments'
+        tidy: 'fragments_full'
+        type: 'float'
+        description: 'Count of fragments with both reads classified as telomeric'
+        versions: ['latest']
+      - raw: 'cRichPartialFragments'
+        tidy: 'fragments_c_rich_partial'
+        type: 'float'
+        description: 'Count of fragments with 1 read non telomeric and the other telomeric oriented in a C-rich orientation'
+        versions: ['latest']
+      - raw: 'gRichPartialFragments'
+        tidy: 'fragments_g_rich_partial'
+        type: 'float'
+        description: 'Count of fragments with 1 read non telomeric and the other telomeric oriented in a G-rich orientation'
+        versions: ['latest']
+      - raw: 'totalTelomericReads'
+        tidy: 'reads_telomeric_total'
+        type: 'float'
+        description: 'Total telomeric reads'
+        versions: ['latest']
+      - raw: 'purity'
+        tidy: 'purity'
+        type: 'float'
+        description: 'Purity from PURPLE (=1 for ref)'
+        versions: ['latest']
+      - raw: 'ploidy'
+        tidy: 'ploidy'
+        type: 'float'
+        description: 'Ploidy from PURPLE (=2 for ref)'
+        versions: ['latest']
+      - raw: 'duplicateProportion'
+        tidy: 'dup_prop'
+        type: 'float'
+        description: 'Duplicate proportion (from WGS metrics)'
+        versions: ['latest']
+      - raw: 'meanReadDepth'
+        tidy: 'dp_read_mean'
+        type: 'float'
+        description: 'Mean read depth (from COBALT)'
+        versions: ['latest']
+      - raw: 'gc50ReadDepth'
+        tidy: 'dp_read_gc50'
+        type: 'float'
+        description: 'Read depth GC 50 (from COBALT)'
+        versions: ['latest']

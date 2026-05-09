@@ -26,29 +26,11 @@ Sigs <- R6::R6Class(
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "sigs", pkg = pkg_name, path = path, files_tbl = files_tbl)
     },
-    #' @description Read `allocation.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_allocation = function(x) {
-      self$.parse_file(x, "allocation")
-    },
-    #' @description Tidy `allocation.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_allocation = function(x) {
-      self$.tidy_file(x, "allocation")
-    },
     #' @description Read `snv_counts.csv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_snvcounts = function(x) {
       self$.parse_file_nohead(x, "snvcounts", delim = ",", skip = 1)
-    },
-    #' @description Tidy `snv_counts.csv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_snvcounts = function(x) {
-      self$.tidy_file(x, "snvcounts")
     }
   )
 )

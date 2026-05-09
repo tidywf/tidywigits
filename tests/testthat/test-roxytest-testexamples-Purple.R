@@ -11,11 +11,11 @@ test_that("Function Purple() @ L16", {
   obj <- cls$new(indir)
   obj$nemofy(diro = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "purple.*parquet", full.names = FALSE))
-  expect_equal(length(lf), 11)
+  expect_equal(length(lf), 14)
 })
 
 
-test_that("Function purple_plot_getter() @ L203", {
+test_that("Function purple_plot_getter() @ L92", {
   
   x <- tempdir()
   cp_dir <- file.path(tempdir(), "cpdir")

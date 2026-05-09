@@ -11,6 +11,6 @@ test_that("Function Alignments() @ L16", {
   obj <- cls$new(indir)
   obj$nemofy(diro = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "alignments.*parquet", full.names = FALSE))
-  expect_equal(grepv("parquet", lf), "sample1_alignments_dupfreq.parquet")
+  expect_equal(length(lf), 3)
 })
 

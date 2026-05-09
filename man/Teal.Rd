@@ -22,17 +22,15 @@ obj$nemofy(diro = odir, format = "parquet", input_id = id)
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Teal-new}{\code{Teal$new()}}
-\item \href{#method-Teal-parse_breakend}{\code{Teal$parse_breakend()}}
-\item \href{#method-Teal-tidy_breakend}{\code{Teal$tidy_breakend()}}
-\item \href{#method-Teal-parse_tellength}{\code{Teal$parse_tellength()}}
-\item \href{#method-Teal-tidy_tellength}{\code{Teal$tidy_tellength()}}
 \item \href{#method-Teal-clone}{\code{Teal$clone()}}
 }
 }
 \if{html}{\out{
 <details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".eval_func"><a href='../../nemo/html/Tool.html#method-Tool-.eval_func'><code>nemo::Tool$.eval_func()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".dispatch_parse"><a href='../../nemo/html/Tool.html#method-Tool-.dispatch_parse'><code>nemo::Tool$.dispatch_parse()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".dispatch_tidy"><a href='../../nemo/html/Tool.html#method-Tool-.dispatch_tidy'><code>nemo::Tool$.dispatch_tidy()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_by_ftype"><a href='../../nemo/html/Tool.html#method-Tool-.parse_by_ftype'><code>nemo::Tool$.parse_by_ftype()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file'><code>nemo::Tool$.parse_file()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_keyvalue"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_keyvalue'><code>nemo::Tool$.parse_file_keyvalue()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_nohead"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_nohead'><code>nemo::Tool$.parse_file_nohead()</code></a></span></li>
@@ -64,78 +62,6 @@ ignored.}
 
 \item{\code{files_tbl}}{(\code{tibble(n)})\cr
 Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Teal-parse_breakend"></a>}}
-\if{latex}{\out{\hypertarget{method-Teal-parse_breakend}{}}}
-\subsection{Method \code{parse_breakend()}}{
-Read \code{breakend.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Teal$parse_breakend(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Teal-tidy_breakend"></a>}}
-\if{latex}{\out{\hypertarget{method-Teal-tidy_breakend}{}}}
-\subsection{Method \code{tidy_breakend()}}{
-Tidy \code{breakend.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Teal$tidy_breakend(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Teal-parse_tellength"></a>}}
-\if{latex}{\out{\hypertarget{method-Teal-parse_tellength}{}}}
-\subsection{Method \code{parse_tellength()}}{
-Read \code{tellength.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Teal$parse_tellength(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Teal-tidy_tellength"></a>}}
-\if{latex}{\out{\hypertarget{method-Teal-tidy_tellength}{}}}
-\subsection{Method \code{tidy_tellength()}}{
-Tidy \code{tellength.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Teal$tidy_tellength(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
 }
 \if{html}{\out{</div>}}
 }

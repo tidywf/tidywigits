@@ -25,18 +25,18 @@ navbar:
       menu:
         - text: Installation
           href: articles/installation.html
-        - text: Schemas Raw
-          href: articles/schemas_raw.html
-        - text: Schemas Tidy
-          href: articles/schemas_tidy.html
-        - text: Schemas Mermaid
-          href: articles/schemas_er.html
-        - text: Developers
-          href: articles/developers.html
+        - text: Schema Walkthrough
+          href: articles/schema_walkthrough.html
+        - text: Schema Table
+          href: articles/schema_table.html
         - text: UML
           href: articles/uml.html
+        - text: CI/CD Workflow
+          href: articles/cicd.html
         - text: PostgreSQL
           href: articles/postgresql.html
+        - text: Devnotes
+          href: articles/devnotes.html
 
     news:
       text: NEWS
@@ -52,7 +52,6 @@ reference:
       - Cobalt
       - Cuppa
       - Esvee
-      - Flagstats
       - Isofox
       - Lilac
       - Linx

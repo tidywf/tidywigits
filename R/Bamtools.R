@@ -11,7 +11,7 @@
 #' obj$nemofy(diro = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "bamtools.*parquet", full.names = FALSE))
 #' @testexamples
-#' expect_equal(length(lf), 11)
+#' expect_equal(length(lf), 17)
 #' @export
 Bamtools <- R6::R6Class(
   "Bamtools",
@@ -26,42 +26,32 @@ Bamtools <- R6::R6Class(
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "bamtools", pkg = pkg_name, path = path, files_tbl = files_tbl)
     },
-    #' @description Read `summary.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_summary = function(x) {
-      self$.parse_file(x, "summary")
-    },
-    #' @description Tidy `summary.tsv` file.
+    #' @description Tidy `summary.tsv` file. Generates 2 sub-tbls:
+    #' _stats_ with the main stats and _dp_ with the percentage of bases
+    #' covered by at least X reads.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_summary = function(x) {
-      # hack to handle raw tibble input since other funcs use .tidy_file
       if (!tibble::is_tibble(x)) {
-        x <- self$parse_summary(x)
+        x <- self$.parse_file(x, "summary")
       }
-      d <- x
-      schema1 <- self$get_tidy_schema("summary", subtbl = "tbl1")
-      schema2 <- self$get_tidy_schema("summary", subtbl = "tbl2")
-      # d1 maintains file_version attr
-      d1 <- d |>
-        dplyr::select(!dplyr::contains("DepthCoverage_"))
-      stopifnot(ncol(d1) == nrow(schema1))
-      colnames(d1) <- schema1[["field"]]
-      # d2 requires file_version attr to be set
-      d2 <- d |>
-        dplyr::select(dplyr::contains("DepthCoverage_")) |>
+      version <- nemo::get_tbl_version_attr(x)
+      schema <- self$get_tidy_schema("summary", v = version)
+      colnames(x) <- schema[["field"]]
+      # d1 maintains file_version attr, d2 requires it
+      d1 <- x |> dplyr::select(!dplyr::starts_with("depth_cov_"))
+      d2 <- x |>
+        dplyr::select(dplyr::starts_with("depth_cov_")) |>
         tidyr::pivot_longer(
           dplyr::everything(),
-          names_to = "covdp",
-          values_to = "value",
-          names_prefix = "DepthCoverage_"
+          names_to = "dp",
+          values_to = "pct",
+          names_prefix = "depth_cov_"
         ) |>
-        dplyr::mutate(covx = as.numeric(.data$covdp)) |>
-        dplyr::select("covx", "value") |>
-        nemo::set_tbl_version_attr(nemo::get_tbl_version_attr(d1))
-      stopifnot(identical(colnames(d2), schema2[["field"]]))
-      list(summary = d1, covx = d2) |>
+        dplyr::mutate(dp = as.numeric(.data$dp)) |>
+        dplyr::select("dp", "pct") |>
+        nemo::set_tbl_version_attr(version)
+      list(stats = d1[], dp = d2[]) |>
         nemo::enframe_data()
     },
     #' @description Read `wgsmetrics` file.
@@ -69,37 +59,49 @@ Bamtools <- R6::R6Class(
     #' Path to file.
     parse_wgsmetrics = function(x) {
       # handle two different sections
+      # schema unlikely to change, use latest
       schema <- self$get_raw_schema("wgsmetrics", v = "latest") |>
         dplyr::select("field", "type")
-      # first make sure colnames are as expected
       hdr1 <- nemo::file_hdr(x, comment = "#")
       stopifnot(identical(hdr1, schema[["field"]]))
       hdr2 <- nemo::file_hdr(x, comment = "#", skip = 3)
       stopifnot(identical(hdr2, c("coverage", "high_quality_coverage_count")))
-      # now parse with proper classes
-      d1 <- self$.parse_file(
-        x = x,
-        name = "wgsmetrics",
-        n_max = 1,
-        comment = "#"
-      )
+      d1 <- self$.parse_file(x = x, name = "wgsmetrics", n_max = 1, comment = "#")
       d2 <- readr::read_tsv(x, col_types = "ci", comment = "#", skip = 3) |>
         nemo::set_tbl_version_attr(nemo::get_tbl_version_attr(d1))
-      list(metrics = d1[], histo = d2[]) |>
+      list(stats = d1[], histo = d2[]) |>
         nemo::enframe_data()
     },
-    #' @description Tidy `wgsmetrics` file.
+    #' @description Tidy `wgsmetrics` file. Generates 3 sub-tbls:
+    #' _stats_ with the main stats, _dp_ with the percentage of bases
+    #' covered by at least X reads, and _histo_ with the distribution
+    #' of base coverage.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_wgsmetrics = function(x) {
-      # hack to handle raw tibble input since other funcs use .tidy_file
       if (!tibble::is_tibble(x)) {
         x <- self$parse_wgsmetrics(x)
       }
       d <- x |> tibble::deframe()
-      schema <- self$get_tidy_schema("wgsmetrics")
-      colnames(d[["metrics"]]) <- schema[["field"]]
-      nemo::enframe_data(d)
+      version <- nemo::get_tbl_version_attr(d[["stats"]])
+      schema <- self$get_tidy_schema("wgsmetrics", v = version)
+      colnames(d[["stats"]]) <- schema[["field"]]
+      # now split off the pct_x into new tbl
+      pat1 <- "pct_\\d+x$"
+      d[["dp"]] <- d[["stats"]] |>
+        dplyr::select(dplyr::matches(pat1)) |>
+        tidyr::pivot_longer(
+          dplyr::everything(),
+          names_to = "dp",
+          values_to = "pct",
+          names_prefix = "pct_"
+        ) |>
+        dplyr::select("dp", "pct") |>
+        nemo::set_tbl_version_attr(version)
+      d[["stats"]] <- d[["stats"]] |>
+        dplyr::select(!dplyr::matches(pat1))
+      d |>
+        nemo::enframe_data()
     },
 
     #' @description Read `flag_counts.tsv` file.
@@ -132,7 +134,7 @@ Bamtools <- R6::R6Class(
       # name cleanup
       d <- d0 |>
         dplyr::mutate(
-          metric_clean = dplyr::case_match(
+          metric_clean = dplyr::recode_values(
             .data$metric2,
             "in total (QC-passed reads + QC-failed reads)" ~ "total",
             "supplementary" ~ "suppl",
@@ -144,7 +146,7 @@ Bamtools <- R6::R6Class(
             "with itself and mate mapped" ~ "both_map",
             "with mate mapped to a different chr" ~ "matemap_diff",
             "with mate mapped to a different chr (mapQ>=5)" ~ "matemap_diff_mapq5",
-            .default = .data$metric2
+            default = .data$metric2
           )
         )
       # deal with counts first
@@ -201,48 +203,6 @@ Bamtools <- R6::R6Class(
       list(flagstats = d) |>
         nemo::enframe_data()
     },
-    #' @description Read `coverage.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_coverage = function(x) {
-      self$.parse_file(x, "coverage")
-    },
-    #' @description Tidy `coverage.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_coverage = function(x) {
-      self$.tidy_file(x, "coverage")
-    },
-    #' @description Read `frag_length.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_fraglength = function(x) {
-      self$.parse_file(x, "fraglength")
-    },
-    #' @description Tidy `frag_length.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_fraglength = function(x) {
-      self$.tidy_file(x, "fraglength")
-    },
-    #' @description Read `partition_stats.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_partitionstats = function(x) {
-      self$.parse_file(x, "partitionstats")
-    },
-    #' @description Tidy `partition_stats.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_partitionstats = function(x) {
-      self$.tidy_file(x, "partitionstats")
-    },
-    #' @description Read `gene_coverage.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_genecvg = function(x) {
-      self$.parse_file(x, "genecvg")
-    },
     #' @description Tidy `gene_coverage.tsv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
@@ -266,18 +226,6 @@ Bamtools <- R6::R6Class(
         nemo::set_tbl_version_attr(version)
       list(genes = genes, cvg = cvg) |>
         nemo::enframe_data()
-    },
-    #' @description Read `exon_medians.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_exoncvg = function(x) {
-      self$.parse_file(x, "exoncvg")
-    },
-    #' @description Tidy `exon_medians.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_exoncvg = function(x) {
-      self$.tidy_file(x, "exoncvg")
     }
   )
 )

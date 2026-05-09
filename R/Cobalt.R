@@ -37,68 +37,28 @@ Cobalt <- R6::R6Class(
       list(sample_stats = d1[], bucket_stats = d2) |>
         nemo::enframe_data()
     },
-    #' @description Tidy `gc.median.tsv` file.
+    #' @description Tidy `gc.median.tsv` file. Generates 2 sub-tbls:
+    #' _sample_ with the sample mean/median read depth, and _buckets_ with the
+    #' median depth per GC bucket.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_gcmed = function(x) {
-      # hack to handle raw tibble input since other funcs use .tidy_file
       if (!tibble::is_tibble(x)) {
         x <- self$parse_gcmed(x)
       }
       d <- x |> tibble::deframe()
-      stopifnot(identical(names(d), c("sample_stats", "bucket_stats")))
-      schema <- self$get_tidy_schema("gcmed")
+      version <- nemo::get_tbl_version_attr(d[["bucket_stats"]])
+      schema <- self$get_tidy_schema("gcmed", v = version)
       colnames(d[["bucket_stats"]]) <- schema[["field"]]
       colnames(d[["sample_stats"]]) <- c("mean", "median")
-      nemo::enframe_data(d)
-    },
-    #' @description Read `ratio.median.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_ratiomed = function(x) {
-      self$.parse_file(x, "ratiomed")
-    },
-    #' @description Tidy `ratio.median.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_ratiomed = function(x) {
-      self$.tidy_file(x, "ratiomed")
-    },
-    #' @description Read `ratio.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_ratiotsv = function(x) {
-      self$.parse_file(x, "ratiotsv")
-    },
-    #' @description Tidy `ratio.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_ratiotsv = function(x) {
-      self$.tidy_file(x, "ratiotsv")
-    },
-    #' @description Read `ratio.pcf` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_ratiopcf = function(x) {
-      self$.parse_file(x, "ratiopcf")
-    },
-    #' @description Tidy `ratio.pcf` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_ratiopcf = function(x) {
-      self$.tidy_file(x, "ratiopcf")
+      list(sample = d[["sample_stats"]], buckets = d[["bucket_stats"]]) |>
+        nemo::enframe_data()
     },
     #' @description Read `cobalt.version` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_version = function(x) {
       self$.parse_file_keyvalue(x, "version", delim = "=")
-    },
-    #' @description Tidy `cobalt.version` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_version = function(x) {
-      self$.tidy_file(x, "version")
     }
   ) # end public
 )

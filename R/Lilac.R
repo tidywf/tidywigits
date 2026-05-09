@@ -25,30 +25,6 @@ Lilac <- R6::R6Class(
     #' Tibble of files from [nemo::list_files_dir()].
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "lilac", pkg = pkg_name, path = path, files_tbl = files_tbl)
-    },
-    #' @description Read `lilac.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_summary = function(x) {
-      self$.parse_file(x, "summary")
-    },
-    #' @description Tidy `lilac.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_summary = function(x) {
-      self$.tidy_file(x, "summary")
-    },
-    #' @description Read `lilac.qc.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_qc = function(x) {
-      self$.parse_file(x, "qc")
-    },
-    #' @description Tidy `lilac.qc.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_qc = function(x) {
-      self$.tidy_file(x, "qc")
     }
   )
 )

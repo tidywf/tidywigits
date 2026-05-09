@@ -22,17 +22,16 @@ obj$nemofy(diro = odir, format = "parquet", input_id = id)
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Alignments-new}{\code{Alignments$new()}}
-\item \href{#method-Alignments-parse_dupfreq}{\code{Alignments$parse_dupfreq()}}
-\item \href{#method-Alignments-tidy_dupfreq}{\code{Alignments$tidy_dupfreq()}}
 \item \href{#method-Alignments-parse_markdup}{\code{Alignments$parse_markdup()}}
-\item \href{#method-Alignments-tidy_markdup}{\code{Alignments$tidy_markdup()}}
 \item \href{#method-Alignments-clone}{\code{Alignments$clone()}}
 }
 }
 \if{html}{\out{
 <details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".eval_func"><a href='../../nemo/html/Tool.html#method-Tool-.eval_func'><code>nemo::Tool$.eval_func()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".dispatch_parse"><a href='../../nemo/html/Tool.html#method-Tool-.dispatch_parse'><code>nemo::Tool$.dispatch_parse()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".dispatch_tidy"><a href='../../nemo/html/Tool.html#method-Tool-.dispatch_tidy'><code>nemo::Tool$.dispatch_tidy()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_by_ftype"><a href='../../nemo/html/Tool.html#method-Tool-.parse_by_ftype'><code>nemo::Tool$.parse_by_ftype()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file'><code>nemo::Tool$.parse_file()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_keyvalue"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_keyvalue'><code>nemo::Tool$.parse_file_keyvalue()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_nohead"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_nohead'><code>nemo::Tool$.parse_file_nohead()</code></a></span></li>
@@ -69,66 +68,12 @@ Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Alignments-parse_dupfreq"></a>}}
-\if{latex}{\out{\hypertarget{method-Alignments-parse_dupfreq}{}}}
-\subsection{Method \code{parse_dupfreq()}}{
-Read \code{duplicate_freq.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Alignments$parse_dupfreq(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Alignments-tidy_dupfreq"></a>}}
-\if{latex}{\out{\hypertarget{method-Alignments-tidy_dupfreq}{}}}
-\subsection{Method \code{tidy_dupfreq()}}{
-Tidy \code{duplicate_freq.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Alignments$tidy_dupfreq(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Alignments-parse_markdup"></a>}}
 \if{latex}{\out{\hypertarget{method-Alignments-parse_markdup}{}}}
 \subsection{Method \code{parse_markdup()}}{
 Read \code{md.metrics} file.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Alignments$parse_markdup(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Alignments-tidy_markdup"></a>}}
-\if{latex}{\out{\hypertarget{method-Alignments-tidy_markdup}{}}}
-\subsection{Method \code{tidy_markdup()}}{
-Tidy \code{md.metrics} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Alignments$tidy_markdup(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

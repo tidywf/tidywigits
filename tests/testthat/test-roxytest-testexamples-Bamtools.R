@@ -11,6 +11,6 @@ test_that("Function Bamtools() @ L16", {
   obj <- cls$new(indir)
   obj$nemofy(diro = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "bamtools.*parquet", full.names = FALSE))
-  expect_equal(length(lf), 11)
+  expect_equal(length(lf), 17)
 })
 

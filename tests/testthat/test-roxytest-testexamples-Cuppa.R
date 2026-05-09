@@ -11,6 +11,6 @@ test_that("Function Cuppa() @ L16", {
   obj <- cls$new(indir)
   obj$nemofy(diro = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "cuppa.*parquet", full.names = FALSE))
-  expect_equal(length(lf), 3)
+  expect_equal(length(lf), 4)
 })
 

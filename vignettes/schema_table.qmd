@@ -1,0 +1,24 @@
+---
+title: "Schema Table"
+vignette: >
+  %\VignetteIndexEntry{Schema Table}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+    echo: false
+---
+
+```{r}
+#| label: setup
+#| message: false
+use("tidywigits", "WIGITS_TOOLS")
+use("nemo", "nemo_schema_reactable")
+```
+
+```{r}
+#| label: reactable
+nemo_schema_reactable(WIGITS_TOOLS, pkg = "tidywigits")
+```
