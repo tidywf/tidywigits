@@ -1,0 +1,11 @@
+/purple.version
+/sample1.purple.cnv.gene.tsv
+/sample1.purple.cnv.somatic.tsv
+/sample1.purple.driver.catalog.germline.tsv
+/sample1.purple.driver.catalog.somatic.tsv
+/sample1.purple.germline.deletion.tsv
+/sample1.purple.purity.range.tsv
+/sample1.purple.purity.tsv
+/sample1.purple.qc
+/sample1.purple.somatic.clonality.tsv
+/sample1.purple.somatic.hist.tsv

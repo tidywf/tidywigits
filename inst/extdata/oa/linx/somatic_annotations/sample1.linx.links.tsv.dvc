@@ -1,0 +1,5 @@
+outs:
+- md5: aa4b2922dc0f9d637966ef1d4767dc1e
+  size: 501
+  hash: md5
+  path: sample1.linx.links.tsv

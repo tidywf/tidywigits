@@ -1,0 +1,5 @@
+outs:
+- md5: 980f2a9698f798ea0cc9dc27d2bcdf8f
+  size: 1153
+  hash: md5
+  path: sample1.linx.svs.tsv

@@ -1,0 +1,5 @@
+outs:
+- md5: 7a0969c44198da849b48453c4c565b33
+  size: 51
+  hash: md5
+  path: sample1.peach.gene.events.tsv

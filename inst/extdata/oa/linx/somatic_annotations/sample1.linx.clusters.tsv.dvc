@@ -1,0 +1,5 @@
+outs:
+- md5: e56e9d877f6b4bd30959ebc36fb754c5
+  size: 399
+  hash: md5
+  path: sample1.linx.clusters.tsv

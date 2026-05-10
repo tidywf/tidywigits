@@ -1,0 +1,5 @@
+outs:
+- md5: dc89a285014edbf3a5a36861108f4745
+  size: 127
+  hash: md5
+  path: sample1.bam_metric.coverage.tsv

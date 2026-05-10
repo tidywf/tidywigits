@@ -1,0 +1,5 @@
+outs:
+- md5: bddeaf51e2f31f75c364d51ae0720106
+  size: 81
+  hash: md5
+  path: sample1.bam_metric.frag_length.tsv

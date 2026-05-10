@@ -1,0 +1,5 @@
+outs:
+- md5: 4f61592653b765c9b8a99fc7672605ab
+  size: 2466
+  hash: md5
+  path: sample1.esvee.breakend.tsv

@@ -1,0 +1,5 @@
+outs:
+- md5: ad2fe6dcac92f95fb2cf229c434d79e5
+  size: 1278
+  hash: md5
+  path: sample1.isf.transcript_data.csv

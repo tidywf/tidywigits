@@ -1,0 +1,5 @@
+outs:
+- md5: cd849681fd921cc92c78a62b27fe6d1f
+  size: 129
+  hash: md5
+  path: sample1.sig.snv_counts.csv

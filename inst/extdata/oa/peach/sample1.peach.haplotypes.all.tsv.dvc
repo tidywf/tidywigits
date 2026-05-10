@@ -1,0 +1,5 @@
+outs:
+- md5: 8b16309dfb4c479a6e00a80e1d9f065c
+  size: 82
+  hash: md5
+  path: sample1.peach.haplotypes.all.tsv

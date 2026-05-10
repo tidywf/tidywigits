@@ -1,0 +1,5 @@
+outs:
+- md5: c0c5185d37dd0473902360886b244d90
+  size: 1367
+  hash: md5
+  path: sample1.cider.blastn_match.tsv.gz

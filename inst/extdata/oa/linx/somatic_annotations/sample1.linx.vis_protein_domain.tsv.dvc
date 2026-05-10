@@ -1,0 +1,5 @@
+outs:
+- md5: 71c13d6985412d70159d25e63955e848
+  size: 582
+  hash: md5
+  path: sample1.linx.vis_protein_domain.tsv

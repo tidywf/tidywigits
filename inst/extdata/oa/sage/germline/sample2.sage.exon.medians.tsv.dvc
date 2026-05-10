@@ -1,0 +1,5 @@
+outs:
+- md5: dd597075920b5d70bd904ea68e638561
+  size: 384
+  hash: md5
+  path: sample2.sage.exon.medians.tsv
