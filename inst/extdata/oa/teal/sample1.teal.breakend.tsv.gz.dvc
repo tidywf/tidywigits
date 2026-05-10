@@ -1,0 +1,5 @@
+outs:
+- md5: 364735bd62b731f7bf88349d0d132497
+  size: 493
+  hash: md5
+  path: sample1.teal.breakend.tsv.gz

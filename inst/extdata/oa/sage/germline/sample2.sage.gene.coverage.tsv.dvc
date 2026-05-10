@@ -1,0 +1,5 @@
+outs:
+- md5: 11d524586d3294f074994cabfe067e6e
+  size: 2507
+  hash: md5
+  path: sample2.sage.gene.coverage.tsv

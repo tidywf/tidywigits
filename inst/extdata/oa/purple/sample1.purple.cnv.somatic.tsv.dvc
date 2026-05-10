@@ -1,0 +1,5 @@
+outs:
+- md5: 9e77cb45006d095b079b8b56dd087008
+  size: 1353
+  hash: md5
+  path: sample1.purple.cnv.somatic.tsv

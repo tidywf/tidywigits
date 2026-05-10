@@ -1,0 +1,5 @@
+outs:
+- md5: 15b94497e7d4ece35933bb5d58994f27
+  size: 228
+  hash: md5
+  path: sample1.esvee.prep.disc_stats.tsv

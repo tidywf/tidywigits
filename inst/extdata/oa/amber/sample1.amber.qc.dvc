@@ -1,0 +1,5 @@
+outs:
+- md5: c2c978eb6f1498739709e1031a0a8e28
+  size: 89
+  hash: md5
+  path: sample1.amber.qc

@@ -1,0 +1,5 @@
+outs:
+- md5: 92eaf20960bef84e7cc83166044fc2ce
+  size: 1661
+  hash: md5
+  path: sample1.cuppa.pred_summ.tsv

@@ -1,0 +1,5 @@
+outs:
+- md5: 78d6fa6a76563947ed7ff5a62e69f557
+  size: 81489
+  hash: md5
+  path: sample1.cup.data.csv

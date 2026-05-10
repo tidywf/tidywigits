@@ -1,0 +1,5 @@
+outs:
+- md5: c600350b72fdd38dedfaca952dda643e
+  size: 41
+  hash: md5
+  path: linx.version

@@ -1,0 +1,5 @@
+outs:
+- md5: f5ab3095194cb29cf9d7f1085665da73
+  size: 1270
+  hash: md5
+  path: sample1.purple.germline.deletion.tsv

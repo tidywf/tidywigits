@@ -1,0 +1,5 @@
+outs:
+- md5: ce88036b2239f49d00452eca19e356f2
+  size: 486
+  hash: md5
+  path: sample1.peach.haplotypes.best.tsv

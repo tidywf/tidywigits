@@ -1,0 +1,5 @@
+outs:
+- md5: 28115394a45825768d4486e1b051bc74
+  size: 484
+  hash: md5
+  path: sample1.purple.purity.range.tsv

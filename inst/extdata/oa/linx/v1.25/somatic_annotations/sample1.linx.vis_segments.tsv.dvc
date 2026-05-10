@@ -1,0 +1,5 @@
+outs:
+- md5: 2f7a171ed755954c5907b8a11c5cd067
+  size: 509
+  hash: md5
+  path: sample1.linx.vis_segments.tsv

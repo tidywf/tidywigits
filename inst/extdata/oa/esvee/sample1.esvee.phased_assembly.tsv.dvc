@@ -1,0 +1,5 @@
+outs:
+- md5: f951969a839aefb0889fbfc70fda319d
+  size: 9889
+  hash: md5
+  path: sample1.esvee.phased_assembly.tsv

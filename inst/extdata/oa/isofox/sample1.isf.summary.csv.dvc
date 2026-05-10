@@ -1,0 +1,5 @@
+outs:
+- md5: 56229addde28c90f14e507807c4eff0d
+  size: 354
+  hash: md5
+  path: sample1.isf.summary.csv

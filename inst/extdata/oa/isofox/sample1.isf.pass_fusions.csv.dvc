@@ -1,0 +1,5 @@
+outs:
+- md5: 59cf91e54be1b4d9e56605bb8edf4119
+  size: 1657
+  hash: md5
+  path: sample1.isf.pass_fusions.csv

@@ -1,0 +1,5 @@
+outs:
+- md5: fbb47fc06c317b06fc59fa34dd7652e4
+  size: 1598
+  hash: md5
+  path: sample1.esvee.alignment.tsv

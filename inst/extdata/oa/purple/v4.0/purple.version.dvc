@@ -1,0 +1,5 @@
+outs:
+- md5: 7c7fc85bb388c0577755047971d112d8
+  size: 39
+  hash: md5
+  path: purple.version

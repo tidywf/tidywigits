@@ -1,0 +1,5 @@
+outs:
+- md5: e738128698ef123f03a4ba3554d7c451
+  size: 468
+  hash: md5
+  path: sample1.purple.driver.catalog.somatic.tsv

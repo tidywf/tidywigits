@@ -1,0 +1,5 @@
+outs:
+- md5: 43e2aa41302f16cabdacdf2c4ed64ee3
+  size: 4232
+  hash: md5
+  path: sample1.esvee.assembly.tsv

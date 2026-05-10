@@ -1,0 +1,5 @@
+outs:
+- md5: b6fe48a721cc24538febdf7eba3af643
+  size: 2393
+  hash: md5
+  path: sample1.cider.vdj.tsv.gz

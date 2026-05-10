@@ -1,0 +1,5 @@
+outs:
+- md5: 6230480ba43f477f8c0e48d374cfc0ef
+  size: 751
+  hash: md5
+  path: sample1.isf.gene_collection.csv

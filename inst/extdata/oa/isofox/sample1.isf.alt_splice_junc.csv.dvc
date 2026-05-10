@@ -1,0 +1,5 @@
+outs:
+- md5: 5bab8bc33162bd72151fff286917066b
+  size: 2224
+  hash: md5
+  path: sample1.isf.alt_splice_junc.csv
