@@ -23,8 +23,8 @@ dbconn <- DBI::dbConnect(
   dbname = "nemo",
   user = "orcabus"
 )
-Oncoanalyser$new("nogit/oa_v1")
-oa$magic(format = "db", id = "oa_run_v1", dbconn = dbconn)
+oa <- Wigits$new("nogit/oa_v1")
+oa$nemofy(format = "db", input_id = "oa_run_v1", dbconn = dbconn)
 DBI::dbDisconnect(dbconn)
 ```
 
@@ -42,8 +42,8 @@ dbconn <- DBI::dbConnect(
   dbname = "nemo",
   user = "orcabus"
 )
-Oncoanalyser$new("nogit/oa_v2")
-oa$magic(format = "db", id = "oa_run_v2", dbconn = dbconn)
+oa <- Wigits$new("nogit/oa_v2")
+oa$nemofy(format = "db", input_id = "oa_run_v2", dbconn = dbconn)
 DBI::dbDisconnect(dbconn)
 ```
 
