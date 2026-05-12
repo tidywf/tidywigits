@@ -7,28 +7,24 @@
 WiGiTS file parsing and manipulation.
 }
 \examples{
-\dontrun{
-path <- here::here("nogit/oa_v2")
+path <- system.file("extdata/oa", package = "tidywigits")
 w <- Wigits$new(path)
-x <-
-  w$nemofy(
-    diro = "nogit/test_data",
-    format = "parquet",
-    input_id = "run1"
-)
-dbconn <- DBI::dbConnect(
-  drv = RPostgres::Postgres(),
-  dbname = "nemo",
-  user = "orcabus"
-)
-x <-
-  w$nemofy(
-    format = "db",
-    input_id = "runABC456",
-    dbconn = dbconn
-)
-DBI::dbDisconnect(dbconn)
-}
+dir1 <- tempdir()
+#w$tidy()
+#w$write(diro = dir1, format = "tsv", input_id = "input1", output_id = "out1")
+x <- w$nemofy(diro = file.path(dir1, "out1"), format = "parquet", input_id = "run1")
+#dbconn <- DBI::dbConnect(
+#  drv = RPostgres::Postgres(),
+#  dbname = "nemo",
+#  user = "orcabus"
+#)
+#x <-
+#  w$nemofy(
+#    format = "db",
+#    input_id = "runABC456",
+#    dbconn = dbconn
+#)
+#DBI::dbDisconnect(dbconn)
 }
 \section{Super class}{
 \code{\link[nemo:Workflow]{nemo::Workflow}} -> \code{Wigits}
