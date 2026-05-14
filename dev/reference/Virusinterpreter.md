@@ -13,15 +13,13 @@ Virusinterpreter file parsing and manipulation.
 
 - [`Virusinterpreter$new()`](#method-Virusinterpreter-new)
 
-- [`Virusinterpreter$parse_annotated()`](#method-Virusinterpreter-parse_annotated)
-
-- [`Virusinterpreter$tidy_annotated()`](#method-Virusinterpreter-tidy_annotated)
-
 - [`Virusinterpreter$clone()`](#method-Virusinterpreter-clone)
 
 Inherited methods
 
-- [`nemo::Tool$.eval_func()`](https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func)
+- [`nemo::Tool$.dispatch_parse()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse)
+- [`nemo::Tool$.dispatch_tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy)
+- [`nemo::Tool$.parse_by_ftype()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype)
 - [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
 - [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
 - [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
@@ -41,12 +39,7 @@ Create a new Virusinterpreter object.
 
 #### Usage
 
-    Virusinterpreter$new(
-      path = NULL,
-      files_tbl = NULL,
-      tidy = TRUE,
-      keep_raw = FALSE
-    )
+    Virusinterpreter$new(path = NULL, files_tbl = NULL)
 
 #### Arguments
 
@@ -61,50 +54,6 @@ Create a new Virusinterpreter object.
   (`tibble(n)`)  
   Tibble of files from
   [`nemo::list_files_dir()`](https://umccr.github.io/nemo/reference/list_files_dir.html).
-
-- `tidy`:
-
-  (`logical(1)`)  
-  Should the raw parsed tibbles get tidied?
-
-- `keep_raw`:
-
-  (`logical(1)`)  
-  Should the raw parsed tibbles be kept in the final output?
-
-------------------------------------------------------------------------
-
-### Method `parse_annotated()`
-
-Read `virus.annotated.tsv` file.
-
-#### Usage
-
-    Virusinterpreter$parse_annotated(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_annotated()`
-
-Tidy `virus.annotated.tsv` file.
-
-#### Usage
-
-    Virusinterpreter$tidy_annotated(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
 
 ------------------------------------------------------------------------
 

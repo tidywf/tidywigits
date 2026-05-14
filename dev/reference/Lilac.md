@@ -13,19 +13,13 @@ Lilac file parsing and manipulation.
 
 - [`Lilac$new()`](#method-Lilac-new)
 
-- [`Lilac$parse_summary()`](#method-Lilac-parse_summary)
-
-- [`Lilac$tidy_summary()`](#method-Lilac-tidy_summary)
-
-- [`Lilac$parse_qc()`](#method-Lilac-parse_qc)
-
-- [`Lilac$tidy_qc()`](#method-Lilac-tidy_qc)
-
 - [`Lilac$clone()`](#method-Lilac-clone)
 
 Inherited methods
 
-- [`nemo::Tool$.eval_func()`](https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func)
+- [`nemo::Tool$.dispatch_parse()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse)
+- [`nemo::Tool$.dispatch_tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy)
+- [`nemo::Tool$.parse_by_ftype()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype)
 - [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
 - [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
 - [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
@@ -60,74 +54,6 @@ Create a new Lilac object.
   (`tibble(n)`)  
   Tibble of files from
   [`nemo::list_files_dir()`](https://umccr.github.io/nemo/reference/list_files_dir.html).
-
-------------------------------------------------------------------------
-
-### Method `parse_summary()`
-
-Read `lilac.tsv` file.
-
-#### Usage
-
-    Lilac$parse_summary(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_summary()`
-
-Tidy `lilac.tsv` file.
-
-#### Usage
-
-    Lilac$tidy_summary(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_qc()`
-
-Read `lilac.qc.tsv` file.
-
-#### Usage
-
-    Lilac$parse_qc(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_qc()`
-
-Tidy `lilac.qc.tsv` file.
-
-#### Usage
-
-    Lilac$tidy_qc(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
 
 ------------------------------------------------------------------------
 

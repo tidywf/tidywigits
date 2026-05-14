@@ -13,19 +13,15 @@ Alignments file parsing and manipulation.
 
 - [`Alignments$new()`](#method-Alignments-new)
 
-- [`Alignments$parse_dupfreq()`](#method-Alignments-parse_dupfreq)
-
-- [`Alignments$tidy_dupfreq()`](#method-Alignments-tidy_dupfreq)
-
 - [`Alignments$parse_markdup()`](#method-Alignments-parse_markdup)
-
-- [`Alignments$tidy_markdup()`](#method-Alignments-tidy_markdup)
 
 - [`Alignments$clone()`](#method-Alignments-clone)
 
 Inherited methods
 
-- [`nemo::Tool$.eval_func()`](https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func)
+- [`nemo::Tool$.dispatch_parse()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse)
+- [`nemo::Tool$.dispatch_tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy)
+- [`nemo::Tool$.parse_by_ftype()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype)
 - [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
 - [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
 - [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
@@ -63,40 +59,6 @@ Create a new Alignments object.
 
 ------------------------------------------------------------------------
 
-### Method `parse_dupfreq()`
-
-Read `duplicate_freq.tsv` file.
-
-#### Usage
-
-    Alignments$parse_dupfreq(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_dupfreq()`
-
-Tidy `duplicate_freq.tsv` file.
-
-#### Usage
-
-    Alignments$tidy_dupfreq(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
 ### Method `parse_markdup()`
 
 Read `md.metrics` file.
@@ -104,23 +66,6 @@ Read `md.metrics` file.
 #### Usage
 
     Alignments$parse_markdup(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_markdup()`
-
-Tidy `md.metrics` file.
-
-#### Usage
-
-    Alignments$tidy_markdup(x)
 
 #### Arguments
 
@@ -155,5 +100,7 @@ id <- "alignments_run1"
 obj <- cls$new(indir)
 obj$nemofy(diro = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = "alignments.*parquet", full.names = FALSE))
-#> [1] "sample1_alignments_dupfreq.parquet"
+#> [1] "sample1_2_alignments_dupfreq.parquet"
+#> [2] "sample1_alignments_dupfreq.parquet"  
+#> [3] "sample1_alignments_markdup.parquet"  
 ```

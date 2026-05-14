@@ -17,27 +17,15 @@ Cobalt file parsing and manipulation.
 
 - [`Cobalt$tidy_gcmed()`](#method-Cobalt-tidy_gcmed)
 
-- [`Cobalt$parse_ratiomed()`](#method-Cobalt-parse_ratiomed)
-
-- [`Cobalt$tidy_ratiomed()`](#method-Cobalt-tidy_ratiomed)
-
-- [`Cobalt$parse_ratiotsv()`](#method-Cobalt-parse_ratiotsv)
-
-- [`Cobalt$tidy_ratiotsv()`](#method-Cobalt-tidy_ratiotsv)
-
-- [`Cobalt$parse_ratiopcf()`](#method-Cobalt-parse_ratiopcf)
-
-- [`Cobalt$tidy_ratiopcf()`](#method-Cobalt-tidy_ratiopcf)
-
 - [`Cobalt$parse_version()`](#method-Cobalt-parse_version)
-
-- [`Cobalt$tidy_version()`](#method-Cobalt-tidy_version)
 
 - [`Cobalt$clone()`](#method-Cobalt-clone)
 
 Inherited methods
 
-- [`nemo::Tool$.eval_func()`](https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func)
+- [`nemo::Tool$.dispatch_parse()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse)
+- [`nemo::Tool$.dispatch_tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy)
+- [`nemo::Tool$.parse_by_ftype()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype)
 - [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
 - [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
 - [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
@@ -94,113 +82,13 @@ Read `gc.median.tsv` file.
 
 ### Method `tidy_gcmed()`
 
-Tidy `gc.median.tsv` file.
+Tidy `gc.median.tsv` file. Generates 2 sub-tbls: *sample* with the
+sample mean/median read depth, and *buckets* with the median depth per
+GC bucket.
 
 #### Usage
 
     Cobalt$tidy_gcmed(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_ratiomed()`
-
-Read `ratio.median.tsv` file.
-
-#### Usage
-
-    Cobalt$parse_ratiomed(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_ratiomed()`
-
-Tidy `ratio.median.tsv` file.
-
-#### Usage
-
-    Cobalt$tidy_ratiomed(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_ratiotsv()`
-
-Read `ratio.tsv` file.
-
-#### Usage
-
-    Cobalt$parse_ratiotsv(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_ratiotsv()`
-
-Tidy `ratio.tsv` file.
-
-#### Usage
-
-    Cobalt$tidy_ratiotsv(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_ratiopcf()`
-
-Read `ratio.pcf` file.
-
-#### Usage
-
-    Cobalt$parse_ratiopcf(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_ratiopcf()`
-
-Tidy `ratio.pcf` file.
-
-#### Usage
-
-    Cobalt$tidy_ratiopcf(x)
 
 #### Arguments
 
@@ -218,23 +106,6 @@ Read `cobalt.version` file.
 #### Usage
 
     Cobalt$parse_version(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_version()`
-
-Tidy `cobalt.version` file.
-
-#### Usage
-
-    Cobalt$tidy_version(x)
 
 #### Arguments
 
@@ -269,9 +140,7 @@ id <- "cobalt_run1"
 obj <- cls$new(indir)
 obj$nemofy(diro = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = "cobalt.*parquet", full.names = FALSE))
-#> [1] "sample1_cobalt_gcmed_bucket_stats.parquet"
-#> [2] "sample1_cobalt_gcmed_sample_stats.parquet"
-#> [3] "sample1_cobalt_ratiomed.parquet"          
-#> [4] "sample1_cobalt_ratiopcf.parquet"          
-#> [5] "version_cobalt_version.parquet"           
+#> [1] "sample1_cobalt_gcmedbuckets.parquet" "sample1_cobalt_gcmedsample.parquet" 
+#> [3] "sample1_cobalt_ratiomed.parquet"     "sample1_cobalt_ratiopcf.parquet"    
+#> [5] "version_cobalt_version.parquet"     
 ```

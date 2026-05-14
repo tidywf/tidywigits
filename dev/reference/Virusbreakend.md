@@ -13,15 +13,15 @@ Virusbreakend file parsing and manipulation.
 
 - [`Virusbreakend$new()`](#method-Virusbreakend-new)
 
-- [`Virusbreakend$parse_summary()`](#method-Virusbreakend-parse_summary)
-
-- [`Virusbreakend$tidy_summary()`](#method-Virusbreakend-tidy_summary)
+- [`Virusbreakend$parse_vcfsummary()`](#method-Virusbreakend-parse_vcfsummary)
 
 - [`Virusbreakend$clone()`](#method-Virusbreakend-clone)
 
 Inherited methods
 
-- [`nemo::Tool$.eval_func()`](https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func)
+- [`nemo::Tool$.dispatch_parse()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse)
+- [`nemo::Tool$.dispatch_tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy)
+- [`nemo::Tool$.parse_by_ftype()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype)
 - [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
 - [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
 - [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
@@ -59,30 +59,13 @@ Create a new Virusbreakend object.
 
 ------------------------------------------------------------------------
 
-### Method `parse_summary()`
+### Method `parse_vcfsummary()`
 
 Read `vcf.summary.tsv` file.
 
 #### Usage
 
-    Virusbreakend$parse_summary(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_summary()`
-
-Tidy `vcf.summary.tsv` file.
-
-#### Usage
-
-    Virusbreakend$tidy_summary(x)
+    Virusbreakend$parse_vcfsummary(x)
 
 #### Arguments
 
@@ -117,5 +100,5 @@ id <- "virusbreakend_run1"
 obj <- cls$new(indir)
 obj$nemofy(diro = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = "virusbreakend.*parquet", full.names = FALSE))
-#> [1] "sample1_virusbreakend_summary.parquet"
+#> [1] "sample1_virusbreakend_vcfsummary.parquet"
 ```

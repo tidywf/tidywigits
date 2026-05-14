@@ -7,9 +7,10 @@ There are several ways to install {tidywigits}:
 Using {remotes} directly from GitHub:
 
 ``` r
+
 install.packages("remotes")
 remotes::install_github("tidywf/tidywigits") # latest main commit
-remotes::install_github("tidywf/tidywigits@v0.0.7.9001") # released version
+remotes::install_github("tidywf/tidywigits@v0.0.7.9002") # released version
 ```
 
 ### Conda
@@ -23,20 +24,20 @@ The conda package is available from the tidywf channel at
 conda create \
   -n tidywigits_env \
   -c tidywf -c conda-forge \
-  r-tidywigits==0.0.7.9001
+  r-tidywigits==0.0.7.9002
 
 conda activate tidywigits_env
 ```
 
 ### Docker
 
-[![ghcr-latest](https://ghcr-badge.egpl.dev/tidywf/tidywigits/latest_tag?color=%2344cc11&ignore=latest&label=version&trim=.png "GHCR latest tag")![ghcr-size](https://ghcr-badge.egpl.dev/tidywf/tidywigits/size?tag=0.0.7.9001 "GHCR image size")](https://github.com/tidywf/tidywigits/pkgs/container/tidywigits)
+[![ghcr-latest](https://ghcr-badge.egpl.dev/tidywf/tidywigits/latest_tag?color=%2344cc11&ignore=latest&label=version&trim=.png "GHCR latest tag")![ghcr-size](https://ghcr-badge.egpl.dev/tidywf/tidywigits/size?tag=0.0.7.9002 "GHCR image size")](https://github.com/tidywf/tidywigits/pkgs/container/tidywigits)
 
 The Docker image is available from the GitHub Container Registry at
 <https://github.com/tidywf/tidywigits/pkgs/container/tidywigits>.
 
 ``` bash
-docker pull --platform linux/amd64 ghcr.io/tidywf/tidywigits:0.0.7.9001
+docker pull --platform linux/amd64 ghcr.io/tidywf/tidywigits:0.0.7.9002
 ```
 
 ### Pixi
@@ -47,7 +48,7 @@ environment with the deployed conda package:
 ``` bash
 pixi init -c tidywf -c conda-forge ./tidy_env
 cd ./tidy_env
-pixi add r-tidywigits==0.0.7.9001
+pixi add r-tidywigits==0.0.7.9002
 ```
 
 Then you can create a task to run the `tidywigits.R` CLI script:
@@ -66,5 +67,6 @@ R
 ```
 
 ``` r
+
 library(tidywigits)
 ```

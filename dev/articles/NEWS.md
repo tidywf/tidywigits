@@ -1,5 +1,50 @@
 # NEWS
 
+## 0.1.0 (2026-05-15)
+
+- Change GitHub org from `umccr` to `tidywf`
+- Schema refactor: all tools migrated from old nemo `raw.yaml` +
+  `tidy.yaml` configs to a single `schema.yaml` (initially LinkML via
+  [pr174](https://github.com/tidywf/tidywigits/pull/174), then moved
+  away from LinkML since it feels overkill). Old config files removed.
+  Parsing simplified across all tools.
+  ([pr189](https://github.com/tidywf/tidywigits/pull/189))
+- Flagstats: remove standalone class (covered by Bamtools)
+- Bamtools: drop histogram parser; genecoverage returned as single
+  table; handle summary + wgsmetrics subtables
+- Cobalt: handle sample + buckets subtables
+- Alignments: drop histogram from markdup parser
+- Linx: fix germline file handling with `list_files_with_prefix_fn`; add
+  v1.25 test data
+- Sage: use bamtools genecoverage parser; add v3.4.4 test data
+- Cuppa: handle v1.4 `sampleId` column (fixes
+  [iss172](https://github.com/tidywf/tidywigits/issues/172)); use csv
+  ftype for datacsv; add plotter functions
+  ([pr173](https://github.com/tidywf/tidywigits/pull/173)); predsum tidy
+  schema fix ([pr179](https://github.com/tidywf/tidywigits/pull/179),
+  [iss178](https://github.com/tidywf/tidywigits/issues/178))
+- DVC: switch from directory-level to per-file tracking
+  ([pr190](https://github.com/tidywf/tidywigits/pull/190))
+- Wigits: re-add Esvee; use metapkg; fall back to `super$get_metadata`;
+  listify `WIGITS_TOOLS`
+  ([pr191](https://github.com/tidywf/tidywigits/pull/191))
+- Vignettes: add `schema_walkthrough`, `schema_table`, `cicd`; refactor
+  `uml`; remove `schemas_raw` + `schemas_tidy`
+- GHA: use reusable workflows for conda/docker/pkgdown
+  ([pr181](https://github.com/tidywf/tidywigits/pull/181)); add
+  version-bumping workflow
+  ([pr183](https://github.com/tidywf/tidywigits/pull/183),
+  [pr185](https://github.com/tidywf/tidywigits/pull/185)); fix
+  permissions ([pr182](https://github.com/tidywf/tidywigits/pull/182));
+  refactor deploy workflow
+  ([pr175](https://github.com/tidywf/tidywigits/pull/175),
+  [pr176](https://github.com/tidywf/tidywigits/pull/176)); add bump.yaml
+  conda env
+- Move shiny and website to separate repos
+  ([pr171](https://github.com/tidywf/tidywigits/pull/171))
+- Add air formatter to pre-commit hooks; add `CLAUDE.md` + `new-tool`
+  skill ([pr180](https://github.com/tidywf/tidywigits/pull/180))
+
 ## v0.0.7 (2026-02-09)
 
 - cuppa: handle rna predsum

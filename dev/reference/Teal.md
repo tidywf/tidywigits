@@ -13,19 +13,13 @@ Teal file parsing and manipulation.
 
 - [`Teal$new()`](#method-Teal-new)
 
-- [`Teal$parse_breakend()`](#method-Teal-parse_breakend)
-
-- [`Teal$tidy_breakend()`](#method-Teal-tidy_breakend)
-
-- [`Teal$parse_tellength()`](#method-Teal-parse_tellength)
-
-- [`Teal$tidy_tellength()`](#method-Teal-tidy_tellength)
-
 - [`Teal$clone()`](#method-Teal-clone)
 
 Inherited methods
 
-- [`nemo::Tool$.eval_func()`](https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func)
+- [`nemo::Tool$.dispatch_parse()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse)
+- [`nemo::Tool$.dispatch_tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy)
+- [`nemo::Tool$.parse_by_ftype()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype)
 - [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
 - [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
 - [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
@@ -60,74 +54,6 @@ Create a new Teal object.
   (`tibble(n)`)  
   Tibble of files from
   [`nemo::list_files_dir()`](https://umccr.github.io/nemo/reference/list_files_dir.html).
-
-------------------------------------------------------------------------
-
-### Method `parse_breakend()`
-
-Read `breakend.tsv` file.
-
-#### Usage
-
-    Teal$parse_breakend(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_breakend()`
-
-Tidy `breakend.tsv` file.
-
-#### Usage
-
-    Teal$tidy_breakend(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_tellength()`
-
-Read `tellength.tsv` file.
-
-#### Usage
-
-    Teal$parse_tellength(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_tellength()`
-
-Tidy `tellength.tsv` file.
-
-#### Usage
-
-    Teal$tidy_tellength(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
 
 ------------------------------------------------------------------------
 

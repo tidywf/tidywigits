@@ -13,27 +13,17 @@ Cuppa file parsing and manipulation.
 
 - [`Cuppa$new()`](#method-Cuppa-new)
 
-- [`Cuppa$parse_datacsv()`](#method-Cuppa-parse_datacsv)
-
-- [`Cuppa$tidy_datacsv()`](#method-Cuppa-tidy_datacsv)
-
-- [`Cuppa$parse_feat()`](#method-Cuppa-parse_feat)
-
-- [`Cuppa$tidy_feat()`](#method-Cuppa-tidy_feat)
-
 - [`Cuppa$parse_predsum()`](#method-Cuppa-parse_predsum)
 
 - [`Cuppa$tidy_predsum()`](#method-Cuppa-tidy_predsum)
-
-- [`Cuppa$parse_datatsv()`](#method-Cuppa-parse_datatsv)
-
-- [`Cuppa$tidy_datatsv()`](#method-Cuppa-tidy_datatsv)
 
 - [`Cuppa$clone()`](#method-Cuppa-clone)
 
 Inherited methods
 
-- [`nemo::Tool$.eval_func()`](https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func)
+- [`nemo::Tool$.dispatch_parse()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse)
+- [`nemo::Tool$.dispatch_tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy)
+- [`nemo::Tool$.parse_by_ftype()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype)
 - [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
 - [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
 - [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
@@ -71,74 +61,6 @@ Create a new Cuppa object.
 
 ------------------------------------------------------------------------
 
-### Method `parse_datacsv()`
-
-Read `cup.data.csv` file.
-
-#### Usage
-
-    Cuppa$parse_datacsv(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_datacsv()`
-
-Tidy `cup.data.csv` file.
-
-#### Usage
-
-    Cuppa$tidy_datacsv(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_feat()`
-
-Read `cuppa_data.tsv.gz` file.
-
-#### Usage
-
-    Cuppa$parse_feat(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_feat()`
-
-Tidy `cuppa_data.tsv.gz` file.
-
-#### Usage
-
-    Cuppa$tidy_feat(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
 ### Method `parse_predsum()`
 
 Read `cuppa.pred_summ.tsv` file.
@@ -173,40 +95,6 @@ Tidy `cuppa.pred_summ.tsv` file.
 
 ------------------------------------------------------------------------
 
-### Method `parse_datatsv()`
-
-Read `cuppa.vis_data.tsv` file.
-
-#### Usage
-
-    Cuppa$parse_datatsv(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_datatsv()`
-
-Tidy `cuppa.vis_data.tsv` file.
-
-#### Usage
-
-    Cuppa$tidy_datatsv(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
 ### Method `clone()`
 
 The objects of this class are cloneable with this method.
@@ -231,6 +119,6 @@ id <- "cuppa_run1"
 obj <- cls$new(indir)
 obj$nemofy(diro = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = "cuppa.*parquet", full.names = FALSE))
-#> [1] "sample1_cuppa_datatsv.parquet" "sample1_cuppa_feat.parquet"   
-#> [3] "sample1_cuppa_predsum.parquet"
+#> [1] "sample1_2_cuppa_datacsv.parquet" "sample1_cuppa_datacsv.parquet"  
+#> [3] "sample1_cuppa_predsum.parquet"   "sample1_cuppa_visdata.parquet"  
 ```

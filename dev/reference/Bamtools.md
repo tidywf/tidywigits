@@ -13,8 +13,6 @@ Bamtools file parsing and manipulation.
 
 - [`Bamtools$new()`](#method-Bamtools-new)
 
-- [`Bamtools$parse_summary()`](#method-Bamtools-parse_summary)
-
 - [`Bamtools$tidy_summary()`](#method-Bamtools-tidy_summary)
 
 - [`Bamtools$parse_wgsmetrics()`](#method-Bamtools-parse_wgsmetrics)
@@ -25,31 +23,15 @@ Bamtools file parsing and manipulation.
 
 - [`Bamtools$tidy_flagstats()`](#method-Bamtools-tidy_flagstats)
 
-- [`Bamtools$parse_coverage()`](#method-Bamtools-parse_coverage)
-
-- [`Bamtools$tidy_coverage()`](#method-Bamtools-tidy_coverage)
-
-- [`Bamtools$parse_fraglength()`](#method-Bamtools-parse_fraglength)
-
-- [`Bamtools$tidy_fraglength()`](#method-Bamtools-tidy_fraglength)
-
-- [`Bamtools$parse_partitionstats()`](#method-Bamtools-parse_partitionstats)
-
-- [`Bamtools$tidy_partitionstats()`](#method-Bamtools-tidy_partitionstats)
-
-- [`Bamtools$parse_genecvg()`](#method-Bamtools-parse_genecvg)
-
 - [`Bamtools$tidy_genecvg()`](#method-Bamtools-tidy_genecvg)
-
-- [`Bamtools$parse_exoncvg()`](#method-Bamtools-parse_exoncvg)
-
-- [`Bamtools$tidy_exoncvg()`](#method-Bamtools-tidy_exoncvg)
 
 - [`Bamtools$clone()`](#method-Bamtools-clone)
 
 Inherited methods
 
-- [`nemo::Tool$.eval_func()`](https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func)
+- [`nemo::Tool$.dispatch_parse()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse)
+- [`nemo::Tool$.dispatch_tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy)
+- [`nemo::Tool$.parse_by_ftype()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype)
 - [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
 - [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
 - [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
@@ -87,26 +69,10 @@ Create a new Bamtools object.
 
 ------------------------------------------------------------------------
 
-### Method `parse_summary()`
-
-Read `summary.tsv` file.
-
-#### Usage
-
-    Bamtools$parse_summary(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
 ### Method `tidy_summary()`
 
-Tidy `summary.tsv` file.
+Tidy `summary.tsv` file. Generates 2 sub-tbls: *stats* with the main
+stats and *dp* with the percentage of bases covered by at least X reads.
 
 #### Usage
 
@@ -140,7 +106,9 @@ Read `wgsmetrics` file.
 
 ### Method `tidy_wgsmetrics()`
 
-Tidy `wgsmetrics` file.
+Tidy `wgsmetrics` file. Generates 3 sub-tbls: *stats* with the main
+stats, *dp* with the percentage of bases covered by at least X reads,
+and *histo* with the distribution of base coverage.
 
 #### Usage
 
@@ -189,125 +157,6 @@ Tidy `flag_counts.tsv` file.
 
 ------------------------------------------------------------------------
 
-### Method `parse_coverage()`
-
-Read `coverage.tsv` file.
-
-#### Usage
-
-    Bamtools$parse_coverage(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_coverage()`
-
-Tidy `coverage.tsv` file.
-
-#### Usage
-
-    Bamtools$tidy_coverage(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_fraglength()`
-
-Read `frag_length.tsv` file.
-
-#### Usage
-
-    Bamtools$parse_fraglength(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_fraglength()`
-
-Tidy `frag_length.tsv` file.
-
-#### Usage
-
-    Bamtools$tidy_fraglength(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_partitionstats()`
-
-Read `partition_stats.tsv` file.
-
-#### Usage
-
-    Bamtools$parse_partitionstats(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_partitionstats()`
-
-Tidy `partition_stats.tsv` file.
-
-#### Usage
-
-    Bamtools$tidy_partitionstats(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_genecvg()`
-
-Read `gene_coverage.tsv` file.
-
-#### Usage
-
-    Bamtools$parse_genecvg(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
 ### Method `tidy_genecvg()`
 
 Tidy `gene_coverage.tsv` file.
@@ -315,40 +164,6 @@ Tidy `gene_coverage.tsv` file.
 #### Usage
 
     Bamtools$tidy_genecvg(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_exoncvg()`
-
-Read `exon_medians.tsv` file.
-
-#### Usage
-
-    Bamtools$parse_exoncvg(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_exoncvg()`
-
-Tidy `exon_medians.tsv` file.
-
-#### Usage
-
-    Bamtools$tidy_exoncvg(x)
 
 #### Arguments
 
@@ -383,15 +198,21 @@ id <- "bamtools_run1"
 obj <- cls$new(indir)
 obj$nemofy(diro = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = "bamtools.*parquet", full.names = FALSE))
-#>  [1] "sample1_bamtools_coverage.parquet"          
-#>  [2] "sample1_bamtools_exoncvg.parquet"           
-#>  [3] "sample1_bamtools_flagstats.parquet"         
-#>  [4] "sample1_bamtools_fraglength.parquet"        
-#>  [5] "sample1_bamtools_genecvg_cvg.parquet"       
-#>  [6] "sample1_bamtools_genecvg_genes.parquet"     
-#>  [7] "sample1_bamtools_partitionstats.parquet"    
-#>  [8] "sample1_bamtools_summary.parquet"           
-#>  [9] "sample1_bamtools_summary_covx.parquet"      
-#> [10] "sample1_bamtools_wgsmetrics_histo.parquet"  
-#> [11] "sample1_bamtools_wgsmetrics_metrics.parquet"
+#>  [1] "sample1_2_bamtools_flagstats.parquet"    
+#>  [2] "sample1_2_bamtools_genecvgcvg.parquet"   
+#>  [3] "sample1_2_bamtools_genecvggenes.parquet" 
+#>  [4] "sample1_bamtools_coverage.parquet"       
+#>  [5] "sample1_bamtools_exoncvg.parquet"        
+#>  [6] "sample1_bamtools_flagstats.parquet"      
+#>  [7] "sample1_bamtools_fraglength.parquet"     
+#>  [8] "sample1_bamtools_genecvgcvg.parquet"     
+#>  [9] "sample1_bamtools_genecvggenes.parquet"   
+#> [10] "sample1_bamtools_partitionstats.parquet" 
+#> [11] "sample1_bamtools_summarydp.parquet"      
+#> [12] "sample1_bamtools_summarystats.parquet"   
+#> [13] "sample1_bamtools_wgsmetricsdp.parquet"   
+#> [14] "sample1_bamtools_wgsmetricshisto.parquet"
+#> [15] "sample1_bamtools_wgsmetricsstats.parquet"
+#> [16] "sample2_bamtools_genecvgcvg.parquet"     
+#> [17] "sample2_bamtools_genecvggenes.parquet"   
 ```

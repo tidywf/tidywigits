@@ -37,9 +37,11 @@ Click here
 ``` r
 system.file("extdata/oa", package = "tidywigits") |>
   fs::dir_tree(invert = TRUE, glob = "*.dvc")
-/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa
+/home/runner/miniconda3/envs/bump_env/lib/R/library/tidywigits/extdata/oa
 ├── alignments
-│   └── sample1.duplicate_freq.tsv
+│   ├── sample1.duplicate_freq.tsv
+│   ├── sample1.md.metrics
+│   └── sample1.redux.duplicate_freq.tsv
 ├── amber
 │   ├── sample1.amber.baf.pcf
 │   ├── sample1.amber.contamination.tsv
@@ -67,9 +69,12 @@ system.file("extdata/oa", package = "tidywigits") |>
 │   ├── sample1.cobalt.ratio.median.tsv
 │   └── sample1.cobalt.ratio.pcf
 ├── cuppa
+│   ├── sample1.cup.data.csv
 │   ├── sample1.cuppa.pred_summ.tsv
 │   ├── sample1.cuppa.vis_data.tsv
-│   └── sample1.cuppa_data.tsv.gz
+│   ├── sample1.cuppa_data.tsv.gz
+│   └── v1.4
+│       └── sample1.cup.data.csv
 ├── esvee
 │   ├── sample1.esvee.alignment.tsv
 │   ├── sample1.esvee.assembly.tsv
@@ -98,25 +103,37 @@ system.file("extdata/oa", package = "tidywigits") |>
 │   │   ├── linx.version
 │   │   ├── sample1.linx.germline.breakend.tsv
 │   │   ├── sample1.linx.germline.clusters.tsv
-│   │   ├── sample1.linx.germline.disruption.tsv
 │   │   ├── sample1.linx.germline.driver.catalog.tsv
 │   │   ├── sample1.linx.germline.links.tsv
 │   │   └── sample1.linx.germline.svs.tsv
-│   └── somatic_annotations
-│       ├── linx.version
-│       ├── sample1.linx.breakend.tsv
-│       ├── sample1.linx.clusters.tsv
-│       ├── sample1.linx.driver.catalog.tsv
-│       ├── sample1.linx.drivers.tsv
-│       ├── sample1.linx.fusion.tsv
-│       ├── sample1.linx.links.tsv
-│       ├── sample1.linx.svs.tsv
-│       ├── sample1.linx.vis_copy_number.tsv
-│       ├── sample1.linx.vis_fusion.tsv
-│       ├── sample1.linx.vis_gene_exon.tsv
-│       ├── sample1.linx.vis_protein_domain.tsv
-│       ├── sample1.linx.vis_segments.tsv
-│       └── sample1.linx.vis_sv_data.tsv
+│   ├── somatic_annotations
+│   │   ├── linx.version
+│   │   ├── sample1.linx.breakend.tsv
+│   │   ├── sample1.linx.clusters.tsv
+│   │   ├── sample1.linx.driver.catalog.tsv
+│   │   ├── sample1.linx.drivers.tsv
+│   │   ├── sample1.linx.fusion.tsv
+│   │   ├── sample1.linx.links.tsv
+│   │   ├── sample1.linx.svs.tsv
+│   │   ├── sample1.linx.vis_copy_number.tsv
+│   │   ├── sample1.linx.vis_fusion.tsv
+│   │   ├── sample1.linx.vis_gene_exon.tsv
+│   │   ├── sample1.linx.vis_protein_domain.tsv
+│   │   ├── sample1.linx.vis_segments.tsv
+│   │   └── sample1.linx.vis_sv_data.tsv
+│   └── v1.25
+│       ├── germline_annotations
+│       │   ├── linx.version
+│       │   └── sample1.linx.germline.breakend.tsv
+│       └── somatic_annotations
+│           ├── linx.version
+│           ├── sample1.linx.breakend.tsv
+│           ├── sample1.linx.vis_copy_number.tsv
+│           ├── sample1.linx.vis_fusion.tsv
+│           ├── sample1.linx.vis_gene_exon.tsv
+│           ├── sample1.linx.vis_protein_domain.tsv
+│           ├── sample1.linx.vis_segments.tsv
+│           └── sample1.linx.vis_sv_data.tsv
 ├── neo
 │   ├── sample1.neo.neo_data.tsv
 │   └── sample1.neo.neoepitope.tsv
@@ -137,18 +154,24 @@ system.file("extdata/oa", package = "tidywigits") |>
 │   ├── sample1.purple.purity.tsv
 │   ├── sample1.purple.qc
 │   ├── sample1.purple.somatic.clonality.tsv
-│   └── sample1.purple.somatic.hist.tsv
+│   ├── sample1.purple.somatic.hist.tsv
+│   └── v4.0
+│       ├── purple.version
+│       ├── sample1.purple.cnv.gene.tsv
+│       └── sample1.purple.qc
 ├── sage
 │   ├── germline
 │   │   ├── sample1.sage.bqr.tsv
 │   │   ├── sample2.sage.bqr.tsv
 │   │   ├── sample2.sage.exon.medians.tsv
 │   │   └── sample2.sage.gene.coverage.tsv
-│   └── somatic
-│       ├── sample1.sage.bqr.tsv
-│       ├── sample1.sage.exon.medians.tsv
-│       ├── sample1.sage.gene.coverage.tsv
-│       └── sample2.sage.bqr.tsv
+│   ├── somatic
+│   │   ├── sample1.sage.bqr.tsv
+│   │   ├── sample1.sage.exon.medians.tsv
+│   │   ├── sample1.sage.gene.coverage.tsv
+│   │   └── sample2.sage.bqr.tsv
+│   └── v3.4.4
+│       └── sample1.sage.bqr.tsv
 ├── sigs
 │   ├── sample1.sig.allocation.tsv
 │   └── sample1.sig.snv_counts.csv
@@ -174,25 +197,26 @@ res <- w$nemofy(diro = out_dir, format = "parquet", input_id = "parquet_example"
 fs::dir_info(out_dir) |>
   dplyr::mutate(bname = basename(.data$path)) |>
   dplyr::select("bname", "size", "type")
-# A tibble: 95 × 3
-   bname                                         size type 
-   <chr>                                  <fs::bytes> <fct>
- 1 metadata.json                               12.33K file 
- 2 sample1_2_sage_bqrtsv.parquet                4.19K file 
- 3 sample1_alignments_dupfreq.parquet           2.86K file 
- 4 sample1_amber_bafpcf.parquet                 4.34K file 
- 5 sample1_amber_contaminationtsv.parquet        5.3K file 
- 6 sample1_amber_homozygousregion.parquet       4.26K file 
- 7 sample1_amber_qc.parquet                     3.29K file 
- 8 sample1_bamtools_coverage.parquet            2.66K file 
- 9 sample1_bamtools_exoncvg.parquet             3.98K file 
-10 sample1_bamtools_flagstats.parquet           7.58K file 
-# ℹ 85 more rows
+# A tibble: 120 × 3
+   bname                                            size type     
+   <chr>                                     <fs::bytes> <fct>    
+ 1 _metadata                                          4K directory
+ 2 sample1_2_alignments_dupfreq.parquet            2.08K file     
+ 3 sample1_2_bamtools_flagstats.parquet            6.92K file     
+ 4 sample1_2_bamtools_genecvgcvg.parquet           3.47K file     
+ 5 sample1_2_bamtools_genecvggenes.parquet         3.07K file     
+ 6 sample1_2_cuppa_datacsv.parquet                12.51K file     
+ 7 sample1_2_germline_linx_breakends.parquet       8.94K file     
+ 8 sample1_2_linx_breakends.parquet               10.71K file     
+ 9 sample1_2_linx_viscn.parquet                    3.29K file     
+10 sample1_2_linx_visfusion.parquet                6.89K file     
+# ℹ 110 more rows
 ```
 
 - PostgreSQL:
 
 ``` r
+
 in_dir <- system.file("extdata/oa", package = "tidywigits")
 out_dir <- tempdir() |> fs::dir_create("parquet_example")
 w <- Wigits$new(in_dir)
@@ -215,9 +239,10 @@ res <- w$nemofy(
 Using {remotes} directly from GitHub:
 
 ``` r
+
 install.packages("remotes")
 remotes::install_github("tidywf/tidywigits") # latest main commit
-remotes::install_github("tidywf/tidywigits@v0.0.7.9001") # released version
+remotes::install_github("tidywf/tidywigits@v0.0.7.9002") # released version
 ```
 
 Alternatively:
@@ -246,7 +271,7 @@ export PATH="${tw_cli}:${PATH}"
 
 ``` R
 $ tidywigits.R --version
-tidywigits 0.0.7.9000
+tidywigits 0.0.7.9002
 
 #-----------------------------------#
 $ tidywigits.R --help
@@ -266,9 +291,11 @@ options:
 #-----------------------------------#
 #------- Tidy ----------------------#
 $ tidywigits.R tidy --help
-usage: tidywigits.R tidy [-h] -d IN_DIR [-o OUT_DIR] [-f FORMAT] -i ID
-                         [--dbname DBNAME] [--dbuser DBUSER]
-                         [--include INCLUDE] [--exclude EXCLUDE] [-q]
+usage: tidywigits.R tidy [-h] -d IN_DIR [-o OUT_DIR] [-f FORMAT]
+                         [--input_id INPUT_ID] [--output_id OUTPUT_ID |
+                         --ulid] [--dbname DBNAME] [--dbuser DBUSER]
+                         [--include INCLUDE] [--exclude EXCLUDE]
+                         [--prefix_include] [-q]
 
 options:
   -h, --help            show this help message and exit
@@ -277,21 +304,26 @@ options:
                         Output directory.
   -f, --format FORMAT   Format of output [def: parquet] (parquet, db, tsv,
                         csv, rds)
-  -i, --id ID           ID to use for this run.
+  --input_id INPUT_ID   Input ID for this run.
+  --output_id OUTPUT_ID
+                        Output ID for this run.
+  --ulid                Generate a ULID as output ID.
   --dbname DBNAME       Database name.
   --dbuser DBUSER       Database user.
-  --include INCLUDE     Include only these files (comma,sep).
-  --exclude EXCLUDE     Exclude these files (comma,sep).
+  --include INCLUDE     Include only these files (comma sep tool_parsers).
+  --exclude EXCLUDE     Exclude only these files (comma sep tool_parsers).
+  --prefix_include      Include input prefix column in output tables.
   -q, --quiet           Shush all the logs.
 
 #-----------------------------------#
 #------- List ----------------------#
 $ tidywigits.R list --help
-usage: tidywigits.R list [-h] -d IN_DIR [-f FORMAT] [-q]
+usage: tidywigits.R list [-h] -d IN_DIR [-f FORMAT] [-m MAX] [-q]
 
 options:
   -h, --help           show this help message and exit
   -d, --in_dir IN_DIR  Input directory.
   -f, --format FORMAT  Format of list output [def: pretty] (tsv, pretty)
+  -m, --max MAX        Max rows to show.
   -q, --quiet          Shush all the logs.
 ```

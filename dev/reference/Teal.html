@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,12 +19,12 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/installation.html">Installation</a></li>
-    <li><a class="dropdown-item" href="../articles/schemas_raw.html">Schemas Raw</a></li>
-    <li><a class="dropdown-item" href="../articles/schemas_tidy.html">Schemas Tidy</a></li>
-    <li><a class="dropdown-item" href="../articles/schemas_er.html">Schemas Mermaid</a></li>
-    <li><a class="dropdown-item" href="../articles/developers.html">Developers</a></li>
+    <li><a class="dropdown-item" href="../articles/schema_walkthrough.html">Schema Walkthrough</a></li>
+    <li><a class="dropdown-item" href="../articles/schema_table.html">Schema Table</a></li>
     <li><a class="dropdown-item" href="../articles/uml.html">UML</a></li>
+    <li><a class="dropdown-item" href="../articles/cicd.html">CI/CD Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/postgresql.html">PostgreSQL</a></li>
+    <li><a class="dropdown-item" href="../articles/devnotes.html">Devnotes</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../articles/NEWS.html">NEWS</a></li>
       </ul><ul class="navbar-nav"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
@@ -59,12 +59,10 @@
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
 <ul><li><p><a href="#method-Teal-new"><code>Teal$new()</code></a></p></li>
-<li><p><a href="#method-Teal-parse_breakend"><code>Teal$parse_breakend()</code></a></p></li>
-<li><p><a href="#method-Teal-tidy_breakend"><code>Teal$tidy_breakend()</code></a></p></li>
-<li><p><a href="#method-Teal-parse_tellength"><code>Teal$parse_tellength()</code></a></p></li>
-<li><p><a href="#method-Teal-tidy_tellength"><code>Teal$tidy_tellength()</code></a></p></li>
 <li><p><a href="#method-Teal-clone"><code>Teal$clone()</code></a></p></li>
-</ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".eval_func"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func"><code>nemo::Tool$.eval_func()</code></a></span></li>
+</ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".dispatch_parse"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse"><code>nemo::Tool$.dispatch_parse()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".dispatch_tidy"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy"><code>nemo::Tool$.dispatch_tidy()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_by_ftype"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype"><code>nemo::Tool$.parse_by_ftype()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file"><code>nemo::Tool$.parse_file()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_keyvalue"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue"><code>nemo::Tool$.parse_file_keyvalue()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_nohead"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead"><code>nemo::Tool$.parse_file_nohead()</code></a></span></li>
@@ -98,83 +96,15 @@ Tibble of files from <code><a href="https://umccr.github.io/nemo/reference/list_
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Teal-parse_breakend"></a><div class="section">
-<h3 id="method-parse-breakend-">Method <code>parse_breakend()</code><a class="anchor" aria-label="anchor" href="#method-parse-breakend-"></a></h3>
-<p>Read <code>breakend.tsv</code> file.</p><div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Teal</span><span class="op">$</span><span class="fu">parse_breakend</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Teal-tidy_breakend"></a><div class="section">
-<h3 id="method-tidy-breakend-">Method <code>tidy_breakend()</code><a class="anchor" aria-label="anchor" href="#method-tidy-breakend-"></a></h3>
-<p>Tidy <code>breakend.tsv</code> file.</p><div class="section">
-<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Teal</span><span class="op">$</span><span class="fu">tidy_breakend</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Teal-parse_tellength"></a><div class="section">
-<h3 id="method-parse-tellength-">Method <code>parse_tellength()</code><a class="anchor" aria-label="anchor" href="#method-parse-tellength-"></a></h3>
-<p>Read <code>tellength.tsv</code> file.</p><div class="section">
-<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Teal</span><span class="op">$</span><span class="fu">parse_tellength</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Teal-tidy_tellength"></a><div class="section">
-<h3 id="method-tidy-tellength-">Method <code>tidy_tellength()</code><a class="anchor" aria-label="anchor" href="#method-tidy-tellength-"></a></h3>
-<p>Tidy <code>tellength.tsv</code> file.</p><div class="section">
-<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Teal</span><span class="op">$</span><span class="fu">tidy_tellength</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
 </div><p></p><hr><a id="method-Teal-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Teal</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
+<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 

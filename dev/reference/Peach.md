@@ -13,31 +13,13 @@ Peach file parsing and manipulation.
 
 - [`Peach$new()`](#method-Peach-new)
 
-- [`Peach$parse_events()`](#method-Peach-parse_events)
-
-- [`Peach$tidy_events()`](#method-Peach-tidy_events)
-
-- [`Peach$parse_eventsg()`](#method-Peach-parse_eventsg)
-
-- [`Peach$tidy_eventsg()`](#method-Peach-tidy_eventsg)
-
-- [`Peach$parse_hapall()`](#method-Peach-parse_hapall)
-
-- [`Peach$tidy_hapall()`](#method-Peach-tidy_hapall)
-
-- [`Peach$parse_hapbest()`](#method-Peach-parse_hapbest)
-
-- [`Peach$tidy_hapbest()`](#method-Peach-tidy_hapbest)
-
-- [`Peach$parse_qc()`](#method-Peach-parse_qc)
-
-- [`Peach$tidy_qc()`](#method-Peach-tidy_qc)
-
 - [`Peach$clone()`](#method-Peach-clone)
 
 Inherited methods
 
-- [`nemo::Tool$.eval_func()`](https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func)
+- [`nemo::Tool$.dispatch_parse()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse)
+- [`nemo::Tool$.dispatch_tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy)
+- [`nemo::Tool$.parse_by_ftype()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype)
 - [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
 - [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
 - [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
@@ -75,176 +57,6 @@ Create a new Peach object.
 
 ------------------------------------------------------------------------
 
-### Method `parse_events()`
-
-Read `events.tsv` file.
-
-#### Usage
-
-    Peach$parse_events(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_events()`
-
-Tidy `events.tsv` file.
-
-#### Usage
-
-    Peach$tidy_events(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_eventsg()`
-
-Read `gene.events.tsv` file.
-
-#### Usage
-
-    Peach$parse_eventsg(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_eventsg()`
-
-Tidy `gene.events.tsv` file.
-
-#### Usage
-
-    Peach$tidy_eventsg(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_hapall()`
-
-Read `haplotypes.all.tsv` file.
-
-#### Usage
-
-    Peach$parse_hapall(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_hapall()`
-
-Tidy `haplotypes.all.tsv` file.
-
-#### Usage
-
-    Peach$tidy_hapall(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_hapbest()`
-
-Read `haplotypes.best.tsv` file.
-
-#### Usage
-
-    Peach$parse_hapbest(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_hapbest()`
-
-Tidy `haplotypes.best.tsv` file.
-
-#### Usage
-
-    Peach$tidy_hapbest(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_qc()`
-
-Read `qc.tsv` file.
-
-#### Usage
-
-    Peach$parse_qc(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_qc()`
-
-Tidy `qc.tsv` file.
-
-#### Usage
-
-    Peach$tidy_qc(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
 ### Method `clone()`
 
 The objects of this class are cloneable with this method.
@@ -269,7 +81,9 @@ id <- "peach_run1"
 obj <- cls$new(indir)
 obj$nemofy(diro = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = "peach.*parquet", full.names = FALSE))
-#> [1] "sample1_peach_events.parquet"  "sample1_peach_eventsg.parquet"
-#> [3] "sample1_peach_hapall.parquet"  "sample1_peach_hapbest.parquet"
-#> [5] "sample1_peach_qc.parquet"     
+#> [1] "sample1_peach_events.parquet"        
+#> [2] "sample1_peach_geneevents.parquet"    
+#> [3] "sample1_peach_haplotypesall.parquet" 
+#> [4] "sample1_peach_haplotypesbest.parquet"
+#> [5] "sample1_peach_qc.parquet"            
 ```

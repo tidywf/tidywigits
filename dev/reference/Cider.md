@@ -13,23 +13,13 @@ Cider file parsing and manipulation.
 
 - [`Cider$new()`](#method-Cider-new)
 
-- [`Cider$parse_blastn()`](#method-Cider-parse_blastn)
-
-- [`Cider$tidy_blastn()`](#method-Cider-tidy_blastn)
-
-- [`Cider$parse_locstats()`](#method-Cider-parse_locstats)
-
-- [`Cider$tidy_locstats()`](#method-Cider-tidy_locstats)
-
-- [`Cider$parse_vdj()`](#method-Cider-parse_vdj)
-
-- [`Cider$tidy_vdj()`](#method-Cider-tidy_vdj)
-
 - [`Cider$clone()`](#method-Cider-clone)
 
 Inherited methods
 
-- [`nemo::Tool$.eval_func()`](https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func)
+- [`nemo::Tool$.dispatch_parse()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse)
+- [`nemo::Tool$.dispatch_tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy)
+- [`nemo::Tool$.parse_by_ftype()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype)
 - [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
 - [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
 - [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
@@ -67,108 +57,6 @@ Create a new Cider object.
 
 ------------------------------------------------------------------------
 
-### Method `parse_blastn()`
-
-Read `blastn_match.tsv.gz` file.
-
-#### Usage
-
-    Cider$parse_blastn(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_blastn()`
-
-Tidy `blastn_match.tsv.gz` file.
-
-#### Usage
-
-    Cider$tidy_blastn(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_locstats()`
-
-Read `locus_stats.tsv` file.
-
-#### Usage
-
-    Cider$parse_locstats(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_locstats()`
-
-Tidy `locus_stats.tsv` file.
-
-#### Usage
-
-    Cider$tidy_locstats(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_vdj()`
-
-Read `vdj.tsv.gz` file.
-
-#### Usage
-
-    Cider$parse_vdj(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_vdj()`
-
-Tidy `vdj.tsv.gz` file.
-
-#### Usage
-
-    Cider$tidy_vdj(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
 ### Method `clone()`
 
 The objects of this class are cloneable with this method.
@@ -193,6 +81,6 @@ id <- "cider_run1"
 obj <- cls$new(indir)
 obj$nemofy(diro = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = "cider.*parquet", full.names = FALSE))
-#> [1] "sample1_cider_blastn.parquet"   "sample1_cider_locstats.parquet"
-#> [3] "sample1_cider_vdj.parquet"     
+#> [1] "sample1_cider_blastn.parquet"     "sample1_cider_locusstats.parquet"
+#> [3] "sample1_cider_vdj.parquet"       
 ```

@@ -1,6 +1,6 @@
-# WiGiTS Tool Names
+# WiGiTS Tools Supported
 
-Vector of all supported WiGiTS tool names.
+List of all supported WiGiTS tools.
 
 ## Usage
 
@@ -10,4 +10,4 @@ WIGITS_TOOLS
 
 ## Format
 
-An object of class `character` of length 20.
+An object of class `list` of length 19.

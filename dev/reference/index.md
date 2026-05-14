@@ -18,8 +18,6 @@
   : Cuppa Object
 - [`Esvee`](https://tidywf.github.io/tidywigits/dev/reference/Esvee.md)
   : Esvee Object
-- [`Flagstats`](https://tidywf.github.io/tidywigits/dev/reference/Flagstats.md)
-  : Flagstats Object
 - [`Isofox`](https://tidywf.github.io/tidywigits/dev/reference/Isofox.md)
   : Isofox Object
 - [`Lilac`](https://tidywf.github.io/tidywigits/dev/reference/Lilac.md)
@@ -51,7 +49,7 @@
 ## Other
 
 - [`WIGITS_TOOLS`](https://tidywf.github.io/tidywigits/dev/reference/WIGITS_TOOLS.md)
-  : WiGiTS Tool Names
+  : WiGiTS Tools Supported
 - [`purple_plot_getter()`](https://tidywf.github.io/tidywigits/dev/reference/purple_plot_getter.md)
   : Retrieve PURPLE Plots
 - [`s3sync()`](https://tidywf.github.io/tidywigits/dev/reference/s3sync.md)

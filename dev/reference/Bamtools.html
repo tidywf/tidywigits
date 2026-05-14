@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,12 +19,12 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/installation.html">Installation</a></li>
-    <li><a class="dropdown-item" href="../articles/schemas_raw.html">Schemas Raw</a></li>
-    <li><a class="dropdown-item" href="../articles/schemas_tidy.html">Schemas Tidy</a></li>
-    <li><a class="dropdown-item" href="../articles/schemas_er.html">Schemas Mermaid</a></li>
-    <li><a class="dropdown-item" href="../articles/developers.html">Developers</a></li>
+    <li><a class="dropdown-item" href="../articles/schema_walkthrough.html">Schema Walkthrough</a></li>
+    <li><a class="dropdown-item" href="../articles/schema_table.html">Schema Table</a></li>
     <li><a class="dropdown-item" href="../articles/uml.html">UML</a></li>
+    <li><a class="dropdown-item" href="../articles/cicd.html">CI/CD Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/postgresql.html">PostgreSQL</a></li>
+    <li><a class="dropdown-item" href="../articles/devnotes.html">Devnotes</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../articles/NEWS.html">NEWS</a></li>
       </ul><ul class="navbar-nav"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
@@ -59,24 +59,16 @@
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
 <ul><li><p><a href="#method-Bamtools-new"><code>Bamtools$new()</code></a></p></li>
-<li><p><a href="#method-Bamtools-parse_summary"><code>Bamtools$parse_summary()</code></a></p></li>
 <li><p><a href="#method-Bamtools-tidy_summary"><code>Bamtools$tidy_summary()</code></a></p></li>
 <li><p><a href="#method-Bamtools-parse_wgsmetrics"><code>Bamtools$parse_wgsmetrics()</code></a></p></li>
 <li><p><a href="#method-Bamtools-tidy_wgsmetrics"><code>Bamtools$tidy_wgsmetrics()</code></a></p></li>
 <li><p><a href="#method-Bamtools-parse_flagstats"><code>Bamtools$parse_flagstats()</code></a></p></li>
 <li><p><a href="#method-Bamtools-tidy_flagstats"><code>Bamtools$tidy_flagstats()</code></a></p></li>
-<li><p><a href="#method-Bamtools-parse_coverage"><code>Bamtools$parse_coverage()</code></a></p></li>
-<li><p><a href="#method-Bamtools-tidy_coverage"><code>Bamtools$tidy_coverage()</code></a></p></li>
-<li><p><a href="#method-Bamtools-parse_fraglength"><code>Bamtools$parse_fraglength()</code></a></p></li>
-<li><p><a href="#method-Bamtools-tidy_fraglength"><code>Bamtools$tidy_fraglength()</code></a></p></li>
-<li><p><a href="#method-Bamtools-parse_partitionstats"><code>Bamtools$parse_partitionstats()</code></a></p></li>
-<li><p><a href="#method-Bamtools-tidy_partitionstats"><code>Bamtools$tidy_partitionstats()</code></a></p></li>
-<li><p><a href="#method-Bamtools-parse_genecvg"><code>Bamtools$parse_genecvg()</code></a></p></li>
 <li><p><a href="#method-Bamtools-tidy_genecvg"><code>Bamtools$tidy_genecvg()</code></a></p></li>
-<li><p><a href="#method-Bamtools-parse_exoncvg"><code>Bamtools$parse_exoncvg()</code></a></p></li>
-<li><p><a href="#method-Bamtools-tidy_exoncvg"><code>Bamtools$tidy_exoncvg()</code></a></p></li>
 <li><p><a href="#method-Bamtools-clone"><code>Bamtools$clone()</code></a></p></li>
-</ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".eval_func"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func"><code>nemo::Tool$.eval_func()</code></a></span></li>
+</ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".dispatch_parse"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse"><code>nemo::Tool$.dispatch_parse()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".dispatch_tidy"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy"><code>nemo::Tool$.dispatch_tidy()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_by_ftype"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype"><code>nemo::Tool$.parse_by_ftype()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file"><code>nemo::Tool$.parse_file()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_keyvalue"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue"><code>nemo::Tool$.parse_file_keyvalue()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_nohead"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead"><code>nemo::Tool$.parse_file_nohead()</code></a></span></li>
@@ -110,11 +102,13 @@ Tibble of files from <code><a href="https://umccr.github.io/nemo/reference/list_
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Bamtools-parse_summary"></a><div class="section">
-<h3 id="method-parse-summary-">Method <code>parse_summary()</code><a class="anchor" aria-label="anchor" href="#method-parse-summary-"></a></h3>
-<p>Read <code>summary.tsv</code> file.</p><div class="section">
+</div><p></p><hr><a id="method-Bamtools-tidy_summary"></a><div class="section">
+<h3 id="method-tidy-summary-">Method <code>tidy_summary()</code><a class="anchor" aria-label="anchor" href="#method-tidy-summary-"></a></h3>
+<p>Tidy <code>summary.tsv</code> file. Generates 2 sub-tbls:
+<em>stats</em> with the main stats and <em>dp</em> with the percentage of bases
+covered by at least X reads.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">parse_summary</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">tidy_summary</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -127,11 +121,11 @@ Path to file.</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Bamtools-tidy_summary"></a><div class="section">
-<h3 id="method-tidy-summary-">Method <code>tidy_summary()</code><a class="anchor" aria-label="anchor" href="#method-tidy-summary-"></a></h3>
-<p>Tidy <code>summary.tsv</code> file.</p><div class="section">
+</div><p></p><hr><a id="method-Bamtools-parse_wgsmetrics"></a><div class="section">
+<h3 id="method-parse-wgsmetrics-">Method <code>parse_wgsmetrics()</code><a class="anchor" aria-label="anchor" href="#method-parse-wgsmetrics-"></a></h3>
+<p>Read <code>wgsmetrics</code> file.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">tidy_summary</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">parse_wgsmetrics</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -144,11 +138,14 @@ Path to file.</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Bamtools-parse_wgsmetrics"></a><div class="section">
-<h3 id="method-parse-wgsmetrics-">Method <code>parse_wgsmetrics()</code><a class="anchor" aria-label="anchor" href="#method-parse-wgsmetrics-"></a></h3>
-<p>Read <code>wgsmetrics</code> file.</p><div class="section">
+</div><p></p><hr><a id="method-Bamtools-tidy_wgsmetrics"></a><div class="section">
+<h3 id="method-tidy-wgsmetrics-">Method <code>tidy_wgsmetrics()</code><a class="anchor" aria-label="anchor" href="#method-tidy-wgsmetrics-"></a></h3>
+<p>Tidy <code>wgsmetrics</code> file. Generates 3 sub-tbls:
+<em>stats</em> with the main stats, <em>dp</em> with the percentage of bases
+covered by at least X reads, and <em>histo</em> with the distribution
+of base coverage.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">parse_wgsmetrics</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">tidy_wgsmetrics</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -161,11 +158,11 @@ Path to file.</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Bamtools-tidy_wgsmetrics"></a><div class="section">
-<h3 id="method-tidy-wgsmetrics-">Method <code>tidy_wgsmetrics()</code><a class="anchor" aria-label="anchor" href="#method-tidy-wgsmetrics-"></a></h3>
-<p>Tidy <code>wgsmetrics</code> file.</p><div class="section">
+</div><p></p><hr><a id="method-Bamtools-parse_flagstats"></a><div class="section">
+<h3 id="method-parse-flagstats-">Method <code>parse_flagstats()</code><a class="anchor" aria-label="anchor" href="#method-parse-flagstats-"></a></h3>
+<p>Read <code>flag_counts.tsv</code> file.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">tidy_wgsmetrics</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">parse_flagstats</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -178,11 +175,11 @@ Path to file.</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Bamtools-parse_flagstats"></a><div class="section">
-<h3 id="method-parse-flagstats-">Method <code>parse_flagstats()</code><a class="anchor" aria-label="anchor" href="#method-parse-flagstats-"></a></h3>
-<p>Read <code>flag_counts.tsv</code> file.</p><div class="section">
+</div><p></p><hr><a id="method-Bamtools-tidy_flagstats"></a><div class="section">
+<h3 id="method-tidy-flagstats-">Method <code>tidy_flagstats()</code><a class="anchor" aria-label="anchor" href="#method-tidy-flagstats-"></a></h3>
+<p>Tidy <code>flag_counts.tsv</code> file.</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">parse_flagstats</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">tidy_flagstats</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -195,11 +192,11 @@ Path to file.</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Bamtools-tidy_flagstats"></a><div class="section">
-<h3 id="method-tidy-flagstats-">Method <code>tidy_flagstats()</code><a class="anchor" aria-label="anchor" href="#method-tidy-flagstats-"></a></h3>
-<p>Tidy <code>flag_counts.tsv</code> file.</p><div class="section">
+</div><p></p><hr><a id="method-Bamtools-tidy_genecvg"></a><div class="section">
+<h3 id="method-tidy-genecvg-">Method <code>tidy_genecvg()</code><a class="anchor" aria-label="anchor" href="#method-tidy-genecvg-"></a></h3>
+<p>Tidy <code>gene_coverage.tsv</code> file.</p><div class="section">
 <h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">tidy_flagstats</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">tidy_genecvg</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -212,185 +209,15 @@ Path to file.</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Bamtools-parse_coverage"></a><div class="section">
-<h3 id="method-parse-coverage-">Method <code>parse_coverage()</code><a class="anchor" aria-label="anchor" href="#method-parse-coverage-"></a></h3>
-<p>Read <code>coverage.tsv</code> file.</p><div class="section">
-<h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">parse_coverage</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Bamtools-tidy_coverage"></a><div class="section">
-<h3 id="method-tidy-coverage-">Method <code>tidy_coverage()</code><a class="anchor" aria-label="anchor" href="#method-tidy-coverage-"></a></h3>
-<p>Tidy <code>coverage.tsv</code> file.</p><div class="section">
-<h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">tidy_coverage</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Bamtools-parse_fraglength"></a><div class="section">
-<h3 id="method-parse-fraglength-">Method <code>parse_fraglength()</code><a class="anchor" aria-label="anchor" href="#method-parse-fraglength-"></a></h3>
-<p>Read <code>frag_length.tsv</code> file.</p><div class="section">
-<h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">parse_fraglength</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Bamtools-tidy_fraglength"></a><div class="section">
-<h3 id="method-tidy-fraglength-">Method <code>tidy_fraglength()</code><a class="anchor" aria-label="anchor" href="#method-tidy-fraglength-"></a></h3>
-<p>Tidy <code>frag_length.tsv</code> file.</p><div class="section">
-<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">tidy_fraglength</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Bamtools-parse_partitionstats"></a><div class="section">
-<h3 id="method-parse-partitionstats-">Method <code>parse_partitionstats()</code><a class="anchor" aria-label="anchor" href="#method-parse-partitionstats-"></a></h3>
-<p>Read <code>partition_stats.tsv</code> file.</p><div class="section">
-<h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">parse_partitionstats</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Bamtools-tidy_partitionstats"></a><div class="section">
-<h3 id="method-tidy-partitionstats-">Method <code>tidy_partitionstats()</code><a class="anchor" aria-label="anchor" href="#method-tidy-partitionstats-"></a></h3>
-<p>Tidy <code>partition_stats.tsv</code> file.</p><div class="section">
-<h4 id="usage-12">Usage<a class="anchor" aria-label="anchor" href="#usage-12"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">tidy_partitionstats</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-12">Arguments<a class="anchor" aria-label="anchor" href="#arguments-12"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Bamtools-parse_genecvg"></a><div class="section">
-<h3 id="method-parse-genecvg-">Method <code>parse_genecvg()</code><a class="anchor" aria-label="anchor" href="#method-parse-genecvg-"></a></h3>
-<p>Read <code>gene_coverage.tsv</code> file.</p><div class="section">
-<h4 id="usage-13">Usage<a class="anchor" aria-label="anchor" href="#usage-13"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">parse_genecvg</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-13">Arguments<a class="anchor" aria-label="anchor" href="#arguments-13"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Bamtools-tidy_genecvg"></a><div class="section">
-<h3 id="method-tidy-genecvg-">Method <code>tidy_genecvg()</code><a class="anchor" aria-label="anchor" href="#method-tidy-genecvg-"></a></h3>
-<p>Tidy <code>gene_coverage.tsv</code> file.</p><div class="section">
-<h4 id="usage-14">Usage<a class="anchor" aria-label="anchor" href="#usage-14"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">tidy_genecvg</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-14">Arguments<a class="anchor" aria-label="anchor" href="#arguments-14"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Bamtools-parse_exoncvg"></a><div class="section">
-<h3 id="method-parse-exoncvg-">Method <code>parse_exoncvg()</code><a class="anchor" aria-label="anchor" href="#method-parse-exoncvg-"></a></h3>
-<p>Read <code>exon_medians.tsv</code> file.</p><div class="section">
-<h4 id="usage-15">Usage<a class="anchor" aria-label="anchor" href="#usage-15"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">parse_exoncvg</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-15">Arguments<a class="anchor" aria-label="anchor" href="#arguments-15"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Bamtools-tidy_exoncvg"></a><div class="section">
-<h3 id="method-tidy-exoncvg-">Method <code>tidy_exoncvg()</code><a class="anchor" aria-label="anchor" href="#method-tidy-exoncvg-"></a></h3>
-<p>Tidy <code>exon_medians.tsv</code> file.</p><div class="section">
-<h4 id="usage-16">Usage<a class="anchor" aria-label="anchor" href="#usage-16"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">tidy_exoncvg</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-16">Arguments<a class="anchor" aria-label="anchor" href="#arguments-16"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
 </div><p></p><hr><a id="method-Bamtools-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-17">Usage<a class="anchor" aria-label="anchor" href="#usage-17"></a></h4>
+<h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Bamtools</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-17">Arguments<a class="anchor" aria-label="anchor" href="#arguments-17"></a></h4>
+<h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 
@@ -411,17 +238,23 @@ Path to file.</p></dd>
 <span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="va">cls</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">indir</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obj</span><span class="op">$</span><span class="fu">nemofy</span><span class="op">(</span>diro <span class="op">=</span> <span class="va">odir</span>, format <span class="op">=</span> <span class="st">"parquet"</span>, input_id <span class="op">=</span> <span class="va">id</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">lf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">odir</span>, pattern <span class="op">=</span> <span class="st">"bamtools.*parquet"</span>, full.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "sample1_bamtools_coverage.parquet"          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "sample1_bamtools_exoncvg.parquet"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "sample1_bamtools_flagstats.parquet"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "sample1_bamtools_fraglength.parquet"        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "sample1_bamtools_genecvg_cvg.parquet"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "sample1_bamtools_genecvg_genes.parquet"     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "sample1_bamtools_partitionstats.parquet"    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "sample1_bamtools_summary.parquet"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "sample1_bamtools_summary_covx.parquet"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "sample1_bamtools_wgsmetrics_histo.parquet"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "sample1_bamtools_wgsmetrics_metrics.parquet"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "sample1_2_bamtools_flagstats.parquet"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "sample1_2_bamtools_genecvgcvg.parquet"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "sample1_2_bamtools_genecvggenes.parquet" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "sample1_bamtools_coverage.parquet"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "sample1_bamtools_exoncvg.parquet"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "sample1_bamtools_flagstats.parquet"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "sample1_bamtools_fraglength.parquet"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "sample1_bamtools_genecvgcvg.parquet"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "sample1_bamtools_genecvggenes.parquet"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "sample1_bamtools_partitionstats.parquet" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "sample1_bamtools_summarydp.parquet"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "sample1_bamtools_summarystats.parquet"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "sample1_bamtools_wgsmetricsdp.parquet"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14] "sample1_bamtools_wgsmetricshisto.parquet"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "sample1_bamtools_wgsmetricsstats.parquet"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "sample2_bamtools_genecvgcvg.parquet"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "sample2_bamtools_genecvggenes.parquet"   </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

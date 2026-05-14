@@ -13,19 +13,15 @@ Sigs file parsing and manipulation.
 
 - [`Sigs$new()`](#method-Sigs-new)
 
-- [`Sigs$parse_allocation()`](#method-Sigs-parse_allocation)
-
-- [`Sigs$tidy_allocation()`](#method-Sigs-tidy_allocation)
-
 - [`Sigs$parse_snvcounts()`](#method-Sigs-parse_snvcounts)
-
-- [`Sigs$tidy_snvcounts()`](#method-Sigs-tidy_snvcounts)
 
 - [`Sigs$clone()`](#method-Sigs-clone)
 
 Inherited methods
 
-- [`nemo::Tool$.eval_func()`](https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func)
+- [`nemo::Tool$.dispatch_parse()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse)
+- [`nemo::Tool$.dispatch_tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy)
+- [`nemo::Tool$.parse_by_ftype()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype)
 - [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
 - [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
 - [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
@@ -63,40 +59,6 @@ Create a new Sigs object.
 
 ------------------------------------------------------------------------
 
-### Method `parse_allocation()`
-
-Read `allocation.tsv` file.
-
-#### Usage
-
-    Sigs$parse_allocation(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_allocation()`
-
-Tidy `allocation.tsv` file.
-
-#### Usage
-
-    Sigs$tidy_allocation(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
 ### Method `parse_snvcounts()`
 
 Read `snv_counts.csv` file.
@@ -104,23 +66,6 @@ Read `snv_counts.csv` file.
 #### Usage
 
     Sigs$parse_snvcounts(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_snvcounts()`
-
-Tidy `snv_counts.csv` file.
-
-#### Usage
-
-    Sigs$tidy_snvcounts(x)
 
 #### Arguments
 

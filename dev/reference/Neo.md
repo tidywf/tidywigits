@@ -13,19 +13,13 @@ Neo file parsing and manipulation.
 
 - [`Neo$new()`](#method-Neo-new)
 
-- [`Neo$parse_candidates()`](#method-Neo-parse_candidates)
-
-- [`Neo$tidy_candidates()`](#method-Neo-tidy_candidates)
-
-- [`Neo$parse_predictions()`](#method-Neo-parse_predictions)
-
-- [`Neo$tidy_predictions()`](#method-Neo-tidy_predictions)
-
 - [`Neo$clone()`](#method-Neo-clone)
 
 Inherited methods
 
-- [`nemo::Tool$.eval_func()`](https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func)
+- [`nemo::Tool$.dispatch_parse()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse)
+- [`nemo::Tool$.dispatch_tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy)
+- [`nemo::Tool$.parse_by_ftype()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype)
 - [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
 - [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
 - [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
@@ -60,74 +54,6 @@ Create a new Neo object.
   (`tibble(n)`)  
   Tibble of files from
   [`nemo::list_files_dir()`](https://umccr.github.io/nemo/reference/list_files_dir.html).
-
-------------------------------------------------------------------------
-
-### Method `parse_candidates()`
-
-Read `neo_data.tsv` file.
-
-#### Usage
-
-    Neo$parse_candidates(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_candidates()`
-
-Tidy `neo_data.tsv` file.
-
-#### Usage
-
-    Neo$tidy_candidates(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_predictions()`
-
-Read `neoepitope.tsv` file.
-
-#### Usage
-
-    Neo$parse_predictions(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_predictions()`
-
-Tidy `neoepitope.tsv` file.
-
-#### Usage
-
-    Neo$tidy_predictions(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
 
 ------------------------------------------------------------------------
 

@@ -13,10 +13,6 @@ Chord file parsing and manipulation.
 
 - [`Chord$new()`](#method-Chord-new)
 
-- [`Chord$parse_prediction()`](#method-Chord-parse_prediction)
-
-- [`Chord$tidy_prediction()`](#method-Chord-tidy_prediction)
-
 - [`Chord$parse_signatures()`](#method-Chord-parse_signatures)
 
 - [`Chord$tidy_signatures()`](#method-Chord-tidy_signatures)
@@ -25,7 +21,9 @@ Chord file parsing and manipulation.
 
 Inherited methods
 
-- [`nemo::Tool$.eval_func()`](https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func)
+- [`nemo::Tool$.dispatch_parse()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse)
+- [`nemo::Tool$.dispatch_tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy)
+- [`nemo::Tool$.parse_by_ftype()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype)
 - [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
 - [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
 - [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
@@ -60,40 +58,6 @@ Create a new Chord object.
   (`tibble(n)`)  
   Tibble of files from
   [`nemo::list_files_dir()`](https://umccr.github.io/nemo/reference/list_files_dir.html).
-
-------------------------------------------------------------------------
-
-### Method `parse_prediction()`
-
-Read `prediction.txt` file.
-
-#### Usage
-
-    Chord$parse_prediction(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_prediction()`
-
-Tidy `prediction.txt` file.
-
-#### Usage
-
-    Chord$tidy_prediction(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
 
 ------------------------------------------------------------------------
 

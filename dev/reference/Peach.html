@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,12 +19,12 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/installation.html">Installation</a></li>
-    <li><a class="dropdown-item" href="../articles/schemas_raw.html">Schemas Raw</a></li>
-    <li><a class="dropdown-item" href="../articles/schemas_tidy.html">Schemas Tidy</a></li>
-    <li><a class="dropdown-item" href="../articles/schemas_er.html">Schemas Mermaid</a></li>
-    <li><a class="dropdown-item" href="../articles/developers.html">Developers</a></li>
+    <li><a class="dropdown-item" href="../articles/schema_walkthrough.html">Schema Walkthrough</a></li>
+    <li><a class="dropdown-item" href="../articles/schema_table.html">Schema Table</a></li>
     <li><a class="dropdown-item" href="../articles/uml.html">UML</a></li>
+    <li><a class="dropdown-item" href="../articles/cicd.html">CI/CD Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/postgresql.html">PostgreSQL</a></li>
+    <li><a class="dropdown-item" href="../articles/devnotes.html">Devnotes</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../articles/NEWS.html">NEWS</a></li>
       </ul><ul class="navbar-nav"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
@@ -59,18 +59,10 @@
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
 <ul><li><p><a href="#method-Peach-new"><code>Peach$new()</code></a></p></li>
-<li><p><a href="#method-Peach-parse_events"><code>Peach$parse_events()</code></a></p></li>
-<li><p><a href="#method-Peach-tidy_events"><code>Peach$tidy_events()</code></a></p></li>
-<li><p><a href="#method-Peach-parse_eventsg"><code>Peach$parse_eventsg()</code></a></p></li>
-<li><p><a href="#method-Peach-tidy_eventsg"><code>Peach$tidy_eventsg()</code></a></p></li>
-<li><p><a href="#method-Peach-parse_hapall"><code>Peach$parse_hapall()</code></a></p></li>
-<li><p><a href="#method-Peach-tidy_hapall"><code>Peach$tidy_hapall()</code></a></p></li>
-<li><p><a href="#method-Peach-parse_hapbest"><code>Peach$parse_hapbest()</code></a></p></li>
-<li><p><a href="#method-Peach-tidy_hapbest"><code>Peach$tidy_hapbest()</code></a></p></li>
-<li><p><a href="#method-Peach-parse_qc"><code>Peach$parse_qc()</code></a></p></li>
-<li><p><a href="#method-Peach-tidy_qc"><code>Peach$tidy_qc()</code></a></p></li>
 <li><p><a href="#method-Peach-clone"><code>Peach$clone()</code></a></p></li>
-</ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".eval_func"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func"><code>nemo::Tool$.eval_func()</code></a></span></li>
+</ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".dispatch_parse"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse"><code>nemo::Tool$.dispatch_parse()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".dispatch_tidy"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy"><code>nemo::Tool$.dispatch_tidy()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_by_ftype"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype"><code>nemo::Tool$.parse_by_ftype()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file"><code>nemo::Tool$.parse_file()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_keyvalue"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue"><code>nemo::Tool$.parse_file_keyvalue()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_nohead"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead"><code>nemo::Tool$.parse_file_nohead()</code></a></span></li>
@@ -104,185 +96,15 @@ Tibble of files from <code><a href="https://umccr.github.io/nemo/reference/list_
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Peach-parse_events"></a><div class="section">
-<h3 id="method-parse-events-">Method <code>parse_events()</code><a class="anchor" aria-label="anchor" href="#method-parse-events-"></a></h3>
-<p>Read <code>events.tsv</code> file.</p><div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Peach</span><span class="op">$</span><span class="fu">parse_events</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Peach-tidy_events"></a><div class="section">
-<h3 id="method-tidy-events-">Method <code>tidy_events()</code><a class="anchor" aria-label="anchor" href="#method-tidy-events-"></a></h3>
-<p>Tidy <code>events.tsv</code> file.</p><div class="section">
-<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Peach</span><span class="op">$</span><span class="fu">tidy_events</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Peach-parse_eventsg"></a><div class="section">
-<h3 id="method-parse-eventsg-">Method <code>parse_eventsg()</code><a class="anchor" aria-label="anchor" href="#method-parse-eventsg-"></a></h3>
-<p>Read <code>gene.events.tsv</code> file.</p><div class="section">
-<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Peach</span><span class="op">$</span><span class="fu">parse_eventsg</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Peach-tidy_eventsg"></a><div class="section">
-<h3 id="method-tidy-eventsg-">Method <code>tidy_eventsg()</code><a class="anchor" aria-label="anchor" href="#method-tidy-eventsg-"></a></h3>
-<p>Tidy <code>gene.events.tsv</code> file.</p><div class="section">
-<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Peach</span><span class="op">$</span><span class="fu">tidy_eventsg</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Peach-parse_hapall"></a><div class="section">
-<h3 id="method-parse-hapall-">Method <code>parse_hapall()</code><a class="anchor" aria-label="anchor" href="#method-parse-hapall-"></a></h3>
-<p>Read <code>haplotypes.all.tsv</code> file.</p><div class="section">
-<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Peach</span><span class="op">$</span><span class="fu">parse_hapall</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Peach-tidy_hapall"></a><div class="section">
-<h3 id="method-tidy-hapall-">Method <code>tidy_hapall()</code><a class="anchor" aria-label="anchor" href="#method-tidy-hapall-"></a></h3>
-<p>Tidy <code>haplotypes.all.tsv</code> file.</p><div class="section">
-<h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Peach</span><span class="op">$</span><span class="fu">tidy_hapall</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-6">Arguments<a class="anchor" aria-label="anchor" href="#arguments-6"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Peach-parse_hapbest"></a><div class="section">
-<h3 id="method-parse-hapbest-">Method <code>parse_hapbest()</code><a class="anchor" aria-label="anchor" href="#method-parse-hapbest-"></a></h3>
-<p>Read <code>haplotypes.best.tsv</code> file.</p><div class="section">
-<h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Peach</span><span class="op">$</span><span class="fu">parse_hapbest</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Peach-tidy_hapbest"></a><div class="section">
-<h3 id="method-tidy-hapbest-">Method <code>tidy_hapbest()</code><a class="anchor" aria-label="anchor" href="#method-tidy-hapbest-"></a></h3>
-<p>Tidy <code>haplotypes.best.tsv</code> file.</p><div class="section">
-<h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Peach</span><span class="op">$</span><span class="fu">tidy_hapbest</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Peach-parse_qc"></a><div class="section">
-<h3 id="method-parse-qc-">Method <code>parse_qc()</code><a class="anchor" aria-label="anchor" href="#method-parse-qc-"></a></h3>
-<p>Read <code>qc.tsv</code> file.</p><div class="section">
-<h4 id="usage-9">Usage<a class="anchor" aria-label="anchor" href="#usage-9"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Peach</span><span class="op">$</span><span class="fu">parse_qc</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Peach-tidy_qc"></a><div class="section">
-<h3 id="method-tidy-qc-">Method <code>tidy_qc()</code><a class="anchor" aria-label="anchor" href="#method-tidy-qc-"></a></h3>
-<p>Tidy <code>qc.tsv</code> file.</p><div class="section">
-<h4 id="usage-10">Usage<a class="anchor" aria-label="anchor" href="#usage-10"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Peach</span><span class="op">$</span><span class="fu">tidy_qc</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
 </div><p></p><hr><a id="method-Peach-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-11">Usage<a class="anchor" aria-label="anchor" href="#usage-11"></a></h4>
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Peach</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
+<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 
@@ -303,9 +125,11 @@ Path to file.</p></dd>
 <span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="va">cls</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">indir</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obj</span><span class="op">$</span><span class="fu">nemofy</span><span class="op">(</span>diro <span class="op">=</span> <span class="va">odir</span>, format <span class="op">=</span> <span class="st">"parquet"</span>, input_id <span class="op">=</span> <span class="va">id</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">lf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">odir</span>, pattern <span class="op">=</span> <span class="st">"peach.*parquet"</span>, full.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "sample1_peach_events.parquet"  "sample1_peach_eventsg.parquet"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "sample1_peach_hapall.parquet"  "sample1_peach_hapbest.parquet"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5] "sample1_peach_qc.parquet"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "sample1_peach_events.parquet"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] "sample1_peach_geneevents.parquet"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "sample1_peach_haplotypesall.parquet" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4] "sample1_peach_haplotypesbest.parquet"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5] "sample1_peach_qc.parquet"            </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
