@@ -30,27 +30,7 @@ Wigits <- R6::R6Class(
     #' @param path (`character(n)`)\cr
     #' Path(s) to Wigits results.
     initialize = function(path = NULL) {
-      tools <- list(
-        alignments = Alignments,
-        amber = Amber,
-        bamtools = Bamtools,
-        chord = Chord,
-        cider = Cider,
-        cobalt = Cobalt,
-        cuppa = Cuppa,
-        esvee = Esvee,
-        isofox = Isofox,
-        lilac = Lilac,
-        linx = Linx,
-        neo = Neo,
-        peach = Peach,
-        purple = Purple,
-        sage = Sage,
-        sigs = Sigs,
-        teal = Teal,
-        virusbreakend = Virusbreakend,
-        virusinterpreter = Virusinterpreter
-      )
+      tools <- WIGITS_TOOLS
       super$initialize(
         name = "Wigits",
         path = path,
@@ -61,29 +41,29 @@ Wigits <- R6::R6Class(
   ) # public end
 )
 
-#' WiGiTS Tool Names
+#' WiGiTS Tools Supported
 #'
-#' Vector of all supported WiGiTS tool names.
+#' List of all supported WiGiTS tools.
 #'
 #' @export
-WIGITS_TOOLS <- c(
-  "alignments",
-  "amber",
-  "bamtools",
-  "chord",
-  "cider",
-  "cobalt",
-  "cuppa",
-  "esvee",
-  "isofox",
-  "lilac",
-  "linx",
-  "neo",
-  "peach",
-  "purple",
-  "sage",
-  "sigs",
-  "teal",
-  "virusbreakend",
-  "virusinterpreter"
+WIGITS_TOOLS <- list(
+  alignments = Alignments,
+  amber = Amber,
+  bamtools = Bamtools,
+  chord = Chord,
+  cider = Cider,
+  cobalt = Cobalt,
+  cuppa = Cuppa,
+  esvee = Esvee,
+  isofox = Isofox,
+  lilac = Lilac,
+  linx = Linx,
+  neo = Neo,
+  peach = Peach,
+  purple = Purple,
+  sage = Sage,
+  sigs = Sigs,
+  teal = Teal,
+  virusbreakend = Virusbreakend,
+  virusinterpreter = Virusinterpreter
 )

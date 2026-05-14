@@ -20,5 +20,5 @@ use("nemo", "nemo_schema_reactable")
 
 ```{r}
 #| label: reactable
-nemo_schema_reactable(WIGITS_TOOLS, pkg = "tidywigits")
+nemo_schema_reactable(names(WIGITS_TOOLS), pkg = "tidywigits")
 ```
