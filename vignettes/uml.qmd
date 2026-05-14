@@ -19,12 +19,15 @@ use("nemo", "nemo_uml")
 
 ```{r}
 #| label: uml
-#| output: asis
 # fmt: skip
 x <- c(
   "Alignments", "Amber", "Bamtools", "Chord", "Cider", "Cobalt", "Config", "Cuppa",
   "Esvee", "Isofox", "Lilac", "Linx", "Neo", "Peach", "Purple", "Sage",
   "Sigs", "Teal", "Tool", "Virusbreakend", "Virusinterpreter", "Wigits", "Workflow"
 )
-cat(nemo_uml(classes = x, pkg = "tidywigits"))
+# hand it over directly to knitr for rendering, cat somehow doesn't work any more
+knitr::asis_output(nemo_uml(
+  classes = x,
+  pkg = "tidywigits"
+))
 ```
