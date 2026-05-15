@@ -15,18 +15,22 @@ knitr:
 #| label: pkgs
 #| include: false
 use("nemo", "nemo_uml")
+use("tidywigits", "WIGITS_TOOLS")
+use("purrr", "map_chr")
+use("knitr", "asis_output")
 ```
 
 ```{r}
 #| label: uml
-# fmt: skip
-x <- c(
-  "Alignments", "Amber", "Bamtools", "Chord", "Cider", "Cobalt", "Config", "Cuppa",
-  "Esvee", "Isofox", "Lilac", "Linx", "Neo", "Peach", "Purple", "Sage",
-  "Sigs", "Teal", "Tool", "Virusbreakend", "Virusinterpreter", "Wigits", "Workflow"
-)
+x <- sort(c(
+  map_chr(WIGITS_TOOLS, "classname"),
+  "Config",
+  "Tool",
+  "Wigits",
+  "Workflow"
+))
 # hand it over directly to knitr for rendering, cat somehow doesn't work any more
-knitr::asis_output(nemo_uml(
+asis_output(nemo_uml(
   classes = x,
   pkg = "tidywigits"
 ))

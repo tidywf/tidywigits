@@ -8,36 +8,49 @@ knitr:
   opts_chunk:
     collapse: true
     comment: '#>'
+    echo: false
 ---
 
-There are several ways to install {tidywigits}:
+```{r}
+#| label: pkgs
+use("tibble", "lst")
+use("glue", "glue")
+```
 
 ```{r}
-#| label: vars
+#| label: setup
 #| echo: false
-dir1 <- system.file("doc-templates", "installation", package = "tidywigits")
+pkg_nm <- "tidywigits"
+org_nm <- "tidywf"
+ver <- as.character(utils::packageVersion(pkg_nm))
+conda <- tibble::lst(
+  pkg = paste0("r-", pkg_nm),
+  env = paste0(pkg_nm, "_env"),
+  url = glue("https://anaconda.org/{org_nm}/{pkg}")
+)
+dir_nemo  <- system.file("doc-templates", "installation", package = "nemo")
 ```
 
 ### R
 
-```{r child=file.path(dir1, "_r.qmd")}
+```{r child=file.path(dir_nemo, "_r.qmd")}
 #| label: child-r
 ```
 
 ### Conda
 
-```{r child=file.path(dir1, "_conda.qmd")}
+```{r child=file.path(dir_nemo, "_conda.qmd")}
 #| label: child-conda
 ```
 
 ### Docker
 
-```{r child=file.path(dir1, "_docker.qmd")}
+```{r child=file.path(dir_nemo, "_docker.qmd")}
 #| label: child-docker
 ```
 
 ### Pixi
 
-```{r child=file.path(dir1, "_pixi.qmd")}
+```{r child=file.path(dir_nemo, "_pixi.qmd")}
 #| label: child-pixi
 ```
