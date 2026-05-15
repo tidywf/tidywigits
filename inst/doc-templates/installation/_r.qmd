@@ -1,7 +1,0 @@
-Using {remotes} directly from GitHub:
-
-```r
-install.packages("remotes")
-remotes::install_github("tidywf/tidywigits") # latest main commit
-remotes::install_github("tidywf/tidywigits@v0.0.7.9002") # released version
-```
