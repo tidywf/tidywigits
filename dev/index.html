@@ -11,8 +11,8 @@
 <link rel="icon" sizes="any" href="favicon.ico">
 <link rel="manifest" href="site.webmanifest">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Tidy WiGiTS Outputs">
 <meta name="description" content="Parse and tidy outputs from the Hartwig Medical Foundation's WiGiTS pipeline.
@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,10 +78,13 @@
 <li>📚 Docs: <a href="https://tidywf.github.io/tidywigits" class="uri">https://tidywf.github.io/tidywigits</a>:
 <ul>
 <li><a href="https://tidywf.github.io/tidywigits/articles/installation">Installation</a></li>
-<li><a href="https://tidywf.github.io/tidywigits/articles/schemas_raw">Files/tables supported</a></li>
-<li><a href="https://tidywf.github.io/tidywigits/articles/schemas_tidy">Tidy schemas</a></li>
-<li><a href="https://tidywf.github.io/tidywigits/articles/developers">Developer notes</a></li>
+<li><a href="https://tidywf.github.io/tidywigits/articles/schema_table">Files/tables supported</a></li>
+<li><a href="https://tidywf.github.io/tidywigits/articles/schema_walkthrough">Schema walkthrough</a></li>
+<li><a href="https://tidywf.github.io/tidywigits/articles/devnotes">Developer notes</a></li>
 <li><a href="https://tidywf.github.io/tidywigits/articles/NEWS">Changelog</a></li>
+<li><a href="https://tidywf.github.io/nemo/articles/structure" class="external-link">R6 structure</a></li>
+<li><a href="https://tidywf.github.io/tidywigits/articles/uml">UML diagram</a></li>
+<li><a href="https://tidywf.github.io/tidywigits/articles/cicd">CI/CD diagram</a></li>
 </ul>
 </li>
 </ul>
@@ -274,16 +277,16 @@ Click here
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">in_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/oa"</span>, package <span class="op">=</span> <span class="st">"tidywigits"</span><span class="op">)</span></span>
-<span><span class="va">out_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://fs.r-lib.org/reference/create.html" class="external-link">dir_create</a></span><span class="op">(</span><span class="st">"parquet_example"</span><span class="op">)</span></span>
 <span><span class="va">w</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Wigits.html">Wigits</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">in_dir</span><span class="op">)</span></span>
 <span><span class="va">dbconn</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span></span>
 <span>  drv <span class="op">=</span> <span class="fu">RPostgres</span><span class="fu">::</span><span class="fu"><a href="https://rpostgres.r-dbi.org/reference/Postgres.html" class="external-link">Postgres</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  dbname <span class="op">=</span> <span class="st">"nemo"</span>,</span>
-<span>  user <span class="op">=</span> <span class="st">"orcabus"</span></span>
+<span>  dbname <span class="op">=</span> <span class="st">"tidywigits"</span>,</span>
+<span>  user <span class="op">=</span> <span class="st">"user1"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">res</span> <span class="op">&lt;-</span> <span class="va">w</span><span class="op">$</span><span class="fu">nemofy</span><span class="op">(</span></span>
 <span>  format <span class="op">=</span> <span class="st">"db"</span>,</span>
-<span>  input_id <span class="op">=</span> <span class="st">"db_example"</span>,</span>
+<span>  input_id <span class="op">=</span> <span class="st">"run1"</span>,</span>
+<span>  output_id <span class="op">=</span> <span class="st">"out1"</span>,</span>
 <span>  dbconn <span class="op">=</span> <span class="va">dbconn</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><strong>IMPORTANT</strong>: support for VCFs is still under development.</p>
@@ -295,7 +298,7 @@ Click here
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits"</span><span class="op">)</span> <span class="co"># latest main commit</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits@v0.0.7.9002"</span><span class="op">)</span> <span class="co"># released version</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits@v0.0.7.9003"</span><span class="op">)</span> <span class="co"># specific version</span></span></code></pre></div>
 <p>Alternatively:</p>
 <ul>
 <li>conda package: <a href="https://anaconda.org/tidywf/r-tidywigits" class="external-link uri">https://anaconda.org/tidywf/r-tidywigits</a>
@@ -316,7 +319,7 @@ Click here
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="va">tw_cli</span><span class="op">=</span><span class="va">$(</span><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'x = system.file("cli", package = "tidywigits"); cat(x, "\n")'</span> <span class="kw">|</span> <span class="fu">xargs</span><span class="va">)</span></span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">"</span><span class="va">${tw_cli}</span><span class="st">:</span><span class="va">${PATH}</span><span class="st">"</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="sc">$</span> tidywigits.R <span class="sc">--</span>version</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>tidywigits <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">7.9002</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>tidywigits <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">7.9003</span></span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#-----------------------------------#</span></span>
 <span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="sc">$</span> tidywigits.R <span class="sc">--</span>help</span>

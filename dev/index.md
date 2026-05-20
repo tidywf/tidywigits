@@ -6,12 +6,15 @@
 - 📚 Docs: <https://tidywf.github.io/tidywigits>:
   - [Installation](https://tidywf.github.io/tidywigits/articles/installation)
   - [Files/tables
-    supported](https://tidywf.github.io/tidywigits/articles/schemas_raw)
-  - [Tidy
-    schemas](https://tidywf.github.io/tidywigits/articles/schemas_tidy)
+    supported](https://tidywf.github.io/tidywigits/articles/schema_table)
+  - [Schema
+    walkthrough](https://tidywf.github.io/tidywigits/articles/schema_walkthrough)
   - [Developer
-    notes](https://tidywf.github.io/tidywigits/articles/developers)
+    notes](https://tidywf.github.io/tidywigits/articles/devnotes)
   - [Changelog](https://tidywf.github.io/tidywigits/articles/NEWS)
+  - [R6 structure](https://tidywf.github.io/nemo/articles/structure)
+  - [UML diagram](https://tidywf.github.io/tidywigits/articles/uml)
+  - [CI/CD diagram](https://tidywf.github.io/tidywigits/articles/cicd)
 
 ## Overview
 
@@ -218,16 +221,16 @@ fs::dir_info(out_dir) |>
 ``` r
 
 in_dir <- system.file("extdata/oa", package = "tidywigits")
-out_dir <- tempdir() |> fs::dir_create("parquet_example")
 w <- Wigits$new(in_dir)
 dbconn <- DBI::dbConnect(
   drv = RPostgres::Postgres(),
-  dbname = "nemo",
-  user = "orcabus"
+  dbname = "tidywigits",
+  user = "user1"
 )
 res <- w$nemofy(
   format = "db",
-  input_id = "db_example",
+  input_id = "run1",
+  output_id = "out1",
   dbconn = dbconn
 )
 ```
@@ -242,7 +245,7 @@ Using {remotes} directly from GitHub:
 
 install.packages("remotes")
 remotes::install_github("tidywf/tidywigits") # latest main commit
-remotes::install_github("tidywf/tidywigits@v0.0.7.9002") # released version
+remotes::install_github("tidywf/tidywigits@v0.0.7.9003") # specific version
 ```
 
 Alternatively:
@@ -271,7 +274,7 @@ export PATH="${tw_cli}:${PATH}"
 
 ``` R
 $ tidywigits.R --version
-tidywigits 0.0.7.9002
+tidywigits 0.0.7.9003
 
 #-----------------------------------#
 $ tidywigits.R --help
