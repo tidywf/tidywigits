@@ -56,12 +56,13 @@ jobs:
         run: |
           conda-lock lock \
             --file ${conda_env_yaml}/${pkg_name}.yaml \
-            -p linux-64
-          conda-lock render \
             -p linux-64 \
-            conda-lock.yml \
-          && rm conda-lock.yml \
-          && mv conda-linux-64.lock ${conda_env_lock}/
+            -p linux-aarch64
+          conda-lock render -p linux-64 conda-lock.yml \
+            && mv conda-linux-64.lock ${conda_env_lock}/
+          conda-lock render -p linux-aarch64 conda-lock.yml \
+            && mv conda-linux-aarch64.lock ${conda_env_lock}/
+          rm conda-lock.yml
       - name: 💾 Commit lockfiles
         run: |
           git status
@@ -118,7 +119,7 @@ jobs:
           tags: ghcr.io/${{ github.repository }}:${{ env.VERSION }}
           context: .
           push: true
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
 
   pkgdown:
     name: pkgdown
