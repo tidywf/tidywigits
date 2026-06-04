@@ -1,6 +1,6 @@
 # NEWS
 
-## 0.1.0 (2026-05-15)
+## 0.1.0 (2026-06-04)
 
 - Change GitHub org from `umccr` to `tidywf`
 - Schema refactor: all tools migrated from old nemo `raw.yaml` +
@@ -29,21 +29,29 @@
   listify `WIGITS_TOOLS`
   ([pr191](https://github.com/tidywf/tidywigits/pull/191))
 - Vignettes: add `schema_walkthrough`, `schema_table`, `cicd`; refactor
-  `uml`; remove `schemas_raw` + `schemas_tidy`
+  `uml`; remove `schemas_raw` + `schemas_tidy`; consolidate installation
+  fragments ([pr193](https://github.com/tidywf/tidywigits/pull/193))
 - GHA: use reusable workflows for conda/docker/pkgdown
   ([pr181](https://github.com/tidywf/tidywigits/pull/181)); add
   version-bumping workflow
   ([pr183](https://github.com/tidywf/tidywigits/pull/183),
+  [pr184](https://github.com/tidywf/tidywigits/pull/184),
   [pr185](https://github.com/tidywf/tidywigits/pull/185)); fix
   permissions ([pr182](https://github.com/tidywf/tidywigits/pull/182));
   refactor deploy workflow
   ([pr175](https://github.com/tidywf/tidywigits/pull/175),
   [pr176](https://github.com/tidywf/tidywigits/pull/176)); add bump.yaml
-  conda env
+  conda env; add multi-arch Docker support
+  ([pr198](https://github.com/tidywf/tidywigits/pull/198))
 - Move shiny and website to separate repos
   ([pr171](https://github.com/tidywf/tidywigits/pull/171))
 - Add air formatter to pre-commit hooks; add `CLAUDE.md` + `new-tool`
   skill ([pr180](https://github.com/tidywf/tidywigits/pull/180))
+
+### Contributors
+
+- [@reisingerf](https://github.com/reisingerf): multi-arch Docker
+  support ([pr198](https://github.com/tidywf/tidywigits/pull/198))
 
 ## v0.0.7 (2026-02-09)
 
