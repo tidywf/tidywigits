@@ -65,59 +65,39 @@ glue(
 )
 ```
 
-## 🤔 The Problem
-
-The [WiGiTS/hmftools] suite of genome and transcriptome analysis tools
-produces hundreds of output files across dozens of tools per sample, but consuming
-them downstream can become complicated:
-
-- **Format variety**: mix of 'tidy' tabular files (each variable with its own column,
-  each observation with its own row) with 'untidy' files geared more towards
-  easier human readability (e.g. one column with metric names, and a separate column
-  with their values)
-- **Embedded sub-tables**: files mixing conceptually distinct data into a single
-  wide table, e.g. gene coverage files embedding tens of depth-range
-  histogram columns (`DR_0`...`DR_10000`) alongside gene metadata, which are better
-  stored as a separate normalised table
-- **Messy column names**: names across files are an inconsistent mix of
-  `snake_case`, `camelCase`, `dot.separated` and other non-standard conventions;
-  joining across tools requires manual renaming
-- **Schema drift**: column names and file layouts change silently between tool
-  versions, breaking downstream code with no clear signal
-- **No run-level provenance**: it can become hard to tell which output file came from
-  which sample or pipeline run once files are collected into a shared directory.
-
 [WiGiTS/hmftools]: <https://github.com/hartwigmedical/hmftools> "WiGiTS suite"
 [nemo]: <https://github.com/tidywf/nemo> "nemo"
 
-{tidywigits} addresses this problem by providing a schema-driven parsing and tidying
-layer that turns raw WiGiTS outputs into consistently structured, versioned,
-analysis-ready tables.
-It is a child package of {[nemo]}, which provides the base R6 classes
-(`Tool`, `Workflow`, `Config`) for parsing, tidying, and writing pipeline outputs.
+{tidywigits} is an R package for parsing and tidying output from the [WiGiTS/hmftools]
+suite of genome and transcriptome analysis tools. WiGiTS produces hundreds of files per
+sample across dozens of tools, but consuming them downstream is fragile: formats are
+inconsistent, column names span a mix of conventions
+(e.g. `snake_case`, `camelCase`, `dot.separated`), some sub-tables are embedded
+in wide files, and column layouts change between tool versions.
 
-In short, it traverses through a directory containing results from one or more
-runs of WiGiTS tools, parses any files it recognises, tidies
-them up (which includes data reshaping, normalisation, column name cleanup etc.),
-and writes them to the output format of choice e.g. Apache Parquet, PostgreSQL,
-TSV, RDS. Each run also produces a `metadata.parquet` file alongside the tidy
-tables, capturing IDs, paths, and package versions.
+{tidywigits} addresses this with a schema-driven parsing layer that turns raw WiGiTS
+outputs into consistently structured, versioned, analysis-ready tables that
+can be written to a variety of formats such as Apache Parquet, PostgreSQL,
+TSV, or RDS. Each run also produces a `metadata.parquet` file alongside the tidy
+tables, capturing IDs, paths, and R package versions.
 
-Three optional columns can be prepended to every written table to support
-downstream tracing and joining. All are opt-in and off by default, but highly
+For better downstream tracing and joining, three columns can be prepended
+to every written table. All are opt-in and off by default, but highly
 recommended for any multi-sample or multi-run pipeline:
 
-| Column       | R argument            | CLI flag                     | Purpose                            |
-| ------------ | --------------------- | ---------------------------- | ---------------------------------- |
-| `input_id`   | `input_id = "run1"`   | `--input_id run1`            | identifies the sample or input run |
-| `output_id`  | `output_id = "abc"`   | `--output_id abc` / `--ulid` | identifies the processing run      |
-| `input_pfix` | `pfix_include = TRUE` | `--prefix_include`           | filename prefix (e.g. sample name) |
+| Column       | Purpose                            |
+| ------------ | ---------------------------------- |
+| `input_id`   | identifies the sample or input run |
+| `output_id`  | identifies the processing run      |
+| `input_pfix` | filename prefix (e.g. sample name) |
 
 ## ⚡ Quick Start
 
+### Single tool
+
 Some WiGiTS output files have non-standard layouts. For a very simple example,
-let's take PURPLE's `purple.qc` file that stores QC metrics as key-value rows rather
-than columns:
+let's look at PURPLE's `purple.qc` file that stores QC metrics as key-value rows
+rather than columns:
 
 ```{r}
 #| label: quickstart_raw
@@ -143,7 +123,7 @@ Purple$new(indir_ppl)$nemofy(
 list.files(outdir_ppl, pattern = "\\.parquet$")
 ```
 
-Read back the tidied table:
+Now read back the tidied table:
 
 ```{r}
 #| label: quickstart_read
@@ -151,7 +131,7 @@ qc_file <- list.files(outdir_ppl, pattern = "sample1_purple_qc.parquet", full.na
 arrow::read_parquet(qc_file) |> str()
 ```
 
----
+### Full WiGiTS
 
 Files from the full WiGiTS suite can be processed with the convenient `Wigits` class.
 The starting point is a parent directory with WiGiTS results, and we can again
@@ -206,7 +186,7 @@ res <- w2$nemofy(
 )
 ```
 
-**IMPORTANT**: support for VCFs is on the roadmap, not yet implemented.
+**IMPORTANT**: support for VCFs is a work in progress.
 
 ## 🍕 Installation
 
