@@ -33,7 +33,7 @@ Linx <- R6::R6Class(
     #' See `fs::dir_info`.
     #' @return A tibble of file paths.
     list_files = function(type = "file") {
-      list_files_with_prefix_fn(self, type, \(d) {
+      list_files_with_prefix_fn(self, private$files_tbl, type, \(d) {
         dplyr::mutate(
           d,
           prefix = dplyr::if_else(

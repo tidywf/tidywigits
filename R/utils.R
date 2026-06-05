@@ -3,10 +3,10 @@ pkg_name <- "tidywigits"
 # Reimplements nemo::Tool$list_files() with a hook (`prefix_fn`) inserted
 # between the group-disambiguation step and the grp2-deduplication step.
 # Used by Purple and Linx to apply germline/somatic suffixes before grp2 runs.
-list_files_with_prefix_fn <- function(self, type, prefix_fn) {
+list_files_with_prefix_fn <- function(self, files_tbl, type, prefix_fn) {
   patterns <- self$config$get_patterns() |>
     dplyr::rename(pat_name = "name", pat_value = "pattern")
-  files <- self$files_tbl %||% nemo::list_files_dir(self$path, type = type)
+  files <- files_tbl %||% nemo::list_files_dir(self$path, type = type)
   res <- files |>
     tidyr::crossing(patterns) |>
     dplyr::filter(stringr::str_detect(.data$bname, .data$pat_value)) |>

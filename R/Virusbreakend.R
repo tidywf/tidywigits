@@ -31,7 +31,7 @@ Virusbreakend <- R6::R6Class(
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_vcfsummary = function(x) {
-      schema <- self$get_schema_raw("vcfsummary", v = "latest") |>
+      schema <- self$get_schema_raw("vcfsummary", version = "latest") |>
         dplyr::select("field", "type")
       # file is either completely empty, or with colnames + data
       hdr <- nemo::file_hdr(x)

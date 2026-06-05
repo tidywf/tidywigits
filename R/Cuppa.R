@@ -41,7 +41,7 @@ Cuppa <- R6::R6Class(
       schema <- nemo::schema_guess(
         pname = "predsum",
         cnames = cnames,
-        schemas_all = self$schemas_raw
+        schemas_all = self$config$schemas_raw
       )
       if (is_rna) {
         schema[["schema"]] <- schema[["schema"]] |>
