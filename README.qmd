@@ -107,15 +107,15 @@ writeLines(readLines(file.path(indir_ppl, "sample1.purple.qc")))
 ```
 
 We can utilise the `Purple` class to parse, tidy and write PURPLE files in one
-call via its `nemofy()` method:
+call via its `wrangle()` method:
 
 ```{r}
-#| label: quickstart_nemofy
+#| label: quickstart_wrangle
 #| message: false
 outdir_ppl <- file.path(tempdir(), "ppl_out")
 
-Purple$new(indir_ppl)$nemofy(
-  diro = outdir_ppl,
+Purple$new(indir_ppl)$wrangle(
+  out_dir = outdir_ppl,
   format = "parquet",
   input_id = "run1"
 )
@@ -135,7 +135,7 @@ arrow::read_parquet(qc_file) |> str()
 
 Files from the full WiGiTS suite can be processed with the convenient `Wigits` class.
 The starting point is a parent directory with WiGiTS results, and we can again
-utilise the `nemofy()` method:
+utilise the `wrangle()` method:
 
 ```{r}
 #| label: example_input_tree
@@ -155,8 +155,8 @@ a PostgreSQL database as follows:
 #| message: false
 outdir_w <- file.path(tempdir(), "wigits_out_parquet")
 w <- Wigits$new(indir_w)
-res <- w$nemofy(
-  diro = outdir_w,
+res <- w$wrangle(
+  out_dir = outdir_w,
   format = "parquet",
   input_id = "run1",
   output_id = "out1",
@@ -177,7 +177,7 @@ dbconn <- DBI::dbConnect(
   dbname = "tidywigits",
   user = "me"
 )
-res <- w2$nemofy(
+res <- w2$wrangle(
   format = "db",
   input_id = "run2",
   output_id = "out2",

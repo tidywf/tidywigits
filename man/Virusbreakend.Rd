@@ -12,7 +12,7 @@ indir <- system.file("extdata/oa", package = "tidywigits")
 odir <- tempdir()
 id <- "virusbreakend_run1"
 obj <- cls$new(indir)
-obj$nemofy(diro = odir, format = "parquet", input_id = id)
+obj$wrangle(out_dir = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = "virusbreakend.*parquet", full.names = FALSE))
 }
 \section{Super class}{

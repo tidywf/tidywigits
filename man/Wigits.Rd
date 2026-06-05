@@ -11,15 +11,15 @@ path <- system.file("extdata/oa", package = "tidywigits")
 w <- Wigits$new(path)
 dir1 <- tempdir()
 #w$tidy()
-#w$write(diro = dir1, format = "tsv", input_id = "input1", output_id = "out1")
-x <- w$nemofy(diro = file.path(dir1, "out1"), format = "parquet", input_id = "run1")
+#w$write(out_dir = dir1, format = "tsv", input_id = "input1", output_id = "out1")
+x <- w$wrangle(out_dir = file.path(dir1, "out1"), format = "parquet", input_id = "run1")
 #dbconn <- DBI::dbConnect(
 #  drv = RPostgres::Postgres(),
 #  dbname = "nemo",
 #  user = "orcabus"
 #)
 #x <-
-#  w$nemofy(
+#  w$wrangle(
 #    format = "db",
 #    input_id = "runABC456",
 #    dbconn = dbconn
