@@ -48,7 +48,7 @@ Cobalt <- R6::R6Class(
       }
       d <- x |> tibble::deframe()
       version <- nemo::get_tbl_version_attr(d[["bucket_stats"]])
-      schema <- self$get_tidy_schema("gcmed", v = version)
+      schema <- self$get_schema_tidy("gcmed", v = version)
       colnames(d[["bucket_stats"]]) <- schema[["field"]]
       colnames(d[["sample_stats"]]) <- c("mean", "median")
       list(sample = d[["sample_stats"]], buckets = d[["bucket_stats"]]) |>

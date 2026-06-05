@@ -36,7 +36,7 @@ Bamtools <- R6::R6Class(
         x <- self$.parse_file(x, "summary")
       }
       version <- nemo::get_tbl_version_attr(x)
-      schema <- self$get_tidy_schema("summary", v = version)
+      schema <- self$get_schema_tidy("summary", v = version)
       colnames(x) <- schema[["field"]]
       # d1 maintains file_version attr, d2 requires it
       d1 <- x |> dplyr::select(!dplyr::starts_with("depth_cov_"))
@@ -60,7 +60,7 @@ Bamtools <- R6::R6Class(
     parse_wgsmetrics = function(x) {
       # handle two different sections
       # schema unlikely to change, use latest
-      schema <- self$get_raw_schema("wgsmetrics", v = "latest") |>
+      schema <- self$get_schema_raw("wgsmetrics", v = "latest") |>
         dplyr::select("field", "type")
       hdr1 <- nemo::file_hdr(x, comment = "#")
       stopifnot(identical(hdr1, schema[["field"]]))
@@ -84,7 +84,7 @@ Bamtools <- R6::R6Class(
       }
       d <- x |> tibble::deframe()
       version <- nemo::get_tbl_version_attr(d[["stats"]])
-      schema <- self$get_tidy_schema("wgsmetrics", v = version)
+      schema <- self$get_schema_tidy("wgsmetrics", v = version)
       colnames(d[["stats"]]) <- schema[["field"]]
       # now split off the pct_x into new tbl
       pat1 <- "pct_\\d+x$"
@@ -198,7 +198,7 @@ Bamtools <- R6::R6Class(
         x <- self$parse_flagstats(x)
       }
       d <- x
-      schema <- self$get_tidy_schema("flagstats")
+      schema <- self$get_schema_tidy("flagstats")
       stopifnot(identical(colnames(d), schema[["field"]]))
       list(flagstats = d) |>
         nemo::enframe_data()

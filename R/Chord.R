@@ -32,7 +32,7 @@ Chord <- R6::R6Class(
     parse_signatures = function(x) {
       hdr <- nemo::file_hdr(x)
       version <- "latest" # only one version currently supported
-      schema <- self$get_raw_schema("signatures", v = version) |>
+      schema <- self$get_schema_raw("signatures", v = version) |>
         dplyr::select("field", "type") |>
         tibble::deframe()
 
