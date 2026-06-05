@@ -59,11 +59,8 @@ user <- function(x) {
 
 ## 0.1.0 (2026-06-04)
 
-- nemo API renames: `out_dir` => `output_dir`; `pfix_include` => `prefix_include`;
-  output column `input_pfix` => `input_prefix`; CLI flag `--out_dir` => `--output_dir`
-- nemo API renames (Config/Tool): `raw_schemas_all` => `schemas_raw`,
-  `tidy_schemas_all` => `schemas_tidy`, `get_tidy_schema` => `get_schema_tidy`,
-  `get_raw_schema` => `get_schema_raw`
+### Changes
+
 - Change GitHub org from `umccr` to `tidywf`
 - Schema refactor: all tools migrated from old nemo `raw.yaml` + `tidy.yaml`
   configs to a single `schema.yaml` (initially LinkML via `r pr(174)`, then moved
@@ -82,6 +79,19 @@ user <- function(x) {
 - GHA: use reusable workflows for conda/docker/pkgdown (`r pr(181)`); add version-bumping workflow (`r pr(183)`, `r pr(184)`, `r pr(185)`); fix permissions (`r pr(182)`); refactor deploy workflow (`r pr(175)`, `r pr(176)`); add bump.yaml conda env; add multi-arch Docker support (`r pr(198)`)
 - Move shiny and website to separate repos (`r pr(171)`)
 - Add air formatter to pre-commit hooks; add `CLAUDE.md` + `new-tool` skill (`r pr(180)`)
+
+### nemo API changes
+
+- Renames: `out_dir` => `output_dir`; `pfix_include` => `prefix_include`;
+  output column `input_pfix` => `input_prefix`; CLI flag `--out_dir` => `--output_dir`
+- Renames (Config/Tool): `raw_schemas_all` => `schemas_raw`,
+  `tidy_schemas_all` => `schemas_tidy`, `get_tidy_schema` => `get_schema_tidy`,
+  `get_raw_schema` => `get_schema_raw`
+- Tool API cleanup (call-site updates): rename `v` to `version` on
+  `get_schema_raw`/`get_schema_tidy` calls; rename `name` to `table_name` on
+  `.parse_file` calls; replace `self$schemas_raw` with `self$config$schemas_raw`;
+  thread `files_tbl` as an explicit argument in `list_files_with_prefix_fn`
+  (Bamtools, Chord, Cobalt, Cuppa, Virusbreakend, Purple, Linx)
 
 ### Contributors
 
