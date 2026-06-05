@@ -8,7 +8,7 @@
 #' odir <- tempdir()
 #' id <- "chord_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(out_dir = odir, format = "parquet", input_id = id)
+#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "chord.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 2)
@@ -32,7 +32,7 @@ Chord <- R6::R6Class(
     parse_signatures = function(x) {
       hdr <- nemo::file_hdr(x)
       version <- "latest" # only one version currently supported
-      schema <- self$get_raw_schema("signatures", v = version) |>
+      schema <- self$get_schema_raw("signatures", v = version) |>
         dplyr::select("field", "type") |>
         tibble::deframe()
 

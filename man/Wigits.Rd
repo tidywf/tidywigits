@@ -11,8 +11,8 @@ path <- system.file("extdata/oa", package = "tidywigits")
 w <- Wigits$new(path)
 dir1 <- tempdir()
 #w$tidy()
-#w$write(out_dir = dir1, format = "tsv", input_id = "input1", output_id = "out1")
-x <- w$wrangle(out_dir = file.path(dir1, "out1"), format = "parquet", input_id = "run1")
+#w$write(output_dir = dir1, format = "tsv", input_id = "input1", output_id = "out1")
+x <- w$wrangle(output_dir = file.path(dir1, "out1"), format = "parquet", input_id = "run1")
 #dbconn <- DBI::dbConnect(
 #  drv = RPostgres::Postgres(),
 #  dbname = "nemo",
@@ -41,13 +41,13 @@ x <- w$wrangle(out_dir = file.path(dir1, "out1"), format = "parquet", input_id =
 <ul>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="filter_files"><a href='../../nemo/html/Workflow.html#method-Workflow-filter_files'><code>nemo::Workflow$filter_files()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_metadata"><a href='../../nemo/html/Workflow.html#method-Workflow-get_metadata'><code>nemo::Workflow$get_metadata()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_raw_schemas_all"><a href='../../nemo/html/Workflow.html#method-Workflow-get_raw_schemas_all'><code>nemo::Workflow$get_raw_schemas_all()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_schemas_raw"><a href='../../nemo/html/Workflow.html#method-Workflow-get_schemas_raw'><code>nemo::Workflow$get_schemas_raw()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_schemas_tidy"><a href='../../nemo/html/Workflow.html#method-Workflow-get_schemas_tidy'><code>nemo::Workflow$get_schemas_tidy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_tbls"><a href='../../nemo/html/Workflow.html#method-Workflow-get_tbls'><code>nemo::Workflow$get_tbls()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_tidy_schemas_all"><a href='../../nemo/html/Workflow.html#method-Workflow-get_tidy_schemas_all'><code>nemo::Workflow$get_tidy_schemas_all()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="list_files"><a href='../../nemo/html/Workflow.html#method-Workflow-list_files'><code>nemo::Workflow$list_files()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="nemofy"><a href='../../nemo/html/Workflow.html#method-Workflow-nemofy'><code>nemo::Workflow$nemofy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="print"><a href='../../nemo/html/Workflow.html#method-Workflow-print'><code>nemo::Workflow$print()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="tidy"><a href='../../nemo/html/Workflow.html#method-Workflow-tidy'><code>nemo::Workflow$tidy()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="wrangle"><a href='../../nemo/html/Workflow.html#method-Workflow-wrangle'><code>nemo::Workflow$wrangle()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="write"><a href='../../nemo/html/Workflow.html#method-Workflow-write'><code>nemo::Workflow$write()</code></a></span></li>
 </ul>
 </details>

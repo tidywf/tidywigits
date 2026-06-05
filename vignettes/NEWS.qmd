@@ -59,6 +59,11 @@ user <- function(x) {
 
 ## 0.1.0 (2026-06-04)
 
+- nemo API renames: `out_dir` => `output_dir`; `pfix_include` => `prefix_include`;
+  output column `input_pfix` => `input_prefix`; CLI flag `--out_dir` => `--output_dir`
+- nemo API renames (Config/Tool): `raw_schemas_all` => `schemas_raw`,
+  `tidy_schemas_all` => `schemas_tidy`, `get_tidy_schema` => `get_schema_tidy`,
+  `get_raw_schema` => `get_schema_raw`
 - Change GitHub org from `umccr` to `tidywf`
 - Schema refactor: all tools migrated from old nemo `raw.yaml` + `tidy.yaml`
   configs to a single `schema.yaml` (initially LinkML via `r pr(174)`, then moved

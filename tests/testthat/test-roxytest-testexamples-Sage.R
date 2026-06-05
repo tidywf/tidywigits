@@ -9,7 +9,7 @@ test_that("Function Sage() @ L16", {
   odir <- tempdir()
   id <- "sage_run1"
   obj <- cls$new(indir)
-  obj$wrangle(out_dir = odir, format = "parquet", input_id = id)
+  obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "sage.*parquet", full.names = FALSE))
   expect_equal(length(lf), 7)
 })

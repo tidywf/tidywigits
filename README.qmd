@@ -89,7 +89,7 @@ recommended for any multi-sample or multi-run pipeline:
 | ------------ | ---------------------------------- |
 | `input_id`   | identifies the sample or input run |
 | `output_id`  | identifies the processing run      |
-| `input_pfix` | filename prefix (e.g. sample name) |
+| `input_prefix` | filename prefix (e.g. sample name) |
 
 ## ⚡ Quick Start
 
@@ -115,7 +115,7 @@ call via its `wrangle()` method:
 outdir_ppl <- file.path(tempdir(), "ppl_out")
 
 Purple$new(indir_ppl)$wrangle(
-  out_dir = outdir_ppl,
+  output_dir = outdir_ppl,
   format = "parquet",
   input_id = "run1"
 )
@@ -156,11 +156,11 @@ a PostgreSQL database as follows:
 outdir_w <- file.path(tempdir(), "wigits_out_parquet")
 w <- Wigits$new(indir_w)
 res <- w$wrangle(
-  out_dir = outdir_w,
+  output_dir = outdir_w,
   format = "parquet",
   input_id = "run1",
   output_id = "out1",
-  pfix_include = TRUE
+  prefix_include = TRUE
 )
 res
 list.files(outdir_w, pattern = "\\.parquet$") |> str()
@@ -181,7 +181,7 @@ res <- w2$wrangle(
   format = "db",
   input_id = "run2",
   output_id = "out2",
-  pfix_include = TRUE,
+  prefix_include = TRUE,
   dbconn = dbconn
 )
 ```

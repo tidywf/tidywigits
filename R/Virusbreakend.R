@@ -8,7 +8,7 @@
 #' odir <- tempdir()
 #' id <- "virusbreakend_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(out_dir = odir, format = "parquet", input_id = id)
+#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "virusbreakend.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 1)
@@ -31,7 +31,7 @@ Virusbreakend <- R6::R6Class(
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_vcfsummary = function(x) {
-      schema <- self$get_raw_schema("vcfsummary", v = "latest") |>
+      schema <- self$get_schema_raw("vcfsummary", v = "latest") |>
         dplyr::select("field", "type")
       # file is either completely empty, or with colnames + data
       hdr <- nemo::file_hdr(x)

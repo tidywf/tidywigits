@@ -8,7 +8,7 @@
 #' odir <- tempdir()
 #' id <- "cuppa_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(out_dir = odir, format = "parquet", input_id = id)
+#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "cuppa.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 4)
@@ -41,7 +41,7 @@ Cuppa <- R6::R6Class(
       schema <- nemo::schema_guess(
         pname = "predsum",
         cnames = cnames,
-        schemas_all = self$raw_schemas_all
+        schemas_all = self$schemas_raw
       )
       if (is_rna) {
         schema[["schema"]] <- schema[["schema"]] |>
