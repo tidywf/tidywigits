@@ -7,8 +7,8 @@
 #' w <- Wigits$new(path)
 #' dir1 <- tempdir()
 #' #w$tidy()
-#' #w$write(out_dir = dir1, format = "tsv", input_id = "input1", output_id = "out1")
-#' x <- w$wrangle(out_dir = file.path(dir1, "out1"), format = "parquet", input_id = "run1")
+#' #w$write(output_dir = dir1, format = "tsv", input_id = "input1", output_id = "out1")
+#' x <- w$wrangle(output_dir = file.path(dir1, "out1"), format = "parquet", input_id = "run1")
 #' #dbconn <- DBI::dbConnect(
 #' #  drv = RPostgres::Postgres(),
 #' #  dbname = "nemo",

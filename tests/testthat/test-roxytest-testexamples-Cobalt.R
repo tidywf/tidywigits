@@ -9,7 +9,7 @@ test_that("Function Cobalt() @ L16", {
   odir <- tempdir()
   id <- "cobalt_run1"
   obj <- cls$new(indir)
-  obj$wrangle(out_dir = odir, format = "parquet", input_id = id)
+  obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "cobalt.*parquet", full.names = FALSE))
   expect_equal(length(lf), 5)
 })
