@@ -9,7 +9,7 @@
 #' id <- "sage_run1"
 #' obj <- cls$new(indir)
 #' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "sage.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = "sage_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 7)
 #' @export

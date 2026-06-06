@@ -9,7 +9,7 @@
 #' id <- "cider_run1"
 #' obj <- cls$new(indir)
 #' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "cider.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = "cider_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 3)
 #' @export

@@ -9,7 +9,7 @@
 #' id <- "bamtools_run1"
 #' obj <- cls$new(indir)
 #' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "bamtools.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = "bamtools_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 17)
 #' @export

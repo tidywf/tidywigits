@@ -10,7 +10,7 @@ test_that("Function Linx() @ L16", {
   id <- "linx_run1"
   obj <- cls$new(indir)
   obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
-  (lf <- list.files(odir, pattern = "linx.*parquet", full.names = FALSE))
+  (lf <- list.files(odir, pattern = "linx_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 30)
 })
 

@@ -10,7 +10,7 @@ test_that("Function Alignments() @ L16", {
   id <- "alignments_run1"
   obj <- cls$new(indir)
   obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
-  (lf <- list.files(odir, pattern = "alignments.*parquet", full.names = FALSE))
+  (lf <- list.files(odir, pattern = "alignments_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 3)
 })
 

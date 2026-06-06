@@ -9,7 +9,7 @@
 #' id <- "isofox_run1"
 #' obj <- cls$new(indir)
 #' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "isofox.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = "isofox_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 8)
 #' @export
