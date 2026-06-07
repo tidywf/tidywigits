@@ -8,13 +8,14 @@
 #' odir <- tempdir()
 #' id <- "bamtools_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "bamtools_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 17)
 #' @export
 Bamtools <- R6::R6Class(
   "Bamtools",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Bamtools object.
@@ -33,10 +34,10 @@ Bamtools <- R6::R6Class(
     #' Path to file.
     tidy_summary = function(x) {
       if (!tibble::is_tibble(x)) {
-        x <- self$.parse_file(x, "summary")
+        x <- private$parse_file(x, "summary")
       }
       version <- nemo::get_tbl_version_attr(x)
-      schema <- self$get_schema_tidy("summary", version = version)
+      schema <- self$config$get_schema_tidy("summary", version = version)
       colnames(x) <- schema[["field"]]
       # d1 maintains file_version attr, d2 requires it
       d1 <- x |> dplyr::select(!dplyr::starts_with("depth_cov_"))
@@ -60,13 +61,13 @@ Bamtools <- R6::R6Class(
     parse_wgsmetrics = function(x) {
       # handle two different sections
       # schema unlikely to change, use latest
-      schema <- self$get_schema_raw("wgsmetrics", version = "latest") |>
+      schema <- self$config$get_schema_raw("wgsmetrics", version = "latest") |>
         dplyr::select("field", "type")
       hdr1 <- nemo::file_hdr(x, comment = "#")
       stopifnot(identical(hdr1, schema[["field"]]))
       hdr2 <- nemo::file_hdr(x, comment = "#", skip = 3)
       stopifnot(identical(hdr2, c("coverage", "high_quality_coverage_count")))
-      d1 <- self$.parse_file(x = x, table_name = "wgsmetrics", n_max = 1, comment = "#")
+      d1 <- private$parse_file(x = x, table_name = "wgsmetrics", n_max = 1, comment = "#")
       d2 <- readr::read_tsv(x, col_types = "ci", comment = "#", skip = 3) |>
         nemo::set_tbl_version_attr(nemo::get_tbl_version_attr(d1))
       list(stats = d1[], histo = d2[]) |>
@@ -84,7 +85,7 @@ Bamtools <- R6::R6Class(
       }
       d <- x |> tibble::deframe()
       version <- nemo::get_tbl_version_attr(d[["stats"]])
-      schema <- self$get_schema_tidy("wgsmetrics", version = version)
+      schema <- self$config$get_schema_tidy("wgsmetrics", version = version)
       colnames(d[["stats"]]) <- schema[["field"]]
       # now split off the pct_x into new tbl
       pat1 <- "pct_\\d+x$"
@@ -198,7 +199,7 @@ Bamtools <- R6::R6Class(
         x <- self$parse_flagstats(x)
       }
       d <- x
-      schema <- self$get_schema_tidy("flagstats")
+      schema <- self$config$get_schema_tidy("flagstats")
       stopifnot(identical(colnames(d), schema[["field"]]))
       list(flagstats = d) |>
         nemo::enframe_data()
@@ -207,7 +208,7 @@ Bamtools <- R6::R6Class(
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_genecvg = function(x) {
-      d <- self$.tidy_file(x, "genecvg") |>
+      d <- private$tidy_file(x, "genecvg") |>
         dplyr::select("data")
       version <- nemo::get_tbl_version_attr(d[["data"]][[1]])
       d <- d |> tidyr::unnest("data")

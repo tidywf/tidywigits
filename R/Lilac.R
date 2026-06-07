@@ -8,13 +8,14 @@
 #' odir <- tempdir()
 #' id <- "lilac_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "lilac_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 2)
 #' @export
 Lilac <- R6::R6Class(
   "Lilac",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Lilac object.

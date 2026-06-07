@@ -8,13 +8,14 @@
 #' odir <- tempdir()
 #' id <- "virusbreakend_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "virusbreakend_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 1)
 #' @export
 Virusbreakend <- R6::R6Class(
   "Virusbreakend",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Virusbreakend object.
@@ -31,7 +32,7 @@ Virusbreakend <- R6::R6Class(
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_vcfsummary = function(x) {
-      schema <- self$get_schema_raw("vcfsummary", version = "latest") |>
+      schema <- self$config$get_schema_raw("vcfsummary", version = "latest") |>
         dplyr::select("field", "type")
       # file is either completely empty, or with colnames + data
       hdr <- nemo::file_hdr(x)
@@ -41,7 +42,7 @@ Virusbreakend <- R6::R6Class(
           nemo::set_tbl_version_attr("latest")
         return(etbl)
       }
-      self$.parse_file(x, "vcfsummary") |>
+      private$parse_file(x, "vcfsummary") |>
         nemo::set_tbl_version_attr("latest")
     }
   ) # end public

@@ -9,7 +9,7 @@ test_that("Function Isofox() @ L16", {
   odir <- tempdir()
   id <- "isofox_run1"
   obj <- cls$new(indir)
-  obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
+  obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "isofox_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 8)
 })

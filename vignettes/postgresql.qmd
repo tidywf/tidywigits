@@ -26,7 +26,7 @@ dbconn <- DBI::dbConnect(
   user = "user1"
 )
 oa <- Wigits$new("nogit/oa_v1")
-oa$wrangle(format = "db", input_id = "oa_run_v1", dbconn = dbconn)
+oa$run(format = "db", input_id = "oa_run_v1", dbconn = dbconn)
 DBI::dbDisconnect(dbconn)
 ```
 
@@ -45,7 +45,7 @@ dbconn <- DBI::dbConnect(
   user = "user1"
 )
 oa <- Wigits$new("nogit/oa_v2")
-oa$wrangle(format = "db", input_id = "oa_run_v2", dbconn = dbconn)
+oa$run(format = "db", input_id = "oa_run_v2", dbconn = dbconn)
 DBI::dbDisconnect(dbconn)
 ```
 

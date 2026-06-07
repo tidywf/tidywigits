@@ -8,13 +8,14 @@
 #' odir <- tempdir()
 #' id <- "amber_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "amber_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 4)
 #' @export
 Amber <- R6::R6Class(
   "Amber",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Amber object.
@@ -30,25 +31,25 @@ Amber <- R6::R6Class(
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_qc = function(x) {
-      self$.parse_file_keyvalue(x, "qc")
+      private$parse_file_keyvalue(x, "qc")
     },
     #' @description Tidy `qc` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_qc = function(x) {
-      self$.tidy_file(x, "qc", convert_types = TRUE)
+      private$tidy_file(x, "qc", convert_types = TRUE)
     },
     #' @description Read `amber.version` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_version = function(x) {
-      self$.parse_file_keyvalue(x, "version", delim = "=")
+      private$parse_file_keyvalue(x, "version", delim = "=")
     },
     #' @description Tidy `amber.version` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_version = function(x) {
-      self$.tidy_file(x, "version")
+      private$tidy_file(x, "version")
     }
   )
 )

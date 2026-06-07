@@ -8,14 +8,14 @@
 #' dir1 <- tempdir()
 #' #w$tidy()
 #' #w$write(output_dir = dir1, format = "tsv", input_id = "input1", output_id = "out1")
-#' x <- w$wrangle(output_dir = file.path(dir1, "out1"), format = "parquet", input_id = "run1")
+#' x <- w$run(output_dir = file.path(dir1, "out1"), format = "parquet", input_id = "run1")
 #' #dbconn <- DBI::dbConnect(
 #' #  drv = RPostgres::Postgres(),
 #' #  dbname = "nemo",
 #' #  user = "orcabus"
 #' #)
 #' #x <-
-#' #  w$wrangle(
+#' #  w$run(
 #' #    format = "db",
 #' #    input_id = "runABC456",
 #' #    dbconn = dbconn
@@ -24,6 +24,7 @@
 #' @export
 Wigits <- R6::R6Class(
   "Wigits",
+  cloneable = FALSE,
   inherit = Workflow,
   public = list(
     #' @description Create a new Wigits object.

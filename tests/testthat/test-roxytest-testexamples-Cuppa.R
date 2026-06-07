@@ -9,7 +9,7 @@ test_that("Function Cuppa() @ L16", {
   odir <- tempdir()
   id <- "cuppa_run1"
   obj <- cls$new(indir)
-  obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
+  obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "cuppa_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 4)
 })

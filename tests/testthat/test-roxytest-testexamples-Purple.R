@@ -9,13 +9,13 @@ test_that("Function Purple() @ L16", {
   odir <- tempdir()
   id <- "purple_run1"
   obj <- cls$new(indir)
-  obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
+  obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "purple_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 14)
 })
 
 
-test_that("Function purple_plot_getter() @ L92", {
+test_that("Function purple_plot_getter() @ L82", {
   
   x <- tempdir()
   cp_dir <- file.path(tempdir(), "cpdir")

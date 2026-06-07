@@ -8,13 +8,14 @@
 #' odir <- tempdir()
 #' id <- "teal_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "teal_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 2)
 #' @export
 Teal <- R6::R6Class(
   "Teal",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Teal object.

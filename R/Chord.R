@@ -8,13 +8,14 @@
 #' odir <- tempdir()
 #' id <- "chord_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "chord_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 2)
 #' @export
 Chord <- R6::R6Class(
   "Chord",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Chord object.
@@ -32,7 +33,7 @@ Chord <- R6::R6Class(
     parse_signatures = function(x) {
       hdr <- nemo::file_hdr(x)
       version <- "latest" # only one version currently supported
-      schema <- self$get_schema_raw("signatures", version = version) |>
+      schema <- self$config$get_schema_raw("signatures", version = version) |>
         dplyr::select("field", "type") |>
         tibble::deframe()
 

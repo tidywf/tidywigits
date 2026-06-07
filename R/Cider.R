@@ -8,13 +8,14 @@
 #' odir <- tempdir()
 #' id <- "cider_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "cider_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 3)
 #' @export
 Cider <- R6::R6Class(
   "Cider",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Cider object.

@@ -8,13 +8,14 @@
 #' odir <- tempdir()
 #' id <- "neo_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "neo_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 2)
 #' @export
 Neo <- R6::R6Class(
   "Neo",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Neo object.

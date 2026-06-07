@@ -1,13 +1,10 @@
-.PHONY: all pkgdown
+.PHONY: all pkgdown test
 
 readme:
 	@quarto render README.qmd
 
 air:
 	@air format
-
-check:
-	@R -e "devtools::check()" --quiet --no-restore --no-save
 
 pkgdown:
 	@R -e "pkgdown::build_site()" --quiet --no-restore --no-save
@@ -30,6 +27,12 @@ ifndef BRANCH
 	$(error BRANCH is not set. Usage: make bump VERSION=x.y.z BRANCH=dev)
 endif
 	@gh workflow run bump.yaml --ref $(BRANCH) --field version=$(VERSION)
+
+test:
+	@R -e "devtools::test()" --quiet --no-restore --no-save
+
+check:
+	@R -e "devtools::check()" --quiet --no-restore --no-save
 
 web-preview:
 	@quarto preview inst/website/index.qmd --port 4242 --no-browser --no-watch-inputs --output-dir nogit/website-tmp --embed-resources

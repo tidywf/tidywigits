@@ -8,13 +8,14 @@
 #' odir <- tempdir()
 #' id <- "purple_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "purple_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 14)
 #' @export
 Purple <- R6::R6Class(
   "Purple",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Purple object.
@@ -25,46 +26,35 @@ Purple <- R6::R6Class(
     #' Tibble of files from [nemo::list_files_dir()].
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "purple", pkg = pkg_name, path = path, files_tbl = files_tbl)
-    },
-
-    #' @description List files in given purple directory. Overwrites parent class
-    #' to handle germline/somatic driver.catalog files.
-    #' @param type (`character(1)`)\cr
-    #' File type(s) to return (e.g. any, file, directory, symlink).
-    #' See `fs::dir_info`.
-    #' @return A tibble of file paths.
-    list_files = function(type = "file") {
-      list_files_with_prefix_fn(self, private$files_tbl, type, \(d) {
-        dplyr::mutate(
-          d,
-          prefix = dplyr::case_when(
-            grepl("purple\\.driver\\.catalog\\.germline\\.tsv$", .data$bname) ~
-              glue("{.data$prefix}_germline"),
-            grepl("purple\\.driver\\.catalog\\.somatic\\.tsv$", .data$bname) ~
-              glue("{.data$prefix}_somatic"),
-            .default = .data$prefix
-          )
+      private$files <- dplyr::mutate(
+        private$files,
+        prefix = dplyr::case_when(
+          grepl("purple\\.driver\\.catalog\\.germline\\.tsv$", .data$bname) ~
+            paste0(.data$prefix, "_germline"),
+          grepl("purple\\.driver\\.catalog\\.somatic\\.tsv$", .data$bname) ~
+            paste0(.data$prefix, "_somatic"),
+          .default = .data$prefix
         )
-      })
+      )
     },
 
     #' @description Read `purple.qc` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_qc = function(x) {
-      self$.parse_file_keyvalue(x, "qc")
+      private$parse_file_keyvalue(x, "qc")
     },
     #' @description Tidy `purple.qc` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_qc = function(x) {
-      self$.tidy_file(x, "qc", convert_types = TRUE)
+      private$tidy_file(x, "qc", convert_types = TRUE)
     },
     #' @description Read `purple.version` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_version = function(x) {
-      self$.parse_file_keyvalue(x, "version", delim = "=")
+      private$parse_file_keyvalue(x, "version", delim = "=")
     }
   ) # end public
 )

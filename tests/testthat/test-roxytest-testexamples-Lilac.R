@@ -9,7 +9,7 @@ test_that("Function Lilac() @ L16", {
   odir <- tempdir()
   id <- "lilac_run1"
   obj <- cls$new(indir)
-  obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
+  obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "lilac_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 2)
 })

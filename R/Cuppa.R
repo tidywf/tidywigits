@@ -8,13 +8,14 @@
 #' odir <- tempdir()
 #' id <- "cuppa_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "cuppa_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 4)
 #' @export
 Cuppa <- R6::R6Class(
   "Cuppa",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Cuppa object.
@@ -41,7 +42,7 @@ Cuppa <- R6::R6Class(
       schema <- nemo::schema_guess(
         pname = "predsum",
         cnames = cnames,
-        schemas_all = self$config$schemas_raw
+        schemas_all = self$config$get_schemas_raw()
       )
       if (is_rna) {
         schema[["schema"]] <- schema[["schema"]] |>

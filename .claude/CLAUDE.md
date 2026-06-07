@@ -30,6 +30,6 @@ devtools::document()   # also regenerates roxytest test files
 devtools::check()
 
 indir <- system.file("extdata/oa", package = "tidywigits")
-Amber$new(indir)$wrangle(output_dir = tempdir(), format = "parquet", input_id = "run1")
-Wigits$new(indir)$wrangle(output_dir = tempdir(), format = "parquet", input_id = "run1")
+Amber$new(indir)$run(output_dir = tempdir(), format = "parquet", input_id = "run1")
+Wigits$new(indir)$run(output_dir = tempdir(), format = "parquet", input_id = "run1")
 ```
