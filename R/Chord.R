@@ -39,10 +39,14 @@ Chord <- R6::R6Class(
 
       # header contains sample column in latest version
       if (hdr[1] != "sample_id") {
-        stopifnot(identical(hdr, names(schema)[-1]))
+        if (!identical(hdr, names(schema)[-1])) {
+          nemo::nemo_stop("Chord signatures header does not match schema (sans sample_id column).")
+        }
         cnames <- c("sample_id", hdr)
       } else {
-        stopifnot(identical(hdr, names(schema)))
+        if (!identical(hdr, names(schema))) {
+          nemo::nemo_stop("Chord signatures header does not match schema.")
+        }
         cnames <- hdr
       }
       d <- readr::read_tsv(x, col_names = cnames, col_types = schema, skip = 1) |>

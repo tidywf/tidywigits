@@ -64,9 +64,13 @@ Bamtools <- R6::R6Class(
       schema <- self$config$get_schema_raw("wgsmetrics", version = "latest") |>
         dplyr::select("field", "type")
       hdr1 <- nemo::file_hdr(x, comment = "#")
-      stopifnot(identical(hdr1, schema[["field"]]))
+      if (!identical(hdr1, schema[["field"]])) {
+        nemo::nemo_stop("Bamtools wgsmetrics header does not match schema.")
+      }
       hdr2 <- nemo::file_hdr(x, comment = "#", skip = 3)
-      stopifnot(identical(hdr2, c("coverage", "high_quality_coverage_count")))
+      if (!identical(hdr2, c("coverage", "high_quality_coverage_count"))) {
+        nemo::nemo_stop("Bamtools wgsmetrics histogram header is unexpected.")
+      }
       d1 <- private$parse_file(x = x, table_name = "wgsmetrics", n_max = 1, comment = "#")
       d2 <- readr::read_tsv(x, col_types = "ci", comment = "#", skip = 3) |>
         nemo::set_tbl_version_attr(nemo::get_tbl_version_attr(d1))
@@ -200,7 +204,9 @@ Bamtools <- R6::R6Class(
       }
       d <- x
       schema <- self$config$get_schema_tidy("flagstats")
-      stopifnot(identical(colnames(d), schema[["field"]]))
+      if (!identical(colnames(d), schema[["field"]])) {
+        nemo::nemo_stop("Bamtools flagstats columns do not match schema.")
+      }
       list(flagstats = d) |>
         nemo::enframe_data()
     },
@@ -213,7 +219,9 @@ Bamtools <- R6::R6Class(
       version <- nemo::get_tbl_version_attr(d[["data"]][[1]])
       d <- d |> tidyr::unnest("data")
       # make sure genes are unique
-      stopifnot(nrow(d) == nrow(dplyr::distinct(d, .data$gene)))
+      if (nrow(d) != nrow(dplyr::distinct(d, .data$gene))) {
+        nemo::nemo_stop("Bamtools genecvg: duplicate gene names found.")
+      }
       genes <- d |>
         dplyr::select(!dplyr::starts_with("dr_")) |>
         nemo::set_tbl_version_attr(version)
