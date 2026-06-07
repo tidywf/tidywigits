@@ -59,7 +59,7 @@ glue(
   "📚 Docs: ",
   "[Installation]({base}/articles/installation) | ",
   "[Files/tables supported]({base}/articles/schema_table) | ",
-  "[Schema walkthrough]({base}/articles/schema_walkthrough) | ",
+  "[Structure]({base}/articles/structure) | ",
   "[Changelog]({base}/articles/NEWS) | ",
   "[R6](https://{org_nm}.github.io/nemo/articles/structure)"
 )

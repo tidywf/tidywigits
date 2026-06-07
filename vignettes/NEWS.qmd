@@ -1,9 +1,5 @@
 ---
 title: "NEWS"
-vignette: >
-  %\VignetteIndexEntry{News}
-  %\VignetteEngine{quarto::html}
-  %\VignetteEncoding{UTF-8}
 knitr:
   opts_chunk:
     collapse: true
@@ -70,12 +66,12 @@ user <- function(x) {
 - Bamtools: drop histogram parser; genecoverage returned as single table; handle summary + wgsmetrics subtables
 - Cobalt: handle sample + buckets subtables
 - Alignments: drop histogram from markdup parser
-- Linx: fix germline file handling with `list_files_with_prefix_fn`; add v1.25 test data
+- Linx: fix germline file handling; add v1.25 test data
 - Sage: use bamtools genecoverage parser; add v3.4.4 test data
 - Cuppa: handle v1.4 `sampleId` column (fixes `r iss(172)`); use csv ftype for datacsv; add plotter functions (`r pr(173)`); predsum tidy schema fix (`r pr(179)`, `r iss(178)`)
 - DVC: switch from directory-level to per-file tracking (`r pr(190)`)
 - Wigits: re-add Esvee; use metapkg; fall back to `super$get_metadata`; listify `WIGITS_TOOLS` (`r pr(191)`)
-- Vignettes: add `schema_walkthrough`, `schema_table`, `cicd`; refactor `uml`; remove `schemas_raw` + `schemas_tidy`; consolidate installation fragments (`r pr(193)`)
+- Vignettes: add `structure`, `schema_table`, `cicd`; refactor `uml`; remove `schemas_raw` + `schemas_tidy`; consolidate installation fragments (`r pr(193)`)
 - GHA: use reusable workflows for conda/docker/pkgdown (`r pr(181)`); add version-bumping workflow (`r pr(183)`, `r pr(184)`, `r pr(185)`); fix permissions (`r pr(182)`); refactor deploy workflow (`r pr(175)`, `r pr(176)`); add bump.yaml conda env; add multi-arch Docker support (`r pr(198)`)
 - Move shiny and website to separate repos (`r pr(171)`)
 - Add air formatter to pre-commit hooks; add `CLAUDE.md` + `new-tool` skill (`r pr(180)`)
@@ -92,6 +88,15 @@ user <- function(x) {
   `.parse_file` calls; replace `self$schemas_raw` with `self$config$schemas_raw`;
   thread `files_tbl` as an explicit argument in `list_files_with_prefix_fn`
   (Bamtools, Chord, Cobalt, Cuppa, Virusbreakend, Purple, Linx)
+- `wrangle()` renamed to `run()` on Tool and Workflow; all subclasses declare `cloneable = FALSE`
+- `.parse_file*()`/`.tidy_file()` public dot methods moved to private in nemo; updated
+  call sites to `private$parse_file*()` (Alignments, Amber, Bamtools, Cobalt, Linx, Purple, Sigs, Virusbreakend)
+- `self$get_schema_*()` shortcut wrappers removed from Tool; updated to `self$config$get_schema_*()`
+  (Bamtools, Chord, Cobalt, Virusbreakend); `self$config$schemas_raw` field made private,
+  updated to `self$config$get_schemas_raw()` (Cuppa)
+- Linx/Purple: `list_files()` override no longer feeds `tidy()` in new nemo (which reads
+  `private$files` set at init); germline/somatic prefix logic moved to `initialize()`;
+  `list_files_with_prefix_fn` helper removed
 
 ### Contributors
 
