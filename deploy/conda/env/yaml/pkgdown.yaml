@@ -4,7 +4,7 @@ channels:
   - tidywf
   - conda-forge
 dependencies:
-  - r-tidywigits
+  - r-tidywigits ==0.0.7.9004 # bump
   - r-pkgdown
   - r-quarto
   - quarto
@@ -13,4 +13,3 @@ dependencies:
   - plantuml
   - r-htmltools
   - r-reactable
-  - nodejs

@@ -16,20 +16,6 @@ build:
 requirements:
   host:
     - r-base
-    - r-dplyr
-    - r-fs
-    - r-glue
-    - r-knitr
-    - r-nemo
-    - r-purrr
-    - r-r6
-    - r-readr
-    - r-rlang
-    - r-rmarkdown
-    - r-stringr
-    - r-tibble
-    - r-tidyr
-    - r-yaml
   run:
     - r-base
     - r-dplyr
@@ -55,7 +41,7 @@ tests:
 about:
   homepage: https://github.com/tidywf/tidywigits
   summary: WiGiTS workflow tidying
-  description: WiGiTS workflow tidying
+  description: Provides tools for tidying and exploring outputs from the WiGiTS bioinformatic pipeline suite.
   license: MIT
   license_file: LICENSE
   repository: https://github.com/tidywf/tidywigits
