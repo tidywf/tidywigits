@@ -7,44 +7,50 @@ on:
       - dev
 
 jobs:
+  version:
+    name: 📋 Get version
+    if: "startsWith(github.event.head_commit.message, 'Bump version:')"
+    uses: tidywf/actions/.github/workflows/version.yaml@main
+
   condarise:
     name: 🐍 Condarise
-    if: "startsWith(github.event.head_commit.message, 'Bump version:')"
+    needs: [version]
     uses: tidywf/actions/.github/workflows/condarise.yaml@main
     permissions:
       contents: write
     with:
       pkg_name: tidywigits
-      pkg_version: '0.0.7.9004' # bump
+      pkg_version: ${{ needs.version.outputs.pkg_version }}
     secrets: inherit
 
   tag:
     name: 🔖 Tag
-    needs: [condarise]
+    needs: [condarise, version]
     uses: tidywf/actions/.github/workflows/tag.yaml@main
     permissions:
       contents: write
     with:
-      pkg_version: '0.0.7.9004' # bump
+      pkg_version: ${{ needs.version.outputs.pkg_version }}
     secrets: inherit
 
   dockerise:
     name: 🐳 Dockerise
-    needs: [tag]
+    needs: [tag, version]
     uses: tidywf/actions/.github/workflows/dockerise.yaml@main
     permissions:
       packages: write
     with:
-      pkg_version: '0.0.7.9004' # bump
+      pkg_version: ${{ needs.version.outputs.pkg_version }}
 
   pkgdownise:
     name: 🌐 Pkgdownise
-    needs: [tag]
+    needs: [tag, version]
     uses: tidywf/actions/.github/workflows/pkgdownise.yaml@main
     permissions:
       contents: write
     with:
       pkg_name: tidywigits
-      pkg_version: '0.0.7.9004' # bump
+      pkg_version: ${{ needs.version.outputs.pkg_version }}
       dvc: true
+      install_from_source: true
     secrets: inherit
