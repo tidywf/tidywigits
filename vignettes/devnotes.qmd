@@ -1,23 +1,6 @@
 ---
 title: "Devnotes"
-vignette: >
-  %\VignetteIndexEntry{Devnotes}
-  %\VignetteEngine{quarto::html}
-  %\VignetteEncoding{UTF-8}
-knitr:
-  opts_chunk:
-    collapse: true
-    comment: '#>'
 ---
-
-```{r}
-#| label: knitr_opts
-#| include: false
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 ### R pkg dev
 

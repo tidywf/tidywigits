@@ -8,13 +8,22 @@
 #' odir <- tempdir()
 #' id <- "cobalt_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "cobalt.*parquet", full.names = FALSE))
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
+#' (lf <- list.files(odir, pattern = "cobalt_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 5)
+#' ver <- arrow::read_parquet(file.path(odir, grep("cobalt_version", lf, value = TRUE)))
+#' expect_named(ver, c("input_id", "version", "date_build"))
+#' expect_equal(nrow(ver), 1L)
+#' rmed <- arrow::read_parquet(file.path(odir, grep("cobalt_ratiomed", lf, value = TRUE)))
+#' expect_named(rmed, c("input_id", "chrom", "median_ratio", "count"))
+#' gcmed_s <- arrow::read_parquet(file.path(odir, grep("gcmed_sample", lf, value = TRUE)))
+#' expect_named(gcmed_s, c("input_id", "mean", "median"))
+#' expect_equal(nrow(gcmed_s), 1L)
 #' @export
 Cobalt <- R6::R6Class(
   "Cobalt",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Cobalt object.
@@ -33,9 +42,9 @@ Cobalt <- R6::R6Class(
       # first two rows are mean/median + their values
       d1 <- readr::read_tsv(x, col_names = TRUE, col_types = "dd", n_max = 1)
       # next rows are median per bucket
-      d2 <- self$.parse_file(x, "gcmed", skip = 2)
-      list(sample_stats = d1[], bucket_stats = d2) |>
-        nemo::enframe_data()
+      d2 <- private$parse_file(x, "gcmed", skip = 2)
+      list(sample_stats = d1[], bucket_stats = d2[]) |>
+        nemo::nemo_enframe()
     },
     #' @description Tidy `gc.median.tsv` file. Generates 2 sub-tbls:
     #' _sample_ with the sample mean/median read depth, and _buckets_ with the
@@ -48,17 +57,17 @@ Cobalt <- R6::R6Class(
       }
       d <- x |> tibble::deframe()
       version <- nemo::get_tbl_version_attr(d[["bucket_stats"]])
-      schema <- self$get_schema_tidy("gcmed", v = version)
+      schema <- self$config$get_schema_tidy("gcmed", version = version)
       colnames(d[["bucket_stats"]]) <- schema[["field"]]
       colnames(d[["sample_stats"]]) <- c("mean", "median")
       list(sample = d[["sample_stats"]], buckets = d[["bucket_stats"]]) |>
-        nemo::enframe_data()
+        nemo::nemo_enframe()
     },
     #' @description Read `cobalt.version` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_version = function(x) {
-      self$.parse_file_keyvalue(x, "version", delim = "=")
+      private$parse_file_keyvalue(x, "version", delim = "=")
     }
-  ) # end public
+  )
 )

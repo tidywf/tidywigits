@@ -8,13 +8,22 @@
 #' odir <- tempdir()
 #' id <- "neo_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "neo.*parquet", full.names = FALSE))
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
+#' (lf <- list.files(odir, pattern = "neo_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 2)
+#' preds <- arrow::read_parquet(file.path(odir, grep("neo_predictions", lf, value = TRUE)))
+#' expect_named(preds, c("input_id", "ne_id", "variant_type", "variant_info", "gene_name",
+#'   "aa_up", "aa_novel", "aa_down", "peptide_count", "tpm_source", "rna_frags", "rna_depth",
+#'   "tpm_up", "tpm_down", "tpm_expected", "tpm_raw_effective", "tpm_effective",
+#'   "tpm_cancer_up", "tpm_cancer_down", "tpm_pancancer_up", "tpm_pancancer_down",
+#'   "nmd_min", "nmd_max", "coding_bases_length_min", "coding_bases_length_max",
+#'   "fused_intron_length", "skipped_donors", "skipped_acceptors", "transcripts_up",
+#'   "transcripts_down", "variant_cn", "cn", "subclonal_likelihood"))
 #' @export
 Neo <- R6::R6Class(
   "Neo",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Neo object.

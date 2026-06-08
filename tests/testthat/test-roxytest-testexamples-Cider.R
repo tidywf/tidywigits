@@ -2,15 +2,19 @@
 
 # File R/Cider.R: @testexamples
 
-test_that("Function Cider() @ L16", {
+test_that("Function Cider() @ L20", {
   
   cls <- Cider
   indir <- system.file("extdata/oa", package = "tidywigits")
   odir <- tempdir()
   id <- "cider_run1"
   obj <- cls$new(indir)
-  obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
-  (lf <- list.files(odir, pattern = "cider.*parquet", full.names = FALSE))
+  obj$run(output_dir = odir, format = "parquet", input_id = id)
+  (lf <- list.files(odir, pattern = "cider_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 3)
+  lstat <- arrow::read_parquet(file.path(odir, grep("cider_locusstats", lf, value = TRUE)))
+  expect_named(lstat, c("input_id", "locus", "reads_used", "reads_total", "downsampled",
+    "sequences", "sequences_pass"))
+  expect_equal(nrow(lstat), 6L)
 })
 

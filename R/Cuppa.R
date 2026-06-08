@@ -8,13 +8,17 @@
 #' odir <- tempdir()
 #' id <- "cuppa_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "cuppa.*parquet", full.names = FALSE))
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
+#' (lf <- list.files(odir, pattern = "cuppa_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 4)
+#' ps <- arrow::read_parquet(file.path(odir, grep("cuppa_predsum", lf, value = TRUE)))
+#' expect_named(ps, c("input_id", "sample_id", "clf_group", "clf_name", "rank", "class", "prob",
+#'   "extra_info", "extra_info_format"))
 #' @export
 Cuppa <- R6::R6Class(
   "Cuppa",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Cuppa object.
@@ -41,7 +45,7 @@ Cuppa <- R6::R6Class(
       schema <- nemo::schema_guess(
         pname = "predsum",
         cnames = cnames,
-        schemas_all = self$schemas_raw
+        schemas_all = self$config$get_schemas_raw()
       )
       if (is_rna) {
         schema[["schema"]] <- schema[["schema"]] |>
@@ -77,7 +81,7 @@ Cuppa <- R6::R6Class(
         dplyr::rename(class = "pred_class", prob = "pred_prob") |>
         nemo::set_tbl_version_attr(version)
       list(predsum = d) |>
-        nemo::enframe_data()
+        nemo::nemo_enframe()
     }
-  ) # end public
+  )
 )

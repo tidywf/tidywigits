@@ -2,20 +2,33 @@
 
 # File R/Purple.R: @testexamples
 
-test_that("Function Purple() @ L16", {
+test_that("Function Purple() @ L29", {
   
   cls <- Purple
   indir <- system.file("extdata/oa", package = "tidywigits")
   odir <- tempdir()
   id <- "purple_run1"
   obj <- cls$new(indir)
-  obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
-  (lf <- list.files(odir, pattern = "purple.*parquet", full.names = FALSE))
+  obj$run(output_dir = odir, format = "parquet", input_id = id)
+  (lf <- list.files(odir, pattern = "purple_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 14)
+  pur <- arrow::read_parquet(file.path(odir, grep("^sample1_purple_puritytsv", lf, value = TRUE)))
+  expect_named(pur, c("input_id", "purity", "norm_factor", "fit_score", "diploid_proportion",
+    "ploidy", "gender", "status", "polyclonal_proportion", "purity_min", "purity_max",
+    "ploidy_min", "ploidy_max", "diploid_proportion_min", "diploid_proportion_max",
+    "somatic_penalty", "whole_genome_duplication", "ms_indels_per_mb", "ms_status", "tml",
+    "tml_status", "tmb_per_mb", "tmb_status", "tmb_sv", "run_mode", "targeted"))
+  expect_equal(nrow(pur), 1L)
+  qc <- arrow::read_parquet(file.path(odir, grep("^sample1_purple_qc", lf, value = TRUE)))
+  expect_named(qc, c("input_id", "qc_status", "method", "cn_segments", "cn_segments_unsupported",
+    "purity", "gender_amber", "gender_cobalt", "deleted_genes", "contamination",
+    "germline_aberrations", "mean_depth_amber", "loh_percent", "tinc_level",
+    "chimerism_percent"))
+  expect_equal(nrow(qc), 1L)
 })
 
 
-test_that("Function purple_plot_getter() @ L92", {
+test_that("Function purple_plot_getter() @ L95", {
   
   x <- tempdir()
   cp_dir <- file.path(tempdir(), "cpdir")

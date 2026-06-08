@@ -12,14 +12,14 @@ w <- Wigits$new(path)
 dir1 <- tempdir()
 #w$tidy()
 #w$write(output_dir = dir1, format = "tsv", input_id = "input1", output_id = "out1")
-x <- w$wrangle(output_dir = file.path(dir1, "out1"), format = "parquet", input_id = "run1")
+x <- w$run(output_dir = file.path(dir1, "out1"), format = "parquet", input_id = "run1")
 #dbconn <- DBI::dbConnect(
 #  drv = RPostgres::Postgres(),
 #  dbname = "nemo",
 #  user = "orcabus"
 #)
 #x <-
-#  w$wrangle(
+#  w$run(
 #    format = "db",
 #    input_id = "runABC456",
 #    dbconn = dbconn
@@ -33,7 +33,6 @@ x <- w$wrangle(output_dir = file.path(dir1, "out1"), format = "parquet", input_i
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Wigits-new}{\code{Wigits$new()}}
-\item \href{#method-Wigits-clone}{\code{Wigits$clone()}}
 }
 }
 \if{html}{\out{
@@ -44,10 +43,11 @@ x <- w$wrangle(output_dir = file.path(dir1, "out1"), format = "parquet", input_i
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_schemas_raw"><a href='../../nemo/html/Workflow.html#method-Workflow-get_schemas_raw'><code>nemo::Workflow$get_schemas_raw()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_schemas_tidy"><a href='../../nemo/html/Workflow.html#method-Workflow-get_schemas_tidy'><code>nemo::Workflow$get_schemas_tidy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_tbls"><a href='../../nemo/html/Workflow.html#method-Workflow-get_tbls'><code>nemo::Workflow$get_tbls()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_tools"><a href='../../nemo/html/Workflow.html#method-Workflow-get_tools'><code>nemo::Workflow$get_tools()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="list_files"><a href='../../nemo/html/Workflow.html#method-Workflow-list_files'><code>nemo::Workflow$list_files()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="print"><a href='../../nemo/html/Workflow.html#method-Workflow-print'><code>nemo::Workflow$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="run"><a href='../../nemo/html/Workflow.html#method-Workflow-run'><code>nemo::Workflow$run()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="tidy"><a href='../../nemo/html/Workflow.html#method-Workflow-tidy'><code>nemo::Workflow$tidy()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="wrangle"><a href='../../nemo/html/Workflow.html#method-Workflow-wrangle'><code>nemo::Workflow$wrangle()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="write"><a href='../../nemo/html/Workflow.html#method-Workflow-write'><code>nemo::Workflow$write()</code></a></span></li>
 </ul>
 </details>
@@ -66,23 +66,6 @@ Create a new Wigits object.
 \describe{
 \item{\code{path}}{(\code{character(n)})\cr
 Path(s) to Wigits results.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Wigits-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-Wigits-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Wigits$clone(deep = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
 }
 \if{html}{\out{</div>}}
 }

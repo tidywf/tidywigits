@@ -8,13 +8,23 @@
 #' odir <- tempdir()
 #' id <- "bamtools_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "bamtools.*parquet", full.names = FALSE))
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
+#' (lf <- list.files(odir, pattern = "bamtools_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 17)
+#' ss <- arrow::read_parquet(file.path(odir, grep("summary_stats", lf, value = TRUE)))
+#' expect_named(ss, c("input_id", "tot_region_bases", "tot_reads", "dup_reads", "dual_strand_reads",
+#'   "cov_mean", "cov_sd", "cov_median", "cov_mad", "lowmapq_pct", "dup_pct", "unpaired_pct",
+#'   "lowbaseq_pct", "overlap_read_pct", "cov_capped"))
+#' expect_equal(nrow(ss), 1L)
+#' genes <- arrow::read_parquet(file.path(odir, grep("genecvg_genes", lf, value = TRUE)[1]))
+#' expect_named(genes, c("input_id", "gene", "chrom", "pos_start", "pos_end", "missed_var_likelihood"))
+#' cvg <- arrow::read_parquet(file.path(odir, grep("genecvg_cvg", lf, value = TRUE)[1]))
+#' expect_named(cvg, c("input_id", "gene", "dr", "value"))
 #' @export
 Bamtools <- R6::R6Class(
   "Bamtools",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Bamtools object.
@@ -26,6 +36,12 @@ Bamtools <- R6::R6Class(
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "bamtools", pkg = pkg_name, path = path, files_tbl = files_tbl)
     },
+    #' @description Read `summary.tsv` file.
+    #' @param x (`character(1)`)\cr
+    #' Path to file.
+    parse_summary = function(x) {
+      private$parse_file(x, "summary")
+    },
     #' @description Tidy `summary.tsv` file. Generates 2 sub-tbls:
     #' _stats_ with the main stats and _dp_ with the percentage of bases
     #' covered by at least X reads.
@@ -33,10 +49,10 @@ Bamtools <- R6::R6Class(
     #' Path to file.
     tidy_summary = function(x) {
       if (!tibble::is_tibble(x)) {
-        x <- self$.parse_file(x, "summary")
+        x <- self$parse_summary(x)
       }
       version <- nemo::get_tbl_version_attr(x)
-      schema <- self$get_schema_tidy("summary", v = version)
+      schema <- self$config$get_schema_tidy("summary", version = version)
       colnames(x) <- schema[["field"]]
       # d1 maintains file_version attr, d2 requires it
       d1 <- x |> dplyr::select(!dplyr::starts_with("depth_cov_"))
@@ -52,7 +68,7 @@ Bamtools <- R6::R6Class(
         dplyr::select("dp", "pct") |>
         nemo::set_tbl_version_attr(version)
       list(stats = d1[], dp = d2[]) |>
-        nemo::enframe_data()
+        nemo::nemo_enframe()
     },
     #' @description Read `wgsmetrics` file.
     #' @param x (`character(1)`)\cr
@@ -60,17 +76,21 @@ Bamtools <- R6::R6Class(
     parse_wgsmetrics = function(x) {
       # handle two different sections
       # schema unlikely to change, use latest
-      schema <- self$get_schema_raw("wgsmetrics", v = "latest") |>
+      schema <- self$config$get_schema_raw("wgsmetrics", version = "latest") |>
         dplyr::select("field", "type")
       hdr1 <- nemo::file_hdr(x, comment = "#")
-      stopifnot(identical(hdr1, schema[["field"]]))
+      if (!identical(hdr1, schema[["field"]])) {
+        nemo::nemo_stop("Bamtools wgsmetrics header does not match schema.")
+      }
       hdr2 <- nemo::file_hdr(x, comment = "#", skip = 3)
-      stopifnot(identical(hdr2, c("coverage", "high_quality_coverage_count")))
-      d1 <- self$.parse_file(x = x, name = "wgsmetrics", n_max = 1, comment = "#")
+      if (!identical(hdr2, c("coverage", "high_quality_coverage_count"))) {
+        nemo::nemo_stop("Bamtools wgsmetrics histogram header is unexpected.")
+      }
+      d1 <- private$parse_file(x = x, table_name = "wgsmetrics", n_max = 1, comment = "#")
       d2 <- readr::read_tsv(x, col_types = "ci", comment = "#", skip = 3) |>
         nemo::set_tbl_version_attr(nemo::get_tbl_version_attr(d1))
       list(stats = d1[], histo = d2[]) |>
-        nemo::enframe_data()
+        nemo::nemo_enframe()
     },
     #' @description Tidy `wgsmetrics` file. Generates 3 sub-tbls:
     #' _stats_ with the main stats, _dp_ with the percentage of bases
@@ -84,7 +104,7 @@ Bamtools <- R6::R6Class(
       }
       d <- x |> tibble::deframe()
       version <- nemo::get_tbl_version_attr(d[["stats"]])
-      schema <- self$get_schema_tidy("wgsmetrics", v = version)
+      schema <- self$config$get_schema_tidy("wgsmetrics", version = version)
       colnames(d[["stats"]]) <- schema[["field"]]
       # now split off the pct_x into new tbl
       pat1 <- "pct_\\d+x$"
@@ -101,7 +121,7 @@ Bamtools <- R6::R6Class(
       d[["stats"]] <- d[["stats"]] |>
         dplyr::select(!dplyr::matches(pat1))
       d |>
-        nemo::enframe_data()
+        nemo::nemo_enframe()
     },
 
     #' @description Read `flag_counts.tsv` file.
@@ -187,7 +207,7 @@ Bamtools <- R6::R6Class(
       # all together now, chuck pct at the end
       d_all <- dplyr::bind_rows(d1, d2) |>
         tidyr::pivot_wider(names_from = "metric", values_from = "value")
-      return(d_all[])
+      d_all[]
     },
     #' @description Tidy `flag_counts.tsv` file.
     #' @param x (`character(1)`)\cr
@@ -198,21 +218,25 @@ Bamtools <- R6::R6Class(
         x <- self$parse_flagstats(x)
       }
       d <- x
-      schema <- self$get_schema_tidy("flagstats")
-      stopifnot(identical(colnames(d), schema[["field"]]))
+      schema <- self$config$get_schema_tidy("flagstats")
+      if (!identical(colnames(d), schema[["field"]])) {
+        nemo::nemo_stop("Bamtools flagstats columns do not match schema.")
+      }
       list(flagstats = d) |>
-        nemo::enframe_data()
+        nemo::nemo_enframe()
     },
     #' @description Tidy `gene_coverage.tsv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_genecvg = function(x) {
-      d <- self$.tidy_file(x, "genecvg") |>
+      d <- private$tidy_file(x, "genecvg") |>
         dplyr::select("data")
       version <- nemo::get_tbl_version_attr(d[["data"]][[1]])
       d <- d |> tidyr::unnest("data")
       # make sure genes are unique
-      stopifnot(nrow(d) == nrow(dplyr::distinct(d, .data$gene)))
+      if (nrow(d) != nrow(dplyr::distinct(d, .data$gene))) {
+        nemo::nemo_stop("Bamtools genecvg: duplicate gene names found.")
+      }
       genes <- d |>
         dplyr::select(!dplyr::starts_with("dr_")) |>
         nemo::set_tbl_version_attr(version)
@@ -225,7 +249,7 @@ Bamtools <- R6::R6Class(
         dplyr::select("gene", "dr", "value") |>
         nemo::set_tbl_version_attr(version)
       list(genes = genes, cvg = cvg) |>
-        nemo::enframe_data()
+        nemo::nemo_enframe()
     }
   )
 )

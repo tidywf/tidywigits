@@ -6,7 +6,7 @@ message = "Bump version: {current_version} => {new_version}"
 regex = false
 ignore_missing_version = false
 ignore_missing_files = false
-commit = true
+commit = false
 parse = """(?x)
     (?P<major>0|[1-9]\\d*)\\.
     (?P<minor>0|[1-9]\\d*)\\.
@@ -24,10 +24,6 @@ filename = "DESCRIPTION"
 search = "Version: {current_version}"
 replace = "Version: {new_version}"
 
-[[tool.bumpversion.files]]
-filename = ".github/workflows/deploy.yaml"
-search = "pkg_version: '{current_version}' # bump"
-replace = "pkg_version: '{new_version}' # bump"
 
 [[tool.bumpversion.files]]
 filename = "deploy/conda/recipe/recipe.yaml"

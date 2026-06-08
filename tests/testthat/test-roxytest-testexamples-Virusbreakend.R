@@ -2,15 +2,23 @@
 
 # File R/Virusbreakend.R: @testexamples
 
-test_that("Function Virusbreakend() @ L16", {
+test_that("Function Virusbreakend() @ L24", {
   
   cls <- Virusbreakend
   indir <- system.file("extdata/oa", package = "tidywigits")
   odir <- tempdir()
   id <- "virusbreakend_run1"
   obj <- cls$new(indir)
-  obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
-  (lf <- list.files(odir, pattern = "virusbreakend.*parquet", full.names = FALSE))
+  obj$run(output_dir = odir, format = "parquet", input_id = id)
+  (lf <- list.files(odir, pattern = "virusbreakend_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 1)
+  vb <- arrow::read_parquet(file.path(odir, grep("virusbreakend_vcfsummary", lf, value = TRUE)))
+  expect_named(vb, c("input_id", "taxid_genus", "name_genus", "reads_genus_tree",
+    "taxid_species", "name_species", "reads_species_tree", "taxid_assigned", "name_assigned",
+    "reads_assigned_tree", "reads_assigned_direct", "reference", "reference_taxid",
+    "reference_kmer_count", "alternate_kmer_count", "rname", "startpos", "endpos",
+    "numreads", "covbases", "coverage", "meandepth", "meanbaseq", "meanmapq",
+    "integrations", "qc_status"))
+  expect_equal(nrow(vb), 1L)
 })
 

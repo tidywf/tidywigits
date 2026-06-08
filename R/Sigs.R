@@ -8,13 +8,16 @@
 #' odir <- tempdir()
 #' id <- "sigs_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "sigs.*parquet", full.names = FALSE))
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
+#' (lf <- list.files(odir, pattern = "sigs_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 2)
+#' alloc <- arrow::read_parquet(file.path(odir, grep("sigs_allocation", lf, value = TRUE)))
+#' expect_named(alloc, c("input_id", "signature", "allocation", "percent"))
 #' @export
 Sigs <- R6::R6Class(
   "Sigs",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Sigs object.
@@ -30,7 +33,7 @@ Sigs <- R6::R6Class(
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_snvcounts = function(x) {
-      self$.parse_file_nohead(x, "snvcounts", delim = ",", skip = 1)
+      private$parse_file_nohead(x, "snvcounts", delim = ",", skip = 1)
     }
   )
 )

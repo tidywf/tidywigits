@@ -2,15 +2,21 @@
 
 # File R/Peach.R: @testexamples
 
-test_that("Function Peach() @ L16", {
+test_that("Function Peach() @ L22", {
   
   cls <- Peach
   indir <- system.file("extdata/oa", package = "tidywigits")
   odir <- tempdir()
   id <- "peach_run1"
   obj <- cls$new(indir)
-  obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
-  (lf <- list.files(odir, pattern = "peach.*parquet", full.names = FALSE))
+  obj$run(output_dir = odir, format = "parquet", input_id = id)
+  (lf <- list.files(odir, pattern = "peach_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 5)
+  qc <- arrow::read_parquet(file.path(odir, grep("peach_qc", lf, value = TRUE)))
+  expect_named(qc, c("input_id", "gene", "status"))
+  expect_equal(nrow(qc), 2L)
+  hbest <- arrow::read_parquet(file.path(odir, grep("haplotypesbest", lf, value = TRUE)))
+  expect_named(hbest, c("input_id", "gene", "haplotype", "count", "function",
+    "linked_drugs", "prescription_urls"))
 })
 

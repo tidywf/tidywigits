@@ -8,13 +8,20 @@
 #' odir <- tempdir()
 #' id <- "alignments_run1"
 #' obj <- cls$new(indir)
-#' obj$wrangle(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "alignments.*parquet", full.names = FALSE))
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
+#' (lf <- list.files(odir, pattern = "alignments_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 3)
+#' mdup <- arrow::read_parquet(file.path(odir, grep("markdup", lf, value = TRUE)))
+#' expect_named(mdup, c("input_id", "library", "unpaired_reads_examined", "read_pairs_examined",
+#'   "secondary_or_supplementary_reads", "unmapped_reads", "unpaired_read_duplicates",
+#'   "read_pair_duplicates", "read_pair_optical_duplicates", "percent_duplication",
+#'   "estimated_library_size"))
+#' expect_equal(nrow(mdup), 1L)
 #' @export
 Alignments <- R6::R6Class(
   "Alignments",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Alignments object.
@@ -30,7 +37,7 @@ Alignments <- R6::R6Class(
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_markdup = function(x) {
-      self$.parse_file(x, "markdup", n_max = 1, comment = "#")
+      private$parse_file(x, "markdup", n_max = 1, comment = "#")
     }
   )
 )

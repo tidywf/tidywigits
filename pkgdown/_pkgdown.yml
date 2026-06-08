@@ -23,10 +23,12 @@ navbar:
     articles:
       text: Articles
       menu:
+        - text: Quickstart
+          href: articles/quickstart.html
         - text: Installation
           href: articles/installation.html
-        - text: Schema Walkthrough
-          href: articles/schema_walkthrough.html
+        - text: Structure
+          href: articles/structure.html
         - text: Schema Table
           href: articles/schema_table.html
         - text: UML
