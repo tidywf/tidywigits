@@ -33,6 +33,7 @@ Imports:
     tidyr,
     yaml
 Suggests:
+    arrow,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)

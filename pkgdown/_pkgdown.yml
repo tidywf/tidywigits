@@ -23,6 +23,8 @@ navbar:
     articles:
       text: Articles
       menu:
+        - text: Quickstart
+          href: articles/quickstart.html
         - text: Installation
           href: articles/installation.html
         - text: Structure

@@ -1,19 +1,6 @@
 ---
 title: "Devnotes"
-knitr:
-  opts_chunk:
-    collapse: true
-    comment: '#>'
 ---
-
-```{r}
-#| label: knitr_opts
-#| include: false
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 ### R pkg dev
 
