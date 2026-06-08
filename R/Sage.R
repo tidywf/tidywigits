@@ -12,6 +12,10 @@
 #' (lf <- list.files(odir, pattern = "sage_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 7)
+#' bqr <- arrow::read_parquet(file.path(odir, grep("^sample1_sage_bqrtsv", lf, value = TRUE)))
+#' expect_named(bqr, c("input_id", "alt", "ref", "context", "read_type", "count", "origq", "recalq"))
+#' exon <- arrow::read_parquet(file.path(odir, grep("^sample1_sage_exoncvg", lf, value = TRUE)))
+#' expect_named(exon, c("input_id", "gene", "chrom", "start", "end", "exon", "dp_med"))
 #' @export
 Sage <- R6::R6Class(
   "Sage",

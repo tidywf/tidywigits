@@ -2,7 +2,7 @@
 
 # File R/Cobalt.R: @testexamples
 
-test_that("Function Cobalt() @ L16", {
+test_that("Function Cobalt() @ L24", {
   
   cls <- Cobalt
   indir <- system.file("extdata/oa", package = "tidywigits")
@@ -12,5 +12,13 @@ test_that("Function Cobalt() @ L16", {
   obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "cobalt_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 5)
+  ver <- arrow::read_parquet(file.path(odir, grep("cobalt_version", lf, value = TRUE)))
+  expect_named(ver, c("input_id", "version", "date_build"))
+  expect_equal(nrow(ver), 1L)
+  rmed <- arrow::read_parquet(file.path(odir, grep("cobalt_ratiomed", lf, value = TRUE)))
+  expect_named(rmed, c("input_id", "chrom", "median_ratio", "count"))
+  gcmed_s <- arrow::read_parquet(file.path(odir, grep("gcmed_sample", lf, value = TRUE)))
+  expect_named(gcmed_s, c("input_id", "mean", "median"))
+  expect_equal(nrow(gcmed_s), 1L)
 })
 

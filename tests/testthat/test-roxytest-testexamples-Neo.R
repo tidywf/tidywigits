@@ -2,7 +2,7 @@
 
 # File R/Neo.R: @testexamples
 
-test_that("Function Neo() @ L16", {
+test_that("Function Neo() @ L24", {
   
   cls <- Neo
   indir <- system.file("extdata/oa", package = "tidywigits")
@@ -12,5 +12,13 @@ test_that("Function Neo() @ L16", {
   obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "neo_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 2)
+  preds <- arrow::read_parquet(file.path(odir, grep("neo_predictions", lf, value = TRUE)))
+  expect_named(preds, c("input_id", "ne_id", "variant_type", "variant_info", "gene_name",
+    "aa_up", "aa_novel", "aa_down", "peptide_count", "tpm_source", "rna_frags", "rna_depth",
+    "tpm_up", "tpm_down", "tpm_expected", "tpm_raw_effective", "tpm_effective",
+    "tpm_cancer_up", "tpm_cancer_down", "tpm_pancancer_up", "tpm_pancancer_down",
+    "nmd_min", "nmd_max", "coding_bases_length_min", "coding_bases_length_max",
+    "fused_intron_length", "skipped_donors", "skipped_acceptors", "transcripts_up",
+    "transcripts_down", "variant_cn", "cn", "subclonal_likelihood"))
 })
 

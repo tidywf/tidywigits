@@ -2,7 +2,7 @@
 
 # File R/Alignments.R: @testexamples
 
-test_that("Function Alignments() @ L16", {
+test_that("Function Alignments() @ L22", {
   
   cls <- Alignments
   indir <- system.file("extdata/oa", package = "tidywigits")
@@ -12,5 +12,11 @@ test_that("Function Alignments() @ L16", {
   obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "alignments_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 3)
+  mdup <- arrow::read_parquet(file.path(odir, grep("markdup", lf, value = TRUE)))
+  expect_named(mdup, c("input_id", "library", "unpaired_reads_examined", "read_pairs_examined",
+    "secondary_or_supplementary_reads", "unmapped_reads", "unpaired_read_duplicates",
+    "read_pair_duplicates", "read_pair_optical_duplicates", "percent_duplication",
+    "estimated_library_size"))
+  expect_equal(nrow(mdup), 1L)
 })
 

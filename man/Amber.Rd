@@ -25,7 +25,6 @@ obj$run(output_dir = odir, format = "parquet", input_id = id)
 \item \href{#method-Amber-parse_qc}{\code{Amber$parse_qc()}}
 \item \href{#method-Amber-tidy_qc}{\code{Amber$tidy_qc()}}
 \item \href{#method-Amber-parse_version}{\code{Amber$parse_version()}}
-\item \href{#method-Amber-tidy_version}{\code{Amber$tidy_version()}}
 }
 }
 \if{html}{\out{
@@ -107,24 +106,6 @@ Path to file.}
 Read \code{amber.version} file.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Amber$parse_version(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Amber-tidy_version"></a>}}
-\if{latex}{\out{\hypertarget{method-Amber-tidy_version}{}}}
-\subsection{Method \code{tidy_version()}}{
-Tidy \code{amber.version} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Amber$tidy_version(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

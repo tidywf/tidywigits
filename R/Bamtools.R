@@ -12,6 +12,15 @@
 #' (lf <- list.files(odir, pattern = "bamtools_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 17)
+#' ss <- arrow::read_parquet(file.path(odir, grep("summary_stats", lf, value = TRUE)))
+#' expect_named(ss, c("input_id", "tot_region_bases", "tot_reads", "dup_reads", "dual_strand_reads",
+#'   "cov_mean", "cov_sd", "cov_median", "cov_mad", "lowmapq_pct", "dup_pct", "unpaired_pct",
+#'   "lowbaseq_pct", "overlap_read_pct", "cov_capped"))
+#' expect_equal(nrow(ss), 1L)
+#' genes <- arrow::read_parquet(file.path(odir, grep("genecvg_genes", lf, value = TRUE)[1]))
+#' expect_named(genes, c("input_id", "gene", "chrom", "pos_start", "pos_end", "missed_var_likelihood"))
+#' cvg <- arrow::read_parquet(file.path(odir, grep("genecvg_cvg", lf, value = TRUE)[1]))
+#' expect_named(cvg, c("input_id", "gene", "dr", "value"))
 #' @export
 Bamtools <- R6::R6Class(
   "Bamtools",
@@ -27,6 +36,12 @@ Bamtools <- R6::R6Class(
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "bamtools", pkg = pkg_name, path = path, files_tbl = files_tbl)
     },
+    #' @description Read `summary.tsv` file.
+    #' @param x (`character(1)`)\cr
+    #' Path to file.
+    parse_summary = function(x) {
+      private$parse_file(x, "summary")
+    },
     #' @description Tidy `summary.tsv` file. Generates 2 sub-tbls:
     #' _stats_ with the main stats and _dp_ with the percentage of bases
     #' covered by at least X reads.
@@ -34,7 +49,7 @@ Bamtools <- R6::R6Class(
     #' Path to file.
     tidy_summary = function(x) {
       if (!tibble::is_tibble(x)) {
-        x <- private$parse_file(x, "summary")
+        x <- self$parse_summary(x)
       }
       version <- nemo::get_tbl_version_attr(x)
       schema <- self$config$get_schema_tidy("summary", version = version)
@@ -53,7 +68,7 @@ Bamtools <- R6::R6Class(
         dplyr::select("dp", "pct") |>
         nemo::set_tbl_version_attr(version)
       list(stats = d1[], dp = d2[]) |>
-        nemo::enframe_data()
+        nemo::nemo_enframe()
     },
     #' @description Read `wgsmetrics` file.
     #' @param x (`character(1)`)\cr
@@ -75,7 +90,7 @@ Bamtools <- R6::R6Class(
       d2 <- readr::read_tsv(x, col_types = "ci", comment = "#", skip = 3) |>
         nemo::set_tbl_version_attr(nemo::get_tbl_version_attr(d1))
       list(stats = d1[], histo = d2[]) |>
-        nemo::enframe_data()
+        nemo::nemo_enframe()
     },
     #' @description Tidy `wgsmetrics` file. Generates 3 sub-tbls:
     #' _stats_ with the main stats, _dp_ with the percentage of bases
@@ -106,7 +121,7 @@ Bamtools <- R6::R6Class(
       d[["stats"]] <- d[["stats"]] |>
         dplyr::select(!dplyr::matches(pat1))
       d |>
-        nemo::enframe_data()
+        nemo::nemo_enframe()
     },
 
     #' @description Read `flag_counts.tsv` file.
@@ -192,7 +207,7 @@ Bamtools <- R6::R6Class(
       # all together now, chuck pct at the end
       d_all <- dplyr::bind_rows(d1, d2) |>
         tidyr::pivot_wider(names_from = "metric", values_from = "value")
-      return(d_all[])
+      d_all[]
     },
     #' @description Tidy `flag_counts.tsv` file.
     #' @param x (`character(1)`)\cr
@@ -208,7 +223,7 @@ Bamtools <- R6::R6Class(
         nemo::nemo_stop("Bamtools flagstats columns do not match schema.")
       }
       list(flagstats = d) |>
-        nemo::enframe_data()
+        nemo::nemo_enframe()
     },
     #' @description Tidy `gene_coverage.tsv` file.
     #' @param x (`character(1)`)\cr
@@ -234,7 +249,7 @@ Bamtools <- R6::R6Class(
         dplyr::select("gene", "dr", "value") |>
         nemo::set_tbl_version_attr(version)
       list(genes = genes, cvg = cvg) |>
-        nemo::enframe_data()
+        nemo::nemo_enframe()
     }
   )
 )

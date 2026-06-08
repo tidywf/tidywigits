@@ -12,6 +12,14 @@
 #' (lf <- list.files(odir, pattern = "cobalt_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 5)
+#' ver <- arrow::read_parquet(file.path(odir, grep("cobalt_version", lf, value = TRUE)))
+#' expect_named(ver, c("input_id", "version", "date_build"))
+#' expect_equal(nrow(ver), 1L)
+#' rmed <- arrow::read_parquet(file.path(odir, grep("cobalt_ratiomed", lf, value = TRUE)))
+#' expect_named(rmed, c("input_id", "chrom", "median_ratio", "count"))
+#' gcmed_s <- arrow::read_parquet(file.path(odir, grep("gcmed_sample", lf, value = TRUE)))
+#' expect_named(gcmed_s, c("input_id", "mean", "median"))
+#' expect_equal(nrow(gcmed_s), 1L)
 #' @export
 Cobalt <- R6::R6Class(
   "Cobalt",
@@ -35,8 +43,8 @@ Cobalt <- R6::R6Class(
       d1 <- readr::read_tsv(x, col_names = TRUE, col_types = "dd", n_max = 1)
       # next rows are median per bucket
       d2 <- private$parse_file(x, "gcmed", skip = 2)
-      list(sample_stats = d1[], bucket_stats = d2) |>
-        nemo::enframe_data()
+      list(sample_stats = d1[], bucket_stats = d2[]) |>
+        nemo::nemo_enframe()
     },
     #' @description Tidy `gc.median.tsv` file. Generates 2 sub-tbls:
     #' _sample_ with the sample mean/median read depth, and _buckets_ with the
@@ -53,7 +61,7 @@ Cobalt <- R6::R6Class(
       colnames(d[["bucket_stats"]]) <- schema[["field"]]
       colnames(d[["sample_stats"]]) <- c("mean", "median")
       list(sample = d[["sample_stats"]], buckets = d[["bucket_stats"]]) |>
-        nemo::enframe_data()
+        nemo::nemo_enframe()
     },
     #' @description Read `cobalt.version` file.
     #' @param x (`character(1)`)\cr
@@ -61,5 +69,5 @@ Cobalt <- R6::R6Class(
     parse_version = function(x) {
       private$parse_file_keyvalue(x, "version", delim = "=")
     }
-  ) # end public
+  )
 )

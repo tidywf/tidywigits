@@ -39,7 +39,7 @@ Wigits <- R6::R6Class(
         metapkg = c("nemo", "tidywigits")
       )
     }
-  ) # public end
+  )
 )
 
 #' WiGiTS Tools Supported

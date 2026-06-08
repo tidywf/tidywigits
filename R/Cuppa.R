@@ -12,6 +12,9 @@
 #' (lf <- list.files(odir, pattern = "cuppa_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 4)
+#' ps <- arrow::read_parquet(file.path(odir, grep("cuppa_predsum", lf, value = TRUE)))
+#' expect_named(ps, c("input_id", "sample_id", "clf_group", "clf_name", "rank", "class", "prob",
+#'   "extra_info", "extra_info_format"))
 #' @export
 Cuppa <- R6::R6Class(
   "Cuppa",
@@ -78,7 +81,7 @@ Cuppa <- R6::R6Class(
         dplyr::rename(class = "pred_class", prob = "pred_prob") |>
         nemo::set_tbl_version_attr(version)
       list(predsum = d) |>
-        nemo::enframe_data()
+        nemo::nemo_enframe()
     }
-  ) # end public
+  )
 )

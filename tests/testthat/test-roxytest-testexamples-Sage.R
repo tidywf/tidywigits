@@ -2,7 +2,7 @@
 
 # File R/Sage.R: @testexamples
 
-test_that("Function Sage() @ L16", {
+test_that("Function Sage() @ L20", {
   
   cls <- Sage
   indir <- system.file("extdata/oa", package = "tidywigits")
@@ -12,5 +12,9 @@ test_that("Function Sage() @ L16", {
   obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "sage_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 7)
+  bqr <- arrow::read_parquet(file.path(odir, grep("^sample1_sage_bqrtsv", lf, value = TRUE)))
+  expect_named(bqr, c("input_id", "alt", "ref", "context", "read_type", "count", "origq", "recalq"))
+  exon <- arrow::read_parquet(file.path(odir, grep("^sample1_sage_exoncvg", lf, value = TRUE)))
+  expect_named(exon, c("input_id", "gene", "chrom", "start", "end", "exon", "dp_med"))
 })
 

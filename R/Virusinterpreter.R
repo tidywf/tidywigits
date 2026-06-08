@@ -12,6 +12,11 @@
 #' (lf <- list.files(odir, pattern = "virusinterpreter_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 1)
+#' vi <- arrow::read_parquet(file.path(odir, grep("virusinterpreter_annotated", lf, value = TRUE)))
+#' expect_named(vi, c("input_id", "taxid", "name", "qc_status", "integrations", "interpretation",
+#'   "percentage_covered", "mean_coverage", "expected_clonal_coverage", "reported",
+#'   "blacklisted", "driver_likelihood"))
+#' expect_equal(nrow(vi), 1L)
 #' @export
 Virusinterpreter <- R6::R6Class(
   "Virusinterpreter",
@@ -32,5 +37,5 @@ Virusinterpreter <- R6::R6Class(
         files_tbl = files_tbl
       )
     }
-  ) # end public
+  )
 )

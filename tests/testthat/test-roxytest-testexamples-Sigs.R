@@ -2,7 +2,7 @@
 
 # File R/Sigs.R: @testexamples
 
-test_that("Function Sigs() @ L16", {
+test_that("Function Sigs() @ L18", {
   
   cls <- Sigs
   indir <- system.file("extdata/oa", package = "tidywigits")
@@ -12,5 +12,7 @@ test_that("Function Sigs() @ L16", {
   obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "sigs_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 2)
+  alloc <- arrow::read_parquet(file.path(odir, grep("sigs_allocation", lf, value = TRUE)))
+  expect_named(alloc, c("input_id", "signature", "allocation", "percent"))
 })
 

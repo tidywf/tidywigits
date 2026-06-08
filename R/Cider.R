@@ -12,6 +12,10 @@
 #' (lf <- list.files(odir, pattern = "cider_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 3)
+#' lstat <- arrow::read_parquet(file.path(odir, grep("cider_locusstats", lf, value = TRUE)))
+#' expect_named(lstat, c("input_id", "locus", "reads_used", "reads_total", "downsampled",
+#'   "sequences", "sequences_pass"))
+#' expect_equal(nrow(lstat), 6L)
 #' @export
 Cider <- R6::R6Class(
   "Cider",

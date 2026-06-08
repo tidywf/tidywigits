@@ -12,6 +12,11 @@
 #' (lf <- list.files(odir, pattern = "amber_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 4)
+#' qc <- arrow::read_parquet(file.path(odir, grep("amber_qc", lf, value = TRUE)))
+#' expect_named(qc, c("input_id", "qc_status", "contamination", "consanguinity", "uniparental_disomy"))
+#' expect_equal(nrow(qc), 1L)
+#' hom <- arrow::read_parquet(file.path(odir, grep("homozygous", lf, value = TRUE)))
+#' expect_named(hom, c("input_id", "chrom", "pos_start", "pos_end", "n_snp", "n_hom", "n_het", "filter"))
 #' @export
 Amber <- R6::R6Class(
   "Amber",
@@ -44,12 +49,6 @@ Amber <- R6::R6Class(
     #' Path to file.
     parse_version = function(x) {
       private$parse_file_keyvalue(x, "version", delim = "=")
-    },
-    #' @description Tidy `amber.version` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_version = function(x) {
-      private$tidy_file(x, "version")
     }
   )
 )

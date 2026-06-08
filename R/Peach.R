@@ -12,6 +12,12 @@
 #' (lf <- list.files(odir, pattern = "peach_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 5)
+#' qc <- arrow::read_parquet(file.path(odir, grep("peach_qc", lf, value = TRUE)))
+#' expect_named(qc, c("input_id", "gene", "status"))
+#' expect_equal(nrow(qc), 2L)
+#' hbest <- arrow::read_parquet(file.path(odir, grep("haplotypesbest", lf, value = TRUE)))
+#' expect_named(hbest, c("input_id", "gene", "haplotype", "count", "function",
+#'   "linked_drugs", "prescription_urls"))
 #' @export
 Peach <- R6::R6Class(
   "Peach",

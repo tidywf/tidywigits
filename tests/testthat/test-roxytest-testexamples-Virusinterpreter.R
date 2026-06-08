@@ -2,7 +2,7 @@
 
 # File R/Virusinterpreter.R: @testexamples
 
-test_that("Function Virusinterpreter() @ L16", {
+test_that("Function Virusinterpreter() @ L21", {
   
   cls <- Virusinterpreter
   indir <- system.file("extdata/oa", package = "tidywigits")
@@ -12,5 +12,10 @@ test_that("Function Virusinterpreter() @ L16", {
   obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "virusinterpreter_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 1)
+  vi <- arrow::read_parquet(file.path(odir, grep("virusinterpreter_annotated", lf, value = TRUE)))
+  expect_named(vi, c("input_id", "taxid", "name", "qc_status", "integrations", "interpretation",
+    "percentage_covered", "mean_coverage", "expected_clonal_coverage", "reported",
+    "blacklisted", "driver_likelihood"))
+  expect_equal(nrow(vi), 1L)
 })
 

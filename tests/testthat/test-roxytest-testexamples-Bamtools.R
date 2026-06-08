@@ -2,7 +2,7 @@
 
 # File R/Bamtools.R: @testexamples
 
-test_that("Function Bamtools() @ L16", {
+test_that("Function Bamtools() @ L25", {
   
   cls <- Bamtools
   indir <- system.file("extdata/oa", package = "tidywigits")
@@ -12,5 +12,14 @@ test_that("Function Bamtools() @ L16", {
   obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "bamtools_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 17)
+  ss <- arrow::read_parquet(file.path(odir, grep("summary_stats", lf, value = TRUE)))
+  expect_named(ss, c("input_id", "tot_region_bases", "tot_reads", "dup_reads", "dual_strand_reads",
+    "cov_mean", "cov_sd", "cov_median", "cov_mad", "lowmapq_pct", "dup_pct", "unpaired_pct",
+    "lowbaseq_pct", "overlap_read_pct", "cov_capped"))
+  expect_equal(nrow(ss), 1L)
+  genes <- arrow::read_parquet(file.path(odir, grep("genecvg_genes", lf, value = TRUE)[1]))
+  expect_named(genes, c("input_id", "gene", "chrom", "pos_start", "pos_end", "missed_var_likelihood"))
+  cvg <- arrow::read_parquet(file.path(odir, grep("genecvg_cvg", lf, value = TRUE)[1]))
+  expect_named(cvg, c("input_id", "gene", "dr", "value"))
 })
 

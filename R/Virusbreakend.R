@@ -12,6 +12,14 @@
 #' (lf <- list.files(odir, pattern = "virusbreakend_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 1)
+#' vb <- arrow::read_parquet(file.path(odir, grep("virusbreakend_vcfsummary", lf, value = TRUE)))
+#' expect_named(vb, c("input_id", "taxid_genus", "name_genus", "reads_genus_tree",
+#'   "taxid_species", "name_species", "reads_species_tree", "taxid_assigned", "name_assigned",
+#'   "reads_assigned_tree", "reads_assigned_direct", "reference", "reference_taxid",
+#'   "reference_kmer_count", "alternate_kmer_count", "rname", "startpos", "endpos",
+#'   "numreads", "covbases", "coverage", "meandepth", "meanbaseq", "meanmapq",
+#'   "integrations", "qc_status"))
+#' expect_equal(nrow(vb), 1L)
 #' @export
 Virusbreakend <- R6::R6Class(
   "Virusbreakend",
@@ -45,5 +53,5 @@ Virusbreakend <- R6::R6Class(
       private$parse_file(x, "vcfsummary") |>
         nemo::set_tbl_version_attr("latest")
     }
-  ) # end public
+  )
 )

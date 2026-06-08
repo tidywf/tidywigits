@@ -2,7 +2,7 @@
 
 # File R/Esvee.R: @testexamples
 
-test_that("Function Esvee() @ L16", {
+test_that("Function Esvee() @ L21", {
   
   cls <- Esvee
   indir <- system.file("extdata/oa", package = "tidywigits")
@@ -12,5 +12,10 @@ test_that("Function Esvee() @ L16", {
   obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "esvee_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 7)
+  dstat <- arrow::read_parquet(file.path(odir, grep("prepdiscstats", lf, value = TRUE)))
+  expect_named(dstat, c("input_id", "tot_reads", "prep_reads", "translocation", "inv_lt_1k",
+    "inv_1_to_5k", "inv_5_to_100k", "inv_gt_100k", "del_1_to_5k", "del_5_to_100k",
+    "del_gt_100k", "dup_1_to_5k", "dup_5_to_100k", "dup_gt_100k"))
+  expect_equal(nrow(dstat), 1L)
 })
 
