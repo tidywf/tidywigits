@@ -16,6 +16,18 @@ build:
 requirements:
   host:
     - r-base
+    - r-dplyr
+    - r-fs
+    - r-glue
+    - r-nemo
+    - r-purrr
+    - r-r6
+    - r-readr
+    - r-rlang
+    - r-stringr
+    - r-tibble
+    - r-tidyr
+    - r-yaml
   run:
     - r-base
     - r-dplyr
