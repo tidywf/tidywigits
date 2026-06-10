@@ -137,7 +137,7 @@ results, and we can again utilise the `run()` method:
 ``` r
 indir_w <- system.file("extdata/oa", package = "tidywigits")
 dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
-/Users/pdiakumis/Library/R/arm64/4.6/library/tidywigits/extdata/oa
+/home/runner/miniconda3/envs/bump_env/lib/R/library/tidywigits/extdata/oa
 ├── alignments
 │   ├── sample1.duplicate_freq.tsv
 │   ├── sample1.md.metrics
@@ -304,15 +304,15 @@ res <- w$run(
 res
 #--- Workflow Wigits ---#
 
-|var           |value                                                              |
-|:-------------|:------------------------------------------------------------------|
-|name          |Wigits                                                             |
-|path          |/Users/pdiakumis/Library/R/arm64/4.6/library/tidywigits/extdata/oa |
-|ntools        |19                                                                 |
-|files_total   |228                                                                |
-|files_matched |112                                                                |
-|tidied        |true                                                               |
-|written       |true                                                               |
+|var           |value                                                                     |
+|:-------------|:-------------------------------------------------------------------------|
+|name          |Wigits                                                                    |
+|path          |/home/runner/miniconda3/envs/bump_env/lib/R/library/tidywigits/extdata/oa |
+|ntools        |19                                                                        |
+|files_total   |228                                                                       |
+|files_matched |112                                                                       |
+|tidied        |true                                                                      |
+|written       |true                                                                      |
 list.files(outdir_w, pattern = "\\.parquet$") |> str()
  chr [1:120] "metadata.parquet" "sample1_2_2_linx_breakends.parquet" ...
 ```
@@ -344,7 +344,7 @@ Using {remotes} directly from GitHub:
 ``` r
 install.packages("remotes")
 remotes::install_github("tidywf/tidywigits") # latest main commit
-remotes::install_github("tidywf/tidywigits@v0.0.7.9004") # specific version
+remotes::install_github("tidywf/tidywigits@v0.0.7.9005") # specific version
 ```
 
 Alternatively:
@@ -372,7 +372,7 @@ export PATH="${tw_cli}:${PATH}"
 ```
 
     $ tidywigits.R --version
-    tidywigits 0.0.7.9004
+    tidywigits 0.0.7.9005
 
     #-----------------------------------#
     $ tidywigits.R --help
@@ -393,19 +393,17 @@ export PATH="${tw_cli}:${PATH}"
     #------- Tidy ----------------------#
     $ tidywigits.R tidy --help
     usage: tidywigits.R tidy [-h] -d IN_DIR [-o OUTPUT_DIR] [-f FORMAT]
-                             [--input_id INPUT_ID]
-                             [--output_id OUTPUT_ID | --ulid] [--dbname DBNAME]
-                             [--dbuser DBUSER] [--include INCLUDE]
-                             [--exclude EXCLUDE] [--prefix_include] [-q]
+                             [--input_id INPUT_ID] [--output_id OUTPUT_ID |
+                             --ulid] [--dbname DBNAME] [--dbuser DBUSER]
+                             [--include INCLUDE] [--exclude EXCLUDE]
+                             [--prefix_include] [-q]
 
     options:
       -h, --help            show this help message and exit
-      -d IN_DIR, --in_dir IN_DIR
-                            Input directory.
-      -o OUTPUT_DIR, --output_dir OUTPUT_DIR
+      -d, --in_dir IN_DIR   Input directory.
+      -o, --output_dir OUTPUT_DIR
                             Output directory.
-      -f FORMAT, --format FORMAT
-                            Format of output [def: parquet] (parquet, db, tsv,
+      -f, --format FORMAT   Format of output [def: parquet] (parquet, db, tsv,
                             csv, rds)
       --input_id INPUT_ID   Input ID for this run.
       --output_id OUTPUT_ID
@@ -424,10 +422,8 @@ export PATH="${tw_cli}:${PATH}"
     usage: tidywigits.R list [-h] -d IN_DIR [-f FORMAT] [-m MAX] [-q]
 
     options:
-      -h, --help            show this help message and exit
-      -d IN_DIR, --in_dir IN_DIR
-                            Input directory.
-      -f FORMAT, --format FORMAT
-                            Format of list output [def: pretty] (tsv, pretty)
-      -m MAX, --max MAX     Max rows to show.
-      -q, --quiet           Shush all the logs.
+      -h, --help           show this help message and exit
+      -d, --in_dir IN_DIR  Input directory.
+      -f, --format FORMAT  Format of list output [def: pretty] (tsv, pretty)
+      -m, --max MAX        Max rows to show.
+      -q, --quiet          Shush all the logs.
