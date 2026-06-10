@@ -13,21 +13,14 @@ Virusinterpreter file parsing and manipulation.
 
 - [`Virusinterpreter$new()`](#method-Virusinterpreter-new)
 
-- [`Virusinterpreter$clone()`](#method-Virusinterpreter-clone)
-
 Inherited methods
 
-- [`nemo::Tool$.dispatch_parse()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_parse)
-- [`nemo::Tool$.dispatch_tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-.dispatch_tidy)
-- [`nemo::Tool$.parse_by_ftype()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_by_ftype)
-- [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
-- [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
-- [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
-- [`nemo::Tool$.tidy_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.tidy_file)
 - [`nemo::Tool$filter_files()`](https://umccr.github.io/nemo/reference/Tool.html#method-filter_files)
+- [`nemo::Tool$get_metadata()`](https://umccr.github.io/nemo/reference/Tool.html#method-get_metadata)
+- [`nemo::Tool$get_tbls()`](https://umccr.github.io/nemo/reference/Tool.html#method-get_tbls)
 - [`nemo::Tool$list_files()`](https://umccr.github.io/nemo/reference/Tool.html#method-list_files)
-- [`nemo::Tool$nemofy()`](https://umccr.github.io/nemo/reference/Tool.html#method-nemofy)
 - [`nemo::Tool$print()`](https://umccr.github.io/nemo/reference/Tool.html#method-print)
+- [`nemo::Tool$run()`](https://umccr.github.io/nemo/reference/Tool.html#method-run)
 - [`nemo::Tool$tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-tidy)
 - [`nemo::Tool$write()`](https://umccr.github.io/nemo/reference/Tool.html#method-write)
 
@@ -55,22 +48,6 @@ Create a new Virusinterpreter object.
   Tibble of files from
   [`nemo::list_files_dir()`](https://umccr.github.io/nemo/reference/list_files_dir.html).
 
-------------------------------------------------------------------------
-
-### Method `clone()`
-
-The objects of this class are cloneable with this method.
-
-#### Usage
-
-    Virusinterpreter$clone(deep = FALSE)
-
-#### Arguments
-
-- `deep`:
-
-  Whether to make a deep clone.
-
 ## Examples
 
 ``` r
@@ -79,7 +56,7 @@ indir <- system.file("extdata/oa", package = "tidywigits")
 odir <- tempdir()
 id <- "virusinterpreter_run1"
 obj <- cls$new(indir)
-obj$nemofy(diro = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "virusinterpreter.*parquet", full.names = FALSE))
+obj$run(output_dir = odir, format = "parquet", input_id = id)
+(lf <- list.files(odir, pattern = "virusinterpreter_.*parquet", full.names = FALSE))
 #> [1] "sample1_virusinterpreter_annotated.parquet"
 ```

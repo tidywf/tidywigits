@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9004</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,8 +18,9 @@
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../index.html">Intro</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/installation.html">Installation</a></li>
-    <li><a class="dropdown-item" href="../articles/schema_walkthrough.html">Schema Walkthrough</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/quickstart.html">Quickstart</a></li>
+    <li><a class="dropdown-item" href="../articles/installation.html">Installation</a></li>
+    <li><a class="dropdown-item" href="../articles/structure.html">Structure</a></li>
     <li><a class="dropdown-item" href="../articles/schema_table.html">Schema Table</a></li>
     <li><a class="dropdown-item" href="../articles/uml.html">UML</a></li>
     <li><a class="dropdown-item" href="../articles/cicd.html">CI/CD Workflow</a></li>
@@ -59,15 +60,15 @@
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
 <ul><li><p><a href="#method-Wigits-new"><code>Wigits$new()</code></a></p></li>
-<li><p><a href="#method-Wigits-clone"><code>Wigits$clone()</code></a></p></li>
 </ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="filter_files"><a href="https://umccr.github.io/nemo/reference/Workflow.html#method-filter_files"><code>nemo::Workflow$filter_files()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_metadata"><a href="https://umccr.github.io/nemo/reference/Workflow.html#method-get_metadata"><code>nemo::Workflow$get_metadata()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_raw_schemas_all"><a href="https://umccr.github.io/nemo/reference/Workflow.html#method-get_raw_schemas_all"><code>nemo::Workflow$get_raw_schemas_all()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_schemas_raw"><a href="https://umccr.github.io/nemo/reference/Workflow.html#method-get_schemas_raw"><code>nemo::Workflow$get_schemas_raw()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_schemas_tidy"><a href="https://umccr.github.io/nemo/reference/Workflow.html#method-get_schemas_tidy"><code>nemo::Workflow$get_schemas_tidy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_tbls"><a href="https://umccr.github.io/nemo/reference/Workflow.html#method-get_tbls"><code>nemo::Workflow$get_tbls()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_tidy_schemas_all"><a href="https://umccr.github.io/nemo/reference/Workflow.html#method-get_tidy_schemas_all"><code>nemo::Workflow$get_tidy_schemas_all()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_tools"><a href="https://umccr.github.io/nemo/reference/Workflow.html#method-get_tools"><code>nemo::Workflow$get_tools()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="list_files"><a href="https://umccr.github.io/nemo/reference/Workflow.html#method-list_files"><code>nemo::Workflow$list_files()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="nemofy"><a href="https://umccr.github.io/nemo/reference/Workflow.html#method-nemofy"><code>nemo::Workflow$nemofy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="print"><a href="https://umccr.github.io/nemo/reference/Workflow.html#method-print"><code>nemo::Workflow$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="run"><a href="https://umccr.github.io/nemo/reference/Workflow.html#method-run"><code>nemo::Workflow$run()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="tidy"><a href="https://umccr.github.io/nemo/reference/Workflow.html#method-tidy"><code>nemo::Workflow$tidy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="write"><a href="https://umccr.github.io/nemo/reference/Workflow.html#method-write"><code>nemo::Workflow$write()</code></a></span></li>
 </ul></details></p><hr><a id="method-Wigits-new"></a><div class="section">
@@ -87,22 +88,6 @@ Path(s) to Wigits results.</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Wigits-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
-<p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Wigits</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>deep</code></dt>
-<dd><p>Whether to make a deep clone.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
 </div>
 
     </div>
@@ -113,15 +98,15 @@ Path(s) to Wigits results.</p></dd>
 <span class="r-in"><span><span class="va">w</span> <span class="op">&lt;-</span> <span class="va">Wigits</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dir1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">#w$tidy()</span></span></span>
-<span class="r-in"><span><span class="co">#w$write(diro = dir1, format = "tsv", input_id = "input1", output_id = "out1")</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">w</span><span class="op">$</span><span class="fu">nemofy</span><span class="op">(</span>diro <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dir1</span>, <span class="st">"out1"</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"parquet"</span>, input_id <span class="op">=</span> <span class="st">"run1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#w$write(output_dir = dir1, format = "tsv", input_id = "input1", output_id = "out1")</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">w</span><span class="op">$</span><span class="fu">run</span><span class="op">(</span>output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dir1</span>, <span class="st">"out1"</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"parquet"</span>, input_id <span class="op">=</span> <span class="st">"run1"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">#dbconn &lt;- DBI::dbConnect(</span></span></span>
 <span class="r-in"><span><span class="co">#  drv = RPostgres::Postgres(),</span></span></span>
 <span class="r-in"><span><span class="co">#  dbname = "nemo",</span></span></span>
 <span class="r-in"><span><span class="co">#  user = "orcabus"</span></span></span>
 <span class="r-in"><span><span class="co">#)</span></span></span>
 <span class="r-in"><span><span class="co">#x &lt;-</span></span></span>
-<span class="r-in"><span><span class="co">#  w$nemofy(</span></span></span>
+<span class="r-in"><span><span class="co">#  w$run(</span></span></span>
 <span class="r-in"><span><span class="co">#    format = "db",</span></span></span>
 <span class="r-in"><span><span class="co">#    input_id = "runABC456",</span></span></span>
 <span class="r-in"><span><span class="co">#    dbconn = dbconn</span></span></span>

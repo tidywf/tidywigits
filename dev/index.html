@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9004</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,8 +43,9 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/installation.html">Installation</a></li>
-    <li><a class="dropdown-item" href="articles/schema_walkthrough.html">Schema Walkthrough</a></li>
+<li><a class="dropdown-item" href="articles/quickstart.html">Quickstart</a></li>
+    <li><a class="dropdown-item" href="articles/installation.html">Installation</a></li>
+    <li><a class="dropdown-item" href="articles/structure.html">Structure</a></li>
     <li><a class="dropdown-item" href="articles/schema_table.html">Schema Table</a></li>
     <li><a class="dropdown-item" href="articles/uml.html">UML</a></li>
     <li><a class="dropdown-item" href="articles/cicd.html">CI/CD Workflow</a></li>
@@ -70,71 +71,41 @@
   <main id="main" class="col-md-9">
 <div class="section level1">
 <div class="page-header">
-<img src="logo.png" class="logo" alt=""><h1 id="dnasparkles-tidy-wigits-outputs">🧬✨ Tidy WiGiTS Outputs<a class="anchor" aria-label="anchor" href="#dnasparkles-tidy-wigits-outputs"></a>
+<img src="logo.png" class="logo" alt=""><h1 id="tidy-wigits-outputs">Tidy WiGiTS Outputs<a class="anchor" aria-label="anchor" href="#tidy-wigits-outputs"></a>
 </h1>
 </div>
 <p><a href="https://anaconda.org/tidywf/r-tidywigits" class="external-link"><img src="https://anaconda.org/tidywf/r-tidywigits/badges/latest_release_date.svg" title="Conda latest release date" alt="conda-latest1"></a> <a href="https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml" class="external-link"><img src="https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml/badge.svg" title="GitHub Actions Status" alt="gha"></a> <a href="https://github.com/tidywf/tidywigits/pkgs/container/tidywigits" class="external-link"><img src="https://ghcr-badge.egpl.dev/tidywf/tidywigits/latest_tag?color=%2344cc11&amp;ignore=latest&amp;label=image-latest&amp;trim=.png" title="Docker latest release" alt="ghcr-latest"></a></p>
-<p>📚 Docs: <a href="https://tidywf.github.io/tidywigits/articles/installation">Installation</a> | <a href="https://tidywf.github.io/tidywigits/articles/schema_table">Files/tables supported</a> | <a href="https://tidywf.github.io/tidywigits/articles/schema_walkthrough">Schema walkthrough</a> | <a href="https://tidywf.github.io/tidywigits/articles/NEWS">Changelog</a> | <a href="https://tidywf.github.io/nemo/articles/structure" class="external-link">R6</a></p>
-<div class="section level2">
-<h2 id="thinking-the-problem">🤔 The Problem<a class="anchor" aria-label="anchor" href="#thinking-the-problem"></a>
-</h2>
-<p>The <a href="https://github.com/hartwigmedical/hmftools" title="WiGiTS suite" class="external-link">WiGiTS/hmftools</a> suite of genome and transcriptome analysis tools produces hundreds of output files across dozens of tools per sample, but consuming them downstream can become complicated:</p>
-<ul>
-<li>
-<strong>Format variety</strong>: mix of ‘tidy’ tabular files (each variable with its own column, each observation with its own row) with ‘untidy’ files geared more towards easier human readability (e.g. one column with metric names, and a separate column with their values)</li>
-<li>
-<strong>Embedded sub-tables</strong>: files mixing conceptually distinct data into a single wide table, e.g. gene coverage files embedding tens of depth-range histogram columns (<code>DR_0</code>…<code>DR_10000</code>) alongside gene metadata, which are better stored as a separate normalised table</li>
-<li>
-<strong>Messy column names</strong>: names across files are an inconsistent mix of <code>snake_case</code>, <code>camelCase</code>, <code>dot.separated</code> and other non-standard conventions; joining across tools requires manual renaming</li>
-<li>
-<strong>Schema drift</strong>: column names and file layouts change silently between tool versions, breaking downstream code with no clear signal</li>
-<li>
-<strong>No run-level provenance</strong>: it can become hard to tell which output file came from which sample or pipeline run once files are collected into a shared directory.</li>
-</ul>
-<p>{tidywigits} addresses this problem by providing a schema-driven parsing and tidying layer that turns raw WiGiTS outputs into consistently structured, versioned, analysis-ready tables. It is a child package of {<a href="https://github.com/tidywf/nemo" title="nemo" class="external-link">nemo</a>}, which provides the base R6 classes (<code>Tool</code>, <code>Workflow</code>, <code>Config</code>) for parsing, tidying, and writing pipeline outputs.</p>
-<p>In short, it traverses through a directory containing results from one or more runs of WiGiTS tools, parses any files it recognises, tidies them up (which includes data reshaping, normalisation, column name cleanup etc.), and writes them to the output format of choice e.g. Apache Parquet, PostgreSQL, TSV, RDS. Each run also produces a <code>metadata.parquet</code> file alongside the tidy tables, capturing IDs, paths, and package versions.</p>
-<p>Three optional columns can be prepended to every written table to support downstream tracing and joining. All are opt-in and off by default, but highly recommended for any multi-sample or multi-run pipeline:</p>
+<p>📚 Docs: <a href="https://tidywf.github.io/tidywigits/articles/installation">Installation</a> | <a href="https://tidywf.github.io/tidywigits/articles/quickstart">Quickstart</a> | <a href="https://tidywf.github.io/tidywigits/articles/schema_table">Files supported</a> | <a href="https://tidywf.github.io/tidywigits/articles/structure">Structure</a> | <a href="https://tidywf.github.io/tidywigits/articles/NEWS">Changelog</a> | <a href="https://tidywf.github.io/nemo/articles/structure" class="external-link">R6</a></p>
+<p>tidywigits is an R package for parsing and tidying output from the <a href="https://github.com/hartwigmedical/hmftools" title="WiGiTS suite" class="external-link">WiGiTS/hmftools</a> suite of genome and transcriptome analysis tools. WiGiTS produces hundreds of files per sample across dozens of tools, but consuming them downstream is fragile: formats are inconsistent, column names span a mix of conventions (e.g. <code>snake_case</code>, <code>camelCase</code>, <code>dot.separated</code>), some sub-tables are embedded in wide files, and column layouts change between tool versions.</p>
+<p>tidywigits addresses this with a schema-driven parsing layer built on the <a href="https://github.com/tidywf/nemo" title="nemo" class="external-link">nemo</a> base R6 classes, supplying WiGiTS-specific schemas and parsers that turn raw outputs into consistently structured, versioned, analysis-ready tables that can be written to a variety of formats such as Apache Parquet, PostgreSQL, TSV, or RDS. Each run also produces a <code>metadata.parquet</code> file alongside the tidy tables, capturing IDs, paths, and R package versions.</p>
+<p>For better downstream tracing and joining, three columns can be prepended to every written table. All are opt-in and off by default, but highly recommended for any multi-sample or multi-run pipeline:</p>
 <table class="table">
-<colgroup>
-<col width="25%">
-<col width="25%">
-<col width="25%">
-<col width="25%">
-</colgroup>
 <thead><tr>
 <th>Column</th>
-<th>R argument</th>
-<th>CLI flag</th>
 <th>Purpose</th>
 </tr></thead>
 <tbody>
 <tr>
 <td><code>input_id</code></td>
-<td><code>input_id = "run1"</code></td>
-<td><code>--input_id run1</code></td>
 <td>identifies the sample or input run</td>
 </tr>
 <tr>
 <td><code>output_id</code></td>
-<td><code>output_id = "abc"</code></td>
-<td>
-<code>--output_id abc</code> / <code>--ulid</code>
-</td>
 <td>identifies the processing run</td>
 </tr>
 <tr>
-<td><code>input_pfix</code></td>
-<td><code>pfix_include = TRUE</code></td>
-<td><code>--prefix_include</code></td>
+<td><code>input_prefix</code></td>
 <td>filename prefix (e.g. sample name)</td>
 </tr>
 </tbody>
 </table>
-</div>
 <div class="section level2">
-<h2 id="zap-quick-start">⚡ Quick Start<a class="anchor" aria-label="anchor" href="#zap-quick-start"></a>
+<h2 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
-<p>Some WiGiTS output files have non-standard layouts. For a very simple example, let’s take PURPLE’s <code>purple.qc</code> file that stores QC metrics as key-value rows rather than columns:</p>
+<div class="section level3">
+<h3 id="single-tool">Single tool<a class="anchor" aria-label="anchor" href="#single-tool"></a>
+</h3>
+<p>Some WiGiTS output files have non-standard layouts. For a very simple example, let’s look at PURPLE’s <code>purple.qc</code> file that stores QC metrics as key-value rows rather than columns:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>indir_ppl <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/oa/purple"</span>, <span class="at">package =</span> <span class="st">"tidywigits"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">writeLines</span>(<span class="fu">readLines</span>(<span class="fu">file.path</span>(indir_ppl, <span class="st">"sample1.purple.qc"</span>)))</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>QCStatus    PASS</span>
@@ -151,43 +122,54 @@
 <span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>LohPercent  <span class="fl">0.0270</span></span>
 <span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>TincLevel   <span class="fl">0.0000</span></span>
 <span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>ChimerismPercentage <span class="fl">0.0000</span></span></code></pre></div>
-<p>We can utilise the <code>Purple</code> class to parse, tidy and write PURPLE files in one call via its <code>nemofy()</code> method:</p>
+<p>We can utilise the <code>Purple</code> class to parse, tidy and write PURPLE files in one call via its <code>run()</code> method:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>outdir_ppl <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"ppl_out"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>Purple<span class="sc">$</span><span class="fu">new</span>(indir_ppl)<span class="sc">$</span><span class="fu">nemofy</span>(</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">diro =</span> outdir_ppl,</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">format =</span> <span class="st">"parquet"</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">input_id =</span> <span class="st">"run1"</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>)</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="fu">list.files</span>(outdir_ppl, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.parquet$"</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">"sample1_2_purple_cnvgenetsv.parquet"</span>           <span class="st">"sample1_2_purple_qc.parquet"</span>                  </span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a> [<span class="dv">3</span>] <span class="st">"sample1_germline_purple_drivercatalog.parquet"</span> <span class="st">"sample1_purple_cnvgenetsv.parquet"</span>            </span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a> [<span class="dv">5</span>] <span class="st">"sample1_purple_cnvsomtsv.parquet"</span>              <span class="st">"sample1_purple_germdeltsv.parquet"</span>            </span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a> [<span class="dv">7</span>] <span class="st">"sample1_purple_purityrange.parquet"</span>            <span class="st">"sample1_purple_puritytsv.parquet"</span>             </span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a> [<span class="dv">9</span>] <span class="st">"sample1_purple_qc.parquet"</span>                     <span class="st">"sample1_purple_somclonality.parquet"</span>          </span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>[<span class="dv">11</span>] <span class="st">"sample1_purple_somhist.parquet"</span>                <span class="st">"sample1_somatic_purple_drivercatalog.parquet"</span> </span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>[<span class="dv">13</span>] <span class="st">"version_2_purple_version.parquet"</span>              <span class="st">"version_purple_version.parquet"</span>               </span></code></pre></div>
-<p>Read back the tidied table:</p>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>Purple<span class="sc">$</span><span class="fu">new</span>(indir_ppl)<span class="sc">$</span><span class="fu">run</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">output_dir =</span> outdir_ppl,</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">format =</span> <span class="st">"parquet"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">input_id =</span> <span class="st">"run1"</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="fu">list.files</span>(outdir_ppl, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.parquet$"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a> [<span class="dv">1</span>] <span class="st">"metadata_purple.parquet"</span>                       </span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a> [<span class="dv">2</span>] <span class="st">"sample1_2_purple_cnvgenetsv.parquet"</span>           </span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a> [<span class="dv">3</span>] <span class="st">"sample1_2_purple_qc.parquet"</span>                   </span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a> [<span class="dv">4</span>] <span class="st">"sample1_2_somatic_purple_drivercatalog.parquet"</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a> [<span class="dv">5</span>] <span class="st">"sample1_germline_purple_drivercatalog.parquet"</span> </span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a> [<span class="dv">6</span>] <span class="st">"sample1_purple_cnvgenetsv.parquet"</span>             </span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a> [<span class="dv">7</span>] <span class="st">"sample1_purple_cnvsomtsv.parquet"</span>              </span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a> [<span class="dv">8</span>] <span class="st">"sample1_purple_germdeltsv.parquet"</span>             </span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a> [<span class="dv">9</span>] <span class="st">"sample1_purple_purityrange.parquet"</span>            </span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>[<span class="dv">10</span>] <span class="st">"sample1_purple_puritytsv.parquet"</span>              </span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>[<span class="dv">11</span>] <span class="st">"sample1_purple_qc.parquet"</span>                     </span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>[<span class="dv">12</span>] <span class="st">"sample1_purple_somclonality.parquet"</span>           </span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>[<span class="dv">13</span>] <span class="st">"sample1_purple_somhist.parquet"</span>                </span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>[<span class="dv">14</span>] <span class="st">"version_2_purple_version.parquet"</span>              </span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>[<span class="dv">15</span>] <span class="st">"version_purple_version.parquet"</span>                </span></code></pre></div>
+<p>Now read back the tidied table:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>qc_file <span class="ot">&lt;-</span> <span class="fu">list.files</span>(outdir_ppl, <span class="at">pattern =</span> <span class="st">"sample1_purple_qc.parquet"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">read_parquet</span>(qc_file) <span class="sc">|&gt;</span> <span class="fu">str</span>()</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>tibble [<span class="dv">1</span> × <span class="dv">13</span>] (S3<span class="sc">:</span> tbl_df<span class="sc">/</span>tbl<span class="sc">/</span>data.frame)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>tibble [<span class="dv">1</span> × <span class="dv">15</span>] (S3<span class="sc">:</span> tbl_df<span class="sc">/</span>tbl<span class="sc">/</span>data.frame)</span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a> <span class="sc">$</span> input_id               <span class="sc">:</span> chr <span class="st">"run1"</span></span>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a> <span class="sc">$</span> qc_status              <span class="sc">:</span> chr <span class="st">"PASS"</span></span>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a> <span class="sc">$</span> method                 <span class="sc">:</span> chr <span class="st">"NORMAL"</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a> <span class="sc">$</span> cn_segments            <span class="sc">:</span> int <span class="dv">354</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a> <span class="sc">$</span> cn_segments_unsupported<span class="sc">:</span> int <span class="dv">110</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a> <span class="sc">$</span> purity                 <span class="sc">:</span> num <span class="fl">0.87</span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a> <span class="sc">$</span> gender_amber           <span class="sc">:</span> chr <span class="st">"MALE"</span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a> <span class="sc">$</span> gender_cobalt          <span class="sc">:</span> chr <span class="st">"MALE"</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a> <span class="sc">$</span> cn_segments            <span class="sc">:</span> int <span class="dv">472</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a> <span class="sc">$</span> cn_segments_unsupported<span class="sc">:</span> int <span class="dv">5</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a> <span class="sc">$</span> purity                 <span class="sc">:</span> num <span class="dv">1</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a> <span class="sc">$</span> gender_amber           <span class="sc">:</span> chr <span class="st">"FEMALE"</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a> <span class="sc">$</span> gender_cobalt          <span class="sc">:</span> chr <span class="st">"FEMALE"</span></span>
 <span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a> <span class="sc">$</span> deleted_genes          <span class="sc">:</span> int <span class="dv">0</span></span>
 <span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a> <span class="sc">$</span> contamination          <span class="sc">:</span> num <span class="dv">0</span></span>
 <span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a> <span class="sc">$</span> germline_aberrations   <span class="sc">:</span> chr <span class="st">"NONE"</span></span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a> <span class="sc">$</span> mean_depth_amber       <span class="sc">:</span> num <span class="dv">73</span></span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a> <span class="sc">$</span> loh_percent            <span class="sc">:</span> num <span class="fl">0.0321</span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a> <span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">"file_version"</span>)<span class="ot">=</span> chr <span class="st">"v4.0"</span></span></code></pre></div>
-<hr>
-<p>Files from the full WiGiTS suite can be processed with the convenient <code>Wigits</code> class. The starting point is a parent directory with WiGiTS results, and we can again utilise the <code>nemofy()</code> method:</p>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a> <span class="sc">$</span> mean_depth_amber       <span class="sc">:</span> num <span class="dv">79</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a> <span class="sc">$</span> loh_percent            <span class="sc">:</span> num <span class="fl">0.027</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a> <span class="sc">$</span> tinc_level             <span class="sc">:</span> num <span class="dv">0</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a> <span class="sc">$</span> chimerism_percent      <span class="sc">:</span> num <span class="dv">0</span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a> <span class="sc">-</span> <span class="fu">attr</span>(<span class="sc">*</span>, <span class="st">"file_version"</span>)<span class="ot">=</span> chr <span class="st">"latest"</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="full-wigits">Full WiGiTS<a class="anchor" aria-label="anchor" href="#full-wigits"></a>
+</h3>
+<p>Files from the full WiGiTS suite can be processed with the convenient <code>Wigits</code> class. The starting point is a parent directory with WiGiTS results, and we can again utilise the <code>run()</code> method:</p>
 <details class="code-fold"><summary>
 View input files
 </summary><div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>indir_w <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/oa"</span>, <span class="at">package =</span> <span class="st">"tidywigits"</span>)</span>
@@ -343,27 +325,27 @@ View input files
 </ul>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>outdir_w <span class="ot">&lt;-</span> <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"wigits_out_parquet"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>w <span class="ot">&lt;-</span> Wigits<span class="sc">$</span><span class="fu">new</span>(indir_w)</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>res <span class="ot">&lt;-</span> w<span class="sc">$</span><span class="fu">nemofy</span>(</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="at">diro =</span> outdir_w,</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>res <span class="ot">&lt;-</span> w<span class="sc">$</span><span class="fu">run</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="at">output_dir =</span> outdir_w,</span>
 <span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="at">format =</span> <span class="st">"parquet"</span>,</span>
 <span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="at">input_id =</span> <span class="st">"run1"</span>,</span>
 <span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  <span class="at">output_id =</span> <span class="st">"out1"</span>,</span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  <span class="at">pfix_include =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  <span class="at">prefix_include =</span> <span class="cn">TRUE</span></span>
 <span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>)</span>
 <span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>res</span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#--- Workflow ---#</span></span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co"># A tibble: 7 × 2</span></span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>  var        value                                                                    </span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>  <span class="sc">&lt;</span>chr<span class="sc">&gt;</span>      <span class="er">&lt;</span>glue<span class="sc">&gt;</span>                                                                   </span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="dv">1</span> name       Wigits                                                                   </span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="dv">2</span> path       <span class="sc">/</span>home<span class="sc">/</span>runner<span class="sc">/</span>miniconda3<span class="sc">/</span>envs<span class="sc">/</span>bump_env<span class="sc">/</span>lib<span class="sc">/</span>R<span class="sc">/</span>library<span class="sc">/</span>tidywigits<span class="sc">/</span>extdata<span class="sc">/</span>oa</span>
-<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="dv">3</span> ntools     <span class="dv">19</span>                                                                       </span>
-<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="dv">4</span> nfiles_tot <span class="dv">228</span>                                                                      </span>
-<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="dv">5</span> nfiles_pat <span class="dv">112</span>                                                                      </span>
-<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="dv">6</span> tidied     true                                                                     </span>
-<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="dv">7</span> written    true                                                                     </span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#--- Workflow Wigits ---#</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="sc">|</span>var           <span class="sc">|</span>value                                                                     <span class="sc">|</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="er">|:</span><span class="sc">-------------</span><span class="er">|:</span><span class="sc">-------------------------------------------------------------------------</span><span class="er">|</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="er">|</span>name          <span class="sc">|</span>Wigits                                                                    <span class="sc">|</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="er">|</span>path          <span class="sc">|</span><span class="er">/</span>home<span class="sc">/</span>runner<span class="sc">/</span>miniconda3<span class="sc">/</span>envs<span class="sc">/</span>bump_env<span class="sc">/</span>lib<span class="sc">/</span>R<span class="sc">/</span>library<span class="sc">/</span>tidywigits<span class="sc">/</span>extdata<span class="sc">/</span>oa <span class="sc">|</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="er">|</span>ntools        <span class="sc">|</span><span class="dv">19</span>                                                                        <span class="sc">|</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="er">|</span>files_total   <span class="sc">|</span><span class="dv">228</span>                                                                       <span class="sc">|</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="er">|</span>files_matched <span class="sc">|</span><span class="dv">112</span>                                                                       <span class="sc">|</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="er">|</span>tidied        <span class="sc">|</span>true                                                                      <span class="sc">|</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="er">|</span>written       <span class="sc">|</span>true                                                                      <span class="sc">|</span></span>
 <span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="fu">list.files</span>(outdir_w, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.parquet$"</span>) <span class="sc">|&gt;</span> <span class="fu">str</span>()</span>
-<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">120</span>] <span class="st">"metadata.parquet"</span> <span class="st">"sample1_2_alignments_dupfreq.parquet"</span> ...</span></code></pre></div>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a> chr [<span class="dv">1</span><span class="sc">:</span><span class="dv">120</span>] <span class="st">"metadata.parquet"</span> <span class="st">"sample1_2_2_linx_breakends.parquet"</span> ...</span></code></pre></div>
 <ul>
 <li>PostgreSQL:</li>
 </ul>
@@ -374,23 +356,26 @@ View input files
 <span>  dbname <span class="op">=</span> <span class="st">"tidywigits"</span>,</span>
 <span>  user <span class="op">=</span> <span class="st">"me"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="va">w2</span><span class="op">$</span><span class="fu">nemofy</span><span class="op">(</span></span>
+<span><span class="va">res</span> <span class="op">&lt;-</span> <span class="va">w2</span><span class="op">$</span><span class="fu">run</span><span class="op">(</span></span>
 <span>  format <span class="op">=</span> <span class="st">"db"</span>,</span>
 <span>  input_id <span class="op">=</span> <span class="st">"run2"</span>,</span>
 <span>  output_id <span class="op">=</span> <span class="st">"out2"</span>,</span>
-<span>  pfix_include <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  prefix_include <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  dbconn <span class="op">=</span> <span class="va">dbconn</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><strong>IMPORTANT</strong>: support for VCFs is on the roadmap, not yet implemented.</p>
+<blockquote>
+<p><strong>Note:</strong> Support for VCFs is a work in progress.</p>
+</blockquote>
+</div>
 </div>
 <div class="section level2">
-<h2 id="pizza-installation">🍕 Installation<a class="anchor" aria-label="anchor" href="#pizza-installation"></a>
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>Using {remotes} directly from GitHub:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits"</span><span class="op">)</span> <span class="co"># latest main commit</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits@v0.0.7.9004"</span><span class="op">)</span> <span class="co"># specific version</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits@v0.0.7.9005"</span><span class="op">)</span> <span class="co"># specific version</span></span></code></pre></div>
 <p>Alternatively:</p>
 <ul>
 <li>conda package: <a href="https://anaconda.org/tidywf/r-tidywigits" class="external-link uri">https://anaconda.org/tidywf/r-tidywigits</a>
@@ -401,7 +386,7 @@ View input files
 <p>For more details see: <a href="https://tidywf.github.io/tidywigits/articles/installation" class="uri">https://tidywf.github.io/tidywigits/articles/installation</a></p>
 </div>
 <div class="section level2">
-<h2 id="cyclone-cli">🌀 CLI<a class="anchor" aria-label="anchor" href="#cyclone-cli"></a>
+<h2 id="cli">CLI<a class="anchor" aria-label="anchor" href="#cli"></a>
 </h2>
 <p>A <code>tidywigits.R</code> command line interface is available for convenience.</p>
 <ul>
@@ -411,7 +396,7 @@ View input files
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="va">tw_cli</span><span class="op">=</span><span class="va">$(</span><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'x = system.file("cli", package = "tidywigits"); cat(x, "\n")'</span> <span class="kw">|</span> <span class="fu">xargs</span><span class="va">)</span></span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">"</span><span class="va">${tw_cli}</span><span class="st">:</span><span class="va">${PATH}</span><span class="st">"</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="sc">$</span> tidywigits.R <span class="sc">--</span>version</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>tidywigits <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">7.9004</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>tidywigits <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">7.9005</span></span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#-----------------------------------#</span></span>
 <span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="sc">$</span> tidywigits.R <span class="sc">--</span>help</span>
@@ -431,7 +416,7 @@ View input files
 <span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#-----------------------------------#</span></span>
 <span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co">#------- Tidy ----------------------#</span></span>
 <span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="sc">$</span> tidywigits.R tidy <span class="sc">--</span>help</span>
-<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a>usage<span class="sc">:</span> tidywigits.R tidy [<span class="sc">-</span>h] <span class="sc">-</span>d IN_DIR [<span class="sc">-</span>o OUT_DIR] [<span class="sc">-</span>f FORMAT]</span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a>usage<span class="sc">:</span> tidywigits.R tidy [<span class="sc">-</span>h] <span class="sc">-</span>d IN_DIR [<span class="sc">-</span>o OUTPUT_DIR] [<span class="sc">-</span>f FORMAT]</span>
 <span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a>                         [<span class="sc">--</span>input_id INPUT_ID] [<span class="sc">--</span>output_id OUTPUT_ID <span class="sc">|</span></span>
 <span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a>                         <span class="sc">--</span>ulid] [<span class="sc">--</span>dbname DBNAME] [<span class="sc">--</span>dbuser DBUSER]</span>
 <span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a>                         [<span class="sc">--</span>include INCLUDE] [<span class="sc">--</span>exclude EXCLUDE]</span>
@@ -440,7 +425,7 @@ View input files
 <span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a>options<span class="sc">:</span></span>
 <span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a>  <span class="sc">-</span>h, <span class="sc">--</span>help            show this help message and exit</span>
 <span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a>  <span class="sc">-</span>d, <span class="sc">--</span>in_dir IN_DIR   Input directory.</span>
-<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a>  <span class="sc">-</span>o, <span class="sc">--</span>out_dir OUT_DIR</span>
+<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a>  <span class="sc">-</span>o, <span class="sc">--</span>output_dir OUTPUT_DIR</span>
 <span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a>                        Output directory.</span>
 <span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a>  <span class="sc">-</span>f, <span class="sc">--</span>format FORMAT   Format of output [def<span class="sc">:</span> parquet] (parquet, db, tsv,</span>
 <span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a>                        csv, rds)</span>

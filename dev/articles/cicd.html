@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9004</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,8 +42,9 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/installation.html">Installation</a></li>
-    <li><a class="dropdown-item" href="../articles/schema_walkthrough.html">Schema Walkthrough</a></li>
+<li><a class="dropdown-item" href="../articles/quickstart.html">Quickstart</a></li>
+    <li><a class="dropdown-item" href="../articles/installation.html">Installation</a></li>
+    <li><a class="dropdown-item" href="../articles/structure.html">Structure</a></li>
     <li><a class="dropdown-item" href="../articles/schema_table.html">Schema Table</a></li>
     <li><a class="dropdown-item" href="../articles/uml.html">UML</a></li>
     <li><a class="dropdown-item" href="../articles/cicd.html">CI/CD Workflow</a></li>
@@ -101,45 +102,51 @@
     B4 --&gt; B5
     end
 
-    B5 --&gt; J1S1
+    BUMP --&gt; DEPLOY
 
-    subgraph DEPLOY ["🔧 conda-docs"]
+    subgraph DEPLOY ["🔧 Deploy"]
+        direction TB
+        subgraph version ["📋 Get version"]
+        end
         subgraph condarise ["🐍 Condarise"]
-        J1S1["👾 Miniforge setup"]
-        J1S2["🐍 Conda pkg build"]
-        J1S3["🐍 Conda pkg upload"]
-        J1S4["🔒 Conda lock"]
-        J1S5["💾 Commit lockfiles"]
-        J1S1 --&gt; J1S2
-        J1S2 --&gt; J1S3
-        J1S3 --&gt; J1S4
-        J1S4 --&gt; J1S5
+        J2S1["🏷️ Set dev flags"]
+        J2S2["👾 Miniforge setup"]
+        J2S3["🐍 Conda pkg build"]
+        J2S4["🐍 Conda pkg upload"]
+        J2S5["🔒 Conda lock"]
+        J2S6["💾 Commit lockfiles"]
+        J2S1 --&gt; J2S2
+        J2S2 --&gt; J2S3
+        J2S3 --&gt; J2S4
+        J2S4 --&gt; J2S5
+        J2S5 --&gt; J2S6
         end
         subgraph tag ["🔖 Tag"]
-        J2S1["📥 Pull latest commits"]
-        J2S2["🔖 Create tag"]
-        J2S1 --&gt; J2S2
+        J3S1["📥 Pull latest commits"]
+        J3S2["🔖 Create tag"]
+        J3S1 --&gt; J3S2
         end
         subgraph dockerise ["🐳 Dockerise"]
-        J3S1["🏰 QEMU setup"]
-        J3S2["🏯 Buildx setup"]
-        J3S3["🐙 GitHub CR login"]
-        J3S4["🐳 Docker img build and push"]
-        J3S1 --&gt; J3S2
-        J3S2 --&gt; J3S3
-        J3S3 --&gt; J3S4
-        end
-        subgraph pkgdownise ["🌐 Pkgdownise"]
-        J4S1["👾 Miniforge setup"]
-        J4S2["📦 Install from source"]
-        J4S3["🌐 Website publish"]
+        J4S1["🏰 QEMU setup"]
+        J4S2["🏯 Buildx setup"]
+        J4S3["🐙 GitHub CR login"]
+        J4S4["🐳 Docker img build and push"]
         J4S1 --&gt; J4S2
         J4S2 --&gt; J4S3
+        J4S3 --&gt; J4S4
+        end
+        subgraph pkgdownise ["🌐 Pkgdownise"]
+        J5S1["👾 Miniforge setup"]
+        J5S2["📦 Install from source"]
+        J5S3["🌐 Website publish"]
+        J5S1 --&gt; J5S2
+        J5S2 --&gt; J5S3
         end
 
-        J1S5 --&gt; J2S1
-        J2S2 --&gt; J3S1
-        J3S4 --&gt; J4S1
+        version --&gt; condarise
+        J2S6 --&gt; J3S1
+        J3S2 --&gt; J4S1
+        J4S4 --&gt; J5S1
     end
 </pre>
 </div>

@@ -2,6 +2,8 @@
 
 ## 0.1.0 (2026-06-04)
 
+### Changes
+
 - Change GitHub org from `umccr` to `tidywf`
 - Schema refactor: all tools migrated from old nemo `raw.yaml` +
   `tidy.yaml` configs to a single `schema.yaml` (initially LinkML via
@@ -14,8 +16,7 @@
   table; handle summary + wgsmetrics subtables
 - Cobalt: handle sample + buckets subtables
 - Alignments: drop histogram from markdup parser
-- Linx: fix germline file handling with `list_files_with_prefix_fn`; add
-  v1.25 test data
+- Linx: fix germline file handling; add v1.25 test data
 - Sage: use bamtools genecoverage parser; add v3.4.4 test data
 - Cuppa: handle v1.4 `sampleId` column (fixes
   [iss172](https://github.com/tidywf/tidywigits/issues/172)); use csv
@@ -28,8 +29,8 @@
 - Wigits: re-add Esvee; use metapkg; fall back to `super$get_metadata`;
   listify `WIGITS_TOOLS`
   ([pr191](https://github.com/tidywf/tidywigits/pull/191))
-- Vignettes: add `schema_walkthrough`, `schema_table`, `cicd`; refactor
-  `uml`; remove `schemas_raw` + `schemas_tidy`; consolidate installation
+- Vignettes: add `structure`, `schema_table`, `cicd`; refactor `uml`;
+  remove `schemas_raw` + `schemas_tidy`; consolidate installation
   fragments ([pr193](https://github.com/tidywf/tidywigits/pull/193))
 - GHA: use reusable workflows for conda/docker/pkgdown
   ([pr181](https://github.com/tidywf/tidywigits/pull/181)); add
@@ -47,6 +48,34 @@
   ([pr171](https://github.com/tidywf/tidywigits/pull/171))
 - Add air formatter to pre-commit hooks; add `CLAUDE.md` + `new-tool`
   skill ([pr180](https://github.com/tidywf/tidywigits/pull/180))
+
+### nemo API changes
+
+- Renames: `out_dir` =\> `output_dir`; `pfix_include` =\>
+  `prefix_include`; output column `input_pfix` =\> `input_prefix`; CLI
+  flag `--out_dir` =\> `--output_dir`
+- Renames (Config/Tool): `raw_schemas_all` =\> `schemas_raw`,
+  `tidy_schemas_all` =\> `schemas_tidy`, `get_tidy_schema` =\>
+  `get_schema_tidy`, `get_raw_schema` =\> `get_schema_raw`
+- Tool API cleanup (call-site updates): rename `v` to `version` on
+  `get_schema_raw`/`get_schema_tidy` calls; rename `name` to
+  `table_name` on `.parse_file` calls; replace `self$schemas_raw` with
+  `self$config$schemas_raw`; thread `files_tbl` as an explicit argument
+  in `list_files_with_prefix_fn` (Bamtools, Chord, Cobalt, Cuppa,
+  Virusbreakend, Purple, Linx)
+- `wrangle()` renamed to `run()` on Tool and Workflow; all subclasses
+  declare `cloneable = FALSE`
+- `.parse_file*()`/`.tidy_file()` public dot methods moved to private in
+  nemo; updated call sites to `private$parse_file*()` (Alignments,
+  Amber, Bamtools, Cobalt, Linx, Purple, Sigs, Virusbreakend)
+- `self$get_schema_*()` shortcut wrappers removed from Tool; updated to
+  `self$config$get_schema_*()` (Bamtools, Chord, Cobalt, Virusbreakend);
+  `self$config$schemas_raw` field made private, updated to
+  `self$config$get_schemas_raw()` (Cuppa)
+- Linx/Purple: `list_files()` override no longer feeds `tidy()` in new
+  nemo (which reads `private$files` set at init); germline/somatic
+  prefix logic moved to `initialize()`; `list_files_with_prefix_fn`
+  helper removed
 
 ### Contributors
 
