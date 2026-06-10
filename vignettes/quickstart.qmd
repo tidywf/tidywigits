@@ -15,34 +15,35 @@ use("fs", "dir_tree")
 options(width = 90)
 ```
 
-{tidywigits} turns raw [WiGiTS/hmftools](https://github.com/hartwigmedical/hmftools) output
+tidywigits turns raw [WiGiTS/hmftools](https://github.com/hartwigmedical/hmftools) output
 directories into consistently structured, versioned, analysis-ready tables. This vignette
 walks through the core usage patterns.
 
 ## Input
 
-The package ships with a small example dataset under `inst/extdata/oa/`, one subdirectory
-per tool:
+Example WiGiTS results:
 
 ```{r}
 #| label: input_tree
+#| code-fold: true
+#| code-summary: "View input files"
 indir <- system.file("extdata/oa", package = "tidywigits")
 dir_tree(indir, invert = TRUE, glob = "*.dvc")
 ```
 
-## Single tool
+## Output - Single Tool
 
-Each tool has its own R6 class. Construct it with the tool's output directory, then call
-`run()` to parse, tidy, and write in one step:
+Each tool has its own R6 class. Construct it with the tool's output directory,
+then call `run()` to parse, tidy, and write in one step:
 
 ```{r}
 #| label: single_tool
 #| message: false
-outdir <- file.path(tempdir(), "qs_amber")
-Amber$new(file.path(indir, "amber"))$run(
+outdir <- file.path(tempdir(), "qs_ppl")
+Purple$new(file.path(indir, "purple"))$run(
   output_dir = outdir,
-  format     = "parquet",
-  input_id   = "sample1"
+  format = "parquet",
+  input_id = "sample1_id"
 )
 list.files(outdir, pattern = "\\.parquet$")
 ```
@@ -57,14 +58,14 @@ written alongside the data files and records input/output paths and package vers
 
 ```{r}
 #| label: read_back
-qc <- read_parquet(file.path(outdir, "sample1_amber_qc.parquet"))
-qc
+qc <- read_parquet(file.path(outdir, "sample1_purple_qc.parquet"))
+qc |> str()
 ```
 
-## Full WiGiTS run
+## Output - Full WiGiTS run
 
-`Wigits` processes all supported tools in one call. Point it at the parent directory that
-contains the per-tool subdirectories:
+`Wigits` processes all supported tools in one call. Point it at the parent directory
+that contains the per-tool subdirectories:
 
 ```{r}
 #| label: wigits_run
@@ -73,20 +74,19 @@ outdir_w <- file.path(tempdir(), "qs_wigits")
 w <- Wigits$new(indir)
 w$run(
   output_dir = outdir_w,
-  format     = "parquet",
-  input_id   = "sample1"
+  format = "parquet"
 )
-list.files(outdir_w, pattern = "\\.parquet$") |> sort()
+list.files(outdir_w, pattern = "\\.parquet$") |> sort() |> str()
 ```
 
 ## ID columns
 
 Three optional columns can be prepended to every written table. All are off by default:
 
-| Argument | Column added | Contains |
-|---|---|---|
-| `input_id = "x"` | `input_id` | sample or run identifier you supply |
-| `output_id = "x"` | `output_id` | processing run identifier you supply |
+| Argument                | Column added   | Contains                                   |
+| ----------------------- | -------------- | ------------------------------------------ |
+| `input_id = "x"`        | `input_id`     | sample or run identifier you supply        |
+| `output_id = "x"`       | `output_id`    | processing run identifier you supply       |
 | `prefix_include = TRUE` | `input_prefix` | filename prefix extracted from input files |
 
 These are useful when loading results from multiple samples into the same database table or
@@ -95,15 +95,15 @@ combined data frame:
 ```{r}
 #| label: id_cols
 #| message: false
-outdir_id <- file.path(tempdir(), "qs_amber_id")
-Amber$new(file.path(indir, "amber"))$run(
-  output_dir     = outdir_id,
-  format         = "parquet",
-  input_id       = "sample1",
-  output_id      = "out1",
+outdir_id <- file.path(tempdir(), "qs_ppl_id")
+Purple$new(file.path(indir, "purple"))$run(
+  output_dir = outdir_id,
+  format = "parquet",
+  input_id = "sample1",
+  output_id = "out1",
   prefix_include = TRUE
 )
-read_parquet(file.path(outdir_id, "sample1_amber_qc.parquet"))
+read_parquet(file.path(outdir_id, "sample1_purple_qc.parquet"))
 ```
 
 ## Metadata
@@ -116,11 +116,8 @@ directory, output directory, IDs, and the versions of R packages used:
 read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 ```
 
-## What's next
+## Other useful articles
 
-- **Schema table**: browse every table and column for all 19 tools →
-  [schema_table](schema_table.html)
-- **Structure**: how schemas, versioning, and the Tool/Workflow class hierarchy work →
-  [structure](structure.html) and the
-  [nemo docs](https://tidywf.github.io/nemo/articles/structure.html)
-- **PostgreSQL**: writing results to a database → [postgresql](postgresql.html)
+- [Schema table](schema_table.html): browse every table and column for all supported WiGiTS tools
+- [Structure](structure.html): how schemas, versioning, and the Tool/Workflow class hierarchy work
+- [PostgreSQL](postgresql.html): writing results to a database 

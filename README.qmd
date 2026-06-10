@@ -39,8 +39,7 @@ options(width = 100)
 
 <a href="https://tidywf.github.io/tidywigits"><img src="man/figures/logo.png" alt="logo" align="left" height="100" /></a>
 
-# 🧬✨ Tidy WiGiTS Outputs
-
+# Tidy WiGiTS Outputs
 
 [![conda-latest1]](https://anaconda.org/tidywf/r-tidywigits)
 [![gha]](https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml)
@@ -58,7 +57,8 @@ base <- glue("https://{org_nm}.github.io/{pkg_nm}")
 glue(
   "📚 Docs: ",
   "[Installation]({base}/articles/installation) | ",
-  "[Files/tables supported]({base}/articles/schema_table) | ",
+  "[Quickstart]({base}/articles/quickstart) | ",
+  "[Files supported]({base}/articles/schema_table) | ",
   "[Structure]({base}/articles/structure) | ",
   "[Changelog]({base}/articles/NEWS) | ",
   "[R6](https://{org_nm}.github.io/nemo/articles/structure)"
@@ -68,30 +68,31 @@ glue(
 [WiGiTS/hmftools]: <https://github.com/hartwigmedical/hmftools> "WiGiTS suite"
 [nemo]: <https://github.com/tidywf/nemo> "nemo"
 
-{tidywigits} is an R package for parsing and tidying output from the [WiGiTS/hmftools]
+tidywigits is an R package for parsing and tidying output from the [WiGiTS/hmftools]
 suite of genome and transcriptome analysis tools. WiGiTS produces hundreds of files per
 sample across dozens of tools, but consuming them downstream is fragile: formats are
 inconsistent, column names span a mix of conventions
 (e.g. `snake_case`, `camelCase`, `dot.separated`), some sub-tables are embedded
 in wide files, and column layouts change between tool versions.
 
-{tidywigits} addresses this with a schema-driven parsing layer that turns raw WiGiTS
-outputs into consistently structured, versioned, analysis-ready tables that
-can be written to a variety of formats such as Apache Parquet, PostgreSQL,
-TSV, or RDS. Each run also produces a `metadata.parquet` file alongside the tidy
-tables, capturing IDs, paths, and R package versions.
+tidywigits addresses this with a schema-driven parsing layer built on the [nemo] base
+R6 classes, supplying WiGiTS-specific schemas and parsers that turn raw outputs into
+consistently structured, versioned, analysis-ready tables that can be written to a
+variety of formats such as Apache Parquet, PostgreSQL, TSV, or RDS. Each run also
+produces a `metadata.parquet` file alongside the tidy tables, capturing IDs, paths,
+and R package versions.
 
 For better downstream tracing and joining, three columns can be prepended
 to every written table. All are opt-in and off by default, but highly
 recommended for any multi-sample or multi-run pipeline:
 
-| Column       | Purpose                            |
-| ------------ | ---------------------------------- |
-| `input_id`   | identifies the sample or input run |
-| `output_id`  | identifies the processing run      |
+| Column         | Purpose                            |
+| ---------------| ---------------------------------- |
+| `input_id`     | identifies the sample or input run |
+| `output_id`    | identifies the processing run      |
 | `input_prefix` | filename prefix (e.g. sample name) |
 
-## ⚡ Quick Start
+## Quick Start
 
 ### Single tool
 
@@ -184,9 +185,9 @@ res <- w2$run(
 )
 ```
 
-**IMPORTANT**: support for VCFs is a work in progress.
+> **Note:** Support for VCFs is a work in progress.
 
-## 🍕 Installation
+## Installation
 
 ```{r child=file.path(dir_nemo, "_r.qmd")}
 #| label: child-r
@@ -200,7 +201,7 @@ Alternatively:
 
 For more details see: <https://tidywf.github.io/tidywigits/articles/installation>
 
-## 🌀 CLI
+## CLI
 
 A `tidywigits.R` command line interface is available for convenience.
 
