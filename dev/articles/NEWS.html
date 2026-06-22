@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9005</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,7 +72,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/dev/vignettes/NEWS.qmd" class="external-link"><code>vignettes/NEWS.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/main/vignettes/NEWS.qmd" class="external-link"><code>vignettes/NEWS.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -81,43 +81,45 @@
 
 
 
-    <section class="level2"><h2 id="section">0.1.0 (2026-06-04)<a class="anchor" aria-label="anchor" href="#section"></a>
+    <section class="level2"><h2 id="v0-1-0-2026-06-22">v0.1.0 (2026-06-22)<a class="anchor" aria-label="anchor" href="#v0-1-0-2026-06-22"></a>
 </h2>
+<p>Major refactor. GitHub org migrated from <code>umccr</code> to <code>tidywf</code>. All 19 tool configs consolidated from dual <code>raw.yaml</code> + <code>tidy.yaml</code> files into a single <code>schema.yaml</code> per tool, with parsing simplified across the board (<a href="https://github.com/tidywf/tidywigits/pull/189" class="external-link">pr189</a>). The nemo API was updated (<code>nemofy</code>/<code>diro</code> → <code>run</code>/<code>output_dir</code>, <a href="https://github.com/tidywf/tidywigits/pull/200" class="external-link">pr200</a>). DVC switched to per-file tracking backed by a public Cloudflare R2 remote (<a href="https://github.com/tidywf/tidywigits/pull/190" class="external-link">pr190</a>, <a href="https://github.com/tidywf/tidywigits/pull/203" class="external-link">pr203</a>). Docker images now build for both <code>linux/amd64</code> and <code>linux/arm64</code> (<a href="https://github.com/tidywf/tidywigits/pull/198" class="external-link">pr198</a>). GHA refactored to use reusable workflows from <code>tidywf/actions</code> (<a href="https://github.com/tidywf/tidywigits/pull/181" class="external-link">pr181</a>).</p>
 <section class="level3"><h3 id="changes">Changes<a class="anchor" aria-label="anchor" href="#changes"></a>
 </h3>
 <ul>
-<li>Change GitHub org from <code>umccr</code> to <code>tidywf</code>
-</li>
-<li>Schema refactor: all tools migrated from old nemo <code>raw.yaml</code> + <code>tidy.yaml</code> configs to a single <code>schema.yaml</code> (initially LinkML via <a href="https://github.com/tidywf/tidywigits/pull/174" class="external-link">pr174</a>, then moved away from LinkML since it feels overkill). Old config files removed. Parsing simplified across all tools. (<a href="https://github.com/tidywf/tidywigits/pull/189" class="external-link">pr189</a>)</li>
-<li>Flagstats: remove standalone class (covered by Bamtools)</li>
-<li>Bamtools: drop histogram parser; genecoverage returned as single table; handle summary + wgsmetrics subtables</li>
-<li>Cobalt: handle sample + buckets subtables</li>
-<li>Alignments: drop histogram from markdup parser</li>
-<li>Linx: fix germline file handling; add v1.25 test data</li>
-<li>Sage: use bamtools genecoverage parser; add v3.4.4 test data</li>
-<li>Cuppa: handle v1.4 <code>sampleId</code> column (fixes <a href="https://github.com/tidywf/tidywigits/issues/172" class="external-link">iss172</a>); use csv ftype for datacsv; add plotter functions (<a href="https://github.com/tidywf/tidywigits/pull/173" class="external-link">pr173</a>); predsum tidy schema fix (<a href="https://github.com/tidywf/tidywigits/pull/179" class="external-link">pr179</a>, <a href="https://github.com/tidywf/tidywigits/issues/178" class="external-link">iss178</a>)</li>
-<li>DVC: switch from directory-level to per-file tracking (<a href="https://github.com/tidywf/tidywigits/pull/190" class="external-link">pr190</a>)</li>
-<li>Wigits: re-add Esvee; use metapkg; fall back to <code>super$get_metadata</code>; listify <code>WIGITS_TOOLS</code> (<a href="https://github.com/tidywf/tidywigits/pull/191" class="external-link">pr191</a>)</li>
-<li>Vignettes: add <code>structure</code>, <code>schema_table</code>, <code>cicd</code>; refactor <code>uml</code>; remove <code>schemas_raw</code> + <code>schemas_tidy</code>; consolidate installation fragments (<a href="https://github.com/tidywf/tidywigits/pull/193" class="external-link">pr193</a>)</li>
-<li>GHA: use reusable workflows for conda/docker/pkgdown (<a href="https://github.com/tidywf/tidywigits/pull/181" class="external-link">pr181</a>); add version-bumping workflow (<a href="https://github.com/tidywf/tidywigits/pull/183" class="external-link">pr183</a>, <a href="https://github.com/tidywf/tidywigits/pull/184" class="external-link">pr184</a>, <a href="https://github.com/tidywf/tidywigits/pull/185" class="external-link">pr185</a>); fix permissions (<a href="https://github.com/tidywf/tidywigits/pull/182" class="external-link">pr182</a>); refactor deploy workflow (<a href="https://github.com/tidywf/tidywigits/pull/175" class="external-link">pr175</a>, <a href="https://github.com/tidywf/tidywigits/pull/176" class="external-link">pr176</a>); add bump.yaml conda env; add multi-arch Docker support (<a href="https://github.com/tidywf/tidywigits/pull/198" class="external-link">pr198</a>)</li>
+<li>GitHub org: <code>umccr</code> → <code>tidywf</code> (URLs, remotes, labels, conda recipe)</li>
+<li>Schema: all tools migrated from <code>raw.yaml</code> + <code>tidy.yaml</code> to a single <code>schema.yaml</code>; initially introduced as LinkML (<a href="https://github.com/tidywf/tidywigits/pull/174" class="external-link">pr174</a>) then simplified; old config files removed; parsing simplified across all tools (<a href="https://github.com/tidywf/tidywigits/pull/189" class="external-link">pr189</a>)</li>
+<li>Flagstats: removed standalone class — covered by Bamtools</li>
+<li>Bamtools: dropped histogram parser; genecoverage returned as single table; handle <code>summary</code> + <code>wgsmetrics</code> subtables</li>
+<li>Cobalt: handle <code>sample</code> + <code>buckets</code> subtables</li>
+<li>Alignments: dropped histogram rows from <code>markdup</code> parser</li>
+<li>Linx: fixed germline file handling (<a href="https://github.com/tidywf/tidywigits/pull/189" class="external-link">pr189</a>); added v1.25 test data</li>
+<li>Sage: delegate genecoverage to Bamtools parser; added v3.4.4 test data</li>
+<li>Cuppa: handle v1.4 <code>sampleId</code> column (fixes <a href="https://github.com/tidywf/tidywigits/issues/172" class="external-link">iss172</a>); use <code>csv</code> ftype for datacsv; add plotter functions (<a href="https://github.com/tidywf/tidywigits/pull/173" class="external-link">pr173</a>); predsum tidy schema fix (<a href="https://github.com/tidywf/tidywigits/pull/179" class="external-link">pr179</a>, <a href="https://github.com/tidywf/tidywigits/issues/178" class="external-link">iss178</a>)</li>
+<li>DVC: switch from directory-level to per-file <code>.dvc</code> tracking; new <code><a href="../reference/dvc_download_file.html">dvc_download_file()</a></code> / <code><a href="../reference/dvc_download_all.html">dvc_download_all()</a></code> helpers backed by public Cloudflare R2 (<a href="https://github.com/tidywf/tidywigits/pull/190" class="external-link">pr190</a>, <a href="https://github.com/tidywf/tidywigits/pull/203" class="external-link">pr203</a>)</li>
+<li>Wigits: re-add Esvee; use <code>metapkg</code>; <code>WIGITS_TOOLS</code> changed from character vector to named list of R6 classes (<a href="https://github.com/tidywf/tidywigits/pull/191" class="external-link">pr191</a>)</li>
+<li>Vignettes: add <code>quickstart</code>, <code>structure</code>, <code>schema_table</code>, <code>cicd</code>, <code>devnotes</code>; refactor <code>uml</code>; remove <code>schemas_raw</code> + <code>schemas_tidy</code>; consolidate installation fragments (<a href="https://github.com/tidywf/tidywigits/pull/193" class="external-link">pr193</a>)</li>
+<li>GHA: use reusable workflows for conda/docker/pkgdown (<a href="https://github.com/tidywf/tidywigits/pull/181" class="external-link">pr181</a>); add version-bumping workflow (<a href="https://github.com/tidywf/tidywigits/pull/183" class="external-link">pr183</a>, <a href="https://github.com/tidywf/tidywigits/pull/185" class="external-link">pr185</a>); fix permissions (<a href="https://github.com/tidywf/tidywigits/pull/182" class="external-link">pr182</a>); refactor deploy workflow (<a href="https://github.com/tidywf/tidywigits/pull/175" class="external-link">pr175</a>, <a href="https://github.com/tidywf/tidywigits/pull/176" class="external-link">pr176</a>); add multi-arch Docker support (<a href="https://github.com/tidywf/tidywigits/pull/198" class="external-link">pr198</a>)</li>
 <li>Move shiny and website to separate repos (<a href="https://github.com/tidywf/tidywigits/pull/171" class="external-link">pr171</a>)</li>
-<li>Add air formatter to pre-commit hooks; add <code>CLAUDE.md</code> + <code>new-tool</code> skill (<a href="https://github.com/tidywf/tidywigits/pull/180" class="external-link">pr180</a>)</li>
-</ul></section><section class="level3"><h3 id="nemo-api-changes">nemo API changes<a class="anchor" aria-label="anchor" href="#nemo-api-changes"></a>
+<li>Pre-commit: replace <code>lorenzwalthert/precommit</code> with <code>posit-dev/air-pre-commit</code> (<code>air-format</code>); add <code>CLAUDE.md</code> + <code>new-tool</code> skill (<a href="https://github.com/tidywf/tidywigits/pull/180" class="external-link">pr180</a>)</li>
+</ul></section><section class="level3"><h3 id="nemo-api-changes">nemo API changes (<a href="https://github.com/tidywf/tidywigits/pull/200" class="external-link">pr200</a>)<a class="anchor" aria-label="anchor" href="#nemo-api-changes"></a>
 </h3>
 <ul>
-<li>Renames: <code>out_dir</code> =&gt; <code>output_dir</code>; <code>pfix_include</code> =&gt; <code>prefix_include</code>; output column <code>input_pfix</code> =&gt; <code>input_prefix</code>; CLI flag <code>--out_dir</code> =&gt; <code>--output_dir</code>
-</li>
-<li>Renames (Config/Tool): <code>raw_schemas_all</code> =&gt; <code>schemas_raw</code>, <code>tidy_schemas_all</code> =&gt; <code>schemas_tidy</code>, <code>get_tidy_schema</code> =&gt; <code>get_schema_tidy</code>, <code>get_raw_schema</code> =&gt; <code>get_schema_raw</code>
-</li>
-<li>Tool API cleanup (call-site updates): rename <code>v</code> to <code>version</code> on <code>get_schema_raw</code>/<code>get_schema_tidy</code> calls; rename <code>name</code> to <code>table_name</code> on <code>.parse_file</code> calls; replace <code>self$schemas_raw</code> with <code>self$config$schemas_raw</code>; thread <code>files_tbl</code> as an explicit argument in <code>list_files_with_prefix_fn</code> (Bamtools, Chord, Cobalt, Cuppa, Virusbreakend, Purple, Linx)</li>
 <li>
-<code>wrangle()</code> renamed to <code>run()</code> on Tool and Workflow; all subclasses declare <code>cloneable = FALSE</code>
+<code>nemofy()</code> / <code>diro</code> → <code>run()</code> / <code>output_dir</code> (two-step: first <code>wrangle</code>/<code>out_dir</code>, then <code>run</code>/<code>output_dir</code>)</li>
+<li>
+<code>out_dir</code> → <code>output_dir</code>; <code>pfix_include</code> → <code>prefix_include</code>; output column <code>input_pfix</code> → <code>input_prefix</code>; CLI flag <code>--out_dir</code> → <code>--output_dir</code>
+</li>
+<li>Config/Tool renames: <code>raw_schemas_all</code> → <code>schemas_raw</code>; <code>tidy_schemas_all</code> → <code>schemas_tidy</code>; <code>get_tidy_schema</code> → <code>get_schema_tidy</code>; <code>get_raw_schema</code> → <code>get_schema_raw</code>
+</li>
+<li>All subclasses declare <code>cloneable = FALSE</code>
 </li>
 <li>
-<code>.parse_file*()</code>/<code>.tidy_file()</code> public dot methods moved to private in nemo; updated call sites to <code>private$parse_file*()</code> (Alignments, Amber, Bamtools, Cobalt, Linx, Purple, Sigs, Virusbreakend)</li>
+<code>.parse_file*()</code>/<code>.tidy_file()</code> public dot methods moved to private in nemo</li>
 <li>
-<code>self$get_schema_*()</code> shortcut wrappers removed from Tool; updated to <code>self$config$get_schema_*()</code> (Bamtools, Chord, Cobalt, Virusbreakend); <code>self$config$schemas_raw</code> field made private, updated to <code>self$config$get_schemas_raw()</code> (Cuppa)</li>
-<li>Linx/Purple: <code>list_files()</code> override no longer feeds <code>tidy()</code> in new nemo (which reads <code>private$files</code> set at init); germline/somatic prefix logic moved to <code>initialize()</code>; <code>list_files_with_prefix_fn</code> helper removed</li>
+<code>self$get_schema_*()</code> shortcuts removed from Tool; use <code>self$config$get_schema_*()</code> directly</li>
+<li>Linx/Purple: germline/somatic prefix logic moved to <code>initialize()</code>
+</li>
 </ul></section><section class="level3"><h3 id="contributors">Contributors<a class="anchor" aria-label="anchor" href="#contributors"></a>
 </h3>
 <ul>

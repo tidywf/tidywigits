@@ -5,6 +5,22 @@ tidywigits turns raw
 directories into consistently structured, versioned, analysis-ready
 tables. This vignette walks through the core usage patterns.
 
+## Test data
+
+Example input files are tracked in `inst/extdata/oa/` via
+[DVC](https://dvc.org/) and can be downloaded using either of the below
+options:
+
+- `dvc pull`: requires dvc installation and cloned tidywigits source
+  repo.
+- [`tidywigits::dvc_download_all()`](https://tidywf.github.io/tidywigits/dev/reference/dvc_download_all.md):
+  no additional requirements, uses
+  [`download.file()`](https://rdrr.io/r/utils/download.file.html)
+  internally.
+
+No credentials are required since the remote is a public Cloudflare R2
+bucket.
+
 ## Input
 
 Example WiGiTS results:
@@ -291,7 +307,7 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 #>  $ input_dirs  : list<character> [1:1] 
 #>   ..$ : chr "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa"
 #>   ..@ ptype: chr(0) 
-#>  $ output_dir  : chr "/tmp/RtmpKfyrqF/qs_wigits"
+#>  $ output_dir  : chr "/tmp/Rtmpzu9R8E/qs_wigits"
 #>  $ pkg_versions: list<
 #>   tbl_df<
 #>     name   : character
@@ -300,7 +316,7 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 #> > [1:1] 
 #>   ..$ : tibble [2 × 2] (S3: tbl_df/tbl/data.frame)
 #>   .. ..$ name   : chr [1:2] "nemo" "tidywigits"
-#>   .. ..$ version: chr [1:2] "0.0.3.9022" "0.0.7.9005"
+#>   .. ..$ version: chr [1:2] "0.0.3.9022" "0.0.7.9006"
 #>   ..@ ptype: tibble [0 × 2] (S3: tbl_df/tbl/data.frame)
 #>   .. ..$ name   : chr(0) 
 #>   .. ..$ version: chr(0) 
