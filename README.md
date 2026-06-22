@@ -2,51 +2,153 @@
 
 <!-- README.md is generated from README.qmd. Please edit that file -->
 
-<a href="https://umccr.github.io/tidywigits"><img src="man/figures/logo.png" alt="logo" align="left" height="100" /></a>
+<a href="https://tidywf.github.io/tidywigits"><img src="man/figures/logo.png" alt="logo" align="left" height="100" /></a>
 
-# 🧬✨ Tidy WiGiTS Outputs
+# Tidy WiGiTS Outputs
 
-[![conda-latest1](https://anaconda.org/umccr/r-tidywigits/badges/latest_release_date.svg "Conda Latest Release")](https://anaconda.org/umccr/r-tidywigits)
-[![gha](https://github.com/umccr/tidywigits/actions/workflows/deploy.yaml/badge.svg "GitHub Actions")](https://github.com/umccr/tidywigits/actions/workflows/deploy.yaml)
+[![conda-latest1](https://anaconda.org/tidywf/r-tidywigits/badges/latest_release_date.svg "Conda latest release date")](https://anaconda.org/tidywf/r-tidywigits)
+[![gha](https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml/badge.svg "GitHub Actions Status")](https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml)
+[![ghcr-latest](https://ghcr-badge.egpl.dev/tidywf/tidywigits/latest_tag?color=%2344cc11&ignore=latest&label=image-latest&trim=.png "Docker latest release")](https://github.com/tidywf/tidywigits/pkgs/container/tidywigits)
 
-- 📚 Docs: <https://umccr.github.io/tidywigits>:
-  - [Installation](https://umccr.github.io/tidywigits/articles/installation)
-  - [Files/tables
-    supported](https://umccr.github.io/tidywigits/articles/schemas_raw)
-  - [Tidy
-    schemas](https://umccr.github.io/tidywigits/articles/schemas_tidy)
-  - [Developer
-    notes](https://umccr.github.io/tidywigits/articles/developers)
-  - [Changelog](https://umccr.github.io/tidywigits/articles/NEWS)
+## Contents
 
-## Overview
+- [tidywigits](#tidywigits)
+- [Documentation](#documentation)
+- [Quick Start](#quick-start)
+  - [Single tool](#single-tool)
+  - [Full WiGiTS](#full-wigits)
+- [Installation](#installation)
+- [CLI](#cli)
 
-{tidywigits} is an R package that parses and tidies outputs from the
-[WiGiTS](https://github.com/hartwigmedical/hmftools "WiGiTS suite")
-suite of genome and transcriptome analysis tools for cancer research and
-diagnostics, created by the Hartwig Medical Foundation.
+## tidywigits
 
-In short, it traverses through a directory containing results from one
-or more runs of WiGiTS tools, parses any files it recognises, tidies
-them up (which includes data reshaping, normalisation, column name
-cleanup etc.), and writes them to the output format of choice
-e.g. Apache Parquet, PostgreSQL, TSV, RDS.
+tidywigits is an R package for parsing and tidying output from the
+[WiGiTS/hmftools](https://github.com/hartwigmedical/hmftools "WiGiTS suite")
+suite of genome and transcriptome analysis tools.
 
-## 🎨 Quick Start
+The WiGiTS pipeline produces hundreds of files per sample across dozens
+of tools, but consuming them downstream is fragile: formats are
+inconsistent, column names span a mix of conventions (e.g. `snake_case`,
+`camelCase`, `dot.separated`), some sub-tables are embedded in wide
+files, and column layouts change between tool versions.
 
-The starting point of {tidywigits} is a directory with WiGiTS results.
-Let’s look at some sample data (tracked via [DVC](https://dvc.org/))
-under <https://github.com/umccr/tidywigits/tree/main/inst/extdata/oa>:
+tidywigits addresses this with a schema-driven parsing layer built on
+the [nemo](https://github.com/tidywf/nemo "nemo") base R6 classes,
+supplying WiGiTS-specific schemas and parsers that turn raw outputs into
+consistently structured, versioned, analysis-ready tables that can be
+written to a variety of formats such as Apache Parquet, PostgreSQL, TSV,
+or RDS. Each run also produces a `metadata.parquet` file alongside the
+tidy tables, capturing IDs, paths, and R package versions.
 
-<details class="code-fold">
-<summary>Click here</summary>
+## Documentation
+
+- Installation:
+  <https://tidywf.github.io/tidywigits/articles/installation>
+- Quickstart: <https://tidywf.github.io/tidywigits/articles/quickstart>
+- Files supported:
+  <https://tidywf.github.io/tidywigits/articles/schema_table>
+- Structure: <https://tidywf.github.io/tidywigits/articles/structure>
+- Changelog: <https://tidywf.github.io/tidywigits/articles/NEWS>
+- R6: <https://tidywf.github.io/nemo/articles/structure>
+
+## Quick Start
+
+### Single tool
+
+Some WiGiTS output files have non-standard layouts. For a very simple
+example, let’s look at PURPLE’s `purple.qc` file that stores QC metrics
+as key-value rows rather than columns:
 
 ``` r
-system.file("extdata/oa", package = "tidywigits") |>
-  fs::dir_tree(invert = TRUE, glob = "*.dvc")
-/Users/pdiakumis/Library/R/arm64/4.5/library/tidywigits/extdata/oa
+indir_ppl <- system.file("extdata/oa/purple", package = "tidywigits")
+writeLines(readLines(file.path(indir_ppl, "sample1.purple.qc")))
+#> QCStatus PASS
+#> Method   NORMAL
+#> CopyNumberSegments   472
+#> UnsupportedCopyNumberSegments    5
+#> Purity   1.0000
+#> AmberGender  FEMALE
+#> CobaltGender FEMALE
+#> DeletedGenes 0
+#> Contamination    0.0
+#> GermlineAberrations  NONE
+#> AmberMeanDepth   79
+#> LohPercent   0.0270
+#> TincLevel    0.0000
+#> ChimerismPercentage  0.0000
+```
+
+We can utilise the `Purple` class to parse, tidy and write PURPLE files
+in one call via its `run()` method:
+
+``` r
+outdir_ppl <- file.path(tempdir(), "ppl_out")
+# fmt: skip
+ppl <- Purple$new(indir_ppl)
+ppl$run(
+  output_dir = outdir_ppl,
+  format = "parquet",
+  input_id = "run1"
+)
+list.files(outdir_ppl, pattern = "\\.parquet$")
+#>  [1] "metadata_purple.parquet"                       
+#>  [2] "sample1_2_purple_cnvgenetsv.parquet"           
+#>  [3] "sample1_2_purple_qc.parquet"                   
+#>  [4] "sample1_2_somatic_purple_drivercatalog.parquet"
+#>  [5] "sample1_germline_purple_drivercatalog.parquet" 
+#>  [6] "sample1_purple_cnvgenetsv.parquet"             
+#>  [7] "sample1_purple_cnvsomtsv.parquet"              
+#>  [8] "sample1_purple_germdeltsv.parquet"             
+#>  [9] "sample1_purple_purityrange.parquet"            
+#> [10] "sample1_purple_puritytsv.parquet"              
+#> [11] "sample1_purple_qc.parquet"                     
+#> [12] "sample1_purple_somclonality.parquet"           
+#> [13] "sample1_purple_somhist.parquet"                
+#> [14] "version_2_purple_version.parquet"              
+#> [15] "version_purple_version.parquet"
+```
+
+Now read back the tidied table:
+
+``` r
+qc_file <- list.files(outdir_ppl, pattern = "sample1_purple_qc.parquet", full.names = TRUE)
+arrow::read_parquet(qc_file) |> str()
+#> tibble [1 × 15] (S3: tbl_df/tbl/data.frame)
+#>  $ input_id               : chr "run1"
+#>  $ qc_status              : chr "PASS"
+#>  $ method                 : chr "NORMAL"
+#>  $ cn_segments            : int 472
+#>  $ cn_segments_unsupported: int 5
+#>  $ purity                 : num 1
+#>  $ gender_amber           : chr "FEMALE"
+#>  $ gender_cobalt          : chr "FEMALE"
+#>  $ deleted_genes          : int 0
+#>  $ contamination          : num 0
+#>  $ germline_aberrations   : chr "NONE"
+#>  $ mean_depth_amber       : num 79
+#>  $ loh_percent            : num 0.027
+#>  $ tinc_level             : num 0
+#>  $ chimerism_percent      : num 0
+#>  - attr(*, "file_version")= chr "latest"
+```
+
+### Full WiGiTS
+
+Files from the full WiGiTS suite can be processed with the convenient
+`Wigits` class. The starting point is a parent directory with WiGiTS
+results, and we can again utilise the `run()` method:
+
+<details class="code-fold">
+<summary>View input files</summary>
+
+``` r
+indir_w <- system.file("extdata/oa", package = "tidywigits")
+dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
+/Users/pdiakumis/Library/R/arm64/4.6/library/tidywigits/extdata/oa
 ├── alignments
-│   └── sample1.duplicate_freq.tsv
+│   ├── sample1.duplicate_freq.tsv
+│   ├── sample1.md.metrics
+│   └── sample1.redux.duplicate_freq.tsv
 ├── amber
 │   ├── sample1.amber.baf.pcf
 │   ├── sample1.amber.contamination.tsv
@@ -74,9 +176,31 @@ system.file("extdata/oa", package = "tidywigits") |>
 │   ├── sample1.cobalt.ratio.median.tsv
 │   └── sample1.cobalt.ratio.pcf
 ├── cuppa
+│   ├── sample1.cup.data.csv
 │   ├── sample1.cuppa.pred_summ.tsv
 │   ├── sample1.cuppa.vis_data.tsv
-│   └── sample1.cuppa_data.tsv.gz
+│   ├── sample1.cuppa_data.tsv.gz
+│   └── v1.4
+│       └── sample1.cup.data.csv
+├── esvee
+│   ├── sample1.esvee.alignment.tsv
+│   ├── sample1.esvee.assembly.tsv
+│   ├── sample1.esvee.breakend.tsv
+│   ├── sample1.esvee.phased_assembly.tsv
+│   ├── sample1.esvee.prep.disc_stats.tsv
+│   ├── sample1.esvee.prep.fragment_length.tsv
+│   └── sample1.esvee.prep.junction.tsv
+├── flagstats
+│   └── sample1.flagstat
+├── isofox
+│   ├── sample1.isf.alt_splice_junc.csv
+│   ├── sample1.isf.fusions.csv
+│   ├── sample1.isf.gene_collection.csv
+│   ├── sample1.isf.gene_data.csv
+│   ├── sample1.isf.pass_fusions.csv
+│   ├── sample1.isf.retained_intron.csv
+│   ├── sample1.isf.summary.csv
+│   └── sample1.isf.transcript_data.csv
 ├── lilac
 │   ├── sample1.lilac.candidates.coverage.tsv
 │   ├── sample1.lilac.qc.tsv
@@ -86,25 +210,37 @@ system.file("extdata/oa", package = "tidywigits") |>
 │   │   ├── linx.version
 │   │   ├── sample1.linx.germline.breakend.tsv
 │   │   ├── sample1.linx.germline.clusters.tsv
-│   │   ├── sample1.linx.germline.disruption.tsv
 │   │   ├── sample1.linx.germline.driver.catalog.tsv
 │   │   ├── sample1.linx.germline.links.tsv
 │   │   └── sample1.linx.germline.svs.tsv
-│   └── somatic_annotations
-│       ├── linx.version
-│       ├── sample1.linx.breakend.tsv
-│       ├── sample1.linx.clusters.tsv
-│       ├── sample1.linx.driver.catalog.tsv
-│       ├── sample1.linx.drivers.tsv
-│       ├── sample1.linx.fusion.tsv
-│       ├── sample1.linx.links.tsv
-│       ├── sample1.linx.svs.tsv
-│       ├── sample1.linx.vis_copy_number.tsv
-│       ├── sample1.linx.vis_fusion.tsv
-│       ├── sample1.linx.vis_gene_exon.tsv
-│       ├── sample1.linx.vis_protein_domain.tsv
-│       ├── sample1.linx.vis_segments.tsv
-│       └── sample1.linx.vis_sv_data.tsv
+│   ├── somatic_annotations
+│   │   ├── linx.version
+│   │   ├── sample1.linx.breakend.tsv
+│   │   ├── sample1.linx.clusters.tsv
+│   │   ├── sample1.linx.driver.catalog.tsv
+│   │   ├── sample1.linx.drivers.tsv
+│   │   ├── sample1.linx.fusion.tsv
+│   │   ├── sample1.linx.links.tsv
+│   │   ├── sample1.linx.svs.tsv
+│   │   ├── sample1.linx.vis_copy_number.tsv
+│   │   ├── sample1.linx.vis_fusion.tsv
+│   │   ├── sample1.linx.vis_gene_exon.tsv
+│   │   ├── sample1.linx.vis_protein_domain.tsv
+│   │   ├── sample1.linx.vis_segments.tsv
+│   │   └── sample1.linx.vis_sv_data.tsv
+│   └── v1.25
+│       ├── germline_annotations
+│       │   ├── linx.version
+│       │   └── sample1.linx.germline.breakend.tsv
+│       └── somatic_annotations
+│           ├── linx.version
+│           ├── sample1.linx.breakend.tsv
+│           ├── sample1.linx.vis_copy_number.tsv
+│           ├── sample1.linx.vis_fusion.tsv
+│           ├── sample1.linx.vis_gene_exon.tsv
+│           ├── sample1.linx.vis_protein_domain.tsv
+│           ├── sample1.linx.vis_segments.tsv
+│           └── sample1.linx.vis_sv_data.tsv
 ├── neo
 │   ├── sample1.neo.neo_data.tsv
 │   └── sample1.neo.neoepitope.tsv
@@ -125,18 +261,24 @@ system.file("extdata/oa", package = "tidywigits") |>
 │   ├── sample1.purple.purity.tsv
 │   ├── sample1.purple.qc
 │   ├── sample1.purple.somatic.clonality.tsv
-│   └── sample1.purple.somatic.hist.tsv
+│   ├── sample1.purple.somatic.hist.tsv
+│   └── v4.0
+│       ├── purple.version
+│       ├── sample1.purple.cnv.gene.tsv
+│       └── sample1.purple.qc
 ├── sage
 │   ├── germline
 │   │   ├── sample1.sage.bqr.tsv
 │   │   ├── sample2.sage.bqr.tsv
 │   │   ├── sample2.sage.exon.medians.tsv
 │   │   └── sample2.sage.gene.coverage.tsv
-│   └── somatic
-│       ├── sample1.sage.bqr.tsv
-│       ├── sample1.sage.exon.medians.tsv
-│       ├── sample1.sage.gene.coverage.tsv
-│       └── sample2.sage.bqr.tsv
+│   ├── somatic
+│   │   ├── sample1.sage.bqr.tsv
+│   │   ├── sample1.sage.exon.medians.tsv
+│   │   ├── sample1.sage.gene.coverage.tsv
+│   │   └── sample2.sage.bqr.tsv
+│   └── v3.4.4
+│       └── sample1.sage.bqr.tsv
 ├── sigs
 │   ├── sample1.sig.allocation.tsv
 │   └── sample1.sig.snv_counts.csv
@@ -157,69 +299,82 @@ format or a PostgreSQL database as follows:
 - Parquet:
 
 ``` r
-in_dir <- system.file("extdata/oa", package = "tidywigits")
-out_dir <- tempdir() |> fs::dir_create("parquet_example")
-w <- Wigits$new(in_dir)
-res <- w$nemofy(diro = out_dir, format = "parquet", input_id = "parquet_example")
-fs::dir_info(out_dir) |>
-  dplyr::mutate(bname = basename(.data$path)) |>
-  dplyr::select("bname", "size", "type")
-# A tibble: 86 × 3
-   bname                                         size type 
-   <chr>                                  <fs::bytes> <fct>
- 1 metadata.json                               11.19K file 
- 2 sample1_2_sage_bqrtsv.parquet                4.17K file 
- 3 sample1_alignments_dupfreq.parquet           2.84K file 
- 4 sample1_amber_bafpcf.parquet                 4.32K file 
- 5 sample1_amber_contaminationtsv.parquet       5.27K file 
- 6 sample1_amber_homozygousregion.parquet       4.24K file 
- 7 sample1_amber_qc.parquet                     3.28K file 
- 8 sample1_bamtools_coverage.parquet            2.65K file 
- 9 sample1_bamtools_exoncvg.parquet             3.96K file 
-10 sample1_bamtools_flagstats.parquet           7.54K file 
-# ℹ 76 more rows
+outdir_w <- file.path(tempdir(), "wigits_out_parquet")
+w <- Wigits$new(indir_w)
+res <- w$run(
+  output_dir = outdir_w,
+  format = "parquet",
+  input_id = "run1",
+  output_id = "out1",
+  prefix_include = TRUE
+)
+res # shows summary of Wigits object
+#> #--- Workflow Wigits ---#
+#> 
+#> |var           |value                                                              |
+#> |:-------------|:------------------------------------------------------------------|
+#> |name          |Wigits                                                             |
+#> |path          |/Users/pdiakumis/Library/R/arm64/4.6/library/tidywigits/extdata/oa |
+#> |ntools        |19                                                                 |
+#> |files_total   |228                                                                |
+#> |files_matched |112                                                                |
+#> |tidied        |true                                                               |
+#> |written       |true                                                               |
+list.files(outdir_w, pattern = "\\.parquet$") |> str()
+#>  chr [1:120] "metadata.parquet" "sample1_2_2_linx_breakends.parquet" ...
 ```
 
-- PostgreSQL:
+- PostgreSQL (adjust dbname/user for your purposes):
 
 ``` r
-in_dir <- system.file("extdata/oa", package = "tidywigits")
-out_dir <- tempdir() |> fs::dir_create("parquet_example")
-w <- Wigits$new(in_dir)
+w2 <- Wigits$new(indir_w)
 dbconn <- DBI::dbConnect(
   drv = RPostgres::Postgres(),
-  dbname = "nemo",
-  user = "orcabus"
+  dbname = "tidywigits",
+  user = "me"
 )
-res <- w$nemofy(
+res <- w2$run(
   format = "db",
-  input_id = "db_example",
+  input_id = "run2",
+  output_id = "out2",
+  prefix_include = TRUE,
   dbconn = dbconn
 )
 ```
 
-**IMPORTANT**: support for VCFs is still under development.
+> **Note:** Support for VCFs is a work in progress.
 
-## 🍕 Installation
+Three optional columns can be prepended to every written table to
+support downstream tracing and joining. All are opt-in and off by
+default, but highly recommended for any multi-sample or multi-run
+pipeline:
+
+| Column | Purpose | User-supplied or auto-generated? |
+|----|----|----|
+| `input_id` | identifies the sample or input run | user |
+| `output_id` | identifies the tidywigits processing run | user or auto (ULID) |
+| `input_prefix` | filename prefix (e.g. sample name) | auto |
+
+## Installation
 
 Using {remotes} directly from GitHub:
 
 ``` r
 install.packages("remotes")
-remotes::install_github("umccr/tidywigits") # latest main commit
-remotes::install_github("umccr/tidywigits@v0.0.7") # released version
+remotes::install_github("tidywf/tidywigits") # latest main commit
+remotes::install_github("tidywf/tidywigits@v0.0.7.9005") # specific version
 ```
 
 Alternatively:
 
-- conda package: <https://anaconda.org/umccr/r-tidywigits>
+- conda package: <https://anaconda.org/tidywf/r-tidywigits>
 - Docker image:
-  <https://github.com/umccr/tidywigits/pkgs/container/tidywigits>
+  <https://github.com/tidywf/tidywigits/pkgs/container/tidywigits>
 
 For more details see:
-<https://umccr.github.io/tidywigits/articles/installation>
+<https://tidywf.github.io/tidywigits/articles/installation>
 
-## 🌀 CLI
+## CLI
 
 A `tidywigits.R` command line interface is available for convenience.
 
@@ -235,7 +390,7 @@ export PATH="${tw_cli}:${PATH}"
 ```
 
     $ tidywigits.R --version
-    tidywigits 0.0.7
+    tidywigits 0.0.7.9005
 
     #-----------------------------------#
     $ tidywigits.R --help
@@ -255,30 +410,36 @@ export PATH="${tw_cli}:${PATH}"
     #-----------------------------------#
     #------- Tidy ----------------------#
     $ tidywigits.R tidy --help
-    usage: tidywigits.R tidy [-h] -d IN_DIR [-o OUT_DIR] [-f FORMAT] -i ID
-                             [--dbname DBNAME] [--dbuser DBUSER]
-                             [--include INCLUDE] [--exclude EXCLUDE] [-q]
+    usage: tidywigits.R tidy [-h] -d IN_DIR [-o OUTPUT_DIR] [-f FORMAT]
+                             [--input_id INPUT_ID]
+                             [--output_id OUTPUT_ID | --ulid] [--dbname DBNAME]
+                             [--dbuser DBUSER] [--include INCLUDE]
+                             [--exclude EXCLUDE] [--prefix_include] [-q]
 
     options:
       -h, --help            show this help message and exit
       -d IN_DIR, --in_dir IN_DIR
                             Input directory.
-      -o OUT_DIR, --out_dir OUT_DIR
+      -o OUTPUT_DIR, --output_dir OUTPUT_DIR
                             Output directory.
       -f FORMAT, --format FORMAT
                             Format of output [def: parquet] (parquet, db, tsv,
                             csv, rds)
-      -i ID, --id ID        ID to use for this run.
+      --input_id INPUT_ID   Input ID for this run.
+      --output_id OUTPUT_ID
+                            Output ID for this run.
+      --ulid                Generate a ULID as output ID.
       --dbname DBNAME       Database name.
       --dbuser DBUSER       Database user.
-      --include INCLUDE     Include only these files (comma,sep).
-      --exclude EXCLUDE     Exclude these files (comma,sep).
+      --include INCLUDE     Include only these files (comma sep tool_parsers).
+      --exclude EXCLUDE     Exclude only these files (comma sep tool_parsers).
+      --prefix_include      Include input prefix column in output tables.
       -q, --quiet           Shush all the logs.
 
     #-----------------------------------#
     #------- List ----------------------#
     $ tidywigits.R list --help
-    usage: tidywigits.R list [-h] -d IN_DIR [-f FORMAT] [-q]
+    usage: tidywigits.R list [-h] -d IN_DIR [-f FORMAT] [-m MAX] [-q]
 
     options:
       -h, --help            show this help message and exit
@@ -286,4 +447,5 @@ export PATH="${tw_cli}:${PATH}"
                             Input directory.
       -f FORMAT, --format FORMAT
                             Format of list output [def: pretty] (tsv, pretty)
+      -m MAX, --max MAX     Max rows to show.
       -q, --quiet           Shush all the logs.

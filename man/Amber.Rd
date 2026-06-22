@@ -12,8 +12,8 @@ indir <- system.file("extdata/oa", package = "tidywigits")
 odir <- tempdir()
 id <- "amber_run1"
 obj <- cls$new(indir)
-obj$nemofy(diro = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "amber.*parquet", full.names = FALSE))
+obj$run(output_dir = odir, format = "parquet", input_id = id)
+(lf <- list.files(odir, pattern = "amber_.*parquet", full.names = FALSE))
 }
 \section{Super class}{
 \code{\link[nemo:Tool]{nemo::Tool}} -> \code{Amber}
@@ -22,33 +22,20 @@ obj$nemofy(diro = odir, format = "parquet", input_id = id)
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Amber-new}{\code{Amber$new()}}
-\item \href{#method-Amber-parse_bafpcf}{\code{Amber$parse_bafpcf()}}
-\item \href{#method-Amber-tidy_bafpcf}{\code{Amber$tidy_bafpcf()}}
-\item \href{#method-Amber-parse_baftsv}{\code{Amber$parse_baftsv()}}
-\item \href{#method-Amber-tidy_baftsv}{\code{Amber$tidy_baftsv()}}
-\item \href{#method-Amber-parse_contaminationtsv}{\code{Amber$parse_contaminationtsv()}}
-\item \href{#method-Amber-tidy_contaminationtsv}{\code{Amber$tidy_contaminationtsv()}}
-\item \href{#method-Amber-parse_homozygousregion}{\code{Amber$parse_homozygousregion()}}
-\item \href{#method-Amber-tidy_homozygousregion}{\code{Amber$tidy_homozygousregion()}}
 \item \href{#method-Amber-parse_qc}{\code{Amber$parse_qc()}}
 \item \href{#method-Amber-tidy_qc}{\code{Amber$tidy_qc()}}
 \item \href{#method-Amber-parse_version}{\code{Amber$parse_version()}}
-\item \href{#method-Amber-tidy_version}{\code{Amber$tidy_version()}}
-\item \href{#method-Amber-clone}{\code{Amber$clone()}}
 }
 }
 \if{html}{\out{
 <details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".eval_func"><a href='../../nemo/html/Tool.html#method-Tool-.eval_func'><code>nemo::Tool$.eval_func()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file'><code>nemo::Tool$.parse_file()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_keyvalue"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_keyvalue'><code>nemo::Tool$.parse_file_keyvalue()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_nohead"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_nohead'><code>nemo::Tool$.parse_file_nohead()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".tidy_file"><a href='../../nemo/html/Tool.html#method-Tool-.tidy_file'><code>nemo::Tool$.tidy_file()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="filter_files"><a href='../../nemo/html/Tool.html#method-Tool-filter_files'><code>nemo::Tool$filter_files()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_metadata"><a href='../../nemo/html/Tool.html#method-Tool-get_metadata'><code>nemo::Tool$get_metadata()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_tbls"><a href='../../nemo/html/Tool.html#method-Tool-get_tbls'><code>nemo::Tool$get_tbls()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="list_files"><a href='../../nemo/html/Tool.html#method-Tool-list_files'><code>nemo::Tool$list_files()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="nemofy"><a href='../../nemo/html/Tool.html#method-Tool-nemofy'><code>nemo::Tool$nemofy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="print"><a href='../../nemo/html/Tool.html#method-Tool-print'><code>nemo::Tool$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="run"><a href='../../nemo/html/Tool.html#method-Tool-run'><code>nemo::Tool$run()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="tidy"><a href='../../nemo/html/Tool.html#method-Tool-tidy'><code>nemo::Tool$tidy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="write"><a href='../../nemo/html/Tool.html#method-Tool-write'><code>nemo::Tool$write()</code></a></span></li>
 </ul>
@@ -72,150 +59,6 @@ ignored.}
 
 \item{\code{files_tbl}}{(\code{tibble(n)})\cr
 Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Amber-parse_bafpcf"></a>}}
-\if{latex}{\out{\hypertarget{method-Amber-parse_bafpcf}{}}}
-\subsection{Method \code{parse_bafpcf()}}{
-Read \code{baf.pcf} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Amber$parse_bafpcf(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Amber-tidy_bafpcf"></a>}}
-\if{latex}{\out{\hypertarget{method-Amber-tidy_bafpcf}{}}}
-\subsection{Method \code{tidy_bafpcf()}}{
-Tidy \code{baf.pcf} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Amber$tidy_bafpcf(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Amber-parse_baftsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Amber-parse_baftsv}{}}}
-\subsection{Method \code{parse_baftsv()}}{
-Read \code{baf.tsv.gz} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Amber$parse_baftsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Amber-tidy_baftsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Amber-tidy_baftsv}{}}}
-\subsection{Method \code{tidy_baftsv()}}{
-Tidy \code{baf.tsv.gz} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Amber$tidy_baftsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Amber-parse_contaminationtsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Amber-parse_contaminationtsv}{}}}
-\subsection{Method \code{parse_contaminationtsv()}}{
-Read \code{contamination.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Amber$parse_contaminationtsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Amber-tidy_contaminationtsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Amber-tidy_contaminationtsv}{}}}
-\subsection{Method \code{tidy_contaminationtsv()}}{
-Tidy \code{contamination.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Amber$tidy_contaminationtsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Amber-parse_homozygousregion"></a>}}
-\if{latex}{\out{\hypertarget{method-Amber-parse_homozygousregion}{}}}
-\subsection{Method \code{parse_homozygousregion()}}{
-Read \code{homozygousregion.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Amber$parse_homozygousregion(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Amber-tidy_homozygousregion"></a>}}
-\if{latex}{\out{\hypertarget{method-Amber-tidy_homozygousregion}{}}}
-\subsection{Method \code{tidy_homozygousregion()}}{
-Tidy \code{homozygousregion.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Amber$tidy_homozygousregion(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
 }
 \if{html}{\out{</div>}}
 }
@@ -270,41 +113,6 @@ Read \code{amber.version} file.
 \describe{
 \item{\code{x}}{(\code{character(1)})\cr
 Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Amber-tidy_version"></a>}}
-\if{latex}{\out{\hypertarget{method-Amber-tidy_version}{}}}
-\subsection{Method \code{tidy_version()}}{
-Tidy \code{amber.version} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Amber$tidy_version(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Amber-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-Amber-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Amber$clone(deep = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
 }
 \if{html}{\out{</div>}}
 }

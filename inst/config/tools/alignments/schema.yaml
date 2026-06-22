@@ -1,0 +1,71 @@
+tables:
+  dupfreq:
+    description: 'Duplicate read count and frequency.'
+    pattern: "(\\.redux)?\\.duplicate_freq\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'DuplicateReadCount'
+        tidy: 'duplicate_read_count'
+        type: 'char'
+        description: 'duplicate read count'
+        versions: ['latest']
+      - raw: 'Frequency'
+        tidy: 'frequency'
+        type: 'float'
+        description: 'frequency of duplicate reads'
+        versions: ['latest']
+  markdup:
+    description: 'Picard duplication metrics.'
+    pattern: "\\.md\\.metrics$"
+    ftype: 'txt'
+    columns:
+      - raw: 'LIBRARY'
+        tidy: 'library'
+        type: 'char'
+        description: 'library on which duplicate marking was performed'
+        versions: ['latest']
+      - raw: 'UNPAIRED_READS_EXAMINED'
+        tidy: 'unpaired_reads_examined'
+        type: 'float'
+        description: 'number of mapped reads examined which did not have a mapped mate pair'
+        versions: ['latest']
+      - raw: 'READ_PAIRS_EXAMINED'
+        tidy: 'read_pairs_examined'
+        type: 'float'
+        description: 'number of mapped read pairs examined'
+        versions: ['latest']
+      - raw: 'SECONDARY_OR_SUPPLEMENTARY_RDS'
+        tidy: 'secondary_or_supplementary_reads'
+        type: 'float'
+        description: 'number of reads that were either secondary or supplementary'
+        versions: ['latest']
+      - raw: 'UNMAPPED_READS'
+        tidy: 'unmapped_reads'
+        type: 'float'
+        description: 'total number of unmapped reads examined'
+        versions: ['latest']
+      - raw: 'UNPAIRED_READ_DUPLICATES'
+        tidy: 'unpaired_read_duplicates'
+        type: 'float'
+        description: 'number of fragments that were marked as duplicates'
+        versions: ['latest']
+      - raw: 'READ_PAIR_DUPLICATES'
+        tidy: 'read_pair_duplicates'
+        type: 'float'
+        description: 'number of read pairs that were marked as duplicates'
+        versions: ['latest']
+      - raw: 'READ_PAIR_OPTICAL_DUPLICATES'
+        tidy: 'read_pair_optical_duplicates'
+        type: 'float'
+        description: 'number of read pair duplicates caused by optical duplication'
+        versions: ['latest']
+      - raw: 'PERCENT_DUPLICATION'
+        tidy: 'percent_duplication'
+        type: 'float'
+        description: 'fraction of mapped sequence that is marked as duplicate'
+        versions: ['latest']
+      - raw: 'ESTIMATED_LIBRARY_SIZE'
+        tidy: 'estimated_library_size'
+        type: 'float'
+        description: 'estimated number of unique molecules in the library based on PE duplication'
+        versions: ['latest']

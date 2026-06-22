@@ -2,15 +2,20 @@
 
 # File R/Teal.R: @testexamples
 
-test_that("Function Teal() @ L16", {
+test_that("Function Teal() @ L21", {
   
   cls <- Teal
   indir <- system.file("extdata/oa", package = "tidywigits")
   odir <- tempdir()
   id <- "teal_run1"
   obj <- cls$new(indir)
-  obj$nemofy(diro = odir, format = "parquet", input_id = id)
-  (lf <- list.files(odir, pattern = "teal.*parquet", full.names = FALSE))
+  obj$run(output_dir = odir, format = "parquet", input_id = id)
+  (lf <- list.files(odir, pattern = "teal_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 2)
+  tel <- arrow::read_parquet(file.path(odir, grep("teal_tellength", lf, value = TRUE)))
+  expect_named(tel, c("input_id", "sample_id", "type", "tel_length_raw", "tel_length_final",
+    "fragments_full", "fragments_c_rich_partial", "fragments_g_rich_partial",
+    "reads_telomeric_total", "purity", "ploidy", "dup_prop", "dp_read_mean", "dp_read_gc50"))
+  expect_equal(nrow(tel), 1L)
 })
 

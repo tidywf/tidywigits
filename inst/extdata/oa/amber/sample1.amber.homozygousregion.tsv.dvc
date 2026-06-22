@@ -1,0 +1,5 @@
+outs:
+- md5: 7b6f2abdc737382a533fe4e2bfc89553
+  size: 485
+  hash: md5
+  path: sample1.amber.homozygousregion.tsv

@@ -1,3 +1,4 @@
 *
 !deploy/conda/env/lock/conda-linux-64.lock
+!deploy/conda/env/lock/conda-linux-aarch64.lock
 !.dockerignore

@@ -8,6 +8,7 @@
 ^\.DS_Store$
 ^\.Rproj\.user$
 ^\.bumpversion\.toml$
+^\.claude$
 ^\.dockerignore$
 ^\.dvc$
 ^\.dvcignore$
@@ -22,9 +23,6 @@
 ^data-raw$
 ^deploy$
 ^docs$
-^inst/website/\.quarto$
-^inst/website/_site$
-^inst/website/nogit$
 ^nogit$
 ^pkgdown$
 ^vignettes$

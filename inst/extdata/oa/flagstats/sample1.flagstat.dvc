@@ -1,0 +1,5 @@
+outs:
+- md5: d50269fa47bc420cd5f392026e8157c5
+  size: 572
+  hash: md5
+  path: sample1.flagstat

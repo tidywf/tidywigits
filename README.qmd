@@ -3,7 +3,7 @@ format: gfm
 knitr:
   opts_chunk:
     collapse: true
-    comment: ''
+    comment: '#>'
     fig.path: "man/figures/README-"
 ---
 
@@ -13,7 +13,22 @@ knitr:
 #| label: pkg_load
 #| echo: false
 #| message: false
-use("tidywigits")
+{
+  use("tidywigits")
+  use("glue", "glue")
+  use("arrow", "read_parquet")
+  use("fs", "dir_tree")
+}
+```
+
+```{r}
+#| label: setup
+#| echo: false
+# keep these vars for child qmd templates
+pkg_nm <- "tidywigits"
+org_nm <- "tidywf"
+ver <- as.character(utils::packageVersion(pkg_nm))
+dir_nemo <- system.file("doc-templates", "installation", package = "nemo")
 ```
 
 ```{r}
@@ -22,42 +37,120 @@ use("tidywigits")
 options(width = 100)
 ```
 
-<a href="https://umccr.github.io/tidywigits"><img src="man/figures/logo.png" alt="logo" align="left" height="100" /></a>
+<a href="https://tidywf.github.io/tidywigits"><img src="man/figures/logo.png" alt="logo" align="left" height="100" /></a>
 
-# 🧬✨ Tidy WiGiTS Outputs
+# Tidy WiGiTS Outputs
+
+[![conda-latest1]](https://anaconda.org/tidywf/r-tidywigits)
+[![gha]](https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml)
+[![ghcr-latest]](https://github.com/tidywf/tidywigits/pkgs/container/tidywigits)
+
+[ghcr-latest]: <https://ghcr-badge.egpl.dev/tidywf/tidywigits/latest_tag?color=%2344cc11&ignore=latest&label=image-latest&trim=> "Docker latest release"
+[conda-latest1]: <https://anaconda.org/tidywf/r-tidywigits/badges/latest_release_date.svg> "Conda latest release date"
+[gha]: <https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml/badge.svg> "GitHub Actions Status"
+
+## Contents
 
 
-[![conda-latest1]](https://anaconda.org/umccr/r-tidywigits)
-[![gha]](https://github.com/umccr/tidywigits/actions/workflows/deploy.yaml)
+- [tidywigits](#tidywigits)
+- [Documentation](#documentation)
+- [Quick Start](#quick-start)
+  - [Single tool](#single-tool)
+  - [Full WiGiTS](#full-wigits)
+- [Installation](#installation)
+- [CLI](#cli)
 
-[conda-latest1]: <https://anaconda.org/umccr/r-tidywigits/badges/latest_release_date.svg> "Conda Latest Release"
-[gha]: <https://github.com/umccr/tidywigits/actions/workflows/deploy.yaml/badge.svg> "GitHub Actions"
+## tidywigits
 
-- 📚 Docs: <https://umccr.github.io/tidywigits>:
-  - [Installation](https://umccr.github.io/tidywigits/articles/installation)
-  - [Files/tables supported](https://umccr.github.io/tidywigits/articles/schemas_raw)
-  - [Tidy schemas](https://umccr.github.io/tidywigits/articles/schemas_tidy)
-  - [Developer notes](https://umccr.github.io/tidywigits/articles/developers)
-  - [Changelog](https://umccr.github.io/tidywigits/articles/NEWS)
+tidywigits is an R package for parsing and tidying output from the [WiGiTS/hmftools]
+suite of genome and transcriptome analysis tools.
 
-## Overview
+The WiGiTS pipeline produces hundreds of files per sample across dozens of tools,
+but consuming them downstream is fragile: formats are
+inconsistent, column names span a mix of conventions
+(e.g. `snake_case`, `camelCase`, `dot.separated`), some sub-tables are embedded
+in wide files, and column layouts change between tool versions.
 
-{{< include /inst/doc-templates/introduction/_overview.qmd >}}
+tidywigits addresses this with a schema-driven parsing layer built on the [nemo] base
+R6 classes, supplying WiGiTS-specific schemas and parsers that turn raw outputs into
+consistently structured, versioned, analysis-ready tables that can be written to a
+variety of formats such as Apache Parquet, PostgreSQL, TSV, or RDS. Each run also
+produces a `metadata.parquet` file alongside the tidy tables, capturing IDs, paths,
+and R package versions.
 
-## 🎨 Quick Start
+[WiGiTS/hmftools]: <https://github.com/hartwigmedical/hmftools> "WiGiTS suite"
+[nemo]: <https://github.com/tidywf/nemo> "nemo"
 
-The starting point of {tidywigits} is a directory with WiGiTS results. Let's
-look at some sample data (tracked via [DVC]) under
-<https://github.com/umccr/tidywigits/tree/main/inst/extdata/oa>:
+## Documentation
 
-[DVC]: <https://dvc.org/>
+```{r}
+#| label: docs
+#| echo: false
+#| results: asis
+base <- glue("https://{org_nm}.github.io/{pkg_nm}")
+glue(
+  "- Installation: <{base}/articles/installation>
+- Quickstart: <{base}/articles/quickstart>
+- Files supported: <{base}/articles/schema_table>
+- Structure: <{base}/articles/structure>
+- Changelog: <{base}/articles/NEWS>
+- R6: <https://{org_nm}.github.io/nemo/articles/structure>"
+)
+```
+
+## Quick Start
+
+### Single tool
+
+Some WiGiTS output files have non-standard layouts. For a very simple example,
+let's look at PURPLE's `purple.qc` file that stores QC metrics as key-value rows
+rather than columns:
+
+```{r}
+#| label: quickstart_raw
+#| message: false
+indir_ppl <- system.file("extdata/oa/purple", package = "tidywigits")
+writeLines(readLines(file.path(indir_ppl, "sample1.purple.qc")))
+```
+
+We can utilise the `Purple` class to parse, tidy and write PURPLE files in one
+call via its `run()` method:
+
+```{r}
+#| label: quickstart_wrangle
+#| message: false
+outdir_ppl <- file.path(tempdir(), "ppl_out")
+# fmt: skip
+ppl <- Purple$new(indir_ppl)
+ppl$run(
+  output_dir = outdir_ppl,
+  format = "parquet",
+  input_id = "run1"
+)
+list.files(outdir_ppl, pattern = "\\.parquet$")
+```
+
+Now read back the tidied table:
+
+```{r}
+#| label: quickstart_read
+qc_file <- list.files(outdir_ppl, pattern = "sample1_purple_qc.parquet", full.names = TRUE)
+arrow::read_parquet(qc_file) |> str()
+```
+
+### Full WiGiTS
+
+Files from the full WiGiTS suite can be processed with the convenient `Wigits` class.
+The starting point is a parent directory with WiGiTS results, and we can again
+utilise the `run()` method:
 
 ```{r}
 #| label: example_input_tree
 #| code-fold: true
-#| code-summary: "Click here"
-system.file("extdata/oa", package = "tidywigits") |>
-  fs::dir_tree(invert = TRUE, glob = "*.dvc")
+#| code-summary: "View input files"
+#| comment: ""
+indir_w <- system.file("extdata/oa", package = "tidywigits")
+dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
 ```
 
 We can parse, tidy up, and write the WiGiTS results into e.g. Parquet format or
@@ -65,26 +158,69 @@ a PostgreSQL database as follows:
 
 - Parquet:
 
-{{< include /inst/doc-templates/examples/_parquet1.qmd >}}
+```{r}
+#| label: wigits_parquet_example
+#| message: false
+outdir_w <- file.path(tempdir(), "wigits_out_parquet")
+w <- Wigits$new(indir_w)
+res <- w$run(
+  output_dir = outdir_w,
+  format = "parquet",
+  input_id = "run1",
+  output_id = "out1",
+  prefix_include = TRUE
+)
+res # shows summary of Wigits object
+list.files(outdir_w, pattern = "\\.parquet$") |> str()
+```
 
-- PostgreSQL:
+- PostgreSQL (adjust dbname/user for your purposes):
 
-{{< include /inst/doc-templates/examples/_postgresql1.qmd >}}
+```{r}
+#| label: postgresql_example
+#| eval: false
+w2 <- Wigits$new(indir_w)
+dbconn <- DBI::dbConnect(
+  drv = RPostgres::Postgres(),
+  dbname = "tidywigits",
+  user = "me"
+)
+res <- w2$run(
+  format = "db",
+  input_id = "run2",
+  output_id = "out2",
+  prefix_include = TRUE,
+  dbconn = dbconn
+)
+```
 
-**IMPORTANT**: support for VCFs is still under development.
+> **Note:** Support for VCFs is a work in progress.
 
-## 🍕 Installation
+Three optional columns can be prepended to every written table to support
+downstream tracing and joining. All are opt-in and off by default, but highly
+recommended for any multi-sample or multi-run pipeline:
 
-{{< include /inst/doc-templates/installation/_r.qmd >}}
+| Column         | Purpose                                  | User-supplied or auto-generated? |
+| ---------------| ---------------------------------------- | -------------------------------- |
+| `input_id`     | identifies the sample or input run       | user                             |
+| `output_id`    | identifies the tidywigits processing run | user or auto (ULID)              |
+| `input_prefix` | filename prefix (e.g. sample name)       | auto                             |
+
+## Installation
+
+```{r child=file.path(dir_nemo, "_r.qmd")}
+#| label: child-r
+#| echo: false
+```
 
 Alternatively:
 
-- conda package: <https://anaconda.org/umccr/r-tidywigits>
-- Docker image: <https://github.com/umccr/tidywigits/pkgs/container/tidywigits>
+- conda package: <https://anaconda.org/tidywf/r-tidywigits>
+- Docker image: <https://github.com/tidywf/tidywigits/pkgs/container/tidywigits>
 
-For more details see: <https://umccr.github.io/tidywigits/articles/installation>
+For more details see: <https://tidywf.github.io/tidywigits/articles/installation>
 
-## 🌀 CLI
+## CLI
 
 A `tidywigits.R` command line interface is available for convenience.
 
@@ -104,6 +240,7 @@ export PATH="${tw_cli}:${PATH}"
 ```{bash}
 #| label: cli2
 #| echo: false
+#| comment: ""
 tw_cli=$(Rscript -e 'x = system.file("cli", package = "tidywigits"); cat(x, "\n")' | xargs)
 export PATH="${tw_cli}:${PATH}"
 
@@ -121,3 +258,4 @@ echo "#------- List ----------------------#"
 echo "$ tidywigits.R list --help" & tidywigits.R list --help
 echo ""
 ```
+

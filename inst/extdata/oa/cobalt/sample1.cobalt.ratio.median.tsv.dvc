@@ -1,0 +1,5 @@
+outs:
+- md5: 13b34c2e4810ed653dc244a8f51c504a
+  size: 485
+  hash: md5
+  path: sample1.cobalt.ratio.median.tsv

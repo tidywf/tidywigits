@@ -13,9 +13,9 @@ Tidies outputs from The Hartwig Medical Foundation's WiGiTS suite of genome and 
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/umccr/tidywigits}
-  \item \url{https://umccr.github.io/tidywigits/}
-  \item Report bugs at \url{https://github.com/umccr/tidywigits/issues}
+  \item \url{https://github.com/tidywf/tidywigits}
+  \item \url{https://tidywf.github.io/tidywigits/}
+  \item Report bugs at \url{https://github.com/tidywf/tidywigits/issues}
 }
 
 }

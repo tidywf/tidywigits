@@ -1,0 +1,246 @@
+tables:
+  summary:
+    description: 'Lilac solution summary.'
+    pattern: "\\.lilac\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'Allele'
+        tidy: 'allele'
+        type: 'char'
+        description: 'Allele ID'
+        versions: ['latest']
+      - raw: 'RefTotal'
+        tidy: 'ref_total'
+        type: 'float'
+        description: 'Total assigned fragments from reference BAM'
+        versions: ['latest']
+      - raw: 'RefUnique'
+        tidy: 'ref_unique'
+        type: 'float'
+        description: 'Fragments uniquely assigned to allele'
+        versions: ['latest']
+      - raw: 'RefShared'
+        tidy: 'ref_shared'
+        type: 'float'
+        description: 'Fragments assigned to ref allele and others in this solution'
+        versions: ['latest']
+      - raw: 'RefWild'
+        tidy: 'ref_wild'
+        type: 'float'
+        description: 'Fragments matched to a wildcard allele'
+        versions: ['latest']
+      - raw: 'TumorTotal'
+        tidy: 'tumor_total'
+        type: 'float'
+        description: 'Total assigned fragments from tumor BAM'
+        versions: ['latest']
+      - raw: 'TumorUnique'
+        tidy: 'tumor_unique'
+        type: 'float'
+        description: 'Fragments uniquely assigned to allele'
+        versions: ['latest']
+      - raw: 'TumorShared'
+        tidy: 'tumor_shared'
+        type: 'float'
+        description: 'Fragments assigned to allele and others in this solution'
+        versions: ['latest']
+      - raw: 'TumorWild'
+        tidy: 'tumor_wild'
+        type: 'float'
+        description: 'Fragments matched to a wildcard allele'
+        versions: ['latest']
+      - raw: 'RnaTotal'
+        tidy: 'rna_total'
+        type: 'float'
+        description: 'Total assigned fragments from RNA BAM'
+        versions: ['latest']
+      - raw: 'RnaUnique'
+        tidy: 'rna_unique'
+        type: 'float'
+        description: 'Fragments uniquely assigned to allele'
+        versions: ['latest']
+      - raw: 'RnaShared'
+        tidy: 'rna_shared'
+        type: 'float'
+        description: 'Fragments assigned to allele and others in this solution'
+        versions: ['latest']
+      - raw: 'RnaWild'
+        tidy: 'rna_wild'
+        type: 'float'
+        description: 'Fragments matched to a wildcard allele'
+        versions: ['latest']
+      - raw: 'TumorCopyNumber'
+        tidy: 'tumor_cn'
+        type: 'float'
+        description: 'Copy number from Tumor/Ref fragment ratio and Purple copy number'
+        versions: ['latest']
+      - raw: 'SomaticMissense'
+        tidy: 'somatic_missense'
+        type: 'float'
+        description: 'Matched missense variants'
+        versions: ['latest']
+      - raw: 'SomaticNonsenseOrFrameshift'
+        tidy: 'somatic_nonsense_or_frameshift'
+        type: 'float'
+        description: 'Matched nonsense or frameshift variants'
+        versions: ['latest']
+      - raw: 'SomaticSplice'
+        tidy: 'somatic_splice'
+        type: 'float'
+        description: 'Matched splice variants'
+        versions: ['latest']
+      - raw: 'SomaticSynonymous'
+        tidy: 'somatic_synonymous'
+        type: 'float'
+        description: 'Matched synonymous variants'
+        versions: ['latest']
+      - raw: 'SomaticInframeIndel'
+        tidy: 'somatic_inframe_indel'
+        type: 'float'
+        description: 'Matched inframe indels'
+        versions: ['latest']
+  qc:
+    description: 'Lilac QC.'
+    pattern: "\\.lilac\\.qc\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'Status'
+        tidy: 'status'
+        type: 'char'
+        description: 'Either PASS or 1 or more warnings'
+        versions: ['latest']
+      - raw: 'ScoreMargin'
+        tidy: 'score_margin'
+        type: 'float'
+        description: 'Difference in score to second-top solution'
+        versions: ['latest']
+      - raw: 'NextSolutionAlleles'
+        tidy: 'next_solution_alleles'
+        type: 'char'
+        description: 'Allele difference in second-top solution'
+        versions: ['latest']
+      - raw: 'MedianBaseQuality'
+        tidy: 'median_base_quality'
+        type: 'float'
+        description: 'Median base quality across all coding bases from all fragments'
+        versions: ['latest']
+      - raw: 'HlaYAllele'
+        tidy: 'hla_y_allele'
+        type: 'char'
+        description: 'HLA-Y allele detected if present, else NONE'
+        versions: ['latest']
+      - raw: 'DiscardedIndels'
+        tidy: 'discarded_indels'
+        type: 'float'
+        description: 'Discarded fragments due to unknown INDELs'
+        versions: ['latest']
+      - raw: 'DiscardedIndelMaxFrags'
+        tidy: 'discarded_indel_max_frags'
+        type: 'float'
+        description: 'Maximum fragment support for an indel detected but not present in any known allele'
+        versions: ['latest']
+      - raw: 'DiscardedAlignmentFragments'
+        tidy: 'discarded_alignment_fragments'
+        type: 'float'
+        description: 'Fragments discarded because 1 read aligns more than 1000 bases from a HLA A,B or C gene'
+        versions: ['latest']
+      - raw: 'A_LowCoverageBases'
+        tidy: 'a_low_coverage_bases'
+        type: 'float'
+        description: 'Number of bases with less than 15-depth coverage across all coding bases'
+        versions: ['latest']
+      - raw: 'B_LowCoverageBases'
+        tidy: 'b_low_coverage_bases'
+        type: 'float'
+        description: 'Number of bases with less than 15-depth coverage across all coding bases'
+        versions: ['latest']
+      - raw: 'C_LowCoverageBases'
+        tidy: 'c_low_coverage_bases'
+        type: 'float'
+        description: 'Number of bases with less than 15-depth coverage across all coding bases'
+        versions: ['latest']
+      - raw: 'ATypes'
+        tidy: 'a_types'
+        type: 'float'
+        description: '# of distinct HLA-A alleles fitted (0,1 or 2)'
+        versions: ['latest']
+      - raw: 'BTypes'
+        tidy: 'b_types'
+        type: 'float'
+        description: '# of distinct HLA-B alleles fitted (0,1 or 2)'
+        versions: ['latest']
+      - raw: 'CTypes'
+        tidy: 'c_types'
+        type: 'float'
+        description: '# of distinct HLA-C alleles fitted (0,1 or 2)'
+        versions: ['latest']
+      - raw: 'TotalFragments'
+        tidy: 'total_fragments'
+        type: 'float'
+        description: 'Total of fragments overlapping a coding base of HLA-A, HLA-B or HLA-C with MAPQ >=1'
+        versions: ['latest']
+      - raw: 'FittedFragments'
+        tidy: 'fitted_fragments'
+        type: 'float'
+        description: 'Total fragments assigned to fitted alleles'
+        versions: ['latest']
+      - raw: 'UnmatchedFragments'
+        tidy: 'unmatched_fragments'
+        type: 'float'
+        description: 'Fragment that do not match any allele exactly in solution at all heterozygous location'
+        versions: ['latest']
+      - raw: 'UninformativeFragments'
+        tidy: 'uninformative_fragments'
+        type: 'float'
+        description: 'Fragments that do not overlap any heterozygous location considered in evidence phase'
+        versions: ['latest']
+      - raw: 'HlaYFragments'
+        tidy: 'hla_y_fragments'
+        type: 'float'
+        description: 'Fragments excluded from fit due to allocation to assignment to HLA-Y'
+        versions: ['latest']
+      - raw: 'PercentUnique'
+        tidy: 'percent_unique'
+        type: 'float'
+        description: 'Percentage of fitted fragments that are uniquely assigned to 1 allele'
+        versions: ['latest']
+      - raw: 'PercentShared'
+        tidy: 'percent_shared'
+        type: 'float'
+        description: 'Percentage of fitted fragments allocated across multiple alleles'
+        versions: ['latest']
+      - raw: 'PercentWildcard'
+        tidy: 'percent_wildcard'
+        type: 'float'
+        description: 'Percentage of fitted fragments uniquely assigned to wildcard regions'
+        versions: ['latest']
+      - raw: 'UnusedAminoAcids'
+        tidy: 'unused_amino_acids'
+        type: 'float'
+        description: '# of amino acids detected with at least 3 fragments support but not present in final allele solution set'
+        versions: ['latest']
+      - raw: 'UnusedAminoAcidMaxFrags'
+        tidy: 'unused_amino_acid_max_frags'
+        type: 'float'
+        description: 'Maximum fragments support for an unmatched amino acid not present in the final allele solution set'
+        versions: ['latest']
+      - raw: 'UnusedHaplotypes'
+        tidy: 'unused_haplotypes'
+        type: 'float'
+        description: '# of haplotypes phased with at least 3 fragments support but not present in final allele solution set'
+        versions: ['latest']
+      - raw: 'UnusedHaplotypeMaxFrags'
+        tidy: 'unused_haplotype_max_frags'
+        type: 'float'
+        description: 'Maximum support for an unmatched haplotype not present in final allele solution set'
+        versions: ['latest']
+      - raw: 'SomaticVariantsMatched'
+        tidy: 'somatic_variants_matched'
+        type: 'float'
+        description: 'Somatic variants supported by solution allele'
+        versions: ['latest']
+      - raw: 'SomaticVariantsUnmatched'
+        tidy: 'somatic_variants_unmatched'
+        type: 'float'
+        description: 'Somatic variants not supported by solution allele'
+        versions: ['latest']

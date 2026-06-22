@@ -1,4 +1,6 @@
-url: https://umccr.github.io/tidywigits
+url: https://tidywf.github.io/tidywigits
+development:
+  mode: auto
 title: tidywigits
 authors:
   Peter Diakumis:
@@ -6,7 +8,7 @@ authors:
 home:
   title: "Tidy WiGiTS Outputs"
   description: >
-    A tidyverse R6 approach for working with the Hartwig Medical Centre's WiGiTS data.
+    Parse and tidy outputs from the Hartwig Medical Foundation's WiGiTS pipeline.
 template:
   bootstrap: 5
   bootswatch: zephyr
@@ -21,18 +23,22 @@ navbar:
     articles:
       text: Articles
       menu:
+        - text: Quickstart
+          href: articles/quickstart.html
         - text: Installation
           href: articles/installation.html
-        - text: Schemas Raw
-          href: articles/schemas_raw.html
-        - text: Schemas Tidy
-          href: articles/schemas_tidy.html
-        - text: Developers
-          href: articles/developers.html
+        - text: Structure
+          href: articles/structure.html
+        - text: Schema Table
+          href: articles/schema_table.html
         - text: UML
           href: articles/uml.html
+        - text: CI/CD Workflow
+          href: articles/cicd.html
         - text: PostgreSQL
           href: articles/postgresql.html
+        - text: Devnotes
+          href: articles/devnotes.html
 
     news:
       text: NEWS
@@ -48,7 +54,6 @@ reference:
       - Cobalt
       - Cuppa
       - Esvee
-      - Flagstats
       - Isofox
       - Lilac
       - Linx

@@ -8,12 +8,19 @@
 #' odir <- tempdir()
 #' id <- "esvee_run1"
 #' obj <- cls$new(indir)
-#' obj$nemofy(diro = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "cobalt.*parquet", full.names = FALSE))
-#' #TODO: add esvee test data
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
+#' (lf <- list.files(odir, pattern = "esvee_.*parquet", full.names = FALSE))
+#' @testexamples
+#' expect_equal(length(lf), 7)
+#' dstat <- arrow::read_parquet(file.path(odir, grep("prepdiscstats", lf, value = TRUE)))
+#' expect_named(dstat, c("input_id", "tot_reads", "prep_reads", "translocation", "inv_lt_1k",
+#'   "inv_1_to_5k", "inv_5_to_100k", "inv_gt_100k", "del_1_to_5k", "del_5_to_100k",
+#'   "del_gt_100k", "dup_1_to_5k", "dup_5_to_100k", "dup_gt_100k"))
+#' expect_equal(nrow(dstat), 1L)
 #' @export
 Esvee <- R6::R6Class(
   "Esvee",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Esvee object.
@@ -24,90 +31,6 @@ Esvee <- R6::R6Class(
     #' Tibble of files from [nemo::list_files_dir()].
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "esvee", pkg = pkg_name, path = path, files_tbl = files_tbl)
-    },
-    #' @description Read `prep.fragment_length.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_prepfraglen = function(x) {
-      self$.parse_file(x, "prepfraglen")
-    },
-    #' @description Tidy `prep.fragment_length.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_prepfraglen = function(x) {
-      self$.tidy_file(x, "prepfraglen")
-    },
-    #' @description Read `prep.disc_stats.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_prepdiscstats = function(x) {
-      self$.parse_file(x, "prepdiscstats")
-    },
-    #' @description Tidy `prep.disc_stats.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_prepdiscstats = function(x) {
-      self$.tidy_file(x, "prepdiscstats")
-    },
-    #' @description Read `prep.junction.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_prepjunction = function(x) {
-      self$.parse_file(x, "prepjunction")
-    },
-    #' @description Tidy `prep.junction.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_prepjunction = function(x) {
-      self$.tidy_file(x, "prepjunction")
-    },
-    #' @description Read `esvee.phased_assembly.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_assemblephased = function(x) {
-      self$.parse_file(x, "assemblephased")
-    },
-    #' @description Tidy `esvee.phased_assembly.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_assemblephased = function(x) {
-      self$.tidy_file(x, "assemblephased")
-    },
-    #' @description Read `esvee.assembly.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_assembleassembly = function(x) {
-      self$.parse_file(x, "assembleassembly")
-    },
-    #' @description Tidy `esvee.assembly.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_assembleassembly = function(x) {
-      self$.tidy_file(x, "assembleassembly")
-    },
-    #' @description Read `breakend.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_assemblebreakend = function(x) {
-      self$.parse_file(x, "assemblebreakend")
-    },
-    #' @description Tidy `breakend.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_assemblebreakend = function(x) {
-      self$.tidy_file(x, "assemblebreakend")
-    },
-    #' @description Read `alignment.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_assemblealignment = function(x) {
-      self$.parse_file(x, "assemblealignment")
-    },
-    #' @description Tidy `alignment.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_assemblealignment = function(x) {
-      self$.tidy_file(x, "assemblealignment")
     }
-  ) # end public
+  )
 )

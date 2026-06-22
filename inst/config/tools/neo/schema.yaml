@@ -1,0 +1,346 @@
+tables:
+  candidates:
+    description: 'Neoepitope candidates.'
+    pattern: "\\.neo\\.neo_data\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'NeId'
+        tidy: 'ne_id'
+        type: 'int'
+        description: 'Unique ID for neoepitope'
+        versions: ['latest']
+      - raw: 'VariantType'
+        tidy: 'variant_type'
+        type: 'char'
+        description: 'MISSENSE, INFRAME, OUT_OF_FRAME_FUSION, INFRAME_FUSION, FRAMESHIFT'
+        versions: ['latest']
+      - raw: 'VariantInfo'
+        tidy: 'variant_info'
+        type: 'char'
+        description: 'Unique identifier for variant'
+        versions: ['latest']
+      - raw: 'VariantCopyNumber'
+        tidy: 'variant_cn'
+        type: 'float'
+        description: 'Allele copies of the point mutation or structural variant'
+        versions: ['latest']
+      - raw: 'CopyNumber'
+        tidy: 'cn'
+        type: 'float'
+        description: 'Total chromosomal copies at variant location'
+        versions: ['latest']
+      - raw: 'SubclonalLikelihood'
+        tidy: 'subclonal_likelihood'
+        type: 'float'
+        description: 'Subclonal likelihood of variant (for point mutations only)'
+        versions: ['latest']
+      - raw: 'GeneIdUp'
+        tidy: 'gene_id_up'
+        type: 'char'
+        description: 'Ensembl gene ID for upstream gene'
+        versions: ['latest']
+      - raw: 'GeneIdDown'
+        tidy: 'gene_id_down'
+        type: 'char'
+        description: 'Ensembl gene ID for downstream gene'
+        versions: ['latest']
+      - raw: 'GeneNameUp'
+        tidy: 'gene_name_up'
+        type: 'char'
+        description: 'Gene name for upstream gene'
+        versions: ['latest']
+      - raw: 'GeneNameDown'
+        tidy: 'gene_name_down'
+        type: 'char'
+        description: 'Gene name for downstream gene'
+        versions: ['latest']
+      - raw: 'ChrUp'
+        tidy: 'chr_up'
+        type: 'char'
+        description: 'Chromosome for upstream gene'
+        versions: ['latest']
+      - raw: 'ChrDown'
+        tidy: 'chr_down'
+        type: 'char'
+        description: 'Chromosome for downstream gene'
+        versions: ['latest']
+      - raw: 'OrientUp'
+        tidy: 'orient_up'
+        type: 'float'
+        description: 'Orientation for upstream gene'
+        versions: ['latest']
+      - raw: 'OrientDown'
+        tidy: 'orient_down'
+        type: 'float'
+        description: 'Orientation for downstream gene'
+        versions: ['latest']
+      - raw: 'UpstreamAA'
+        tidy: 'aa_upstream'
+        type: 'char'
+        description: 'Upstream AA'
+        versions: ['latest']
+      - raw: 'DownstreamAA'
+        tidy: 'aa_downstream'
+        type: 'char'
+        description: 'Downstream AA'
+        versions: ['latest']
+      - raw: 'NovelAA'
+        tidy: 'aa_novel'
+        type: 'char'
+        description: 'Novel AA'
+        versions: ['latest']
+      - raw: 'NmdMin'
+        tidy: 'nmd_min'
+        type: 'float'
+        description: 'Smallest # of coding bases from stop codon to exon splice junction across all downstream transcripts'
+        versions: ['latest']
+      - raw: 'NmdMax'
+        tidy: 'nmd_max'
+        type: 'float'
+        description: 'Largest # of coding bases from stop codon to exon splice junction across all downstream transcripts'
+        versions: ['latest']
+      - raw: 'CodingBasesLengthMin'
+        tidy: 'coding_bases_length_min'
+        type: 'float'
+        description: '# of coding bases for shortest fused transcript combination'
+        versions: ['latest']
+      - raw: 'CodingBasesLengthMax'
+        tidy: 'coding_bases_length_max'
+        type: 'float'
+        description: '# of coding bases for longest fused transcript combination'
+        versions: ['latest']
+      - raw: 'FusedIntronLength'
+        tidy: 'fused_intron_length'
+        type: 'float'
+        description: 'Length of fused Intron'
+        versions: ['latest']
+      - raw: 'SkippedDonors'
+        tidy: 'skipped_donors'
+        type: 'float'
+        description: '# of splice donors skipped in transcripts other than those in the fusion transcripts'
+        versions: ['latest']
+      - raw: 'SkippedAcceptors'
+        tidy: 'skipped_acceptors'
+        type: 'float'
+        description: '# of splice acceptors skipped in transcripts other than those in the fusion transcripts'
+        versions: ['latest']
+      - raw: 'UpTranscripts'
+        tidy: 'transcripts_up'
+        type: 'char'
+        description: 'List of transcripts in the up gene that support the neoepitope'
+        versions: ['latest']
+      - raw: 'DownTranscripts'
+        tidy: 'transcripts_down'
+        type: 'char'
+        description: 'All unique transcripts on the up gene that support the neoepitope'
+        versions: ['latest']
+      - raw: 'WildtypeAA'
+        tidy: 'aa_wildtype'
+        type: 'char'
+        description: 'Wildtype AA sequence (for point mutations only)'
+        versions: ['latest']
+      - raw: 'CodingBaseUpPosStart'
+        tidy: 'coding_base_up_pos_start'
+        type: 'float'
+        description: 'Start position of coding bases in upstream transcript'
+        versions: ['latest']
+      - raw: 'CodingBaseUpPosEnd'
+        tidy: 'coding_base_up_pos_end'
+        type: 'float'
+        description: 'End position of coding bases in upstream transcript'
+        versions: ['latest']
+      - raw: 'CodingBasesUp'
+        tidy: 'coding_bases_up'
+        type: 'char'
+        description: 'Coding bases in upstream transcript'
+        versions: ['latest']
+      - raw: 'CodingBaseCigarUp'
+        tidy: 'coding_base_cigar_up'
+        type: 'char'
+        description: 'CIGAR string for coding bases in upstream transcript'
+        versions: ['latest']
+      - raw: 'CodingBaseDownPosStart'
+        tidy: 'coding_base_down_pos_start'
+        type: 'float'
+        description: 'Start position of coding bases in downstream transcript'
+        versions: ['latest']
+      - raw: 'CodingBaseDownPosEnd'
+        tidy: 'coding_base_down_pos_end'
+        type: 'float'
+        description: 'End position of coding bases in downstream transcript'
+        versions: ['latest']
+      - raw: 'CodingBasesDown'
+        tidy: 'coding_bases_down'
+        type: 'char'
+        description: 'Coding bases in downstream transcript'
+        versions: ['latest']
+      - raw: 'CodingBaseCigarDown'
+        tidy: 'coding_base_cigar_down'
+        type: 'char'
+        description: 'CIGAR string for coding bases in downstream transcript'
+        versions: ['latest']
+  predictions:
+    description: 'Neoepitope predictions.'
+    pattern: "\\.neo\\.neoepitope\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'NeId'
+        tidy: 'ne_id'
+        type: 'int'
+        description: 'Unique ID for neoepitope'
+        versions: ['latest']
+      - raw: 'VariantType'
+        tidy: 'variant_type'
+        type: 'char'
+        description: 'MISSENSE, INFRAME, OUT_OF_FRAME_FUSION, INFRAME_FUSION, FRAMESHIFT'
+        versions: ['latest']
+      - raw: 'VariantInfo'
+        tidy: 'variant_info'
+        type: 'char'
+        description: 'Unique identifier for variant'
+        versions: ['latest']
+      - raw: 'GeneName'
+        tidy: 'gene_name'
+        type: 'char'
+        description: 'Gene name or fusion name for fusions'
+        versions: ['latest']
+      - raw: 'UpAminoAcids'
+        tidy: 'aa_up'
+        type: 'char'
+        description: 'Section of the neoepitope that matches the upstream transcript'
+        versions: ['latest']
+      - raw: 'NovelAminoAcids'
+        tidy: 'aa_novel'
+        type: 'char'
+        description: 'Novel section of the neoepitope (if any)'
+        versions: ['latest']
+      - raw: 'DownAminoAcids'
+        tidy: 'aa_down'
+        type: 'char'
+        description: 'Section of the neoepitope that matches the downstream transcript (if any)'
+        versions: ['latest']
+      - raw: 'PeptideCount'
+        tidy: 'peptide_count'
+        type: 'float'
+        description: '# of novel peptides between 8 and 12 bases that form part of neoepitope'
+        versions: ['latest']
+      - raw: 'TpmSource'
+        tidy: 'tpm_source'
+        type: 'char'
+        description: 'Sample, CancerType or Cohort'
+        versions: ['latest']
+      - raw: 'RnaFrags'
+        tidy: 'rna_frags'
+        type: 'float'
+        description: '# of fragments supporting the novel RNA sequence'
+        versions: ['latest']
+      - raw: 'RnaDepth'
+        tidy: 'rna_depth'
+        type: 'float'
+        description: 'Total RNA coverage at the last base of the upstream AA sequence'
+        versions: ['latest']
+      - raw: 'TpmUp'
+        tidy: 'tpm_up'
+        type: 'float'
+        description: 'Sum of estimated TPM across all transcripts that support the predicted upstream AA sequence'
+        versions: ['latest']
+      - raw: 'TpmDown'
+        tidy: 'tpm_down'
+        type: 'float'
+        description: 'Sum of estimated TPM across all transcripts that support the predicted downstream AA sequence'
+        versions: ['latest']
+      - raw: 'ExpectedTpm'
+        tidy: 'tpm_expected'
+        type: 'float'
+        description: 'Estimated TPM of the neo-epitope'
+        versions: ['latest']
+      - raw: 'RawEffectiveTpm'
+        tidy: 'tpm_raw_effective'
+        type: 'float'
+        description: 'TPM estimate from direct fragment count'
+        versions: ['latest']
+      - raw: 'EffectiveTpm'
+        tidy: 'tpm_effective'
+        type: 'float'
+        description: 'CombinedTPM estimate from direct fragment count and transcript expression'
+        versions: ['latest']
+      - raw: 'TpmCancerUp'
+        tidy: 'tpm_cancer_up'
+        type: 'float'
+        description: 'SUM Median TPM for up transcripts for cancer type'
+        versions: ['latest']
+      - raw: 'TpmCancerDown'
+        tidy: 'tpm_cancer_down'
+        type: 'float'
+        description: 'SUM Median TPM for down transcripts for cancer type'
+        versions: ['latest']
+      - raw: 'TpmPanCancerUp'
+        tidy: 'tpm_pancancer_up'
+        type: 'float'
+        description: 'SUM Median TPM for up transcripts pan-cancer'
+        versions: ['latest']
+      - raw: 'TpmPanCancerDown'
+        tidy: 'tpm_pancancer_down'
+        type: 'float'
+        description: 'SUM Median TPM for down transcripts pan-cancer'
+        versions: ['latest']
+      - raw: 'NmdMin'
+        tidy: 'nmd_min'
+        type: 'float'
+        description: 'Smallest # of coding bases from stop codon to exon splice junction across all downstream transcripts'
+        versions: ['latest']
+      - raw: 'NmdMax'
+        tidy: 'nmd_max'
+        type: 'float'
+        description: 'Largest # of coding bases from stop codon to exon splice junction across all downstream transcripts'
+        versions: ['latest']
+      - raw: 'CodingBasesLengthMin'
+        tidy: 'coding_bases_length_min'
+        type: 'float'
+        description: '# of coding bases for shortest fused transcript combination'
+        versions: ['latest']
+      - raw: 'CodingBasesLengthMax'
+        tidy: 'coding_bases_length_max'
+        type: 'float'
+        description: '# of coding bases for longest fused transcript combination'
+        versions: ['latest']
+      - raw: 'FusedIntronLength'
+        tidy: 'fused_intron_length'
+        type: 'float'
+        description: 'Length of fused Intron'
+        versions: ['latest']
+      - raw: 'SkippedDonors'
+        tidy: 'skipped_donors'
+        type: 'float'
+        description: '# of splice donors skipped in transcripts other than those in the fusion transcripts'
+        versions: ['latest']
+      - raw: 'SkippedAcceptors'
+        tidy: 'skipped_acceptors'
+        type: 'float'
+        description: '# of splice acceptors skipped in transcripts other than those in the fusion transcripts'
+        versions: ['latest']
+      - raw: 'TranscriptsUp'
+        tidy: 'transcripts_up'
+        type: 'char'
+        description: 'List of transcripts in the up gene that support the neoepitope'
+        versions: ['latest']
+      - raw: 'TranscriptsDown'
+        tidy: 'transcripts_down'
+        type: 'char'
+        description: 'All unique transcripts on the up gene that support the neoepitope'
+        versions: ['latest']
+      - raw: 'VariantCopyNumber'
+        tidy: 'variant_cn'
+        type: 'float'
+        description: 'Allele copies of the point mutation or structural variant'
+        versions: ['latest']
+      - raw: 'CopyNumber'
+        tidy: 'cn'
+        type: 'float'
+        description: 'Total chromosomal copies at variant location'
+        versions: ['latest']
+      - raw: 'SubclonalLikelihood'
+        tidy: 'subclonal_likelihood'
+        type: 'float'
+        description: 'Subclonal likelihood of variant (for point mutations only)'
+        versions: ['latest']

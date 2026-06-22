@@ -8,13 +8,17 @@
 #' odir <- tempdir()
 #' id <- "cuppa_run1"
 #' obj <- cls$new(indir)
-#' obj$nemofy(diro = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "cuppa.*parquet", full.names = FALSE))
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
+#' (lf <- list.files(odir, pattern = "cuppa_.*parquet", full.names = FALSE))
 #' @testexamples
-#' expect_equal(length(lf), 3)
+#' expect_equal(length(lf), 4)
+#' ps <- arrow::read_parquet(file.path(odir, grep("cuppa_predsum", lf, value = TRUE)))
+#' expect_named(ps, c("input_id", "sample_id", "clf_group", "clf_name", "rank", "class", "prob",
+#'   "extra_info", "extra_info_format"))
 #' @export
 Cuppa <- R6::R6Class(
   "Cuppa",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Cuppa object.
@@ -25,50 +29,6 @@ Cuppa <- R6::R6Class(
     #' Tibble of files from [nemo::list_files_dir()].
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "cuppa", pkg = pkg_name, path = path, files_tbl = files_tbl)
-    },
-    #' @description Read `cup.data.csv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_datacsv = function(x) {
-      self$.parse_file(x, "datacsv", delim = ",")
-    },
-    #' @description Tidy `cup.data.csv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_datacsv = function(x) {
-      # hack to handle raw tibble input since other funcs use .tidy_file
-      if (!tibble::is_tibble(x)) {
-        x <- self$parse_predsum(x)
-      }
-      # add a 'plot_section' column for potential easier grouping
-      d <- x |>
-        dplyr::mutate(
-          plot_section = dplyr::case_when(
-            (.data$ResultType == "CLASSIFIER" & .data$DataType != "GENDER") |
-              (.data$ResultType == "PREVALENCE" & .data$DataType == "GENDER") ~
-              "classifier",
-            (.data$ResultType == "PERCENTILE" & .data$Category == "SNV") ~ "sigs",
-            (.data$ResultType == "PERCENTILE" & .data$Category != "SNV") ~ "percentiles",
-            (.data$Category == "FEATURE" & .data$ResultType == "PREVALENCE") ~ "features",
-            .default = "other"
-          )
-        )
-      schema <- self$get_tidy_schema("datacsv")
-      colnames(d) <- schema[["field"]]
-      list(datacsv = d) |>
-        nemo::enframe_data()
-    },
-    #' @description Read `cuppa_data.tsv.gz` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_feat = function(x) {
-      self$.parse_file(x, "feat")
-    },
-    #' @description Tidy `cuppa_data.tsv.gz` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_feat = function(x) {
-      self$.tidy_file(x, "feat")
     },
     #' @description Read `cuppa.pred_summ.tsv` file.
     #' @param x (`character(1)`)\cr
@@ -85,7 +45,7 @@ Cuppa <- R6::R6Class(
       schema <- nemo::schema_guess(
         pname = "predsum",
         cnames = cnames,
-        schemas_all = self$raw_schemas_all
+        schemas_all = self$config$get_schemas_raw()
       )
       if (is_rna) {
         schema[["schema"]] <- schema[["schema"]] |>
@@ -112,38 +72,16 @@ Cuppa <- R6::R6Class(
       version <- nemo::get_tbl_version_attr(x)
       d <- x |>
         tidyr::pivot_longer(
-          dplyr::contains("pred_class_"),
-          names_prefix = "pred_class_",
-          names_to = "pred_class_rank",
-          values_to = "pred_class",
-          names_transform = list(pred_class_rank = as.integer)
+          dplyr::matches("pred_class|pred_prob"),
+          names_to = c(".value", "rank"),
+          names_pattern = "(pred_class|pred_prob)_(\\d+)",
+          names_transform = list(rank = as.integer)
         ) |>
-        tidyr::pivot_longer(
-          dplyr::contains("pred_prob_"),
-          names_prefix = "pred_prob_",
-          names_to = "pred_prob_rank",
-          values_to = "pred_prob",
-          names_transform = list(pred_prob_rank = as.integer)
-        ) |>
-        dplyr::relocate("extra_info", .after = dplyr::last_col()) |>
-        dplyr::relocate("extra_info_format", .after = dplyr::last_col()) |>
+        dplyr::relocate(dplyr::contains("extra_info"), .after = dplyr::last_col()) |>
+        dplyr::rename(class = "pred_class", prob = "pred_prob") |>
         nemo::set_tbl_version_attr(version)
-      schema <- self$get_tidy_schema("predsum")
-      stopifnot(identical(colnames(d), schema[["field"]]))
       list(predsum = d) |>
-        nemo::enframe_data()
-    },
-    #' @description Read `cuppa.vis_data.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_datatsv = function(x) {
-      self$.parse_file(x, "datatsv")
-    },
-    #' @description Tidy `cuppa.vis_data.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_datatsv = function(x) {
-      self$.tidy_file(x, "datatsv")
+        nemo::nemo_enframe()
     }
-  ) # end public
+  )
 )

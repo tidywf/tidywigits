@@ -12,9 +12,8 @@ indir <- system.file("extdata/oa", package = "tidywigits")
 odir <- tempdir()
 id <- "esvee_run1"
 obj <- cls$new(indir)
-obj$nemofy(diro = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "cobalt.*parquet", full.names = FALSE))
-#TODO: add esvee test data
+obj$run(output_dir = odir, format = "parquet", input_id = id)
+(lf <- list.files(odir, pattern = "esvee_.*parquet", full.names = FALSE))
 }
 \section{Super class}{
 \code{\link[nemo:Tool]{nemo::Tool}} -> \code{Esvee}
@@ -23,35 +22,17 @@ obj$nemofy(diro = odir, format = "parquet", input_id = id)
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Esvee-new}{\code{Esvee$new()}}
-\item \href{#method-Esvee-parse_prepfraglen}{\code{Esvee$parse_prepfraglen()}}
-\item \href{#method-Esvee-tidy_prepfraglen}{\code{Esvee$tidy_prepfraglen()}}
-\item \href{#method-Esvee-parse_prepdiscstats}{\code{Esvee$parse_prepdiscstats()}}
-\item \href{#method-Esvee-tidy_prepdiscstats}{\code{Esvee$tidy_prepdiscstats()}}
-\item \href{#method-Esvee-parse_prepjunction}{\code{Esvee$parse_prepjunction()}}
-\item \href{#method-Esvee-tidy_prepjunction}{\code{Esvee$tidy_prepjunction()}}
-\item \href{#method-Esvee-parse_assemblephased}{\code{Esvee$parse_assemblephased()}}
-\item \href{#method-Esvee-tidy_assemblephased}{\code{Esvee$tidy_assemblephased()}}
-\item \href{#method-Esvee-parse_assembleassembly}{\code{Esvee$parse_assembleassembly()}}
-\item \href{#method-Esvee-tidy_assembleassembly}{\code{Esvee$tidy_assembleassembly()}}
-\item \href{#method-Esvee-parse_assemblebreakend}{\code{Esvee$parse_assemblebreakend()}}
-\item \href{#method-Esvee-tidy_assemblebreakend}{\code{Esvee$tidy_assemblebreakend()}}
-\item \href{#method-Esvee-parse_assemblealignment}{\code{Esvee$parse_assemblealignment()}}
-\item \href{#method-Esvee-tidy_assemblealignment}{\code{Esvee$tidy_assemblealignment()}}
-\item \href{#method-Esvee-clone}{\code{Esvee$clone()}}
 }
 }
 \if{html}{\out{
 <details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".eval_func"><a href='../../nemo/html/Tool.html#method-Tool-.eval_func'><code>nemo::Tool$.eval_func()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file'><code>nemo::Tool$.parse_file()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_keyvalue"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_keyvalue'><code>nemo::Tool$.parse_file_keyvalue()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_nohead"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_nohead'><code>nemo::Tool$.parse_file_nohead()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".tidy_file"><a href='../../nemo/html/Tool.html#method-Tool-.tidy_file'><code>nemo::Tool$.tidy_file()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="filter_files"><a href='../../nemo/html/Tool.html#method-Tool-filter_files'><code>nemo::Tool$filter_files()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_metadata"><a href='../../nemo/html/Tool.html#method-Tool-get_metadata'><code>nemo::Tool$get_metadata()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_tbls"><a href='../../nemo/html/Tool.html#method-Tool-get_tbls'><code>nemo::Tool$get_tbls()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="list_files"><a href='../../nemo/html/Tool.html#method-Tool-list_files'><code>nemo::Tool$list_files()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="nemofy"><a href='../../nemo/html/Tool.html#method-Tool-nemofy'><code>nemo::Tool$nemofy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="print"><a href='../../nemo/html/Tool.html#method-Tool-print'><code>nemo::Tool$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="run"><a href='../../nemo/html/Tool.html#method-Tool-run'><code>nemo::Tool$run()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="tidy"><a href='../../nemo/html/Tool.html#method-Tool-tidy'><code>nemo::Tool$tidy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="write"><a href='../../nemo/html/Tool.html#method-Tool-write'><code>nemo::Tool$write()</code></a></span></li>
 </ul>
@@ -75,275 +56,6 @@ ignored.}
 
 \item{\code{files_tbl}}{(\code{tibble(n)})\cr
 Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Esvee-parse_prepfraglen"></a>}}
-\if{latex}{\out{\hypertarget{method-Esvee-parse_prepfraglen}{}}}
-\subsection{Method \code{parse_prepfraglen()}}{
-Read \code{prep.fragment_length.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Esvee$parse_prepfraglen(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Esvee-tidy_prepfraglen"></a>}}
-\if{latex}{\out{\hypertarget{method-Esvee-tidy_prepfraglen}{}}}
-\subsection{Method \code{tidy_prepfraglen()}}{
-Tidy \code{prep.fragment_length.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Esvee$tidy_prepfraglen(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Esvee-parse_prepdiscstats"></a>}}
-\if{latex}{\out{\hypertarget{method-Esvee-parse_prepdiscstats}{}}}
-\subsection{Method \code{parse_prepdiscstats()}}{
-Read \code{prep.disc_stats.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Esvee$parse_prepdiscstats(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Esvee-tidy_prepdiscstats"></a>}}
-\if{latex}{\out{\hypertarget{method-Esvee-tidy_prepdiscstats}{}}}
-\subsection{Method \code{tidy_prepdiscstats()}}{
-Tidy \code{prep.disc_stats.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Esvee$tidy_prepdiscstats(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Esvee-parse_prepjunction"></a>}}
-\if{latex}{\out{\hypertarget{method-Esvee-parse_prepjunction}{}}}
-\subsection{Method \code{parse_prepjunction()}}{
-Read \code{prep.junction.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Esvee$parse_prepjunction(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Esvee-tidy_prepjunction"></a>}}
-\if{latex}{\out{\hypertarget{method-Esvee-tidy_prepjunction}{}}}
-\subsection{Method \code{tidy_prepjunction()}}{
-Tidy \code{prep.junction.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Esvee$tidy_prepjunction(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Esvee-parse_assemblephased"></a>}}
-\if{latex}{\out{\hypertarget{method-Esvee-parse_assemblephased}{}}}
-\subsection{Method \code{parse_assemblephased()}}{
-Read \code{esvee.phased_assembly.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Esvee$parse_assemblephased(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Esvee-tidy_assemblephased"></a>}}
-\if{latex}{\out{\hypertarget{method-Esvee-tidy_assemblephased}{}}}
-\subsection{Method \code{tidy_assemblephased()}}{
-Tidy \code{esvee.phased_assembly.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Esvee$tidy_assemblephased(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Esvee-parse_assembleassembly"></a>}}
-\if{latex}{\out{\hypertarget{method-Esvee-parse_assembleassembly}{}}}
-\subsection{Method \code{parse_assembleassembly()}}{
-Read \code{esvee.assembly.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Esvee$parse_assembleassembly(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Esvee-tidy_assembleassembly"></a>}}
-\if{latex}{\out{\hypertarget{method-Esvee-tidy_assembleassembly}{}}}
-\subsection{Method \code{tidy_assembleassembly()}}{
-Tidy \code{esvee.assembly.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Esvee$tidy_assembleassembly(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Esvee-parse_assemblebreakend"></a>}}
-\if{latex}{\out{\hypertarget{method-Esvee-parse_assemblebreakend}{}}}
-\subsection{Method \code{parse_assemblebreakend()}}{
-Read \code{breakend.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Esvee$parse_assemblebreakend(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Esvee-tidy_assemblebreakend"></a>}}
-\if{latex}{\out{\hypertarget{method-Esvee-tidy_assemblebreakend}{}}}
-\subsection{Method \code{tidy_assemblebreakend()}}{
-Tidy \code{breakend.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Esvee$tidy_assemblebreakend(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Esvee-parse_assemblealignment"></a>}}
-\if{latex}{\out{\hypertarget{method-Esvee-parse_assemblealignment}{}}}
-\subsection{Method \code{parse_assemblealignment()}}{
-Read \code{alignment.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Esvee$parse_assemblealignment(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Esvee-tidy_assemblealignment"></a>}}
-\if{latex}{\out{\hypertarget{method-Esvee-tidy_assemblealignment}{}}}
-\subsection{Method \code{tidy_assemblealignment()}}{
-Tidy \code{alignment.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Esvee$tidy_assemblealignment(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Esvee-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-Esvee-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Esvee$clone(deep = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
 }
 \if{html}{\out{</div>}}
 }

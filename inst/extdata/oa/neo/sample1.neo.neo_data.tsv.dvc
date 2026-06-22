@@ -1,0 +1,5 @@
+outs:
+- md5: f27f4a8622e03b708ebbb50d5e8f44a0
+  size: 4617
+  hash: md5
+  path: sample1.neo.neo_data.tsv

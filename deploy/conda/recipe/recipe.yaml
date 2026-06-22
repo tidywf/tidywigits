@@ -1,6 +1,6 @@
 context:
   name: r-tidywigits
-  version: 0.0.7 # bump
+  version: 0.0.7.9005 # bump
 
 package:
   name: ${{ name|lower }}
@@ -19,13 +19,11 @@ requirements:
     - r-dplyr
     - r-fs
     - r-glue
-    - r-knitr
     - r-nemo
     - r-purrr
     - r-r6
     - r-readr
     - r-rlang
-    - r-rmarkdown
     - r-stringr
     - r-tibble
     - r-tidyr
@@ -35,31 +33,31 @@ requirements:
     - r-dplyr
     - r-fs
     - r-glue
-    - r-knitr
     - r-nemo
+    - r-purrr
     - r-r6
     - r-readr
     - r-rlang
-    - r-rmarkdown
     - r-stringr
     - r-tibble
     - r-tidyr
+    - r-yaml
 
 tests:
   - r:
       libraries:
         - tidywigits
   - script:
-    - tidywigits.R --version
+      - tidywigits.R --version
 
 about:
-  homepage: https://github.com/umccr/tidywigits
+  homepage: https://github.com/tidywf/tidywigits
   summary: WiGiTS workflow tidying
-  description: WiGiTS workflow tidying
+  description: Provides tools for tidying and exploring outputs from the WiGiTS bioinformatic pipeline suite.
   license: MIT
   license_file: LICENSE
-  repository: https://github.com/umccr/tidywigits
-  documentation: https://umccr.github.io/tidywigits/
+  repository: https://github.com/tidywf/tidywigits
+  documentation: https://tidywf.github.io/tidywigits/
 
 extra:
   recipe-maintainers:

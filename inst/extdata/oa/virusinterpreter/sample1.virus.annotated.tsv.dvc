@@ -1,0 +1,5 @@
+outs:
+- md5: 1b017f216b0d37b5857922987ffd69c5
+  size: 249
+  hash: md5
+  path: sample1.virus.annotated.tsv

@@ -1,0 +1,5 @@
+outs:
+- md5: c9e7ec74b235301e5d35dddd0024ef91
+  size: 437
+  hash: md5
+  path: sample1.amber.contamination.tsv

@@ -2,15 +2,25 @@
 
 # File R/Linx.R: @testexamples
 
-test_that("Function Linx() @ L16", {
+test_that("Function Linx() @ L26", {
   
   cls <- Linx
   indir <- system.file("extdata/oa", package = "tidywigits")
   odir <- tempdir()
   id <- "linx_run1"
   obj <- cls$new(indir)
-  obj$nemofy(diro = odir, format = "parquet", input_id = id)
-  (lf <- list.files(odir, pattern = "linx.*parquet", full.names = FALSE))
-  expect_equal(length(lf), 20)
+  obj$run(output_dir = odir, format = "parquet", input_id = id)
+  (lf <- list.files(odir, pattern = "linx_.*parquet", full.names = FALSE))
+  expect_equal(length(lf), 30)
+  fus <- arrow::read_parquet(file.path(odir, grep("^sample1_linx_fusions", lf, value = TRUE)))
+  expect_named(fus, c("input_id", "breakendid5", "breakendid3", "name", "reported",
+    "reported_type", "reportable_reasons", "phased", "likelihood", "chain_length",
+    "chain_links", "chain_terminated", "domains_kept", "domains_lost", "skipped_exons_up",
+    "skipped_exons_down", "fused_exon_up", "fused_exon_down", "gene_start",
+    "gene_context_start", "transcript_start", "gene_end", "gene_context_end",
+    "transcript_end", "junction_cn"))
+  drv <- arrow::read_parquet(file.path(odir, grep("^sample1_linx_drivers", lf, value = TRUE)))
+  expect_named(drv, c("input_id", "cluster_id", "gene", "event_type"))
+  expect_equal(nrow(drv), 1L)
 })
 

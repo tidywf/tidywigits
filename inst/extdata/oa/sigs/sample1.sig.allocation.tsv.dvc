@@ -1,0 +1,5 @@
+outs:
+- md5: 59aeb819e3c888ef116077d4abb17eb3
+  size: 349
+  hash: md5
+  path: sample1.sig.allocation.tsv

@@ -8,13 +8,18 @@
 #' odir <- tempdir()
 #' id <- "chord_run1"
 #' obj <- cls$new(indir)
-#' obj$nemofy(diro = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "chord.*parquet", full.names = FALSE))
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
+#' (lf <- list.files(odir, pattern = "chord_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 2)
+#' pred <- arrow::read_parquet(file.path(odir, grep("chord_prediction", lf, value = TRUE)))
+#' expect_named(pred, c("input_id", "sample_id", "p_brca1", "p_brca2", "p_hrd", "hr_status",
+#'   "hrd_type", "remarks_hr_status", "remarks_hrd_type"))
+#' expect_equal(nrow(pred), 1L)
 #' @export
 Chord <- R6::R6Class(
   "Chord",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Chord object.
@@ -26,34 +31,26 @@ Chord <- R6::R6Class(
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "chord", pkg = pkg_name, path = path, files_tbl = files_tbl)
     },
-    #' @description Read `prediction.txt` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_prediction = function(x) {
-      self$.parse_file(x, "prediction")
-    },
-    #' @description Tidy `prediction.txt` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_prediction = function(x) {
-      self$.tidy_file(x, "prediction")
-    },
     #' @description Read `signatures.txt` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_signatures = function(x) {
       hdr <- nemo::file_hdr(x)
       version <- "latest" # only one version currently supported
-      schema <- self$get_raw_schema("signatures", v = version) |>
+      schema <- self$config$get_schema_raw("signatures", version = version) |>
         dplyr::select("field", "type") |>
         tibble::deframe()
 
       # header contains sample column in latest version
       if (hdr[1] != "sample_id") {
-        stopifnot(identical(hdr, names(schema)[-1]))
+        if (!identical(hdr, names(schema)[-1])) {
+          nemo::nemo_stop("Chord signatures header does not match schema (sans sample_id column).")
+        }
         cnames <- c("sample_id", hdr)
       } else {
-        stopifnot(identical(hdr, names(schema)))
+        if (!identical(hdr, names(schema))) {
+          nemo::nemo_stop("Chord signatures header does not match schema.")
+        }
         cnames <- hdr
       }
       d <- readr::read_tsv(x, col_names = cnames, col_types = schema, skip = 1) |>
@@ -77,10 +74,8 @@ Chord <- R6::R6Class(
         ) |>
         dplyr::select("signature", "count") |>
         nemo::set_tbl_version_attr(version)
-      schema <- self$get_tidy_schema("signatures")
-      stopifnot(identical(colnames(d), schema[["field"]]))
       list(signatures = d) |>
-        nemo::enframe_data()
+        nemo::nemo_enframe()
     }
   )
 )

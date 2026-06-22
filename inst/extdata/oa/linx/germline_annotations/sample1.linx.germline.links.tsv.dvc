@@ -1,0 +1,5 @@
+outs:
+- md5: 9764165da1bd293ecef7f9b7f9d8525c
+  size: 885
+  hash: md5
+  path: sample1.linx.germline.links.tsv

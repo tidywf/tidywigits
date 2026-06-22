@@ -1,0 +1,134 @@
+---
+title: "Quickstart"
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+```{r}
+#| label: setup
+#| include: false
+use("tidywigits")
+use("arrow", "read_parquet")
+use("fs", "dir_tree")
+options(width = 90)
+```
+
+tidywigits turns raw [WiGiTS/hmftools](https://github.com/hartwigmedical/hmftools) output
+directories into consistently structured, versioned, analysis-ready tables. This vignette
+walks through the core usage patterns.
+
+## Test data
+
+Example input files are tracked in `inst/extdata/oa/` via [DVC](https://dvc.org/)
+and can be downloaded using either of the below options:
+
+- `dvc pull`: requires dvc installation and cloned tidywigits source repo.
+- `tidywigits::dvc_download_all()`: no additional requirements, uses `download.file()`
+  internally.
+
+No credentials are required since the remote is a public Cloudflare R2 bucket.
+
+## Input
+
+Example WiGiTS results:
+
+```{r}
+#| label: input_tree
+#| code-fold: true
+#| code-summary: "View input files"
+indir <- system.file("extdata/oa", package = "tidywigits")
+dir_tree(indir, invert = TRUE, glob = "*.dvc")
+```
+
+## Output - Single Tool
+
+Each tool has its own R6 class. Construct it with the tool's output directory,
+then call `run()` to parse, tidy, and write in one step:
+
+```{r}
+#| label: single_tool
+#| message: false
+outdir <- file.path(tempdir(), "qs_ppl")
+Purple$new(file.path(indir, "purple"))$run(
+  output_dir = outdir,
+  format = "parquet",
+  input_id = "sample1_id"
+)
+list.files(outdir, pattern = "\\.parquet$")
+```
+
+### File naming
+
+Output files follow the pattern `{prefix}_{tool}_{table}.parquet`, where `prefix` is
+derived from the input filenames (here `sample1`). The `metadata.parquet` file is always
+written alongside the data files and records input/output paths and package versions.
+
+### Reading a table back
+
+```{r}
+#| label: read_back
+qc <- read_parquet(file.path(outdir, "sample1_purple_qc.parquet"))
+qc |> str()
+```
+
+## Output - Full WiGiTS run
+
+`Wigits` processes all supported tools in one call. Point it at the parent directory
+that contains the per-tool subdirectories:
+
+```{r}
+#| label: wigits_run
+#| message: false
+outdir_w <- file.path(tempdir(), "qs_wigits")
+w <- Wigits$new(indir)
+w$run(
+  output_dir = outdir_w,
+  format = "parquet"
+)
+list.files(outdir_w, pattern = "\\.parquet$") |> sort() |> str()
+```
+
+## ID columns
+
+Three optional columns can be prepended to every written table. All are off by default:
+
+| Argument                | Column added   | Contains                                   |
+| ----------------------- | -------------- | ------------------------------------------ |
+| `input_id = "x"`        | `input_id`     | sample or run identifier you supply        |
+| `output_id = "x"`       | `output_id`    | processing run identifier you supply       |
+| `prefix_include = TRUE` | `input_prefix` | filename prefix extracted from input files |
+
+These are useful when loading results from multiple samples into the same database table or
+combined data frame:
+
+```{r}
+#| label: id_cols
+#| message: false
+outdir_id <- file.path(tempdir(), "qs_ppl_id")
+Purple$new(file.path(indir, "purple"))$run(
+  output_dir = outdir_id,
+  format = "parquet",
+  input_id = "sample1",
+  output_id = "out1",
+  prefix_include = TRUE
+)
+read_parquet(file.path(outdir_id, "sample1_purple_qc.parquet"))
+```
+
+## Metadata
+
+Every `run()` writes a `metadata.parquet` alongside the data files. It records the input
+directory, output directory, IDs, and the versions of R packages used:
+
+```{r}
+#| label: metadata
+read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
+```
+
+## Other useful articles
+
+- [Schema table](schema_table.html): browse every table and column for all supported WiGiTS tools
+- [Structure](structure.html): how schemas, versioning, and the Tool/Workflow class hierarchy work
+- [PostgreSQL](postgresql.html): writing results to a database 

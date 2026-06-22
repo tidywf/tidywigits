@@ -8,13 +8,18 @@
 #' odir <- tempdir()
 #' id <- "cider_run1"
 #' obj <- cls$new(indir)
-#' obj$nemofy(diro = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "cider.*parquet", full.names = FALSE))
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
+#' (lf <- list.files(odir, pattern = "cider_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 3)
+#' lstat <- arrow::read_parquet(file.path(odir, grep("cider_locusstats", lf, value = TRUE)))
+#' expect_named(lstat, c("input_id", "locus", "reads_used", "reads_total", "downsampled",
+#'   "sequences", "sequences_pass"))
+#' expect_equal(nrow(lstat), 6L)
 #' @export
 Cider <- R6::R6Class(
   "Cider",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Cider object.
@@ -25,42 +30,6 @@ Cider <- R6::R6Class(
     #' Tibble of files from [nemo::list_files_dir()].
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "cider", pkg = pkg_name, path = path, files_tbl = files_tbl)
-    },
-    #' @description Read `blastn_match.tsv.gz` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_blastn = function(x) {
-      self$.parse_file(x, "blastn")
-    },
-    #' @description Tidy `blastn_match.tsv.gz` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_blastn = function(x) {
-      self$.tidy_file(x, "blastn")
-    },
-    #' @description Read `locus_stats.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_locstats = function(x) {
-      self$.parse_file(x, "locstats")
-    },
-    #' @description Tidy `locus_stats.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_locstats = function(x) {
-      self$.tidy_file(x, "locstats")
-    },
-    #' @description Read `vdj.tsv.gz` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_vdj = function(x) {
-      self$.parse_file(x, "vdj")
-    },
-    #' @description Tidy `vdj.tsv.gz` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_vdj = function(x) {
-      self$.tidy_file(x, "vdj")
     }
   )
 )

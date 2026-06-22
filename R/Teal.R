@@ -8,13 +8,19 @@
 #' odir <- tempdir()
 #' id <- "teal_run1"
 #' obj <- cls$new(indir)
-#' obj$nemofy(diro = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "teal.*parquet", full.names = FALSE))
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
+#' (lf <- list.files(odir, pattern = "teal_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 2)
+#' tel <- arrow::read_parquet(file.path(odir, grep("teal_tellength", lf, value = TRUE)))
+#' expect_named(tel, c("input_id", "sample_id", "type", "tel_length_raw", "tel_length_final",
+#'   "fragments_full", "fragments_c_rich_partial", "fragments_g_rich_partial",
+#'   "reads_telomeric_total", "purity", "ploidy", "dup_prop", "dp_read_mean", "dp_read_gc50"))
+#' expect_equal(nrow(tel), 1L)
 #' @export
 Teal <- R6::R6Class(
   "Teal",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Teal object.
@@ -25,30 +31,6 @@ Teal <- R6::R6Class(
     #' Tibble of files from [nemo::list_files_dir()].
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "teal", pkg = pkg_name, path = path, files_tbl = files_tbl)
-    },
-    #' @description Read `breakend.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_breakend = function(x) {
-      self$.parse_file(x, "breakend")
-    },
-    #' @description Tidy `breakend.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_breakend = function(x) {
-      self$.tidy_file(x, "breakend")
-    },
-    #' @description Read `tellength.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_tellength = function(x) {
-      self$.parse_file(x, "tellength")
-    },
-    #' @description Tidy `tellength.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_tellength = function(x) {
-      self$.tidy_file(x, "tellength")
     }
   )
 )

@@ -1,0 +1,1057 @@
+tables:
+  breakends:
+    description: 'Impact of each non-PON filtered break junction on each overlapping gene.'
+    pattern: "\\.linx\\.(germline\\.)?breakend\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'id'
+        tidy: 'bnd_id'
+        type: 'char'
+        description: 'ID of breakend annotation'
+        versions: ['v1.25', 'latest']
+      - raw: 'svId'
+        tidy: 'sv_id'
+        type: 'char'
+        description: 'ID of break junction'
+        versions: ['v1.25', 'latest']
+      - raw: 'isStart'
+        tidy: 'is_start'
+        type: 'char'
+        description: 'annotation relates to the start breakend of the break junction'
+        versions: ['v1.25', 'latest']
+      - raw: 'gene'
+        tidy: 'gene'
+        type: 'char'
+        description: 'gene annotated'
+        versions: ['v1.25', 'latest']
+      - raw: 'transcriptId'
+        tidy: 'transcript_id'
+        type: 'char'
+        description: 'Ensembl stable transcript ID of annotation'
+        versions: ['v1.25', 'latest']
+      - raw: 'canonical'
+        tidy: 'canonical'
+        type: 'char'
+        description: 'transcript is the canonical transcript of the gene'
+        versions: ['v1.25', 'latest']
+      - raw: 'geneOrientation'
+        tidy: 'gene_orientation'
+        type: 'char'
+        description: 'orientation which breakend points relative to the gene'
+        versions: ['v1.25', 'latest']
+      - raw: 'disruptive'
+        tidy: 'disruptive'
+        type: 'char'
+        description: 'breakend disrupts the exonic sequence of the transcript'
+        versions: ['v1.25', 'latest']
+      - raw: 'reportedDisruption'
+        tidy: 'reported_disruption'
+        type: 'char'
+        description: 'breakend is disruptive and gene is flagged as reportable'
+        versions: ['v1.25', 'latest']
+      - raw: 'undisruptedCopyNumber'
+        tidy: 'undisrupted_cn'
+        type: 'float'
+        description: 'number of remaining wildtype alleles not disrupted by the breakend'
+        versions: ['v1.25', 'latest']
+      - raw: 'regionType'
+        tidy: 'region_type'
+        type: 'char'
+        description: 'location of the breakend relative to the transcript'
+        versions: ['v1.25', 'latest']
+      - raw: 'codingType'
+        tidy: 'coding_type'
+        type: 'char'
+        description: 'location of the breakend relative to the coding context'
+        versions: ['v1.25', 'latest']
+      - raw: 'biotype'
+        tidy: 'biotype'
+        type: 'char'
+        description: 'Ensembl biotype of the transcript'
+        versions: ['v1.25', 'latest']
+      - raw: 'exonicBasePhase'
+        tidy: 'exonic_basephase'
+        type: 'float'
+        description: 'if regionType = EXONIC, the exact base phase of the breakend, else -1'
+        versions: ['v1.25', 'latest']
+      - raw: 'nextSpliceExonRank'
+        tidy: 'next_splice_exon_rank'
+        type: 'float'
+        description: 'exon rank of the next splice acceptor or donor'
+        versions: ['v1.25', 'latest']
+      - raw: 'nextSpliceExonPhase'
+        tidy: 'next_splice_exon_phase'
+        type: 'float'
+        description: 'phase of the 1st base after the next splice site'
+        versions: ['v1.25', 'latest']
+      - raw: 'nextSpliceDistance'
+        tidy: 'next_splice_distance'
+        type: 'float'
+        description: 'distance in bases to the next splice site'
+        versions: ['v1.25', 'latest']
+      - raw: 'totalExonCount'
+        tidy: 'total_exon_count'
+        type: 'float'
+        description: 'total number of exons in the transcript'
+        versions: ['v1.25', 'latest']
+      - raw: 'type'
+        tidy: 'type'
+        type: 'char'
+        description: 'type of breakend'
+        versions: ['v1.25']
+      - raw: 'chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['v1.25']
+      - raw: 'orientation'
+        tidy: 'orientation'
+        type: 'char'
+        description: 'orientation'
+        versions: ['v1.25']
+      - raw: 'strand'
+        tidy: 'strand'
+        type: 'char'
+        description: 'strand'
+        versions: ['v1.25']
+      - raw: 'chrBand'
+        tidy: 'chr_band'
+        type: 'char'
+        description: 'chromosome band'
+        versions: ['v1.25']
+      - raw: 'exonUp'
+        tidy: 'exon_up'
+        type: 'float'
+        description: 'exon 5p'
+        versions: ['v1.25', 'latest']
+      - raw: 'exonDown'
+        tidy: 'exon_down'
+        type: 'float'
+        description: 'exon 3p'
+        versions: ['v1.25', 'latest']
+      - raw: 'junctionCopyNumber'
+        tidy: 'junction_cn'
+        type: 'float'
+        description: 'junction copy number'
+        versions: ['v1.25']
+  clusters:
+    description: 'Clustering of all non-PON filtered SV events and their resolved classification.'
+    pattern: "\\.linx\\.(germline\\.)?clusters\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'clusterId'
+        tidy: 'cluster_id'
+        type: 'char'
+        description: 'unique ID for the cluster'
+        versions: ['latest']
+      - raw: 'category'
+        tidy: 'category'
+        type: 'char'
+        description: 'high level categorisation of the cluster classification'
+        versions: ['latest']
+      - raw: 'synthetic'
+        tidy: 'synthetic'
+        type: 'char'
+        description: 'TRUE if cluster is resolved to a non-complex type by simplification'
+        versions: ['latest']
+      - raw: 'resolvedType'
+        tidy: 'resolved_type'
+        type: 'char'
+        description: 'resolved classification of the cluster'
+        versions: ['latest']
+      - raw: 'clusterCount'
+        tidy: 'cluster_count'
+        type: 'float'
+        description: 'number of break junctions in the cluster'
+        versions: ['latest']
+      - raw: 'clusterDesc'
+        tidy: 'cluster_desc'
+        type: 'char'
+        description: 'types and counts of break junctions in the cluster'
+        versions: ['latest']
+  drivercatalog:
+    description: 'Driver catalog with homozygous disruption events appended.'
+    pattern: "\\.linx\\.(germline\\.)?driver\\.catalog\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome of gene'
+        versions: ['latest']
+      - raw: 'chromosomeBand'
+        tidy: 'chrom_band'
+        type: 'char'
+        description: 'chromosome band of driver'
+        versions: ['latest']
+      - raw: 'gene'
+        tidy: 'gene'
+        type: 'char'
+        description: 'gene name'
+        versions: ['latest']
+      - raw: 'transcript'
+        tidy: 'transcript'
+        type: 'char'
+        description: 'transcript name'
+        versions: ['latest']
+      - raw: 'isCanonical'
+        tidy: 'is_canonical'
+        type: 'char'
+        description: 'is canonical'
+        versions: ['latest']
+      - raw: 'driver'
+        tidy: 'driver'
+        type: 'char'
+        description: 'driver type (AMP, DEL, MUTATION)'
+        versions: ['latest']
+      - raw: 'category'
+        tidy: 'category'
+        type: 'char'
+        description: 'gene driver type (ONCO, TSG)'
+        versions: ['latest']
+      - raw: 'likelihoodMethod'
+        tidy: 'likelihood_method'
+        type: 'char'
+        description: 'method used to determine likelihood'
+        versions: ['latest']
+      - raw: 'driverLikelihood'
+        tidy: 'driver_likelihood'
+        type: 'float'
+        description: 'likelihood that gene is a driver'
+        versions: ['latest']
+      - raw: 'missense'
+        tidy: 'missense'
+        type: 'float'
+        description: 'number of missense variants in gene'
+        versions: ['latest']
+      - raw: 'nonsense'
+        tidy: 'nonsense'
+        type: 'float'
+        description: 'number of nonsense variants in gene'
+        versions: ['latest']
+      - raw: 'splice'
+        tidy: 'splice'
+        type: 'float'
+        description: 'number of splice variants in gene'
+        versions: ['latest']
+      - raw: 'inframe'
+        tidy: 'inframe'
+        type: 'float'
+        description: 'number of inframe variants in gene'
+        versions: ['latest']
+      - raw: 'frameshift'
+        tidy: 'frameshift'
+        type: 'float'
+        description: 'number of frameshift variants in gene'
+        versions: ['latest']
+      - raw: 'biallelic'
+        tidy: 'biallelic'
+        type: 'char'
+        description: 'true if any variants in the gene are biallelic'
+        versions: ['latest']
+      - raw: 'minCopyNumber'
+        tidy: 'min_cn'
+        type: 'float'
+        description: 'minimum CN found in the gene exons'
+        versions: ['latest']
+      - raw: 'maxCopyNumber'
+        tidy: 'max_cn'
+        type: 'float'
+        description: 'maximum CN found in the gene exons'
+        versions: ['latest']
+  drivers:
+    description: 'Linkage of drivers from driver catalog to SV cluster.'
+    pattern: "\\.linx\\.drivers\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'clusterId'
+        tidy: 'cluster_id'
+        type: 'char'
+        description: 'ID of cluster which break junction associated with driver'
+        versions: ['latest']
+      - raw: 'gene'
+        tidy: 'gene'
+        type: 'char'
+        description: 'gene of driver'
+        versions: ['latest']
+      - raw: 'eventType'
+        tidy: 'event_type'
+        type: 'char'
+        description: 'type of driver'
+        versions: ['latest']
+  fusions:
+    description: 'All inframe and out-of-frame fusions predicted in the sample.'
+    pattern: "\\.linx\\.fusion\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'fivePrimeBreakendId'
+        tidy: 'breakendid5'
+        type: 'char'
+        description: '5prime breakend ID in the fusion'
+        versions: ['latest']
+      - raw: 'threePrimeBreakendId'
+        tidy: 'breakendid3'
+        type: 'char'
+        description: '3prime breakend ID in the fusion'
+        versions: ['latest']
+      - raw: 'name'
+        tidy: 'name'
+        type: 'char'
+        description: 'fusion name in the form 5primeGENE_3primeGENE'
+        versions: ['latest']
+      - raw: 'reported'
+        tidy: 'reported'
+        type: 'char'
+        description: 'fusion meets all reportable fusion criteria for LINX'
+        versions: ['latest']
+      - raw: 'reportedType'
+        tidy: 'reported_type'
+        type: 'char'
+        description: 'type of reportable gene pair if matched in HMF fusion knowledgebase'
+        versions: ['latest']
+      - raw: 'reportableReasons'
+        tidy: 'reportable_reasons'
+        type: 'char'
+        description: 'reasons for given reportable status'
+        versions: ['latest']
+      - raw: 'phased'
+        tidy: 'phased'
+        type: 'char'
+        description: '1 if a phased fusion can be formed (after allowing for exon skipping)'
+        versions: ['latest']
+      - raw: 'likelihood'
+        tidy: 'likelihood'
+        type: 'char'
+        description: 'likelihood'
+        versions: ['latest']
+      - raw: 'chainLength'
+        tidy: 'chain_length'
+        type: 'float'
+        description: '0 for simple fusions; total length of chained segments otherwise'
+        versions: ['latest']
+      - raw: 'chainLinks'
+        tidy: 'chain_links'
+        type: 'float'
+        description: '0 for simple fusions; number of chained segments otherwise'
+        versions: ['latest']
+      - raw: 'chainTerminated'
+        tidy: 'chain_terminated'
+        type: 'char'
+        description: 'true if the fusion is interrupted on either partner side'
+        versions: ['latest']
+      - raw: 'domainsKept'
+        tidy: 'domains_kept'
+        type: 'char'
+        description: 'list of 3prime partner domains retained in fusion product'
+        versions: ['latest']
+      - raw: 'domainsLost'
+        tidy: 'domains_lost'
+        type: 'char'
+        description: 'list of 3prime partner domains lost in fusion product'
+        versions: ['latest']
+      - raw: 'skippedExonsUp'
+        tidy: 'skipped_exons_up'
+        type: 'float'
+        description: 'count of splice donors skipped on 5prime partner side'
+        versions: ['latest']
+      - raw: 'skippedExonsDown'
+        tidy: 'skipped_exons_down'
+        type: 'float'
+        description: 'count of splice donors skipped on 3prime partner side'
+        versions: ['latest']
+      - raw: 'fusedExonUp'
+        tidy: 'fused_exon_up'
+        type: 'float'
+        description: 'last exon fused on 5prime partner side'
+        versions: ['latest']
+      - raw: 'fusedExonDown'
+        tidy: 'fused_exon_down'
+        type: 'float'
+        description: 'first exon fused on 3prime partner side'
+        versions: ['latest']
+      - raw: 'geneStart'
+        tidy: 'gene_start'
+        type: 'char'
+        description: 'gene(s) overlapping start breakend of SV'
+        versions: ['latest']
+      - raw: 'geneContextStart'
+        tidy: 'gene_context_start'
+        type: 'char'
+        description: 'gene context start'
+        versions: ['latest']
+      - raw: 'transcriptStart'
+        tidy: 'transcript_start'
+        type: 'char'
+        description: 'transcript start'
+        versions: ['latest']
+      - raw: 'geneEnd'
+        tidy: 'gene_end'
+        type: 'char'
+        description: 'gene(s) overlapping end breakend of SV'
+        versions: ['latest']
+      - raw: 'geneContextEnd'
+        tidy: 'gene_context_end'
+        type: 'char'
+        description: 'gene context end'
+        versions: ['latest']
+      - raw: 'transcriptEnd'
+        tidy: 'transcript_end'
+        type: 'char'
+        description: 'transcript end'
+        versions: ['latest']
+      - raw: 'junctionCopyNumber'
+        tidy: 'junction_cn'
+        type: 'float'
+        description: 'junction copy number'
+        versions: ['latest']
+  links:
+    description: 'Chromosomal segments joining break junction pairs predicted to be linked and phased.'
+    pattern: "\\.linx\\.(germline\\.)?links\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'clusterId'
+        tidy: 'cluster_id'
+        type: 'char'
+        description: 'cluster ID which contains the link'
+        versions: ['latest']
+      - raw: 'chainId'
+        tidy: 'chain_id'
+        type: 'char'
+        description: 'chain ID to which the link belongs'
+        versions: ['latest']
+      - raw: 'chainIndex'
+        tidy: 'chain_index'
+        type: 'char'
+        description: 'position of the linked segment in the chain'
+        versions: ['latest']
+      - raw: 'chainCount'
+        tidy: 'chain_count'
+        type: 'float'
+        description: 'total count of linked segments in the chain'
+        versions: ['latest']
+      - raw: 'lowerSvId'
+        tidy: 'lower_sv_id'
+        type: 'char'
+        description: 'svId of the leftmost breakend of the linked segment'
+        versions: ['latest']
+      - raw: 'upperSvId'
+        tidy: 'upper_sv_id'
+        type: 'char'
+        description: 'svId of the rightmost breakend of the linked segment'
+        versions: ['latest']
+      - raw: 'lowerBreakendIsStart'
+        tidy: 'lower_breakend_is_start'
+        type: 'char'
+        description: 'lower breakend is the start breakend of the break junction'
+        versions: ['latest']
+      - raw: 'upperBreakendIsStart'
+        tidy: 'upper_breakend_is_start'
+        type: 'char'
+        description: 'right breakend is the start breakend of the break junction'
+        versions: ['latest']
+      - raw: 'chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome of the linked segment'
+        versions: ['latest']
+      - raw: 'arm'
+        tidy: 'arm'
+        type: 'char'
+        description: 'arm (P/Q) of the linked segment'
+        versions: ['latest']
+      - raw: 'assembled'
+        tidy: 'assembled'
+        type: 'char'
+        description: 'segment is linked by a GRIDSS assembly'
+        versions: ['latest']
+      - raw: 'traversedSVCount'
+        tidy: 'traversed_sv_count'
+        type: 'float'
+        description: 'number of other breakends located on the linked segment'
+        versions: ['latest']
+      - raw: 'length'
+        tidy: 'length'
+        type: 'float'
+        description: 'length of the linked segment'
+        versions: ['latest']
+      - raw: 'junctionCopyNumber'
+        tidy: 'junction_cn'
+        type: 'float'
+        description: 'predicted CN of the chain'
+        versions: ['latest']
+      - raw: 'junctionCopyNumberUncertainty'
+        tidy: 'junction_cn_uncertainty'
+        type: 'float'
+        description: 'uncertainty in the CN of the chain'
+        versions: ['latest']
+      - raw: 'pseudogeneInfo'
+        tidy: 'pseudogene_info'
+        type: 'char'
+        description: 'details of matching exon if segment precisely matches an Ensembl gene exon'
+        versions: ['latest']
+      - raw: 'ecDna'
+        tidy: 'ecdna'
+        type: 'char'
+        description: 'link is predicted to be part of a DM / ecDNA chain'
+        versions: ['latest']
+  neoepitope:
+    description: 'Gene fusion neoepitopes.'
+    pattern: "\\.linx\\.neoepitope\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'geneIdUp'
+        tidy: 'gene_id_up'
+        type: 'char'
+        description: 'upstream gene ID'
+        versions: ['latest']
+      - raw: 'geneNameUp'
+        tidy: 'gene_name_up'
+        type: 'char'
+        description: 'upstream gene name'
+        versions: ['latest']
+      - raw: 'chromosomeUp'
+        tidy: 'chrom_up'
+        type: 'char'
+        description: 'upstream chromosome'
+        versions: ['latest']
+      - raw: 'positionUp'
+        tidy: 'pos_up'
+        type: 'float'
+        description: 'upstream position'
+        versions: ['latest']
+      - raw: 'orientationUp'
+        tidy: 'orientation_up'
+        type: 'float'
+        description: 'upstream orientation'
+        versions: ['latest']
+      - raw: 'svIdUp'
+        tidy: 'sv_id_up'
+        type: 'char'
+        description: 'upstream SV ID'
+        versions: ['latest']
+      - raw: 'geneIdDown'
+        tidy: 'gene_id_down'
+        type: 'char'
+        description: 'downstream gene ID'
+        versions: ['latest']
+      - raw: 'geneNameDown'
+        tidy: 'gene_name_down'
+        type: 'char'
+        description: 'downstream gene name'
+        versions: ['latest']
+      - raw: 'chromosomeDown'
+        tidy: 'chrom_down'
+        type: 'char'
+        description: 'downstream chromosome'
+        versions: ['latest']
+      - raw: 'positionDown'
+        tidy: 'pos_down'
+        type: 'float'
+        description: 'downstream position'
+        versions: ['latest']
+      - raw: 'orientationDown'
+        tidy: 'orientation_down'
+        type: 'float'
+        description: 'downstream orientation'
+        versions: ['latest']
+      - raw: 'svIdDown'
+        tidy: 'sv_id_down'
+        type: 'char'
+        description: 'downstream SV ID'
+        versions: ['latest']
+      - raw: 'junctionCopyNumber'
+        tidy: 'junc_cn'
+        type: 'float'
+        description: 'junction copy number'
+        versions: ['latest']
+      - raw: 'copyNumber'
+        tidy: 'cn'
+        type: 'float'
+        description: 'copy number'
+        versions: ['latest']
+      - raw: 'insertSeq'
+        tidy: 'insert_seq'
+        type: 'char'
+        description: 'insert sequence'
+        versions: ['latest']
+      - raw: 'chainLength'
+        tidy: 'chain_length'
+        type: 'float'
+        description: 'chain length'
+        versions: ['latest']
+      - raw: 'transcriptsUp'
+        tidy: 'transcripts_up'
+        type: 'char'
+        description: 'upstream transcripts'
+        versions: ['latest']
+      - raw: 'transcriptsDown'
+        tidy: 'transcripts_down'
+        type: 'char'
+        description: 'downstream transcripts'
+        versions: ['latest']
+  svs:
+    description: 'Additional annotations of each non-PON filtered break junction.'
+    pattern: "\\.linx\\.(germline\\.)?svs\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'vcfId'
+        tidy: 'vcf_id'
+        type: 'char'
+        description: 'ID of break junction for mapping to GRIDSS / PURPLE vcf'
+        versions: ['latest']
+      - raw: 'svId'
+        tidy: 'sv_id'
+        type: 'char'
+        description: 'ID of break junction'
+        versions: ['latest']
+      - raw: 'clusterId'
+        tidy: 'cluster_id'
+        type: 'char'
+        description: 'ID of cluster which break junction is assigned to'
+        versions: ['latest']
+      - raw: 'clusterReason'
+        tidy: 'cluster_reason'
+        type: 'char'
+        description: 'reason for clustering and svId of other clustered break junction(s)'
+        versions: ['latest']
+      - raw: 'fragileSiteStart'
+        tidy: 'fragile_site_start'
+        type: 'char'
+        description: 'start breakend is in a known fragile site (T/F)'
+        versions: ['latest']
+      - raw: 'fragileSiteEnd'
+        tidy: 'fragile_site_end'
+        type: 'char'
+        description: 'end breakend is in a known fragile site (T/F)'
+        versions: ['latest']
+      - raw: 'isFoldback'
+        tidy: 'is_foldback'
+        type: 'char'
+        description: 'break junction is classified as a foldback (T/F)'
+        versions: ['latest']
+      - raw: 'lineTypeStart'
+        tidy: 'linetype_start'
+        type: 'char'
+        description: 'start breakend is in a known or suspected line source region'
+        versions: ['latest']
+      - raw: 'lineTypeEnd'
+        tidy: 'linetype_end'
+        type: 'char'
+        description: 'end breakend is in a known or suspected line source region'
+        versions: ['latest']
+      - raw: 'junctionCopyNumberMin'
+        tidy: 'junction_cn_min'
+        type: 'float'
+        description: 'minimum bound JCN estimate for break junction'
+        versions: ['latest']
+      - raw: 'junctionCopyNumberMax'
+        tidy: 'junction_cn_max'
+        type: 'float'
+        description: 'maximum bound JCN estimate for break junction'
+        versions: ['latest']
+      - raw: 'geneStart'
+        tidy: 'gene_start'
+        type: 'char'
+        description: 'gene(s) overlapping start breakend of SV'
+        versions: ['latest']
+      - raw: 'geneEnd'
+        tidy: 'gene_end'
+        type: 'char'
+        description: 'gene(s) overlapping end breakend of SV'
+        versions: ['latest']
+      - raw: 'localTopologyIdStart'
+        tidy: 'local_topology_id_start'
+        type: 'char'
+        description: 'ID for group of proximate breakends to the start breakend'
+        versions: ['latest']
+      - raw: 'localTopologyIdEnd'
+        tidy: 'local_topology_id_end'
+        type: 'char'
+        description: 'ID for group of proximate breakends to the end breakend'
+        versions: ['latest']
+      - raw: 'localTopologyStart'
+        tidy: 'local_topology_start'
+        type: 'char'
+        description: 'local breakend topology type at site of start breakend'
+        versions: ['latest']
+      - raw: 'localTopologyEnd'
+        tidy: 'local_topology_end'
+        type: 'char'
+        description: 'local breakend topology type at site of end breakend'
+        versions: ['latest']
+      - raw: 'localTICountStart'
+        tidy: 'local_ti_count_start'
+        type: 'float'
+        description: 'number of chained templated insertions in local topology group of start breakend'
+        versions: ['latest']
+      - raw: 'localTICountEnd'
+        tidy: 'local_ti_count_end'
+        type: 'float'
+        description: 'number of chained templated insertions in local topology group of end breakend'
+        versions: ['latest']
+  viscn:
+    description: 'Copy number segments for visualisation.'
+    pattern: "\\.linx\\.vis_copy_number\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'SampleId'
+        tidy: 'sample_id'
+        type: 'char'
+        description: 'sample ID'
+        versions: ['v1.25']
+      - raw: 'Chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['v1.25', 'latest']
+      - raw: 'Start'
+        tidy: 'start'
+        type: 'float'
+        description: 'start position'
+        versions: ['v1.25', 'latest']
+      - raw: 'End'
+        tidy: 'end'
+        type: 'float'
+        description: 'end position'
+        versions: ['v1.25', 'latest']
+      - raw: 'CopyNumber'
+        tidy: 'cn'
+        type: 'float'
+        description: 'copy number'
+        versions: ['v1.25', 'latest']
+      - raw: 'BAF'
+        tidy: 'baf'
+        type: 'float'
+        description: 'B-allele frequency'
+        versions: ['v1.25', 'latest']
+  visfusion:
+    description: 'Fusion data for visualisation.'
+    pattern: "\\.linx\\.vis_fusion\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'SampleId'
+        tidy: 'sample_id'
+        type: 'char'
+        description: 'sample ID'
+        versions: ['v1.25']
+      - raw: 'ClusterId'
+        tidy: 'cluster_id'
+        type: 'char'
+        description: 'cluster ID'
+        versions: ['v1.25', 'latest']
+      - raw: 'Reportable'
+        tidy: 'reportable'
+        type: 'char'
+        description: 'reportable fusion'
+        versions: ['v1.25', 'latest']
+      - raw: 'GeneNameUp'
+        tidy: 'gene_name_up'
+        type: 'char'
+        description: 'upstream gene name'
+        versions: ['v1.25', 'latest']
+      - raw: 'TranscriptUp'
+        tidy: 'transcript_up'
+        type: 'char'
+        description: 'upstream transcript'
+        versions: ['v1.25', 'latest']
+      - raw: 'ChrUp'
+        tidy: 'chr_up'
+        type: 'char'
+        description: 'upstream chromosome'
+        versions: ['v1.25', 'latest']
+      - raw: 'PosUp'
+        tidy: 'pos_up'
+        type: 'char'
+        description: 'upstream position'
+        versions: ['v1.25', 'latest']
+      - raw: 'StrandUp'
+        tidy: 'strand_up'
+        type: 'char'
+        description: 'upstream strand'
+        versions: ['v1.25', 'latest']
+      - raw: 'RegionTypeUp'
+        tidy: 'region_type_up'
+        type: 'char'
+        description: 'upstream region type'
+        versions: ['v1.25', 'latest']
+      - raw: 'FusedExonUp'
+        tidy: 'fused_exon_up'
+        type: 'char'
+        description: 'upstream fused exon'
+        versions: ['v1.25', 'latest']
+      - raw: 'GeneNameDown'
+        tidy: 'gene_name_down'
+        type: 'char'
+        description: 'downstream gene name'
+        versions: ['v1.25', 'latest']
+      - raw: 'TranscriptDown'
+        tidy: 'transcript_down'
+        type: 'char'
+        description: 'downstream transcript'
+        versions: ['v1.25', 'latest']
+      - raw: 'ChrDown'
+        tidy: 'chr_down'
+        type: 'char'
+        description: 'downstream chromosome'
+        versions: ['v1.25', 'latest']
+      - raw: 'PosDown'
+        tidy: 'pos_down'
+        type: 'char'
+        description: 'downstream position'
+        versions: ['v1.25', 'latest']
+      - raw: 'StrandDown'
+        tidy: 'strand_down'
+        type: 'char'
+        description: 'downstream strand'
+        versions: ['v1.25', 'latest']
+      - raw: 'RegionTypeDown'
+        tidy: 'region_type_down'
+        type: 'char'
+        description: 'downstream region type'
+        versions: ['v1.25', 'latest']
+      - raw: 'FusedExonDown'
+        tidy: 'fused_exon_down'
+        type: 'char'
+        description: 'downstream fused exon'
+        versions: ['v1.25', 'latest']
+  visgeneexon:
+    description: 'Gene exon data for visualisation.'
+    pattern: "\\.linx\\.vis_gene_exon\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'SampleId'
+        tidy: 'sample_id'
+        type: 'char'
+        description: 'sample ID'
+        versions: ['v1.25']
+      - raw: 'ClusterId'
+        tidy: 'cluster_id'
+        type: 'char'
+        description: 'cluster ID'
+        versions: ['v1.25', 'latest']
+      - raw: 'Gene'
+        tidy: 'gene'
+        type: 'char'
+        description: 'gene name'
+        versions: ['v1.25', 'latest']
+      - raw: 'Transcript'
+        tidy: 'transcript'
+        type: 'char'
+        description: 'transcript'
+        versions: ['v1.25', 'latest']
+      - raw: 'Chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['v1.25', 'latest']
+      - raw: 'AnnotationType'
+        tidy: 'annotation_type'
+        type: 'char'
+        description: 'annotation type'
+        versions: ['v1.25', 'latest']
+      - raw: 'ExonRank'
+        tidy: 'exon_rank'
+        type: 'char'
+        description: 'exon rank'
+        versions: ['v1.25', 'latest']
+      - raw: 'ExonStart'
+        tidy: 'exon_start'
+        type: 'char'
+        description: 'exon start'
+        versions: ['v1.25', 'latest']
+      - raw: 'ExonEnd'
+        tidy: 'exon_end'
+        type: 'char'
+        description: 'exon end'
+        versions: ['v1.25', 'latest']
+  visproteindomain:
+    description: 'Protein domain data for visualisation.'
+    pattern: "\\.linx\\.vis_protein_domain\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'SampleId'
+        tidy: 'sample_id'
+        type: 'char'
+        description: 'sample ID'
+        versions: ['v1.25']
+      - raw: 'ClusterId'
+        tidy: 'cluster_id'
+        type: 'char'
+        description: 'cluster ID'
+        versions: ['v1.25', 'latest']
+      - raw: 'Transcript'
+        tidy: 'transcript'
+        type: 'char'
+        description: 'transcript'
+        versions: ['v1.25', 'latest']
+      - raw: 'Chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['v1.25', 'latest']
+      - raw: 'Start'
+        tidy: 'start'
+        type: 'char'
+        description: 'start position'
+        versions: ['v1.25', 'latest']
+      - raw: 'End'
+        tidy: 'end'
+        type: 'char'
+        description: 'end position'
+        versions: ['v1.25', 'latest']
+      - raw: 'Info'
+        tidy: 'info'
+        type: 'char'
+        description: 'domain info'
+        versions: ['v1.25', 'latest']
+  vissegments:
+    description: 'Segment data for visualisation.'
+    pattern: "\\.linx\\.vis_segments\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'SampleId'
+        tidy: 'sample_id'
+        type: 'char'
+        description: 'sample ID'
+        versions: ['v1.25']
+      - raw: 'ClusterId'
+        tidy: 'cluster_id'
+        type: 'char'
+        description: 'cluster ID'
+        versions: ['v1.25', 'latest']
+      - raw: 'ChainId'
+        tidy: 'chain_id'
+        type: 'char'
+        description: 'chain ID'
+        versions: ['v1.25', 'latest']
+      - raw: 'Chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['v1.25', 'latest']
+      - raw: 'PosStart'
+        tidy: 'pos_start'
+        type: 'char'
+        description: 'start position'
+        versions: ['v1.25', 'latest']
+      - raw: 'PosEnd'
+        tidy: 'pos_end'
+        type: 'char'
+        description: 'end position'
+        versions: ['v1.25', 'latest']
+      - raw: 'LinkPloidy'
+        tidy: 'link_ploidy'
+        type: 'float'
+        description: 'link ploidy'
+        versions: ['v1.25', 'latest']
+      - raw: 'InDoubleMinute'
+        tidy: 'in_double_minute'
+        type: 'char'
+        description: 'in double minute'
+        versions: ['v1.25', 'latest']
+  vissvdata:
+    description: 'SV data for visualisation.'
+    pattern: "\\.linx\\.vis_sv_data\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'SampleId'
+        tidy: 'sample_id'
+        type: 'char'
+        description: 'sample ID'
+        versions: ['v1.25']
+      - raw: 'ClusterId'
+        tidy: 'cluster_id'
+        type: 'char'
+        description: 'cluster ID'
+        versions: ['v1.25', 'latest']
+      - raw: 'ChainId'
+        tidy: 'chain_id'
+        type: 'char'
+        description: 'chain ID'
+        versions: ['v1.25', 'latest']
+      - raw: 'SvId'
+        tidy: 'sv_id'
+        type: 'char'
+        description: 'SV ID'
+        versions: ['v1.25', 'latest']
+      - raw: 'Type'
+        tidy: 'type'
+        type: 'char'
+        description: 'SV type'
+        versions: ['v1.25', 'latest']
+      - raw: 'ResolvedType'
+        tidy: 'resolved_type'
+        type: 'char'
+        description: 'resolved type'
+        versions: ['v1.25', 'latest']
+      - raw: 'IsSynthetic'
+        tidy: 'is_synthetic'
+        type: 'char'
+        description: 'is synthetic'
+        versions: ['v1.25', 'latest']
+      - raw: 'ChrStart'
+        tidy: 'chr_start'
+        type: 'char'
+        description: 'start chromosome'
+        versions: ['v1.25', 'latest']
+      - raw: 'ChrEnd'
+        tidy: 'chr_end'
+        type: 'char'
+        description: 'end chromosome'
+        versions: ['v1.25', 'latest']
+      - raw: 'PosStart'
+        tidy: 'pos_start'
+        type: 'float'
+        description: 'start position'
+        versions: ['v1.25', 'latest']
+      - raw: 'PosEnd'
+        tidy: 'pos_end'
+        type: 'float'
+        description: 'end position'
+        versions: ['v1.25', 'latest']
+      - raw: 'OrientStart'
+        tidy: 'orient_start'
+        type: 'float'
+        description: 'start orientation'
+        versions: ['v1.25', 'latest']
+      - raw: 'OrientEnd'
+        tidy: 'orient_end'
+        type: 'float'
+        description: 'end orientation'
+        versions: ['v1.25', 'latest']
+      - raw: 'InfoStart'
+        tidy: 'info_start'
+        type: 'char'
+        description: 'start info'
+        versions: ['v1.25', 'latest']
+      - raw: 'InfoEnd'
+        tidy: 'info_end'
+        type: 'char'
+        description: 'end info'
+        versions: ['v1.25', 'latest']
+      - raw: 'JunctionCopyNumber'
+        tidy: 'junction_cn'
+        type: 'float'
+        description: 'junction copy number'
+        versions: ['v1.25', 'latest']
+      - raw: 'InDoubleMinute'
+        tidy: 'in_double_minute'
+        type: 'char'
+        description: 'in double minute'
+        versions: ['v1.25', 'latest']
+  version:
+    description: 'Tool version.'
+    pattern: "^linx\\.version$"
+    ftype: 'txt-keyvalue'
+    delim: '='
+    columns:
+      - raw: 'version'
+        tidy: 'version'
+        type: 'char'
+        description: 'version of the tool'
+        versions: ['latest']
+      - raw: 'build.date'
+        tidy: 'date_build'
+        type: 'char'
+        description: 'build date'
+        versions: ['latest']

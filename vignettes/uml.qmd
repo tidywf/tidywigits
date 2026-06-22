@@ -1,16 +1,33 @@
 ---
 title: "UML"
-vignette: >
-  %\VignetteIndexEntry{UML}
-  %\VignetteEngine{quarto::html}
-  %\VignetteEncoding{UTF-8}
 knitr:
   opts_chunk:
     collapse: true
     comment: '#>'
-lightbox: true
+    echo: false
 ---
 
-### tidywigits R6 Class UML diagram
+```{r}
+#| label: pkgs
+#| include: false
+use("nemo", "nemo_uml")
+use("tidywigits", "WIGITS_TOOLS")
+use("purrr", "map_chr")
+use("knitr", "asis_output")
+```
 
-![](fig/uml/tidywigits.svg "tidywigits UML diagram"){.lightbox}
+```{r}
+#| label: uml
+x <- sort(c(
+  map_chr(WIGITS_TOOLS, "classname"),
+  "Config",
+  "Tool",
+  "Wigits",
+  "Workflow"
+))
+# hand it over directly to knitr for rendering, cat somehow doesn't work any more
+asis_output(nemo_uml(
+  classes = x,
+  pkg = "tidywigits"
+))
+```

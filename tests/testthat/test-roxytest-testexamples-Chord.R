@@ -2,15 +2,19 @@
 
 # File R/Chord.R: @testexamples
 
-test_that("Function Chord() @ L16", {
+test_that("Function Chord() @ L20", {
   
   cls <- Chord
   indir <- system.file("extdata/oa", package = "tidywigits")
   odir <- tempdir()
   id <- "chord_run1"
   obj <- cls$new(indir)
-  obj$nemofy(diro = odir, format = "parquet", input_id = id)
-  (lf <- list.files(odir, pattern = "chord.*parquet", full.names = FALSE))
+  obj$run(output_dir = odir, format = "parquet", input_id = id)
+  (lf <- list.files(odir, pattern = "chord_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 2)
+  pred <- arrow::read_parquet(file.path(odir, grep("chord_prediction", lf, value = TRUE)))
+  expect_named(pred, c("input_id", "sample_id", "p_brca1", "p_brca2", "p_hrd", "hr_status",
+    "hrd_type", "remarks_hr_status", "remarks_hrd_type"))
+  expect_equal(nrow(pred), 1L)
 })
 

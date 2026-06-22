@@ -1,0 +1,76 @@
+tables:
+  bqrtsv:
+    description: 'Base quality recalibration metrics.'
+    pattern: "\\.sage\\.bqr\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'alt'
+        tidy: 'alt'
+        type: 'char'
+        description: 'alternate allele'
+        versions: ['v3.4.4', 'latest']
+      - raw: 'ref'
+        tidy: 'ref'
+        type: 'char'
+        description: 'reference allele'
+        versions: ['v3.4.4', 'latest']
+      - raw: 'trinucleotideContext'
+        tidy: 'context'
+        type: 'char'
+        description: 'trinucleotide context'
+        versions: ['v3.4.4', 'latest']
+      - raw: 'readType'
+        tidy: 'read_type'
+        type: 'char'
+        description: 'read type'
+        versions: ['latest']
+      - raw: 'count'
+        tidy: 'count'
+        type: 'float'
+        description: 'count'
+        versions: ['v3.4.4', 'latest']
+      - raw: 'originalQual'
+        tidy: 'origq'
+        type: 'float'
+        description: 'original quality'
+        versions: ['v3.4.4', 'latest']
+      - raw: 'recalibratedQual'
+        tidy: 'recalq'
+        type: 'float'
+        description: 'recalibrated quality'
+        versions: ['v3.4.4', 'latest']
+  exoncvg:
+    description: 'Exon coverage metrics.'
+    pattern: "\\.sage\\.exon\\.medians\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'gene'
+        tidy: 'gene'
+        type: 'char'
+        description: 'gene name'
+        versions: ['latest']
+      - raw: 'chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['latest']
+      - raw: 'posStart'
+        tidy: 'start'
+        type: 'float'
+        description: 'start position'
+        versions: ['latest']
+      - raw: 'posEnd'
+        tidy: 'end'
+        type: 'float'
+        description: 'end position'
+        versions: ['latest']
+      - raw: 'exonRank'
+        tidy: 'exon'
+        type: 'float'
+        description: 'exon rank'
+        versions: ['latest']
+      - raw: 'medianDepth'
+        tidy: 'dp_med'
+        type: 'float'
+        description: 'median depth'
+        versions: ['latest']

@@ -1,0 +1,5 @@
+outs:
+- md5: b37b2c07c31fe139b011a47d99060ee3
+  size: 669
+  hash: md5
+  path: sample1.bam_metric.partition_stats.tsv

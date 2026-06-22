@@ -1,11 +1,15 @@
 name: pkgdown_env
 channels:
-  - umccr
+  - tidywf/label/dev
+  - tidywf
   - conda-forge
 dependencies:
-  - umccr::r-tidywigits
+  - r-tidywigits ==0.0.7.9005 # bump
   - r-pkgdown
   - r-quarto
   - quarto
+  - r-here
+  - r-r6toplant
+  - plantuml
   - r-htmltools
   - r-reactable

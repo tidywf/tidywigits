@@ -1,0 +1,5 @@
+outs:
+- md5: 73df0fea3685de623ecf195af47dffa0
+  size: 1050
+  hash: md5
+  path: sample1.wgsmetrics

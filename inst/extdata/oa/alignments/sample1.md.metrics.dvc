@@ -1,0 +1,5 @@
+outs:
+- md5: b7cc6eadad4b238fdd834d1ae1afb474
+  size: 2690
+  hash: md5
+  path: sample1.md.metrics

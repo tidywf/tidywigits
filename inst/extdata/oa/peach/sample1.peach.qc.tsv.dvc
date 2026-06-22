@@ -1,0 +1,5 @@
+outs:
+- md5: c4734939af2de9447f07d36e7438b0d8
+  size: 34
+  hash: md5
+  path: sample1.peach.qc.tsv

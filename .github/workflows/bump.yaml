@@ -1,4 +1,4 @@
-name: Bump Version
+name: bumpversion
 
 on:
   workflow_dispatch:
@@ -10,10 +10,11 @@ on:
 
 jobs:
   bump:
-    uses: tidywf/.github/.github/workflows/bump.yaml@main
+    uses: tidywf/actions/.github/workflows/bump.yaml@main
     permissions:
       contents: write
     with:
       pkg_name: tidywigits
       pkg_version: ${{ inputs.version }}
+      dvc: true
     secrets: inherit

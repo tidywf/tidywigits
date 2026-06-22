@@ -1,0 +1,5 @@
+outs:
+- md5: ec8c75a484dbaca07ee68602f585ff31
+  size: 231
+  hash: md5
+  path: sample1.redux.duplicate_freq.tsv

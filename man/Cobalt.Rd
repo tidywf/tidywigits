@@ -12,8 +12,8 @@ indir <- system.file("extdata/oa", package = "tidywigits")
 odir <- tempdir()
 id <- "cobalt_run1"
 obj <- cls$new(indir)
-obj$nemofy(diro = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "cobalt.*parquet", full.names = FALSE))
+obj$run(output_dir = odir, format = "parquet", input_id = id)
+(lf <- list.files(odir, pattern = "cobalt_.*parquet", full.names = FALSE))
 }
 \section{Super class}{
 \code{\link[nemo:Tool]{nemo::Tool}} -> \code{Cobalt}
@@ -24,29 +24,18 @@ obj$nemofy(diro = odir, format = "parquet", input_id = id)
 \item \href{#method-Cobalt-new}{\code{Cobalt$new()}}
 \item \href{#method-Cobalt-parse_gcmed}{\code{Cobalt$parse_gcmed()}}
 \item \href{#method-Cobalt-tidy_gcmed}{\code{Cobalt$tidy_gcmed()}}
-\item \href{#method-Cobalt-parse_ratiomed}{\code{Cobalt$parse_ratiomed()}}
-\item \href{#method-Cobalt-tidy_ratiomed}{\code{Cobalt$tidy_ratiomed()}}
-\item \href{#method-Cobalt-parse_ratiotsv}{\code{Cobalt$parse_ratiotsv()}}
-\item \href{#method-Cobalt-tidy_ratiotsv}{\code{Cobalt$tidy_ratiotsv()}}
-\item \href{#method-Cobalt-parse_ratiopcf}{\code{Cobalt$parse_ratiopcf()}}
-\item \href{#method-Cobalt-tidy_ratiopcf}{\code{Cobalt$tidy_ratiopcf()}}
 \item \href{#method-Cobalt-parse_version}{\code{Cobalt$parse_version()}}
-\item \href{#method-Cobalt-tidy_version}{\code{Cobalt$tidy_version()}}
-\item \href{#method-Cobalt-clone}{\code{Cobalt$clone()}}
 }
 }
 \if{html}{\out{
 <details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".eval_func"><a href='../../nemo/html/Tool.html#method-Tool-.eval_func'><code>nemo::Tool$.eval_func()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file'><code>nemo::Tool$.parse_file()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_keyvalue"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_keyvalue'><code>nemo::Tool$.parse_file_keyvalue()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_nohead"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_nohead'><code>nemo::Tool$.parse_file_nohead()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".tidy_file"><a href='../../nemo/html/Tool.html#method-Tool-.tidy_file'><code>nemo::Tool$.tidy_file()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="filter_files"><a href='../../nemo/html/Tool.html#method-Tool-filter_files'><code>nemo::Tool$filter_files()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_metadata"><a href='../../nemo/html/Tool.html#method-Tool-get_metadata'><code>nemo::Tool$get_metadata()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_tbls"><a href='../../nemo/html/Tool.html#method-Tool-get_tbls'><code>nemo::Tool$get_tbls()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="list_files"><a href='../../nemo/html/Tool.html#method-Tool-list_files'><code>nemo::Tool$list_files()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="nemofy"><a href='../../nemo/html/Tool.html#method-Tool-nemofy'><code>nemo::Tool$nemofy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="print"><a href='../../nemo/html/Tool.html#method-Tool-print'><code>nemo::Tool$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="run"><a href='../../nemo/html/Tool.html#method-Tool-run'><code>nemo::Tool$run()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="tidy"><a href='../../nemo/html/Tool.html#method-Tool-tidy'><code>nemo::Tool$tidy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="write"><a href='../../nemo/html/Tool.html#method-Tool-write'><code>nemo::Tool$write()</code></a></span></li>
 </ul>
@@ -96,117 +85,11 @@ Path to file.}
 \if{html}{\out{<a id="method-Cobalt-tidy_gcmed"></a>}}
 \if{latex}{\out{\hypertarget{method-Cobalt-tidy_gcmed}{}}}
 \subsection{Method \code{tidy_gcmed()}}{
-Tidy \code{gc.median.tsv} file.
+Tidy \code{gc.median.tsv} file. Generates 2 sub-tbls:
+\emph{sample} with the sample mean/median read depth, and \emph{buckets} with the
+median depth per GC bucket.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cobalt$tidy_gcmed(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cobalt-parse_ratiomed"></a>}}
-\if{latex}{\out{\hypertarget{method-Cobalt-parse_ratiomed}{}}}
-\subsection{Method \code{parse_ratiomed()}}{
-Read \code{ratio.median.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cobalt$parse_ratiomed(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cobalt-tidy_ratiomed"></a>}}
-\if{latex}{\out{\hypertarget{method-Cobalt-tidy_ratiomed}{}}}
-\subsection{Method \code{tidy_ratiomed()}}{
-Tidy \code{ratio.median.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cobalt$tidy_ratiomed(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cobalt-parse_ratiotsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Cobalt-parse_ratiotsv}{}}}
-\subsection{Method \code{parse_ratiotsv()}}{
-Read \code{ratio.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cobalt$parse_ratiotsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cobalt-tidy_ratiotsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Cobalt-tidy_ratiotsv}{}}}
-\subsection{Method \code{tidy_ratiotsv()}}{
-Tidy \code{ratio.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cobalt$tidy_ratiotsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cobalt-parse_ratiopcf"></a>}}
-\if{latex}{\out{\hypertarget{method-Cobalt-parse_ratiopcf}{}}}
-\subsection{Method \code{parse_ratiopcf()}}{
-Read \code{ratio.pcf} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cobalt$parse_ratiopcf(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cobalt-tidy_ratiopcf"></a>}}
-\if{latex}{\out{\hypertarget{method-Cobalt-tidy_ratiopcf}{}}}
-\subsection{Method \code{tidy_ratiopcf()}}{
-Tidy \code{ratio.pcf} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cobalt$tidy_ratiopcf(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -232,41 +115,6 @@ Read \code{cobalt.version} file.
 \describe{
 \item{\code{x}}{(\code{character(1)})\cr
 Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cobalt-tidy_version"></a>}}
-\if{latex}{\out{\hypertarget{method-Cobalt-tidy_version}{}}}
-\subsection{Method \code{tidy_version()}}{
-Tidy \code{cobalt.version} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cobalt$tidy_version(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cobalt-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-Cobalt-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cobalt$clone(deep = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
 }
 \if{html}{\out{</div>}}
 }

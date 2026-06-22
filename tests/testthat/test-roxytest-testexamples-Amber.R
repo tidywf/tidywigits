@@ -2,15 +2,20 @@
 
 # File R/Amber.R: @testexamples
 
-test_that("Function Amber() @ L16", {
+test_that("Function Amber() @ L21", {
   
   cls <- Amber
   indir <- system.file("extdata/oa", package = "tidywigits")
   odir <- tempdir()
   id <- "amber_run1"
   obj <- cls$new(indir)
-  obj$nemofy(diro = odir, format = "parquet", input_id = id)
-  (lf <- list.files(odir, pattern = "amber.*parquet", full.names = FALSE))
+  obj$run(output_dir = odir, format = "parquet", input_id = id)
+  (lf <- list.files(odir, pattern = "amber_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 4)
+  qc <- arrow::read_parquet(file.path(odir, grep("amber_qc", lf, value = TRUE)))
+  expect_named(qc, c("input_id", "qc_status", "contamination", "consanguinity", "uniparental_disomy"))
+  expect_equal(nrow(qc), 1L)
+  hom <- arrow::read_parquet(file.path(odir, grep("homozygous", lf, value = TRUE)))
+  expect_named(hom, c("input_id", "chrom", "pos_start", "pos_end", "n_snp", "n_hom", "n_het", "filter"))
 })
 

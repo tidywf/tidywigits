@@ -1,0 +1,5 @@
+outs:
+- md5: 93f5656c547f7297364e3816a8e2423d
+  size: 297
+  hash: md5
+  path: sample1.linx.germline.driver.catalog.tsv

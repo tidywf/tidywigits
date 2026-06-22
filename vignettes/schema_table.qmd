@@ -1,0 +1,20 @@
+---
+title: "Schema Table"
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+    echo: false
+---
+
+```{r}
+#| label: setup
+#| message: false
+use("tidywigits", "WIGITS_TOOLS")
+use("nemo", "nemo_schema_reactable")
+```
+
+```{r}
+#| label: reactable
+nemo_schema_reactable(names(WIGITS_TOOLS), pkg = "tidywigits")
+```

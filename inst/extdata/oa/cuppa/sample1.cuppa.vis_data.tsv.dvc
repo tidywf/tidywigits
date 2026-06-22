@@ -1,0 +1,5 @@
+outs:
+- md5: 5307b61a1a28efa410b262a7f6f729b4
+  size: 3194
+  hash: md5
+  path: sample1.cuppa.vis_data.tsv

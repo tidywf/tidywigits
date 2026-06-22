@@ -8,13 +8,18 @@
 #' odir <- tempdir()
 #' id <- "sage_run1"
 #' obj <- cls$new(indir)
-#' obj$nemofy(diro = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "sage.*parquet", full.names = FALSE))
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
+#' (lf <- list.files(odir, pattern = "sage_.*parquet", full.names = FALSE))
 #' @testexamples
-#' expect_equal(length(lf), 10)
+#' expect_equal(length(lf), 7)
+#' bqr <- arrow::read_parquet(file.path(odir, grep("^sample1_sage_bqrtsv", lf, value = TRUE)))
+#' expect_named(bqr, c("input_id", "alt", "ref", "context", "read_type", "count", "origq", "recalq"))
+#' exon <- arrow::read_parquet(file.path(odir, grep("^sample1_sage_exoncvg", lf, value = TRUE)))
+#' expect_named(exon, c("input_id", "gene", "chrom", "start", "end", "exon", "dp_med"))
 #' @export
 Sage <- R6::R6Class(
   "Sage",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Sage object.
@@ -25,57 +30,6 @@ Sage <- R6::R6Class(
     #' Tibble of files from [nemo::list_files_dir()].
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "sage", pkg = pkg_name, path = path, files_tbl = files_tbl)
-    },
-    #' @description Read `bqr.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_bqrtsv = function(x) {
-      self$.parse_file(x, "bqrtsv")
-    },
-    #' @description Tidy `bqr.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_bqrtsv = function(x) {
-      self$.tidy_file(x, "bqrtsv")
-    },
-    #' @description Read `gene.coverage.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_genecvg = function(x) {
-      self$.parse_file(x, "genecvg")
-    },
-    #' @description Tidy `gene.coverage.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_genecvg = function(x) {
-      d <- self$.tidy_file(x, "genecvg") |>
-        dplyr::select("data") |>
-        tidyr::unnest("data")
-      # make sure genes are unique
-      stopifnot(nrow(d) == nrow(dplyr::distinct(d, .data$gene)))
-      genes <- d |>
-        dplyr::select(!dplyr::starts_with("dr_"))
-      cvg <- d |>
-        tidyr::pivot_longer(
-          dplyr::starts_with("dr_"),
-          names_to = "dr",
-          values_to = "value"
-        ) |>
-        dplyr::select("gene", "dr", "value")
-      list(genes = genes, cvg = cvg) |>
-        nemo::enframe_data()
-    },
-    #' @description Read `exon.medians.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_exoncvg = function(x) {
-      self$.parse_file(x, "exoncvg")
-    },
-    #' @description Tidy `exon.medians.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_exoncvg = function(x) {
-      self$.tidy_file(x, "exoncvg")
     }
   )
 )

@@ -8,13 +8,19 @@
 #' odir <- tempdir()
 #' id <- "virusinterpreter_run1"
 #' obj <- cls$new(indir)
-#' obj$nemofy(diro = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "virusinterpreter.*parquet", full.names = FALSE))
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
+#' (lf <- list.files(odir, pattern = "virusinterpreter_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 1)
+#' vi <- arrow::read_parquet(file.path(odir, grep("virusinterpreter_annotated", lf, value = TRUE)))
+#' expect_named(vi, c("input_id", "taxid", "name", "qc_status", "integrations", "interpretation",
+#'   "percentage_covered", "mean_coverage", "expected_clonal_coverage", "reported",
+#'   "blacklisted", "driver_likelihood"))
+#' expect_equal(nrow(vi), 1L)
 #' @export
 Virusinterpreter <- R6::R6Class(
   "Virusinterpreter",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Virusinterpreter object.
@@ -23,30 +29,13 @@ Virusinterpreter <- R6::R6Class(
     #' ignored.
     #' @param files_tbl (`tibble(n)`)\cr
     #' Tibble of files from [nemo::list_files_dir()].
-    #' @param tidy (`logical(1)`)\cr
-    #' Should the raw parsed tibbles get tidied?
-    #' @param keep_raw (`logical(1)`)\cr
-    #' Should the raw parsed tibbles be kept in the final output?
-    initialize = function(path = NULL, files_tbl = NULL, tidy = TRUE, keep_raw = FALSE) {
+    initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(
         name = "virusinterpreter",
         pkg = pkg_name,
         path = path,
         files_tbl = files_tbl
       )
-    },
-
-    #' @description Read `virus.annotated.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_annotated = function(x) {
-      self$.parse_file(x, "annotated")
-    },
-    #' @description Tidy `virus.annotated.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_annotated = function(x) {
-      self$.tidy_file(x, "annotated")
     }
-  ) # end public
+  )
 )

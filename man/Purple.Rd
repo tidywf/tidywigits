@@ -12,8 +12,8 @@ indir <- system.file("extdata/oa", package = "tidywigits")
 odir <- tempdir()
 id <- "purple_run1"
 obj <- cls$new(indir)
-obj$nemofy(diro = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "purple.*parquet", full.names = FALSE))
+obj$run(output_dir = odir, format = "parquet", input_id = id)
+(lf <- list.files(odir, pattern = "purple_.*parquet", full.names = FALSE))
 }
 \section{Super class}{
 \code{\link[nemo:Tool]{nemo::Tool}} -> \code{Purple}
@@ -22,41 +22,20 @@ obj$nemofy(diro = odir, format = "parquet", input_id = id)
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Purple-new}{\code{Purple$new()}}
-\item \href{#method-Purple-list_files}{\code{Purple$list_files()}}
 \item \href{#method-Purple-parse_qc}{\code{Purple$parse_qc()}}
 \item \href{#method-Purple-tidy_qc}{\code{Purple$tidy_qc()}}
-\item \href{#method-Purple-parse_cnvgenetsv}{\code{Purple$parse_cnvgenetsv()}}
-\item \href{#method-Purple-tidy_cnvgenetsv}{\code{Purple$tidy_cnvgenetsv()}}
-\item \href{#method-Purple-parse_cnvsomtsv}{\code{Purple$parse_cnvsomtsv()}}
-\item \href{#method-Purple-tidy_cnvsomtsv}{\code{Purple$tidy_cnvsomtsv()}}
-\item \href{#method-Purple-parse_drivercatalog}{\code{Purple$parse_drivercatalog()}}
-\item \href{#method-Purple-tidy_drivercatalog}{\code{Purple$tidy_drivercatalog()}}
-\item \href{#method-Purple-parse_germdeltsv}{\code{Purple$parse_germdeltsv()}}
-\item \href{#method-Purple-tidy_germdeltsv}{\code{Purple$tidy_germdeltsv()}}
-\item \href{#method-Purple-parse_purityrange}{\code{Purple$parse_purityrange()}}
-\item \href{#method-Purple-tidy_purityrange}{\code{Purple$tidy_purityrange()}}
-\item \href{#method-Purple-parse_puritytsv}{\code{Purple$parse_puritytsv()}}
-\item \href{#method-Purple-tidy_puritytsv}{\code{Purple$tidy_puritytsv()}}
-\item \href{#method-Purple-parse_somclonality}{\code{Purple$parse_somclonality()}}
-\item \href{#method-Purple-tidy_somclonality}{\code{Purple$tidy_somclonality()}}
-\item \href{#method-Purple-parse_somhist}{\code{Purple$parse_somhist()}}
-\item \href{#method-Purple-tidy_somhist}{\code{Purple$tidy_somhist()}}
 \item \href{#method-Purple-parse_version}{\code{Purple$parse_version()}}
-\item \href{#method-Purple-tidy_version}{\code{Purple$tidy_version()}}
-\item \href{#method-Purple-clone}{\code{Purple$clone()}}
 }
 }
 \if{html}{\out{
 <details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".eval_func"><a href='../../nemo/html/Tool.html#method-Tool-.eval_func'><code>nemo::Tool$.eval_func()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file'><code>nemo::Tool$.parse_file()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_keyvalue"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_keyvalue'><code>nemo::Tool$.parse_file_keyvalue()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_nohead"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_nohead'><code>nemo::Tool$.parse_file_nohead()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".tidy_file"><a href='../../nemo/html/Tool.html#method-Tool-.tidy_file'><code>nemo::Tool$.tidy_file()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="filter_files"><a href='../../nemo/html/Tool.html#method-Tool-filter_files'><code>nemo::Tool$filter_files()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="nemofy"><a href='../../nemo/html/Tool.html#method-Tool-nemofy'><code>nemo::Tool$nemofy()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_metadata"><a href='../../nemo/html/Tool.html#method-Tool-get_metadata'><code>nemo::Tool$get_metadata()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_tbls"><a href='../../nemo/html/Tool.html#method-Tool-get_tbls'><code>nemo::Tool$get_tbls()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="list_files"><a href='../../nemo/html/Tool.html#method-Tool-list_files'><code>nemo::Tool$list_files()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="print"><a href='../../nemo/html/Tool.html#method-Tool-print'><code>nemo::Tool$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="run"><a href='../../nemo/html/Tool.html#method-Tool-run'><code>nemo::Tool$run()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="tidy"><a href='../../nemo/html/Tool.html#method-Tool-tidy'><code>nemo::Tool$tidy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="write"><a href='../../nemo/html/Tool.html#method-Tool-write'><code>nemo::Tool$write()</code></a></span></li>
 </ul>
@@ -82,29 +61,6 @@ ignored.}
 Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
 }
 \if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-list_files"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-list_files}{}}}
-\subsection{Method \code{list_files()}}{
-List files in given purple directory. Overwrites parent class
-to handle germline driver.catalog files.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$list_files(type = "file")}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{type}}{(\code{character(1)})\cr
-File type(s) to return (e.g. any, file, directory, symlink).
-See \code{fs::dir_info}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A tibble of file paths.
 }
 }
 \if{html}{\out{<hr>}}
@@ -144,294 +100,6 @@ Path to file.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-parse_cnvgenetsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-parse_cnvgenetsv}{}}}
-\subsection{Method \code{parse_cnvgenetsv()}}{
-Read \code{purple.cnv.gene.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$parse_cnvgenetsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-tidy_cnvgenetsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-tidy_cnvgenetsv}{}}}
-\subsection{Method \code{tidy_cnvgenetsv()}}{
-Tidy \code{purple.cnv.gene.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$tidy_cnvgenetsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-parse_cnvsomtsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-parse_cnvsomtsv}{}}}
-\subsection{Method \code{parse_cnvsomtsv()}}{
-Read \code{purple.cnv.somatic.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$parse_cnvsomtsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-tidy_cnvsomtsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-tidy_cnvsomtsv}{}}}
-\subsection{Method \code{tidy_cnvsomtsv()}}{
-Tidy \code{purple.cnv.somatic.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$tidy_cnvsomtsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-parse_drivercatalog"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-parse_drivercatalog}{}}}
-\subsection{Method \code{parse_drivercatalog()}}{
-Read \code{purple.driver.catalog.germline|somatic.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$parse_drivercatalog(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-tidy_drivercatalog"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-tidy_drivercatalog}{}}}
-\subsection{Method \code{tidy_drivercatalog()}}{
-Tidy \code{purple.driver.catalog.germline|somatic.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$tidy_drivercatalog(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-parse_germdeltsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-parse_germdeltsv}{}}}
-\subsection{Method \code{parse_germdeltsv()}}{
-Read \code{purple.germline.deletion.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$parse_germdeltsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-tidy_germdeltsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-tidy_germdeltsv}{}}}
-\subsection{Method \code{tidy_germdeltsv()}}{
-Tidy \code{purple.germline.deletion.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$tidy_germdeltsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-parse_purityrange"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-parse_purityrange}{}}}
-\subsection{Method \code{parse_purityrange()}}{
-Read \code{purple.purity.range.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$parse_purityrange(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-tidy_purityrange"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-tidy_purityrange}{}}}
-\subsection{Method \code{tidy_purityrange()}}{
-Tidy \code{purple.purity.range.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$tidy_purityrange(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-parse_puritytsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-parse_puritytsv}{}}}
-\subsection{Method \code{parse_puritytsv()}}{
-Read \code{purple.purity.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$parse_puritytsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-tidy_puritytsv"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-tidy_puritytsv}{}}}
-\subsection{Method \code{tidy_puritytsv()}}{
-Tidy \code{purple.purity.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$tidy_puritytsv(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-parse_somclonality"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-parse_somclonality}{}}}
-\subsection{Method \code{parse_somclonality()}}{
-Read \code{purple.somatic.clonality.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$parse_somclonality(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-tidy_somclonality"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-tidy_somclonality}{}}}
-\subsection{Method \code{tidy_somclonality()}}{
-Tidy \code{purple.somatic.clonality.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$tidy_somclonality(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-parse_somhist"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-parse_somhist}{}}}
-\subsection{Method \code{parse_somhist()}}{
-Read \code{purple.somatic.hist.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$parse_somhist(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-tidy_somhist"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-tidy_somhist}{}}}
-\subsection{Method \code{tidy_somhist()}}{
-Tidy \code{purple.somatic.hist.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$tidy_somhist(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Purple-parse_version"></a>}}
 \if{latex}{\out{\hypertarget{method-Purple-parse_version}{}}}
 \subsection{Method \code{parse_version()}}{
@@ -445,41 +113,6 @@ Read \code{purple.version} file.
 \describe{
 \item{\code{x}}{(\code{character(1)})\cr
 Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-tidy_version"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-tidy_version}{}}}
-\subsection{Method \code{tidy_version()}}{
-Tidy \code{purple.version} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$tidy_version(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$clone(deep = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
 }
 \if{html}{\out{</div>}}
 }

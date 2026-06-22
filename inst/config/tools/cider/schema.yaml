@@ -1,0 +1,371 @@
+tables:
+  blastn:
+    description: 'BLASTn hits.'
+    pattern: "\\.cider\\.blastn_match\\.tsv\\.gz$"
+    ftype: 'txt'
+    columns:
+      - raw: 'cdr3Seq'
+        tidy: 'cdr3_seq'
+        type: 'char'
+        description: 'CDR3 nucleotide sequence'
+        versions: ['latest']
+      - raw: 'cdr3AA'
+        tidy: 'cdr3_aa'
+        type: 'char'
+        description: 'CDR3 aa sequence'
+        versions: ['latest']
+      - raw: 'matchType'
+        tidy: 'match_type'
+        type: 'char'
+        description: 'match type'
+        versions: ['latest']
+      - raw: 'gene'
+        tidy: 'gene'
+        type: 'char'
+        description: 'gene name'
+        versions: ['latest']
+      - raw: 'functionality'
+        tidy: 'functionality'
+        type: 'char'
+        description: 'functionality'
+        versions: ['latest']
+      - raw: 'pIdent'
+        tidy: 'p_ident'
+        type: 'float'
+        description: 'percentage of identical positions'
+        versions: ['latest']
+      - raw: 'seqLength'
+        tidy: 'seq_length'
+        type: 'float'
+        description: 'sequence length'
+        versions: ['latest']
+      - raw: 'alignStart'
+        tidy: 'align_start'
+        type: 'float'
+        description: 'start of alignment in query'
+        versions: ['latest']
+      - raw: 'alignEnd'
+        tidy: 'align_end'
+        type: 'float'
+        description: 'end of alignment in query'
+        versions: ['latest']
+      - raw: 'alignGaps'
+        tidy: 'align_gaps'
+        type: 'float'
+        description: 'number of gaps in alignment'
+        versions: ['latest']
+      - raw: 'alignEValue'
+        tidy: 'align_evalue'
+        type: 'float'
+        description: 'alignment e-value (lower is better)'
+        versions: ['latest']
+      - raw: 'alignBitScore'
+        tidy: 'align_bitscore'
+        type: 'float'
+        description: 'alignment bit score (higher is better)'
+        versions: ['latest']
+      - raw: 'refStrand'
+        tidy: 'ref_strand'
+        type: 'char'
+        description: 'reference strand'
+        versions: ['latest']
+      - raw: 'refStart'
+        tidy: 'ref_start'
+        type: 'float'
+        description: 'reference start'
+        versions: ['latest']
+      - raw: 'refEnd'
+        tidy: 'ref_end'
+        type: 'float'
+        description: 'reference end'
+        versions: ['latest']
+      - raw: 'refContig'
+        tidy: 'ref_contig'
+        type: 'char'
+        description: 'reference contig'
+        versions: ['latest']
+      - raw: 'refSeq'
+        tidy: 'ref_seq'
+        type: 'char'
+        description: 'reference sequence'
+        versions: ['latest']
+  locusstats:
+    description: 'Locus stats.'
+    pattern: "\\.cider\\.locus_stats\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'locus'
+        tidy: 'locus'
+        type: 'char'
+        description: 'Ig/TCR locus'
+        versions: ['latest']
+      - raw: 'readsUsed'
+        tidy: 'reads_used'
+        type: 'float'
+        description: 'number of reads used to build the VDJ sequences'
+        versions: ['latest']
+      - raw: 'readsTotal'
+        tidy: 'reads_total'
+        type: 'float'
+        description: 'number of reads found mapped to the locus'
+        versions: ['latest']
+      - raw: 'downSampled'
+        tidy: 'downsampled'
+        type: 'char'
+        description: 'true if downsampled'
+        versions: ['latest']
+      - raw: 'sequences'
+        tidy: 'sequences'
+        type: 'float'
+        description: 'number of sequences found'
+        versions: ['latest']
+      - raw: 'passSequences'
+        tidy: 'sequences_pass'
+        type: 'float'
+        description: 'number of PASS sequences found'
+        versions: ['latest']
+  vdj:
+    description: 'VDJ sequences.'
+    pattern: "\\.cider\\.vdj\\.tsv\\.gz$"
+    ftype: 'txt'
+    columns:
+      - raw: 'cdr3Seq'
+        tidy: 'cdr3_seq'
+        type: 'char'
+        description: 'CDR3 nucleotide sequence'
+        versions: ['latest']
+      - raw: 'cdr3AA'
+        tidy: 'cdr3_aa'
+        type: 'char'
+        description: 'CDR3 aa sequence'
+        versions: ['latest']
+      - raw: 'locus'
+        tidy: 'locus'
+        type: 'char'
+        description: 'Ig/TCR locus of the sequence'
+        versions: ['latest']
+      - raw: 'filter'
+        tidy: 'filter'
+        type: 'char'
+        description: 'PASS if viable CDR3 sequence or one or more filter reasons'
+        versions: ['latest']
+      - raw: 'blastnStatus'
+        tidy: 'blastn_status'
+        type: 'char'
+        description: 'SKIPPED_BLASTN, V_D_J, V_J, V_D, D_J, V_ONLY, D_ONLY, J_ONLY, NO_REARRANGEMENT, NO_VDJ_ALIGNMENT'
+        versions: ['latest']
+      - raw: 'minHighQualBaseReads'
+        tidy: 'min_high_qual_base_reads'
+        type: 'float'
+        description: 'number of reads in the least supported base in the CDR3 region'
+        versions: ['latest']
+      - raw: 'assignedReads'
+        tidy: 'assigned_reads'
+        type: 'float'
+        description: 'total reads assigned to candidate sequence'
+        versions: ['latest']
+      - raw: 'vAlignedReads'
+        tidy: 'v_aligned_reads'
+        type: 'float'
+        description: 'number of reads initially aligned to V gene'
+        versions: ['latest']
+      - raw: 'jAlignedReads'
+        tidy: 'j_aligned_reads'
+        type: 'float'
+        description: 'number of reads initially aligned to J gene'
+        versions: ['latest']
+      - raw: 'inFrame'
+        tidy: 'in_frame'
+        type: 'char'
+        description: 'CDR3 sequence is inframe'
+        versions: ['latest']
+      - raw: 'containsStop'
+        tidy: 'contains_stop'
+        type: 'char'
+        description: 'CDR3 contains stop codon'
+        versions: ['latest']
+      - raw: 'vType'
+        tidy: 'v_type'
+        type: 'char'
+        description: '{IGKV;IGLV;IGHV;TRAV;TRBV;TRDV;TRGV}'
+        versions: ['latest']
+      - raw: 'vAnchorStart'
+        tidy: 'v_anchor_start'
+        type: 'float'
+        description: 'position of V anchor start in nt sequence'
+        versions: ['latest']
+      - raw: 'vAnchorEnd'
+        tidy: 'v_anchor_end'
+        type: 'float'
+        description: 'position of V anchor end in nt sequence'
+        versions: ['latest']
+      - raw: 'vAnchorSeq'
+        tidy: 'v_anchor_seq'
+        type: 'char'
+        description: 'V anchor sequence in nt'
+        versions: ['latest']
+      - raw: 'vAnchorTemplateSeq'
+        tidy: 'v_anchor_template_seq'
+        type: 'char'
+        description: 'best scoring V template anchor in nt'
+        versions: ['latest']
+      - raw: 'vAnchorAA'
+        tidy: 'v_anchor_aa'
+        type: 'char'
+        description: 'V anchor sequence in AA'
+        versions: ['latest']
+      - raw: 'vAnchorTemplateAA'
+        tidy: 'v_anchor_template_aa'
+        type: 'char'
+        description: 'best scoring V template Anchor in AA'
+        versions: ['latest']
+      - raw: 'vMatchMethod'
+        tidy: 'v_match_method'
+        type: 'char'
+        description: 'V match method'
+        versions: ['latest']
+      - raw: 'vSimilarityScore'
+        tidy: 'v_similarity_score'
+        type: 'float'
+        description: 'blosum similarity score for template anchor'
+        versions: ['latest']
+      - raw: 'vNonSplitReads'
+        tidy: 'v_non_split_reads'
+        type: 'float'
+        description: 'count of reads supporting sequence with at least 30 aligned bases either side of last base of conserved C'
+        versions: ['latest']
+      - raw: 'jType'
+        tidy: 'j_type'
+        type: 'char'
+        description: '{IGHJ;IGKJ;IGK-KDE,IGLJ;TRAJ;TRBJ;TRDJ;TRGJ}'
+        versions: ['latest']
+      - raw: 'jAnchorStart'
+        tidy: 'j_anchor_start'
+        type: 'float'
+        description: 'position of J anchor start in nt sequence'
+        versions: ['latest']
+      - raw: 'jAnchorEnd'
+        tidy: 'j_anchor_end'
+        type: 'float'
+        description: 'position of J anchor end in nt sequence'
+        versions: ['latest']
+      - raw: 'jAnchorSeq'
+        tidy: 'j_anchor_seq'
+        type: 'char'
+        description: 'J anchor sequence in nt'
+        versions: ['latest']
+      - raw: 'jAnchorTemplateSeq'
+        tidy: 'j_anchor_template_seq'
+        type: 'char'
+        description: 'best scoring J template anchor in nt'
+        versions: ['latest']
+      - raw: 'jAnchorAA'
+        tidy: 'j_anchor_aa'
+        type: 'char'
+        description: 'J anchor sequence in AA'
+        versions: ['latest']
+      - raw: 'jAnchorTemplateAA'
+        tidy: 'j_anchor_template_aa'
+        type: 'char'
+        description: 'best scoring J template Anchor in AA'
+        versions: ['latest']
+      - raw: 'jMatchMethod'
+        tidy: 'j_match_method'
+        type: 'char'
+        description: 'J match method'
+        versions: ['latest']
+      - raw: 'jSimilarityScore'
+        tidy: 'j_similarity_score'
+        type: 'float'
+        description: 'Blosum62 similarity score for template anchor'
+        versions: ['latest']
+      - raw: 'jNonSplitReads'
+        tidy: 'j_non_split_reads'
+        type: 'float'
+        description: 'count of reads supporting sequence with at least 30 aligned bases either side of first base of conserved W/F'
+        versions: ['latest']
+      - raw: 'vGene'
+        tidy: 'v_gene'
+        type: 'char'
+        description: 'the V gene allele that this sequence is aligned to'
+        versions: ['latest']
+      - raw: 'vPIdent'
+        tidy: 'v_pident'
+        type: 'float'
+        description: 'the align sequence % identity with the V gene'
+        versions: ['latest']
+      - raw: 'vAlignStart'
+        tidy: 'v_align_start'
+        type: 'float'
+        description: 'start of the alignment with the V gene'
+        versions: ['latest']
+      - raw: 'vAlignEnd'
+        tidy: 'v_align_end'
+        type: 'float'
+        description: 'end of the alignment with the V gene'
+        versions: ['latest']
+      - raw: 'dGene'
+        tidy: 'd_gene'
+        type: 'char'
+        description: 'the D gene allele that this sequence is aligned to'
+        versions: ['latest']
+      - raw: 'dPIdent'
+        tidy: 'd_pident'
+        type: 'float'
+        description: 'the align sequence % identity with the D gene'
+        versions: ['latest']
+      - raw: 'dAlignStart'
+        tidy: 'd_align_start'
+        type: 'float'
+        description: 'start of the alignment with the D gene'
+        versions: ['latest']
+      - raw: 'dAlignEnd'
+        tidy: 'd_align_end'
+        type: 'float'
+        description: 'end of the alignment with the D gene'
+        versions: ['latest']
+      - raw: 'jGene'
+        tidy: 'j_gene'
+        type: 'char'
+        description: 'the J gene allele that this sequence is aligned to'
+        versions: ['latest']
+      - raw: 'jPIdent'
+        tidy: 'j_pident'
+        type: 'float'
+        description: 'the align sequence % identity with the J gene'
+        versions: ['latest']
+      - raw: 'jAlignStart'
+        tidy: 'j_align_start'
+        type: 'float'
+        description: 'start of the alignment with the J gene'
+        versions: ['latest']
+      - raw: 'jAlignEnd'
+        tidy: 'j_align_end'
+        type: 'float'
+        description: 'end of the alignment with the J gene'
+        versions: ['latest']
+      - raw: 'vPrimerMatches'
+        tidy: 'v_primer_matches'
+        type: 'float'
+        description: 'V primer matches'
+        versions: ['latest']
+      - raw: 'jPrimerMatches'
+        tidy: 'j_primer_matches'
+        type: 'float'
+        description: 'J primer matches'
+        versions: ['latest']
+      - raw: 'layoutId'
+        tidy: 'layout_id'
+        type: 'char'
+        description: 'layout ID'
+        versions: ['latest']
+      - raw: 'fullSeq'
+        tidy: 'full_seq'
+        type: 'char'
+        description: 'full consensus sequence in nucleotides'
+        versions: ['latest']
+      - raw: 'support'
+        tidy: 'support'
+        type: 'char'
+        description: 'counts of high quality base support at each nucleotide (radix-36 ASCII encoded)'
+        versions: ['latest']

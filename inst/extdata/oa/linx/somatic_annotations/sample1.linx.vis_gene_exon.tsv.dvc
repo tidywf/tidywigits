@@ -1,0 +1,5 @@
+outs:
+- md5: d02d9d73efa421d3c9a92f8a36ef9b08
+  size: 641
+  hash: md5
+  path: sample1.linx.vis_gene_exon.tsv

@@ -8,13 +8,24 @@
 #' odir <- tempdir()
 #' id <- "linx_run1"
 #' obj <- cls$new(indir)
-#' obj$nemofy(diro = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "linx.*parquet", full.names = FALSE))
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
+#' (lf <- list.files(odir, pattern = "linx_.*parquet", full.names = FALSE))
 #' @testexamples
-#' expect_equal(length(lf), 20)
+#' expect_equal(length(lf), 30)
+#' fus <- arrow::read_parquet(file.path(odir, grep("^sample1_linx_fusions", lf, value = TRUE)))
+#' expect_named(fus, c("input_id", "breakendid5", "breakendid3", "name", "reported",
+#'   "reported_type", "reportable_reasons", "phased", "likelihood", "chain_length",
+#'   "chain_links", "chain_terminated", "domains_kept", "domains_lost", "skipped_exons_up",
+#'   "skipped_exons_down", "fused_exon_up", "fused_exon_down", "gene_start",
+#'   "gene_context_start", "transcript_start", "gene_end", "gene_context_end",
+#'   "transcript_end", "junction_cn"))
+#' drv <- arrow::read_parquet(file.path(odir, grep("^sample1_linx_drivers", lf, value = TRUE)))
+#' expect_named(drv, c("input_id", "cluster_id", "gene", "event_type"))
+#' expect_equal(nrow(drv), 1L)
 #' @export
 Linx <- R6::R6Class(
   "Linx",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Linx object.
@@ -25,206 +36,20 @@ Linx <- R6::R6Class(
     #' Tibble of files from [nemo::list_files_dir()].
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "linx", pkg = pkg_name, path = path, files_tbl = files_tbl)
-    },
-    #' @description List files in given linx directory. Overwrites parent class
-    #' to handle germline LINX files.
-    #' @param type (`character(1)`)\cr
-    #' File type(s) to return (e.g. any, file, directory, symlink).
-    #' See `fs::dir_info`.
-    #' @return A tibble of file paths.
-    list_files = function(type = "file") {
-      res <- super$list_files(type = type)
-      if (nrow(res) == 0) {
-        return(res)
-      }
-      res |>
-        dplyr::mutate(
-          prefix = dplyr::if_else(
-            grepl("linx\\.germline", .data$bname),
-            glue("{.data$prefix}_germline"),
-            glue("{.data$prefix}")
-          )
+      private$files <- dplyr::mutate(
+        private$files,
+        prefix = dplyr::if_else(
+          grepl("linx\\.germline", .data$bname),
+          paste0(.data$prefix, "_germline"),
+          .data$prefix
         )
-    },
-    #' @description Read `breakend.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_breakends = function(x) {
-      self$.parse_file(x, "breakends")
-    },
-    #' @description Tidy `breakend.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_breakends = function(x) {
-      self$.tidy_file(x, "breakends")
-    },
-    #' @description Read `clusters.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_clusters = function(x) {
-      self$.parse_file(x, "clusters")
-    },
-    #' @description Tidy `clusters.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_clusters = function(x) {
-      self$.tidy_file(x, "clusters")
-    },
-    #' @description Read `linx.driver.catalog.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_drivercatalog = function(x) {
-      self$.parse_file(x, "drivercatalog")
-    },
-    #' @description Tidy `linx.driver.catalog.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_drivercatalog = function(x) {
-      self$.tidy_file(x, "drivercatalog")
-    },
-    #' @description Read `linx.drivers.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_drivers = function(x) {
-      self$.parse_file(x, "drivers")
-    },
-    #' @description Tidy `linx.drivers.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_drivers = function(x) {
-      self$.tidy_file(x, "drivers")
-    },
-    #' @description Read `linx.fusion.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_fusions = function(x) {
-      self$.parse_file(x, "fusions")
-    },
-    #' @description Tidy `linx.fusion.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_fusions = function(x) {
-      self$.tidy_file(x, "fusions")
-    },
-    #' @description Read `links.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_links = function(x) {
-      self$.parse_file(x, "links")
-    },
-    #' @description Tidy `links.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_links = function(x) {
-      self$.tidy_file(x, "links")
-    },
-    #' @description Read `neoepitope.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_neoepitope = function(x) {
-      self$.parse_file(x, "neoepitope")
-    },
-    #' @description Tidy `neoepitope.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_neoepitope = function(x) {
-      self$.tidy_file(x, "neoepitope")
-    },
-    #' @description Read `svs.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_svs = function(x) {
-      self$.parse_file(x, "svs")
-    },
-    #' @description Tidy `svs.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_svs = function(x) {
-      self$.tidy_file(x, "svs")
-    },
-    #' @description Read `linx.vis_copy_number.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_viscn = function(x) {
-      self$.parse_file(x, "viscn")
-    },
-    #' @description Tidy `linx.vis_copy_number.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_viscn = function(x) {
-      self$.tidy_file(x, "viscn")
-    },
-    #' @description Read `linx.vis_fusion.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_visfusion = function(x) {
-      self$.parse_file(x, "visfusion")
-    },
-    #' @description Tidy `linx.vis_fusion.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_visfusion = function(x) {
-      self$.tidy_file(x, "visfusion")
-    },
-    #' @description Read `linx.vis_gene_exon.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_visgeneexon = function(x) {
-      self$.parse_file(x, "visgeneexon")
-    },
-    #' @description Tidy `linx.vis_gene_exon.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_visgeneexon = function(x) {
-      self$.tidy_file(x, "visgeneexon")
-    },
-    #' @description Read `linx.vis_protein_domain.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_visproteindomain = function(x) {
-      self$.parse_file(x, "visproteindomain")
-    },
-    #' @description Tidy `linx.vis_protein_domain.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_visproteindomain = function(x) {
-      self$.tidy_file(x, "visproteindomain")
-    },
-    #' @description Read `linx.vis_segments.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_vissegments = function(x) {
-      self$.parse_file(x, "vissegments")
-    },
-    #' @description Tidy `linx.vis_segments.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_vissegments = function(x) {
-      self$.tidy_file(x, "vissegments")
-    },
-    #' @description Read `linx.vis_sv_data.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_vissvdata = function(x) {
-      self$.parse_file(x, "vissvdata")
-    },
-    #' @description Tidy `linx.vis_sv_data.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_vissvdata = function(x) {
-      self$.tidy_file(x, "vissvdata")
+      )
     },
     #' @description Read `linx.version` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_version = function(x) {
-      self$.parse_file_keyvalue(x, "version", delim = "=")
-    },
-    #' @description Tidy `linx.version` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_version = function(x) {
-      self$.tidy_file(x, "version")
+      private$parse_file_keyvalue(x, "version", delim = "=")
     }
   )
 )

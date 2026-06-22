@@ -7,28 +7,24 @@
 WiGiTS file parsing and manipulation.
 }
 \examples{
-\dontrun{
-path <- here::here("nogit/oa_v2")
+path <- system.file("extdata/oa", package = "tidywigits")
 w <- Wigits$new(path)
-x <-
-  w$nemofy(
-    diro = "nogit/test_data",
-    format = "parquet",
-    input_id = "run1"
-)
-dbconn <- DBI::dbConnect(
-  drv = RPostgres::Postgres(),
-  dbname = "nemo",
-  user = "orcabus"
-)
-x <-
-  w$nemofy(
-    format = "db",
-    input_id = "runABC456",
-    dbconn = dbconn
-)
-DBI::dbDisconnect(dbconn)
-}
+dir1 <- tempdir()
+#w$tidy()
+#w$write(output_dir = dir1, format = "tsv", input_id = "input1", output_id = "out1")
+x <- w$run(output_dir = file.path(dir1, "out1"), format = "parquet", input_id = "run1")
+#dbconn <- DBI::dbConnect(
+#  drv = RPostgres::Postgres(),
+#  dbname = "nemo",
+#  user = "orcabus"
+#)
+#x <-
+#  w$run(
+#    format = "db",
+#    input_id = "runABC456",
+#    dbconn = dbconn
+#)
+#DBI::dbDisconnect(dbconn)
 }
 \section{Super class}{
 \code{\link[nemo:Workflow]{nemo::Workflow}} -> \code{Wigits}
@@ -37,20 +33,20 @@ DBI::dbDisconnect(dbconn)
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Wigits-new}{\code{Wigits$new()}}
-\item \href{#method-Wigits-get_metadata}{\code{Wigits$get_metadata()}}
-\item \href{#method-Wigits-clone}{\code{Wigits$clone()}}
 }
 }
 \if{html}{\out{
 <details><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="filter_files"><a href='../../nemo/html/Workflow.html#method-Workflow-filter_files'><code>nemo::Workflow$filter_files()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_raw_schemas_all"><a href='../../nemo/html/Workflow.html#method-Workflow-get_raw_schemas_all'><code>nemo::Workflow$get_raw_schemas_all()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_metadata"><a href='../../nemo/html/Workflow.html#method-Workflow-get_metadata'><code>nemo::Workflow$get_metadata()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_schemas_raw"><a href='../../nemo/html/Workflow.html#method-Workflow-get_schemas_raw'><code>nemo::Workflow$get_schemas_raw()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_schemas_tidy"><a href='../../nemo/html/Workflow.html#method-Workflow-get_schemas_tidy'><code>nemo::Workflow$get_schemas_tidy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_tbls"><a href='../../nemo/html/Workflow.html#method-Workflow-get_tbls'><code>nemo::Workflow$get_tbls()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_tidy_schemas_all"><a href='../../nemo/html/Workflow.html#method-Workflow-get_tidy_schemas_all'><code>nemo::Workflow$get_tidy_schemas_all()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_tools"><a href='../../nemo/html/Workflow.html#method-Workflow-get_tools'><code>nemo::Workflow$get_tools()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="list_files"><a href='../../nemo/html/Workflow.html#method-Workflow-list_files'><code>nemo::Workflow$list_files()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="nemofy"><a href='../../nemo/html/Workflow.html#method-Workflow-nemofy'><code>nemo::Workflow$nemofy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="print"><a href='../../nemo/html/Workflow.html#method-Workflow-print'><code>nemo::Workflow$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="run"><a href='../../nemo/html/Workflow.html#method-Workflow-run'><code>nemo::Workflow$run()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="tidy"><a href='../../nemo/html/Workflow.html#method-Workflow-tidy'><code>nemo::Workflow$tidy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="write"><a href='../../nemo/html/Workflow.html#method-Workflow-write'><code>nemo::Workflow$write()</code></a></span></li>
 </ul>
@@ -70,59 +66,6 @@ Create a new Wigits object.
 \describe{
 \item{\code{path}}{(\code{character(n)})\cr
 Path(s) to Wigits results.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Wigits-get_metadata"></a>}}
-\if{latex}{\out{\hypertarget{method-Wigits-get_metadata}{}}}
-\subsection{Method \code{get_metadata()}}{
-Get metadata. Overwrites parent class to handle
-tidywigits not being a dependency of nemo (see tidywigits issue 167)
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Wigits$get_metadata(
-  input_id,
-  output_id,
-  output_dir,
-  pkgs = c("nemo", "tidywigits")
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{input_id}}{(\code{character(1)})\cr
-Input ID to use for the dataset (e.g. \code{run123}).}
-
-\item{\code{output_id}}{(\code{character(1)})\cr
-Output ID to use for the dataset (e.g. \code{run123}).}
-
-\item{\code{output_dir}}{(\code{character(1)})\cr
-Output directory.}
-
-\item{\code{pkgs}}{(\code{character(n)})\cr
-Which R packages to extract versions for.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-List with metadata
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Wigits-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-Wigits-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Wigits$clone(deep = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
 }
 \if{html}{\out{</div>}}
 }

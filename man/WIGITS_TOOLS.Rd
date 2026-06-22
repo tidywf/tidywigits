@@ -3,14 +3,14 @@
 \docType{data}
 \name{WIGITS_TOOLS}
 \alias{WIGITS_TOOLS}
-\title{WiGiTS Tool Names}
+\title{WiGiTS Tools Supported}
 \format{
-An object of class \code{character} of length 20.
+An object of class \code{list} of length 19.
 }
 \usage{
 WIGITS_TOOLS
 }
 \description{
-Vector of all supported WiGiTS tool names.
+List of all supported WiGiTS tools.
 }
 \keyword{datasets}

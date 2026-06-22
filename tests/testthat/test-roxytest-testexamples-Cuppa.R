@@ -2,15 +2,18 @@
 
 # File R/Cuppa.R: @testexamples
 
-test_that("Function Cuppa() @ L16", {
+test_that("Function Cuppa() @ L19", {
   
   cls <- Cuppa
   indir <- system.file("extdata/oa", package = "tidywigits")
   odir <- tempdir()
   id <- "cuppa_run1"
   obj <- cls$new(indir)
-  obj$nemofy(diro = odir, format = "parquet", input_id = id)
-  (lf <- list.files(odir, pattern = "cuppa.*parquet", full.names = FALSE))
-  expect_equal(length(lf), 3)
+  obj$run(output_dir = odir, format = "parquet", input_id = id)
+  (lf <- list.files(odir, pattern = "cuppa_.*parquet", full.names = FALSE))
+  expect_equal(length(lf), 4)
+  ps <- arrow::read_parquet(file.path(odir, grep("cuppa_predsum", lf, value = TRUE)))
+  expect_named(ps, c("input_id", "sample_id", "clf_group", "clf_name", "rank", "class", "prob",
+    "extra_info", "extra_info_format"))
 })
 

@@ -1,0 +1,92 @@
+tables:
+  gcmed:
+    description: 'GC median read depth per GC bucket.'
+    pattern: "\\.cobalt\\.gc\\.median\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: '#gcBucket'
+        tidy: 'gc_bucket'
+        type: 'char'
+        description: 'GC bucket number'
+        versions: ['latest']
+      - raw: 'median'
+        tidy: 'median'
+        type: 'float'
+        description: 'median read depth in bucket'
+        versions: ['latest']
+  ratiomed:
+    description: 'Chromosome median ratios.'
+    pattern: "\\.cobalt\\.ratio\\.median\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['latest']
+      - raw: 'medianRatio'
+        tidy: 'median_ratio'
+        type: 'float'
+        description: 'median ratio'
+        versions: ['latest']
+      - raw: 'count'
+        tidy: 'count'
+        type: 'float'
+        description: 'count'
+        versions: ['latest']
+  ratiopcf:
+    description: 'Segmented regions determined from the ratios (piecewise constant fit).'
+    pattern: "\\.cobalt\\.ratio\\.pcf$"
+    ftype: 'txt'
+    columns:
+      - raw: 'sampleID'
+        tidy: 'sample_id'
+        type: 'char'
+        description: 'sample ID'
+        versions: ['latest']
+      - raw: 'chrom'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['latest']
+      - raw: 'arm'
+        tidy: 'arm'
+        type: 'char'
+        description: 'chromosome arm'
+        versions: ['latest']
+      - raw: 'start.pos'
+        tidy: 'start_pos'
+        type: 'float'
+        description: 'start position'
+        versions: ['latest']
+      - raw: 'end.pos'
+        tidy: 'end_pos'
+        type: 'float'
+        description: 'end position'
+        versions: ['latest']
+      - raw: 'n.probes'
+        tidy: 'n_probes'
+        type: 'int'
+        description: 'number of probes'
+        versions: ['latest']
+      - raw: 'mean'
+        tidy: 'mean'
+        type: 'float'
+        description: 'mean'
+        versions: ['latest']
+  version:
+    description: 'Version of the tool.'
+    pattern: "^cobalt\\.version$"
+    ftype: 'txt-keyvalue'
+    delim: '='
+    columns:
+      - raw: 'version'
+        tidy: 'version'
+        type: 'char'
+        description: 'version of the tool'
+        versions: ['latest']
+      - raw: 'build.date'
+        tidy: 'date_build'
+        type: 'char'
+        description: 'build date'
+        versions: ['latest']

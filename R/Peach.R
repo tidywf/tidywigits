@@ -8,13 +8,20 @@
 #' odir <- tempdir()
 #' id <- "peach_run1"
 #' obj <- cls$new(indir)
-#' obj$nemofy(diro = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "peach.*parquet", full.names = FALSE))
+#' obj$run(output_dir = odir, format = "parquet", input_id = id)
+#' (lf <- list.files(odir, pattern = "peach_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 5)
+#' qc <- arrow::read_parquet(file.path(odir, grep("peach_qc", lf, value = TRUE)))
+#' expect_named(qc, c("input_id", "gene", "status"))
+#' expect_equal(nrow(qc), 2L)
+#' hbest <- arrow::read_parquet(file.path(odir, grep("haplotypesbest", lf, value = TRUE)))
+#' expect_named(hbest, c("input_id", "gene", "haplotype", "count", "function",
+#'   "linked_drugs", "prescription_urls"))
 #' @export
 Peach <- R6::R6Class(
   "Peach",
+  cloneable = FALSE,
   inherit = Tool,
   public = list(
     #' @description Create a new Peach object.
@@ -25,66 +32,6 @@ Peach <- R6::R6Class(
     #' Tibble of files from [nemo::list_files_dir()].
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "peach", pkg = pkg_name, path = path, files_tbl = files_tbl)
-    },
-    #' @description Read `events.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_events = function(x) {
-      self$.parse_file(x, "events")
-    },
-    #' @description Tidy `events.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_events = function(x) {
-      self$.tidy_file(x, "events")
-    },
-    #' @description Read `gene.events.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_eventsg = function(x) {
-      self$.parse_file(x, "eventsg")
-    },
-    #' @description Tidy `gene.events.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_eventsg = function(x) {
-      self$.tidy_file(x, "eventsg")
-    },
-    #' @description Read `haplotypes.all.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_hapall = function(x) {
-      self$.parse_file(x, "hapall")
-    },
-    #' @description Tidy `haplotypes.all.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_hapall = function(x) {
-      self$.tidy_file(x, "hapall")
-    },
-    #' @description Read `haplotypes.best.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_hapbest = function(x) {
-      self$.parse_file(x, "hapbest")
-    },
-    #' @description Tidy `haplotypes.best.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_hapbest = function(x) {
-      self$.tidy_file(x, "hapbest")
-    },
-    #' @description Read `qc.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_qc = function(x) {
-      self$.parse_file(x, "qc")
-    },
-    #' @description Tidy `qc.tsv` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    tidy_qc = function(x) {
-      self$.tidy_file(x, "qc")
     }
   )
 )

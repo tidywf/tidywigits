@@ -1,0 +1,5 @@
+outs:
+- md5: acf147e2cd26abe261881fb21d203d57
+  size: 398
+  hash: md5
+  path: sample1.linx.vis_copy_number.tsv

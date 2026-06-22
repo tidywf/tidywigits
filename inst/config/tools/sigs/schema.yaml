@@ -1,0 +1,36 @@
+tables:
+  allocation:
+    description: 'Signature allocation.'
+    pattern: "\\.sig\\.allocation\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'signature'
+        tidy: 'signature'
+        type: 'char'
+        description: 'Signature name'
+        versions: ['latest']
+      - raw: 'allocation'
+        tidy: 'allocation'
+        type: 'float'
+        description: 'Signature allocation'
+        versions: ['latest']
+      - raw: 'percent'
+        tidy: 'percent'
+        type: 'float'
+        description: 'Signature allocation percentage'
+        versions: ['latest']
+  snvcounts:
+    description: 'SNV counts.'
+    pattern: "\\.sig\\.snv_counts\\.csv$"
+    ftype: 'txt-nohead'
+    columns:
+      - raw: 'X1'
+        tidy: 'bucket_name'
+        type: 'char'
+        description: 'signature context bucket'
+        versions: ['latest']
+      - raw: 'X2'
+        tidy: 'count'
+        type: 'int'
+        description: 'SNV count in bucket'
+        versions: ['latest']

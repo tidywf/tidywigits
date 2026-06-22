@@ -1,0 +1,5 @@
+outs:
+- md5: a68229c3002b410bee3979ccfa0aa23b
+  size: 451
+  hash: md5
+  path: sample1.purple.somatic.clonality.tsv

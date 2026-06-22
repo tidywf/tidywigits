@@ -1,0 +1,5 @@
+outs:
+- md5: 5d55ec30a9035b569dbcd7fbfd4f05ea
+  size: 600
+  hash: md5
+  path: sample1.linx.germline.breakend.tsv

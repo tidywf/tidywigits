@@ -1,0 +1,5 @@
+outs:
+- md5: ce4e8d62960773115df20d7f9c29b89b
+  size: 39
+  hash: md5
+  path: cobalt.version

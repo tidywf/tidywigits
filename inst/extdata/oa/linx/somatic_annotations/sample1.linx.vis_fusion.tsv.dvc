@@ -1,0 +1,5 @@
+outs:
+- md5: c28f4027e568ef42ac7e9b202fa79471
+  size: 282
+  hash: md5
+  path: sample1.linx.vis_fusion.tsv

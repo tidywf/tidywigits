@@ -1,0 +1,5 @@
+outs:
+- md5: 4c3f3d8efde3ab8b887ae32214e0c81f
+  size: 2497
+  hash: md5
+  path: sample1.esvee.prep.fragment_length.tsv

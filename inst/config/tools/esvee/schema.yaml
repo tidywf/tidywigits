@@ -1,0 +1,656 @@
+tables:
+  prepfraglen:
+    description: 'Fragment length stats.'
+    pattern: "\\.esvee\\.prep\\.fragment_length\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'FragmentLength'
+        tidy: 'fragment_length'
+        type: 'float'
+        description: 'fragment length'
+        versions: ['latest']
+      - raw: 'Count'
+        tidy: 'count'
+        type: 'float'
+        description: 'count'
+        versions: ['latest']
+  prepdiscstats:
+    description: 'Discordant read stats.'
+    pattern: "\\.esvee\\.prep\\.disc_stats\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'TotalReads'
+        tidy: 'tot_reads'
+        type: 'float'
+        description: 'total reads'
+        versions: ['latest']
+      - raw: 'PrepReads'
+        tidy: 'prep_reads'
+        type: 'float'
+        description: 'prep reads'
+        versions: ['latest']
+      - raw: 'Translocation'
+        tidy: 'translocation'
+        type: 'float'
+        description: 'translocation count'
+        versions: ['latest']
+      - raw: 'InvLt1K'
+        tidy: 'inv_lt_1k'
+        type: 'float'
+        description: 'inversions < 1kb'
+        versions: ['latest']
+      - raw: 'Inv1To5K'
+        tidy: 'inv_1_to_5k'
+        type: 'float'
+        description: 'inversions 1-5kb'
+        versions: ['latest']
+      - raw: 'Inv5To100K'
+        tidy: 'inv_5_to_100k'
+        type: 'float'
+        description: 'inversions 5-100kb'
+        versions: ['latest']
+      - raw: 'InvGt100K'
+        tidy: 'inv_gt_100k'
+        type: 'float'
+        description: 'inversions > 100kb'
+        versions: ['latest']
+      - raw: 'Del1To5K'
+        tidy: 'del_1_to_5k'
+        type: 'float'
+        description: 'deletions 1-5kb'
+        versions: ['latest']
+      - raw: 'Del5To100K'
+        tidy: 'del_5_to_100k'
+        type: 'float'
+        description: 'deletions 5-100kb'
+        versions: ['latest']
+      - raw: 'DelGt100K'
+        tidy: 'del_gt_100k'
+        type: 'float'
+        description: 'deletions > 100kb'
+        versions: ['latest']
+      - raw: 'Dup1To5K'
+        tidy: 'dup_1_to_5k'
+        type: 'float'
+        description: 'duplications 1-5kb'
+        versions: ['latest']
+      - raw: 'Dup5To100K'
+        tidy: 'dup_5_to_100k'
+        type: 'float'
+        description: 'duplications 5-100kb'
+        versions: ['latest']
+      - raw: 'DupGt100K'
+        tidy: 'dup_gt_100k'
+        type: 'float'
+        description: 'duplications > 100kb'
+        versions: ['latest']
+  prepjunction:
+    description: 'Candidate junctions.'
+    pattern: "\\.esvee\\.prep\\.junction\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'Chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['latest']
+      - raw: 'Position'
+        tidy: 'position'
+        type: 'float'
+        description: 'position'
+        versions: ['latest']
+      - raw: 'Orientation'
+        tidy: 'orientation'
+        type: 'float'
+        description: 'orientation'
+        versions: ['latest']
+      - raw: 'JunctionFrags'
+        tidy: 'junc_frags'
+        type: 'float'
+        description: 'junction fragments'
+        versions: ['latest']
+      - raw: 'ExactSupportFrags'
+        tidy: 'exact_support_frags'
+        type: 'float'
+        description: 'exact support fragments'
+        versions: ['latest']
+      - raw: 'OtherSupportFrags'
+        tidy: 'other_support_frags'
+        type: 'float'
+        description: 'other support fragments'
+        versions: ['latest']
+      - raw: 'LowMapQualFrags'
+        tidy: 'low_map_qual_frags'
+        type: 'float'
+        description: 'low mapping quality fragments'
+        versions: ['latest']
+      - raw: 'MaxQual'
+        tidy: 'max_qual'
+        type: 'float'
+        description: 'maximum quality'
+        versions: ['latest']
+      - raw: 'ExtraInfo'
+        tidy: 'extra_info'
+        type: 'float'
+        description: 'extra info'
+        versions: ['latest']
+      - raw: 'Indel'
+        tidy: 'indel'
+        type: 'char'
+        description: 'indel flag'
+        versions: ['latest']
+      - raw: 'Hotspot'
+        tidy: 'hotspot'
+        type: 'char'
+        description: 'hotspot flag'
+        versions: ['latest']
+      - raw: 'InitialReadId'
+        tidy: 'initial_read_id'
+        type: 'char'
+        description: 'initial read ID'
+        versions: ['latest']
+  assemblephased:
+    description: 'Phased assemblies.'
+    pattern: "\\.esvee\\.phased_assembly\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'AssemblyIds'
+        tidy: 'assembly_ids'
+        type: 'char'
+        description: 'assembly IDs'
+        versions: ['latest']
+      - raw: 'AssemblyInfo'
+        tidy: 'assembly_info'
+        type: 'char'
+        description: 'assembly info'
+        versions: ['latest']
+      - raw: 'Merged'
+        tidy: 'merged'
+        type: 'char'
+        description: 'merged flag'
+        versions: ['latest']
+      - raw: 'SequenceLength'
+        tidy: 'sequence_length'
+        type: 'float'
+        description: 'sequence length'
+        versions: ['latest']
+      - raw: 'AssemblyCigar'
+        tidy: 'assembly_cigar'
+        type: 'char'
+        description: 'assembly CIGAR'
+        versions: ['latest']
+      - raw: 'FullSequence'
+        tidy: 'full_sequence'
+        type: 'char'
+        description: 'full sequence'
+        versions: ['latest']
+  assembleassembly:
+    description: 'Breakend assemblies.'
+    pattern: "\\.esvee\\.assembly\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'Id'
+        tidy: 'id'
+        type: 'char'
+        description: 'ID'
+        versions: ['latest']
+      - raw: 'Chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['latest']
+      - raw: 'JuncPosition'
+        tidy: 'junc_position'
+        type: 'float'
+        description: 'junction position'
+        versions: ['latest']
+      - raw: 'JuncOrientation'
+        tidy: 'junc_orientation'
+        type: 'float'
+        description: 'junction orientation'
+        versions: ['latest']
+      - raw: 'JuncType'
+        tidy: 'junc_type'
+        type: 'char'
+        description: 'junction type'
+        versions: ['latest']
+      - raw: 'ExtBaseLength'
+        tidy: 'ext_base_length'
+        type: 'float'
+        description: 'extension base length'
+        versions: ['latest']
+      - raw: 'RefBasePosition'
+        tidy: 'ref_base_position'
+        type: 'float'
+        description: 'reference base position'
+        versions: ['latest']
+      - raw: 'RefBaseLength'
+        tidy: 'ref_base_length'
+        type: 'float'
+        description: 'reference base length'
+        versions: ['latest']
+      - raw: 'RefBaseCigar'
+        tidy: 'ref_base_cigar'
+        type: 'char'
+        description: 'reference base CIGAR'
+        versions: ['latest']
+      - raw: 'SplitFrags'
+        tidy: 'split_frags'
+        type: 'float'
+        description: 'split fragments'
+        versions: ['latest']
+      - raw: 'RefSplitFrags'
+        tidy: 'ref_split_frags'
+        type: 'float'
+        description: 'reference split fragments'
+        versions: ['latest']
+      - raw: 'DiscFrags'
+        tidy: 'disc_frags'
+        type: 'float'
+        description: 'discordant fragments'
+        versions: ['latest']
+      - raw: 'RefDiscFrags'
+        tidy: 'ref_disc_frags'
+        type: 'float'
+        description: 'reference discordant fragments'
+        versions: ['latest']
+      - raw: 'Outcome'
+        tidy: 'outcome'
+        type: 'char'
+        description: 'outcome'
+        versions: ['latest']
+      - raw: 'PhaseGroupId'
+        tidy: 'phase_group_id'
+        type: 'float'
+        description: 'phase group ID'
+        versions: ['latest']
+      - raw: 'PhaseGroupCount'
+        tidy: 'phase_group_count'
+        type: 'float'
+        description: 'phase group count'
+        versions: ['latest']
+      - raw: 'PhaseSetId'
+        tidy: 'phase_set_id'
+        type: 'char'
+        description: 'phase set ID'
+        versions: ['latest']
+      - raw: 'PhaseSetCount'
+        tidy: 'phase_set_count'
+        type: 'float'
+        description: 'phase set count'
+        versions: ['latest']
+      - raw: 'SplitLinks'
+        tidy: 'split_links'
+        type: 'char'
+        description: 'split links'
+        versions: ['latest']
+      - raw: 'FacingLinks'
+        tidy: 'facing_links'
+        type: 'char'
+        description: 'facing links'
+        versions: ['latest']
+      - raw: 'SvType'
+        tidy: 'sv_type'
+        type: 'char'
+        description: 'SV type'
+        versions: ['latest']
+      - raw: 'SvLength'
+        tidy: 'sv_length'
+        type: 'float'
+        description: 'SV length'
+        versions: ['latest']
+      - raw: 'InsertedBases'
+        tidy: 'inserted_bases'
+        type: 'char'
+        description: 'inserted bases'
+        versions: ['latest']
+      - raw: 'OverlapBases'
+        tidy: 'overlap_bases'
+        type: 'char'
+        description: 'overlap bases'
+        versions: ['latest']
+      - raw: 'SecondaryLinks'
+        tidy: 'secondary_links'
+        type: 'char'
+        description: 'secondary links'
+        versions: ['latest']
+      - raw: 'JunctionSequence'
+        tidy: 'junc_sequence'
+        type: 'char'
+        description: 'junction sequence'
+        versions: ['latest']
+      - raw: 'RefBaseSequence'
+        tidy: 'ref_base_sequence'
+        type: 'char'
+        description: 'reference base sequence'
+        versions: ['latest']
+      - raw: 'InsertType'
+        tidy: 'insert_type'
+        type: 'char'
+        description: 'insert type'
+        versions: ['latest']
+      - raw: 'RefBaseCandidates'
+        tidy: 'ref_base_candidates'
+        type: 'float'
+        description: 'reference base candidates'
+        versions: ['latest']
+      - raw: 'UnmappedCandidates'
+        tidy: 'unmapped_candidates'
+        type: 'float'
+        description: 'unmapped candidates'
+        versions: ['latest']
+      - raw: 'AssemblyInfo'
+        tidy: 'assembly_info'
+        type: 'char'
+        description: 'assembly info'
+        versions: ['latest']
+  assemblebreakend:
+    description: 'Breakends.'
+    pattern: "\\.esvee\\.breakend\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'Id'
+        tidy: 'id'
+        type: 'char'
+        description: 'ID'
+        versions: ['latest']
+      - raw: 'PhaseGroupId'
+        tidy: 'phase_group_id'
+        type: 'char'
+        description: 'phase group ID'
+        versions: ['latest']
+      - raw: 'PhaseSetId'
+        tidy: 'phase_set_id'
+        type: 'char'
+        description: 'phase set ID'
+        versions: ['latest']
+      - raw: 'AssemblyId'
+        tidy: 'assembly_id'
+        type: 'char'
+        description: 'assembly ID'
+        versions: ['latest']
+      - raw: 'MateId'
+        tidy: 'mate_id'
+        type: 'char'
+        description: 'mate ID'
+        versions: ['latest']
+      - raw: 'AssemblyInfo'
+        tidy: 'assembly_info'
+        type: 'char'
+        description: 'assembly info'
+        versions: ['latest']
+      - raw: 'Type'
+        tidy: 'type'
+        type: 'char'
+        description: 'type'
+        versions: ['latest']
+      - raw: 'Chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['latest']
+      - raw: 'Position'
+        tidy: 'position'
+        type: 'float'
+        description: 'position'
+        versions: ['latest']
+      - raw: 'Orientation'
+        tidy: 'orientation'
+        type: 'float'
+        description: 'orientation'
+        versions: ['latest']
+      - raw: 'MateChr'
+        tidy: 'mate_chr'
+        type: 'char'
+        description: 'mate chromosome'
+        versions: ['latest']
+      - raw: 'MatePos'
+        tidy: 'mate_pos'
+        type: 'float'
+        description: 'mate position'
+        versions: ['latest']
+      - raw: 'MateOrient'
+        tidy: 'mate_orient'
+        type: 'float'
+        description: 'mate orientation'
+        versions: ['latest']
+      - raw: 'Length'
+        tidy: 'length'
+        type: 'float'
+        description: 'length'
+        versions: ['latest']
+      - raw: 'InsertedBases'
+        tidy: 'inserted_bases'
+        type: 'char'
+        description: 'inserted bases'
+        versions: ['latest']
+      - raw: 'Homology'
+        tidy: 'homology'
+        type: 'char'
+        description: 'homology'
+        versions: ['latest']
+      - raw: 'ConfidenceInterval'
+        tidy: 'confidence_interval'
+        type: 'char'
+        description: 'confidence interval'
+        versions: ['latest']
+      - raw: 'InexactOffset'
+        tidy: 'inexact_offset'
+        type: 'char'
+        description: 'inexact offset'
+        versions: ['latest']
+      - raw: 'Qual'
+        tidy: 'qual'
+        type: 'float'
+        description: 'quality'
+        versions: ['latest']
+      - raw: 'SplitFragments'
+        tidy: 'split_fragments'
+        type: 'float'
+        description: 'split fragments'
+        versions: ['latest']
+      - raw: 'RefSplitFragments'
+        tidy: 'ref_split_fragments'
+        type: 'float'
+        description: 'reference split fragments'
+        versions: ['latest']
+      - raw: 'DiscFragments'
+        tidy: 'disc_fragments'
+        type: 'float'
+        description: 'discordant fragments'
+        versions: ['latest']
+      - raw: 'RefDiscFragments'
+        tidy: 'ref_disc_fragments'
+        type: 'float'
+        description: 'reference discordant fragments'
+        versions: ['latest']
+      - raw: 'ForwardReads'
+        tidy: 'forward_reads'
+        type: 'float'
+        description: 'forward reads'
+        versions: ['latest']
+      - raw: 'ReverseReads'
+        tidy: 'reverse_reads'
+        type: 'float'
+        description: 'reverse reads'
+        versions: ['latest']
+      - raw: 'SequenceLength'
+        tidy: 'sequence_length'
+        type: 'float'
+        description: 'sequence length'
+        versions: ['latest']
+      - raw: 'SegmentCount'
+        tidy: 'segment_count'
+        type: 'float'
+        description: 'segment count'
+        versions: ['latest']
+      - raw: 'SegmentIndex'
+        tidy: 'segment_index'
+        type: 'float'
+        description: 'segment index'
+        versions: ['latest']
+      - raw: 'SequenceIndex'
+        tidy: 'sequence_index'
+        type: 'float'
+        description: 'sequence index'
+        versions: ['latest']
+      - raw: 'AlignedBases'
+        tidy: 'aligned_bases'
+        type: 'float'
+        description: 'aligned bases'
+        versions: ['latest']
+      - raw: 'MapQual'
+        tidy: 'map_qual'
+        type: 'float'
+        description: 'mapping quality'
+        versions: ['latest']
+      - raw: 'Score'
+        tidy: 'score'
+        type: 'float'
+        description: 'score'
+        versions: ['latest']
+      - raw: 'AdjAlignedBases'
+        tidy: 'adj_aligned_bases'
+        type: 'float'
+        description: 'adjusted aligned bases'
+        versions: ['latest']
+      - raw: 'AvgFragmentLength'
+        tidy: 'avg_fragment_length'
+        type: 'float'
+        description: 'average fragment length'
+        versions: ['latest']
+      - raw: 'IncompleteFragments'
+        tidy: 'incomplete_fragments'
+        type: 'float'
+        description: 'incomplete fragments'
+        versions: ['latest']
+      - raw: 'BreakendQual'
+        tidy: 'breakend_qual'
+        type: 'float'
+        description: 'breakend quality'
+        versions: ['latest']
+      - raw: 'FacingBreakendIds'
+        tidy: 'facing_breakend_ids'
+        type: 'char'
+        description: 'facing breakend IDs'
+        versions: ['latest']
+      - raw: 'AltAlignments'
+        tidy: 'alt_alignments'
+        type: 'char'
+        description: 'alternative alignments'
+        versions: ['latest']
+      - raw: 'InsertionType'
+        tidy: 'insertion_type'
+        type: 'char'
+        description: 'insertion type'
+        versions: ['latest']
+      - raw: 'UniqueFragPos'
+        tidy: 'unique_frag_pos'
+        type: 'float'
+        description: 'unique fragment positions'
+        versions: ['latest']
+      - raw: 'ClosestAssembly'
+        tidy: 'closest_assembly'
+        type: 'char'
+        description: 'closest assembly'
+        versions: ['latest']
+      - raw: 'NonPrimaryFragments'
+        tidy: 'non_primary_frags'
+        type: 'float'
+        description: 'non-primary fragments'
+        versions: ['latest']
+  assemblealignment:
+    description: 'Realigned assemblies.'
+    pattern: "\\.esvee\\.alignment\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'AssemblyIds'
+        tidy: 'assembly_ids'
+        type: 'char'
+        description: 'assembly IDs'
+        versions: ['latest']
+      - raw: 'AssemblyInfo'
+        tidy: 'assembly_info'
+        type: 'char'
+        description: 'assembly info'
+        versions: ['latest']
+      - raw: 'RefInfo'
+        tidy: 'ref_info'
+        type: 'char'
+        description: 'reference info'
+        versions: ['latest']
+      - raw: 'RawSeqCoords'
+        tidy: 'raw_seq_coords'
+        type: 'char'
+        description: 'raw sequence coordinates'
+        versions: ['latest']
+      - raw: 'AdjSeqCoords'
+        tidy: 'adj_seq_coords'
+        type: 'char'
+        description: 'adjusted sequence coordinates'
+        versions: ['latest']
+      - raw: 'MapQual'
+        tidy: 'map_qual'
+        type: 'float'
+        description: 'mapping quality'
+        versions: ['latest']
+      - raw: 'Cigar'
+        tidy: 'cigar'
+        type: 'char'
+        description: 'CIGAR string'
+        versions: ['latest']
+      - raw: 'Orientation'
+        tidy: 'orientation'
+        type: 'float'
+        description: 'orientation'
+        versions: ['latest']
+      - raw: 'AlignedBases'
+        tidy: 'aligned_bases'
+        type: 'float'
+        description: 'aligned bases'
+        versions: ['latest']
+      - raw: 'Score'
+        tidy: 'score'
+        type: 'float'
+        description: 'score'
+        versions: ['latest']
+      - raw: 'Flags'
+        tidy: 'flags'
+        type: 'float'
+        description: 'flags'
+        versions: ['latest']
+      - raw: 'NMatches'
+        tidy: 'n_matches'
+        type: 'float'
+        description: 'number of matches'
+        versions: ['latest']
+      - raw: 'XaTag'
+        tidy: 'xa_tag'
+        type: 'char'
+        description: 'XA tag'
+        versions: ['latest']
+      - raw: 'MdTag'
+        tidy: 'md_tag'
+        type: 'char'
+        description: 'MD tag'
+        versions: ['latest']
+      - raw: 'CalcAlignLength'
+        tidy: 'calc_align_length'
+        type: 'float'
+        description: 'calculated alignment length'
+        versions: ['latest']
+      - raw: 'ModMapQual'
+        tidy: 'mod_map_qual'
+        type: 'float'
+        description: 'modified mapping quality'
+        versions: ['latest']
+      - raw: 'DroppedOnRequery'
+        tidy: 'dropped_on_requery'
+        type: 'char'
+        description: 'dropped on requery flag'
+        versions: ['latest']
+      - raw: 'LinkedAltAlignment'
+        tidy: 'linked_alt_alignment'
+        type: 'char'
+        description: 'linked alternative alignment'
+        versions: ['latest']

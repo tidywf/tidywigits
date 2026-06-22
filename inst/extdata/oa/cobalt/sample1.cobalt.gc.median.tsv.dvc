@@ -1,0 +1,5 @@
+outs:
+- md5: e769652ccd171183f91fd7922169ef51
+  size: 423
+  hash: md5
+  path: sample1.cobalt.gc.median.tsv

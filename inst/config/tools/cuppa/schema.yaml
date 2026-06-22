@@ -1,0 +1,156 @@
+tables:
+  datacsv:
+    description: 'Visualisation data (CUPPA v1).'
+    pattern: "\\.cup\\.data\\.csv$"
+    ftype: 'csv'
+    columns:
+      - raw: 'SampleId'
+        tidy: 'sample_id'
+        type: 'char'
+        description: 'sample ID'
+        versions: ['v1.4']
+      - raw: 'Category'
+        tidy: 'category'
+        type: 'char'
+        description: 'category'
+        versions: ['latest', 'v1.4']
+      - raw: 'ResultType'
+        tidy: 'result_type'
+        type: 'char'
+        description: 'result type'
+        versions: ['latest', 'v1.4']
+      - raw: 'DataType'
+        tidy: 'data_type'
+        type: 'char'
+        description: 'data type'
+        versions: ['latest', 'v1.4']
+      - raw: 'Value'
+        tidy: 'value'
+        type: 'char'
+        description: 'value'
+        versions: ['latest', 'v1.4']
+      - raw: 'RefCancerType'
+        tidy: 'ref_cancer_type'
+        type: 'char'
+        description: 'ref cancer type'
+        versions: ['latest', 'v1.4']
+      - raw: 'RefValue'
+        tidy: 'ref_value'
+        type: 'float'
+        description: 'ref value'
+        versions: ['latest', 'v1.4']
+  predsum:
+    description: 'Prediction summary.'
+    pattern: "\\.cuppa\\.pred_summ\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'sample_id'
+        tidy: 'sample_id'
+        type: 'char'
+        description: 'sample ID'
+        versions: ['latest']
+      - raw: 'clf_group'
+        tidy: 'clf_group'
+        type: 'char'
+        description: 'classifier group'
+        versions: ['latest']
+      - raw: 'clf_name'
+        tidy: 'clf_name'
+        type: 'char'
+        description: 'classifier name'
+        versions: ['latest']
+      - raw: 'pred_class_1'
+        tidy: 'pred_class_1'
+        type: 'char'
+        description: 'prediction class rank 1'
+        versions: ['latest']
+      - raw: 'pred_class_2'
+        tidy: 'pred_class_2'
+        type: 'char'
+        description: 'prediction class rank 2'
+        versions: ['latest']
+      - raw: 'pred_class_3'
+        tidy: 'pred_class_3'
+        type: 'char'
+        description: 'prediction class rank 3'
+        versions: ['latest']
+      - raw: 'pred_prob_1'
+        tidy: 'pred_prob_1'
+        type: 'float'
+        description: 'prediction probability rank 1'
+        versions: ['latest']
+      - raw: 'pred_prob_2'
+        tidy: 'pred_prob_2'
+        type: 'float'
+        description: 'prediction probability rank 2'
+        versions: ['latest']
+      - raw: 'pred_prob_3'
+        tidy: 'pred_prob_3'
+        type: 'float'
+        description: 'prediction probability rank 3'
+        versions: ['latest']
+      - raw: 'extra_info'
+        tidy: 'extra_info'
+        type: 'char'
+        description: 'extra info'
+        versions: ['latest']
+      - raw: 'extra_info_format'
+        tidy: 'extra_info_format'
+        type: 'char'
+        description: 'extra info format'
+        versions: ['latest']
+  visdata:
+    description: 'Visualisation data (CUPPA v2).'
+    pattern: "\\.cuppa\\.vis_data\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'sample_id'
+        tidy: 'sample_id'
+        type: 'char'
+        description: 'sample ID'
+        versions: ['latest']
+      - raw: 'data_type'
+        tidy: 'data_type'
+        type: 'char'
+        description: 'data type'
+        versions: ['latest']
+      - raw: 'clf_group'
+        tidy: 'clf_group'
+        type: 'char'
+        description: 'classifier group'
+        versions: ['latest']
+      - raw: 'clf_name'
+        tidy: 'clf_name'
+        type: 'char'
+        description: 'classifier name'
+        versions: ['latest']
+      - raw: 'feat_name'
+        tidy: 'feat_name'
+        type: 'char'
+        description: 'EVENT feature name'
+        versions: ['latest']
+      - raw: 'feat_value'
+        tidy: 'feat_value'
+        type: 'float'
+        description: 'EVENT feature value'
+        versions: ['latest']
+      - raw: 'cancer_type'
+        tidy: 'cancer_type'
+        type: 'char'
+        description: 'cancer type'
+        versions: ['latest']
+      - raw: 'data_value'
+        tidy: 'data_value'
+        type: 'float'
+        description: 'Value of data_type'
+        versions: ['latest']
+      - raw: 'rank'
+        tidy: 'rank'
+        type: 'float'
+        description: 'rank of data_value'
+        versions: ['latest']
+      - raw: 'rank_group'
+        tidy: 'rank_group'
+        type: 'float'
+        description: 'Grouping of [data_type, clf_name, feat_name] by which data_value is ranked'
+        versions: ['latest']

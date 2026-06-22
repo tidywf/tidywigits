@@ -1,0 +1,61 @@
+tables:
+  annotated:
+    description: 'Processed oncoviral call/annotation data.'
+    pattern: "\\.virus\\.annotated\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'taxid'
+        tidy: 'taxid'
+        type: 'char'
+        description: 'reference taxid of the virus that is called with VIRUSBreakend'
+        versions: ['latest']
+      - raw: 'name'
+        tidy: 'name'
+        type: 'char'
+        description: 'name of the virus, matching with the taxid'
+        versions: ['latest']
+      - raw: 'qcStatus'
+        tidy: 'qc_status'
+        type: 'char'
+        description: 'QC status as reported by VIRUSBreakend'
+        versions: ['latest']
+      - raw: 'integrations'
+        tidy: 'integrations'
+        type: 'float'
+        description: 'number of detected integrations of this virus into the sample genome as reported by VIRUSBreakend'
+        versions: ['latest']
+      - raw: 'interpretation'
+        tidy: 'interpretation'
+        type: 'char'
+        description: 'output of the interpretation step of Virus Interpreter'
+        versions: ['latest']
+      - raw: 'percentageCovered'
+        tidy: 'percentage_covered'
+        type: 'float'
+        description: 'percentage of the viral reference sequence that has been covered in the tumor sample as reported by VIRUSBreakend'
+        versions: ['latest']
+      - raw: 'meanCoverage'
+        tidy: 'mean_coverage'
+        type: 'float'
+        description: 'average coverage of the viral genome as reported by VIRUSBreakend'
+        versions: ['latest']
+      - raw: 'expectedClonalCoverage'
+        tidy: 'expected_clonal_coverage'
+        type: 'char'
+        description: 'expected coverage assuming the virus is clonally integrated once in the tumor DNA'
+        versions: ['latest']
+      - raw: 'reported'
+        tidy: 'reported'
+        type: 'char'
+        description: 'boolean indicating whether the detected viral presence is considered a driver'
+        versions: ['latest']
+      - raw: 'blacklisted'
+        tidy: 'blacklisted'
+        type: 'char'
+        description: 'Virus should be blacklisted (e.g. in case of HIV)'
+        versions: ['latest']
+      - raw: 'driverLikelihood'
+        tidy: 'driver_likelihood'
+        type: 'char'
+        description: 'driver likelihood of the virus as annotated in the reporting db'
+        versions: ['latest']

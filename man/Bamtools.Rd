@@ -12,8 +12,8 @@ indir <- system.file("extdata/oa", package = "tidywigits")
 odir <- tempdir()
 id <- "bamtools_run1"
 obj <- cls$new(indir)
-obj$nemofy(diro = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "bamtools.*parquet", full.names = FALSE))
+obj$run(output_dir = odir, format = "parquet", input_id = id)
+(lf <- list.files(odir, pattern = "bamtools_.*parquet", full.names = FALSE))
 }
 \section{Super class}{
 \code{\link[nemo:Tool]{nemo::Tool}} -> \code{Bamtools}
@@ -28,31 +28,18 @@ obj$nemofy(diro = odir, format = "parquet", input_id = id)
 \item \href{#method-Bamtools-tidy_wgsmetrics}{\code{Bamtools$tidy_wgsmetrics()}}
 \item \href{#method-Bamtools-parse_flagstats}{\code{Bamtools$parse_flagstats()}}
 \item \href{#method-Bamtools-tidy_flagstats}{\code{Bamtools$tidy_flagstats()}}
-\item \href{#method-Bamtools-parse_coverage}{\code{Bamtools$parse_coverage()}}
-\item \href{#method-Bamtools-tidy_coverage}{\code{Bamtools$tidy_coverage()}}
-\item \href{#method-Bamtools-parse_fraglength}{\code{Bamtools$parse_fraglength()}}
-\item \href{#method-Bamtools-tidy_fraglength}{\code{Bamtools$tidy_fraglength()}}
-\item \href{#method-Bamtools-parse_partitionstats}{\code{Bamtools$parse_partitionstats()}}
-\item \href{#method-Bamtools-tidy_partitionstats}{\code{Bamtools$tidy_partitionstats()}}
-\item \href{#method-Bamtools-parse_genecvg}{\code{Bamtools$parse_genecvg()}}
 \item \href{#method-Bamtools-tidy_genecvg}{\code{Bamtools$tidy_genecvg()}}
-\item \href{#method-Bamtools-parse_exoncvg}{\code{Bamtools$parse_exoncvg()}}
-\item \href{#method-Bamtools-tidy_exoncvg}{\code{Bamtools$tidy_exoncvg()}}
-\item \href{#method-Bamtools-clone}{\code{Bamtools$clone()}}
 }
 }
 \if{html}{\out{
 <details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".eval_func"><a href='../../nemo/html/Tool.html#method-Tool-.eval_func'><code>nemo::Tool$.eval_func()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file'><code>nemo::Tool$.parse_file()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_keyvalue"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_keyvalue'><code>nemo::Tool$.parse_file_keyvalue()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".parse_file_nohead"><a href='../../nemo/html/Tool.html#method-Tool-.parse_file_nohead'><code>nemo::Tool$.parse_file_nohead()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id=".tidy_file"><a href='../../nemo/html/Tool.html#method-Tool-.tidy_file'><code>nemo::Tool$.tidy_file()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="filter_files"><a href='../../nemo/html/Tool.html#method-Tool-filter_files'><code>nemo::Tool$filter_files()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_metadata"><a href='../../nemo/html/Tool.html#method-Tool-get_metadata'><code>nemo::Tool$get_metadata()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_tbls"><a href='../../nemo/html/Tool.html#method-Tool-get_tbls'><code>nemo::Tool$get_tbls()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="list_files"><a href='../../nemo/html/Tool.html#method-Tool-list_files'><code>nemo::Tool$list_files()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="nemofy"><a href='../../nemo/html/Tool.html#method-Tool-nemofy'><code>nemo::Tool$nemofy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="print"><a href='../../nemo/html/Tool.html#method-Tool-print'><code>nemo::Tool$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="run"><a href='../../nemo/html/Tool.html#method-Tool-run'><code>nemo::Tool$run()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="tidy"><a href='../../nemo/html/Tool.html#method-Tool-tidy'><code>nemo::Tool$tidy()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="write"><a href='../../nemo/html/Tool.html#method-Tool-write'><code>nemo::Tool$write()</code></a></span></li>
 </ul>
@@ -102,7 +89,9 @@ Path to file.}
 \if{html}{\out{<a id="method-Bamtools-tidy_summary"></a>}}
 \if{latex}{\out{\hypertarget{method-Bamtools-tidy_summary}{}}}
 \subsection{Method \code{tidy_summary()}}{
-Tidy \code{summary.tsv} file.
+Tidy \code{summary.tsv} file. Generates 2 sub-tbls:
+\emph{stats} with the main stats and \emph{dp} with the percentage of bases
+covered by at least X reads.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_summary(x)}\if{html}{\out{</div>}}
 }
@@ -138,7 +127,10 @@ Path to file.}
 \if{html}{\out{<a id="method-Bamtools-tidy_wgsmetrics"></a>}}
 \if{latex}{\out{\hypertarget{method-Bamtools-tidy_wgsmetrics}{}}}
 \subsection{Method \code{tidy_wgsmetrics()}}{
-Tidy \code{wgsmetrics} file.
+Tidy \code{wgsmetrics} file. Generates 3 sub-tbls:
+\emph{stats} with the main stats, \emph{dp} with the percentage of bases
+covered by at least X reads, and \emph{histo} with the distribution
+of base coverage.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_wgsmetrics(x)}\if{html}{\out{</div>}}
 }
@@ -189,132 +181,6 @@ Path to file.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bamtools-parse_coverage"></a>}}
-\if{latex}{\out{\hypertarget{method-Bamtools-parse_coverage}{}}}
-\subsection{Method \code{parse_coverage()}}{
-Read \code{coverage.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bamtools$parse_coverage(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bamtools-tidy_coverage"></a>}}
-\if{latex}{\out{\hypertarget{method-Bamtools-tidy_coverage}{}}}
-\subsection{Method \code{tidy_coverage()}}{
-Tidy \code{coverage.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_coverage(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bamtools-parse_fraglength"></a>}}
-\if{latex}{\out{\hypertarget{method-Bamtools-parse_fraglength}{}}}
-\subsection{Method \code{parse_fraglength()}}{
-Read \code{frag_length.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bamtools$parse_fraglength(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bamtools-tidy_fraglength"></a>}}
-\if{latex}{\out{\hypertarget{method-Bamtools-tidy_fraglength}{}}}
-\subsection{Method \code{tidy_fraglength()}}{
-Tidy \code{frag_length.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_fraglength(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bamtools-parse_partitionstats"></a>}}
-\if{latex}{\out{\hypertarget{method-Bamtools-parse_partitionstats}{}}}
-\subsection{Method \code{parse_partitionstats()}}{
-Read \code{partition_stats.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bamtools$parse_partitionstats(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bamtools-tidy_partitionstats"></a>}}
-\if{latex}{\out{\hypertarget{method-Bamtools-tidy_partitionstats}{}}}
-\subsection{Method \code{tidy_partitionstats()}}{
-Tidy \code{partition_stats.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_partitionstats(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bamtools-parse_genecvg"></a>}}
-\if{latex}{\out{\hypertarget{method-Bamtools-parse_genecvg}{}}}
-\subsection{Method \code{parse_genecvg()}}{
-Read \code{gene_coverage.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bamtools$parse_genecvg(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Bamtools-tidy_genecvg"></a>}}
 \if{latex}{\out{\hypertarget{method-Bamtools-tidy_genecvg}{}}}
 \subsection{Method \code{tidy_genecvg()}}{
@@ -328,59 +194,6 @@ Tidy \code{gene_coverage.tsv} file.
 \describe{
 \item{\code{x}}{(\code{character(1)})\cr
 Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bamtools-parse_exoncvg"></a>}}
-\if{latex}{\out{\hypertarget{method-Bamtools-parse_exoncvg}{}}}
-\subsection{Method \code{parse_exoncvg()}}{
-Read \code{exon_medians.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bamtools$parse_exoncvg(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bamtools-tidy_exoncvg"></a>}}
-\if{latex}{\out{\hypertarget{method-Bamtools-tidy_exoncvg}{}}}
-\subsection{Method \code{tidy_exoncvg()}}{
-Tidy \code{exon_medians.tsv} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_exoncvg(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bamtools-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-Bamtools-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bamtools$clone(deep = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
 }
 \if{html}{\out{</div>}}
 }

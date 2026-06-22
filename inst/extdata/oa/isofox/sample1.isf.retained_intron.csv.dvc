@@ -1,0 +1,5 @@
+outs:
+- md5: bc651a3ffda7b21878d04101109fe08f
+  size: 1051
+  hash: md5
+  path: sample1.isf.retained_intron.csv

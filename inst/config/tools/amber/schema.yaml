@@ -1,0 +1,176 @@
+tables:
+  bafpcf:
+    description: 'BAF segments using PCF algorithm.'
+    pattern: "\\.amber\\.baf\\.pcf$"
+    ftype: 'txt'
+    columns:
+      - raw: 'sampleID'
+        tidy: 'sampleid'
+        type: 'char'
+        description: 'sample ID'
+        versions: ['latest']
+      - raw: 'chrom'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['latest']
+      - raw: 'arm'
+        tidy: 'arm'
+        type: 'char'
+        description: 'chromosome arm'
+        versions: ['latest']
+      - raw: 'start.pos'
+        tidy: 'start_pos'
+        type: 'int'
+        description: 'start position'
+        versions: ['latest']
+      - raw: 'end.pos'
+        tidy: 'end_pos'
+        type: 'int'
+        description: 'end position'
+        versions: ['latest']
+      - raw: 'n.probes'
+        tidy: 'n_probes'
+        type: 'int'
+        description: 'number of probes'
+        versions: ['latest']
+      - raw: 'mean'
+        tidy: 'mean'
+        type: 'float'
+        description: 'mean BAF value'
+        versions: ['latest']
+  contaminationtsv:
+    description: 'Entry at each homozygous site in the reference and tumor.'
+    pattern: "\\.amber\\.contamination\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['latest']
+      - raw: 'position'
+        tidy: 'pos'
+        type: 'int'
+        description: 'position of site'
+        versions: ['latest']
+      - raw: 'ref'
+        tidy: 'ref'
+        type: 'char'
+        description: 'reference allele'
+        versions: ['latest']
+      - raw: 'alt'
+        tidy: 'alt'
+        type: 'char'
+        description: 'alternate allele'
+        versions: ['latest']
+      - raw: 'normalDepth'
+        tidy: 'dp_normal'
+        type: 'int'
+        description: 'normal depth'
+        versions: ['latest']
+      - raw: 'normalRefSupport'
+        tidy: 'refsup_normal'
+        type: 'int'
+        description: 'normal reference support'
+        versions: ['latest']
+      - raw: 'normalAltSupport'
+        tidy: 'altsup_normal'
+        type: 'int'
+        description: 'normal alternate support'
+        versions: ['latest']
+      - raw: 'tumorDepth'
+        tidy: 'dp_tumor'
+        type: 'int'
+        description: 'tumor depth'
+        versions: ['latest']
+      - raw: 'tumorRefSupport'
+        tidy: 'refsup_tumor'
+        type: 'int'
+        description: 'tumor reference support'
+        versions: ['latest']
+      - raw: 'tumorAltSupport'
+        tidy: 'altsup_tumor'
+        type: 'int'
+        description: 'tumor alternate support'
+        versions: ['latest']
+  homozygousregion:
+    description: 'Regions of homozygosity found in the reference.'
+    pattern: "\\.amber\\.homozygousregion\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['latest']
+      - raw: 'startPosition'
+        tidy: 'pos_start'
+        type: 'int'
+        description: 'start position'
+        versions: ['latest']
+      - raw: 'endPosition'
+        tidy: 'pos_end'
+        type: 'int'
+        description: 'end position'
+        versions: ['latest']
+      - raw: 'snpCount'
+        tidy: 'n_snp'
+        type: 'int'
+        description: 'SNP number'
+        versions: ['latest']
+      - raw: 'homCount'
+        tidy: 'n_hom'
+        type: 'int'
+        description: 'homozygous number'
+        versions: ['latest']
+      - raw: 'hetCount'
+        tidy: 'n_het'
+        type: 'int'
+        description: 'heterozygous number'
+        versions: ['latest']
+      - raw: 'filter'
+        tidy: 'filter'
+        type: 'char'
+        description: 'filter'
+        versions: ['latest']
+  qc:
+    description: 'QC metrics.'
+    pattern: "\\.amber\\.qc$"
+    ftype: 'txt-keyvalue'
+    columns:
+      - raw: 'QCStatus'
+        tidy: 'qc_status'
+        type: 'char'
+        description: 'QC status'
+        versions: ['latest']
+      - raw: 'Contamination'
+        tidy: 'contamination'
+        type: 'float'
+        description: 'contamination percentage'
+        versions: ['latest']
+      - raw: 'ConsanguinityProportion'
+        tidy: 'consanguinity'
+        type: 'float'
+        description: 'consanguinity proportion'
+        versions: ['latest']
+      - raw: 'UniparentalDisomy'
+        tidy: 'uniparental_disomy'
+        type: 'char'
+        description: 'uniparental disomy'
+        versions: ['latest']
+  version:
+    description: 'Version of the tool.'
+    pattern: "^amber\\.version$"
+    ftype: 'txt-keyvalue'
+    columns:
+      - raw: 'version'
+        tidy: 'version'
+        type: 'char'
+        description: 'version of the tool'
+        versions: ['latest']
+      - raw: 'build.date'
+        tidy: 'date_build'
+        type: 'char'
+        description: 'build date'
+        versions: ['latest']

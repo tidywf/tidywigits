@@ -1,0 +1,672 @@
+tables:
+  cnvgenetsv:
+    description: 'Copy number alterations of each gene in the HMF gene panel.'
+    pattern: "\\.purple\\.cnv\\.gene\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome of gene'
+        versions: ['v4.0', 'latest']
+      - raw: 'start'
+        tidy: 'start'
+        type: 'float'
+        description: 'start location of gene transcript'
+        versions: ['v4.0', 'latest']
+      - raw: 'end'
+        tidy: 'end'
+        type: 'float'
+        description: 'end location of gene transcript'
+        versions: ['v4.0', 'latest']
+      - raw: 'gene'
+        tidy: 'gene'
+        type: 'char'
+        description: 'name of gene as per Ensembl and HGNC'
+        versions: ['v4.0', 'latest']
+      - raw: 'minCopyNumber'
+        tidy: 'cn_min'
+        type: 'float'
+        description: 'minimum cn found in the gene exons'
+        versions: ['v4.0', 'latest']
+      - raw: 'maxCopyNumber'
+        tidy: 'cn_max'
+        type: 'float'
+        description: 'maximum cn found in the gene exons'
+        versions: ['v4.0', 'latest']
+      - raw: 'somaticRegions'
+        tidy: 'somatic_regions'
+        type: 'float'
+        description: 'count of somatic cn regions this gene spans'
+        versions: ['v4.0', 'latest']
+      - raw: 'transcriptId'
+        tidy: 'transcript_id'
+        type: 'char'
+        description: 'ensembl transcript ID'
+        versions: ['v4.0', 'latest']
+      - raw: 'isCanonical'
+        tidy: 'is_canonical'
+        type: 'char'
+        description: 'is canonical'
+        versions: ['v4.0', 'latest']
+      - raw: 'chromosomeBand'
+        tidy: 'chrom_band'
+        type: 'char'
+        description: 'chromosome band of the gene'
+        versions: ['v4.0', 'latest']
+      - raw: 'minRegions'
+        tidy: 'regions_min'
+        type: 'float'
+        description: 'number of somatic regions inside the gene that share the min cn'
+        versions: ['v4.0', 'latest']
+      - raw: 'minRegionStart'
+        tidy: 'start_region_min'
+        type: 'float'
+        description: 'start base of the cn region overlapping the gene with the minimum cn'
+        versions: ['v4.0', 'latest']
+      - raw: 'minRegionEnd'
+        tidy: 'end_region_min'
+        type: 'float'
+        description: 'end base of the cn region overlapping the gene with the minimum cn'
+        versions: ['v4.0', 'latest']
+      - raw: 'minRegionStartSupport'
+        tidy: 'start_region_min_support'
+        type: 'char'
+        description: 'start support of the cn region overlapping the gene with the minimum cn'
+        versions: ['v4.0', 'latest']
+      - raw: 'minRegionEndSupport'
+        tidy: 'end_region_min_support'
+        type: 'char'
+        description: 'end support of the cn region overlapping the gene with the minimum cn'
+        versions: ['v4.0', 'latest']
+      - raw: 'minRegionMethod'
+        tidy: 'region_min_method'
+        type: 'char'
+        description: 'method used to determine cn of the cn region overlapping the gene with the minimum cn'
+        versions: ['v4.0', 'latest']
+      - raw: 'minMinorAlleleCopyNumber'
+        tidy: 'cn_minor_allele_min'
+        type: 'float'
+        description: 'minimum allele cn found over the gene exons - useful for identifying LOH events'
+        versions: ['v4.0', 'latest']
+      - raw: 'depthWindowCount'
+        tidy: 'window_count_depth'
+        type: 'float'
+        description: 'count of cobalt windows covered by this segment'
+        versions: ['v4.0', 'latest']
+      - raw: 'gcContent'
+        tidy: 'gc_content'
+        type: 'float'
+        description: 'proportion of segment that is G or C'
+        versions: ['latest']
+  cnvsomtsv:
+    description: 'Copy number profile of all (contiguous) segments of the tumor sample.'
+    pattern: "\\.purple\\.cnv\\.somatic\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome of cn segment'
+        versions: ['latest']
+      - raw: 'start'
+        tidy: 'start'
+        type: 'float'
+        description: 'start base of cn segment'
+        versions: ['latest']
+      - raw: 'end'
+        tidy: 'end'
+        type: 'float'
+        description: 'end base of cn segment'
+        versions: ['latest']
+      - raw: 'copyNumber'
+        tidy: 'cn'
+        type: 'float'
+        description: 'fitted absolute cn of segment adjusted for purity and ploidy'
+        versions: ['latest']
+      - raw: 'bafCount'
+        tidy: 'baf_count'
+        type: 'float'
+        description: 'count of amber baf points covered by this segment'
+        versions: ['latest']
+      - raw: 'observedBAF'
+        tidy: 'baf_observed'
+        type: 'float'
+        description: 'combined reference and tumor BAF in tumor sample unadjusted for purity and ploidy'
+        versions: ['latest']
+      - raw: 'baf'
+        tidy: 'baf'
+        type: 'float'
+        description: 'tumor BAF after adjusted for purity and ploidy'
+        versions: ['latest']
+      - raw: 'segmentStartSupport'
+        tidy: 'start_segment_support'
+        type: 'char'
+        description: 'type of structural variant support for the cn breakpoint at start of region'
+        versions: ['latest']
+      - raw: 'segmentEndSupport'
+        tidy: 'end_segment_support'
+        type: 'char'
+        description: 'type of structural variant support for the cn breakpoint at end of region'
+        versions: ['latest']
+      - raw: 'method'
+        tidy: 'method'
+        type: 'char'
+        description: 'method used to determine the cn of the region'
+        versions: ['latest']
+      - raw: 'depthWindowCount'
+        tidy: 'window_count_depth'
+        type: 'float'
+        description: 'count of cobalt windows covered by this segment'
+        versions: ['latest']
+      - raw: 'gcContent'
+        tidy: 'gc_content'
+        type: 'float'
+        description: 'proportion of segment that is G or C'
+        versions: ['latest']
+      - raw: 'minStart'
+        tidy: 'start_min'
+        type: 'float'
+        description: 'minimum start location of this segment if there is any uncertainty'
+        versions: ['latest']
+      - raw: 'maxStart'
+        tidy: 'start_max'
+        type: 'float'
+        description: 'maximum start location of this segment if there is any uncertainty'
+        versions: ['latest']
+      - raw: 'minorAlleleCopyNumber'
+        tidy: 'cn_minor_allele'
+        type: 'float'
+        description: 'cn of minor allele adjusted for purity'
+        versions: ['latest']
+      - raw: 'majorAlleleCopyNumber'
+        tidy: 'cn_major_allele'
+        type: 'float'
+        description: 'cn of major allele adjusted for purity'
+        versions: ['latest']
+  drivercatalog:
+    description: 'Significant amplifications and deletions that occur in the HMF gene panel.'
+    pattern: "\\.purple\\.driver\\.catalog\\.(germline|somatic)\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome of the gene'
+        versions: ['latest']
+      - raw: 'chromosomeBand'
+        tidy: 'chrom_band'
+        type: 'char'
+        description: 'chromosome band of driver'
+        versions: ['latest']
+      - raw: 'gene'
+        tidy: 'gene'
+        type: 'char'
+        description: 'name of gene'
+        versions: ['latest']
+      - raw: 'transcript'
+        tidy: 'transcript'
+        type: 'char'
+        description: 'ensembl transcript ID'
+        versions: ['latest']
+      - raw: 'isCanonical'
+        tidy: 'is_canonical'
+        type: 'char'
+        description: 'is canonical (True/False)'
+        versions: ['latest']
+      - raw: 'driver'
+        tidy: 'driver'
+        type: 'char'
+        description: 'driver type (amp, del, mutation)'
+        versions: ['latest']
+      - raw: 'category'
+        tidy: 'category'
+        type: 'char'
+        description: 'gene driver type (oncogene or tumor suppressor)'
+        versions: ['latest']
+      - raw: 'likelihoodMethod'
+        tidy: 'likelihood_method'
+        type: 'char'
+        description: 'method used to determine likelihood'
+        versions: ['latest']
+      - raw: 'driverLikelihood'
+        tidy: 'driver_likelihood'
+        type: 'float'
+        description: 'likelihood that gene is a driver'
+        versions: ['latest']
+      - raw: 'missense'
+        tidy: 'missense'
+        type: 'float'
+        description: 'number of missense variants in gene'
+        versions: ['latest']
+      - raw: 'nonsense'
+        tidy: 'nonsense'
+        type: 'float'
+        description: 'number of nonsense variants in gene'
+        versions: ['latest']
+      - raw: 'splice'
+        tidy: 'splice'
+        type: 'float'
+        description: 'number of splice variants in gene'
+        versions: ['latest']
+      - raw: 'inframe'
+        tidy: 'inframe'
+        type: 'float'
+        description: 'number of inframe variants in gene'
+        versions: ['latest']
+      - raw: 'frameshift'
+        tidy: 'frameshift'
+        type: 'float'
+        description: 'number of frameshift variants in gene'
+        versions: ['latest']
+      - raw: 'biallelic'
+        tidy: 'biallelic'
+        type: 'char'
+        description: 'true if any variants in the gene are biallelic'
+        versions: ['latest']
+      - raw: 'minCopyNumber'
+        tidy: 'cn_min'
+        type: 'float'
+        description: 'minimum cn found in the gene exons'
+        versions: ['latest']
+      - raw: 'maxCopyNumber'
+        tidy: 'cn_max'
+        type: 'float'
+        description: 'maximum cn found in the gene exons'
+        versions: ['latest']
+  germdeltsv:
+    description: 'Germline deletions.'
+    pattern: "\\.purple\\.germline\\.deletion\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'gene'
+        tidy: 'gene'
+        type: 'char'
+        description: 'name of gene as per Ensembl and HGNC'
+        versions: ['latest']
+      - raw: 'chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome of gene'
+        versions: ['latest']
+      - raw: 'chromosomeBand'
+        tidy: 'chrom_band'
+        type: 'char'
+        description: 'chromosome band of gene'
+        versions: ['latest']
+      - raw: 'regionStart'
+        tidy: 'start_region'
+        type: 'float'
+        description: 'start base of deletion'
+        versions: ['latest']
+      - raw: 'regionEnd'
+        tidy: 'end_region'
+        type: 'float'
+        description: 'end base of deletion'
+        versions: ['latest']
+      - raw: 'depthWindowCount'
+        tidy: 'window_count_depth'
+        type: 'float'
+        description: 'count of cobalt windows covered by this segment'
+        versions: ['latest']
+      - raw: 'exonStart'
+        tidy: 'start_exon'
+        type: 'float'
+        description: 'start base of exon'
+        versions: ['latest']
+      - raw: 'exonEnd'
+        tidy: 'end_exon'
+        type: 'float'
+        description: 'end base of exon'
+        versions: ['latest']
+      - raw: 'detectionMethod'
+        tidy: 'detection_method'
+        type: 'char'
+        description: 'method used to determine the cn of the region'
+        versions: ['latest']
+      - raw: 'germlineStatus'
+        tidy: 'status_germline'
+        type: 'char'
+        description: 'germline status of the deletion'
+        versions: ['latest']
+      - raw: 'tumorStatus'
+        tidy: 'status_tumor'
+        type: 'char'
+        description: 'tumor status of the deletion'
+        versions: ['latest']
+      - raw: 'germlineCopyNumber'
+        tidy: 'cn_germline'
+        type: 'float'
+        description: 'germline cn of the deletion'
+        versions: ['latest']
+      - raw: 'tumorCopyNumber'
+        tidy: 'cn_tumor'
+        type: 'float'
+        description: 'tumor cn of the deletion'
+        versions: ['latest']
+      - raw: 'filter'
+        tidy: 'filter'
+        type: 'char'
+        description: 'filter applied to the deletion'
+        versions: ['latest']
+      - raw: 'cohortFrequency'
+        tidy: 'cohort_frequency'
+        type: 'float'
+        description: 'frequency of deletion in the HMF cohort'
+        versions: ['latest']
+      - raw: 'reported'
+        tidy: 'reported'
+        type: 'char'
+        description: 'reported deletion'
+        versions: ['latest']
+  purityrange:
+    description: 'Best fit per purity sorted by score.'
+    pattern: "\\.purple\\.purity\\.range\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'purity'
+        tidy: 'purity'
+        type: 'float'
+        description: 'purity of tumor in the sample'
+        versions: ['latest']
+      - raw: 'normFactor'
+        tidy: 'norm_factor'
+        type: 'float'
+        description: 'internal factor to convert tumor ratio to cn'
+        versions: ['latest']
+      - raw: 'score'
+        tidy: 'score'
+        type: 'float'
+        description: 'score of fit (lower is better)'
+        versions: ['latest']
+      - raw: 'diploidProportion'
+        tidy: 'diploid_proportion'
+        type: 'float'
+        description: 'proportion of cn regions that have 1 (+- 0.2) minor and major allele'
+        versions: ['latest']
+      - raw: 'ploidy'
+        tidy: 'ploidy'
+        type: 'float'
+        description: 'average ploidy of the tumor sample after adjusting for purity'
+        versions: ['latest']
+      - raw: 'somaticPenalty'
+        tidy: 'somatic_penalty'
+        type: 'float'
+        description: 'penalty from somatic variants with implied variant cn that are inconsistent with the minor and major allele cn'
+        versions: ['latest']
+  puritytsv:
+    description: 'Purity/ploidy fit summary.'
+    pattern: "\\.purple\\.purity\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'purity'
+        tidy: 'purity'
+        type: 'float'
+        description: 'purity of tumor in the sample'
+        versions: ['latest']
+      - raw: 'normFactor'
+        tidy: 'norm_factor'
+        type: 'float'
+        description: 'internal factor to convert tumor ratio to cn'
+        versions: ['latest']
+      - raw: 'score'
+        tidy: 'fit_score'
+        type: 'float'
+        description: 'score of fit (lower is better)'
+        versions: ['latest']
+      - raw: 'diploidProportion'
+        tidy: 'diploid_proportion'
+        type: 'float'
+        description: 'proportion of cn regions that have 1 (+- 0.2) minor and major allele'
+        versions: ['latest']
+      - raw: 'ploidy'
+        tidy: 'ploidy'
+        type: 'float'
+        description: 'average ploidy of the tumor sample after adjusting for purity'
+        versions: ['latest']
+      - raw: 'gender'
+        tidy: 'gender'
+        type: 'char'
+        description: 'one of male or female'
+        versions: ['latest']
+      - raw: 'status'
+        tidy: 'status'
+        type: 'char'
+        description: 'either pass or one or more warning or fail status'
+        versions: ['latest']
+      - raw: 'polyclonalProportion'
+        tidy: 'polyclonal_proportion'
+        type: 'float'
+        description: 'proportion of copy number regions that are more than 0.25 from a whole cn'
+        versions: ['latest']
+      - raw: 'minPurity'
+        tidy: 'purity_min'
+        type: 'float'
+        description: 'minimum purity with score within 10% of best'
+        versions: ['latest']
+      - raw: 'maxPurity'
+        tidy: 'purity_max'
+        type: 'float'
+        description: 'maximum purity with score within 10% of best'
+        versions: ['latest']
+      - raw: 'minPloidy'
+        tidy: 'ploidy_min'
+        type: 'float'
+        description: 'minimum ploidy with score within 10% of best'
+        versions: ['latest']
+      - raw: 'maxPloidy'
+        tidy: 'ploidy_max'
+        type: 'float'
+        description: 'maximum ploidy with score within 10% of best'
+        versions: ['latest']
+      - raw: 'minDiploidProportion'
+        tidy: 'diploid_proportion_min'
+        type: 'float'
+        description: 'min estimation for diploid proportion'
+        versions: ['latest']
+      - raw: 'maxDiploidProportion'
+        tidy: 'diploid_proportion_max'
+        type: 'float'
+        description: 'max estimation for diploid proportion'
+        versions: ['latest']
+      - raw: 'somaticPenalty'
+        tidy: 'somatic_penalty'
+        type: 'float'
+        description: 'penalty from somatic variants with implied variant cn that are inconsistent with the minor and major allele cn'
+        versions: ['latest']
+      - raw: 'wholeGenomeDuplication'
+        tidy: 'whole_genome_duplication'
+        type: 'char'
+        description: 'true if more than 10 autosomes have major allele cn > 1.5'
+        versions: ['latest']
+      - raw: 'msIndelsPerMb'
+        tidy: 'ms_indels_per_mb'
+        type: 'float'
+        description: 'microsatellite indels per mega base'
+        versions: ['latest']
+      - raw: 'msStatus'
+        tidy: 'ms_status'
+        type: 'char'
+        description: 'microsatellite status (msi, mss or unknown if somatic variants not supplied)'
+        versions: ['latest']
+      - raw: 'tml'
+        tidy: 'tml'
+        type: 'float'
+        description: 'tumor mutational load (# of missense variants in sample)'
+        versions: ['latest']
+      - raw: 'tmlStatus'
+        tidy: 'tml_status'
+        type: 'char'
+        description: 'tumor mutational load status (high, low or unknown if somatic variants not supplied)'
+        versions: ['latest']
+      - raw: 'tmbPerMb'
+        tidy: 'tmb_per_mb'
+        type: 'float'
+        description: 'tumor mutational burden (#passing variants per Mb) per mega base'
+        versions: ['latest']
+      - raw: 'tmbStatus'
+        tidy: 'tmb_status'
+        type: 'char'
+        description: 'tumor mutational burden status (high, low or unknown if somatic variants not supplied)'
+        versions: ['latest']
+      - raw: 'svTumorMutationalBurden'
+        tidy: 'tmb_sv'
+        type: 'float'
+        description: 'total number of non inferred, non single passing structural variants detected in sample'
+        versions: ['latest']
+      - raw: 'runMode'
+        tidy: 'run_mode'
+        type: 'char'
+        description: 'tumor_germline, tumor or germline, set based on whether a tumor and/or reference sample were supplied'
+        versions: ['latest']
+      - raw: 'targeted'
+        tidy: 'targeted'
+        type: 'char'
+        description: 'true if purple was run with target-region files'
+        versions: ['latest']
+  qc:
+    description: 'QC metrics.'
+    pattern: "\\.purple\\.qc$"
+    ftype: 'txt-keyvalue'
+    columns:
+      - raw: 'QCStatus'
+        tidy: 'qc_status'
+        type: 'char'
+        description: 'QC status'
+        versions: ['v4.0', 'latest']
+      - raw: 'Method'
+        tidy: 'method'
+        type: 'char'
+        description: 'method used to determine the cn of the region (NORMAL, HIGHLY_DIPLOID, SOMATIC or NO_TUMOR)'
+        versions: ['v4.0', 'latest']
+      - raw: 'CopyNumberSegments'
+        tidy: 'cn_segments'
+        type: 'int'
+        description: 'total number of cn segments in sample'
+        versions: ['v4.0', 'latest']
+      - raw: 'UnsupportedCopyNumberSegments'
+        tidy: 'cn_segments_unsupported'
+        type: 'int'
+        description: 'count of cn segments with no SV support on either side'
+        versions: ['v4.0', 'latest']
+      - raw: 'Purity'
+        tidy: 'purity'
+        type: 'float'
+        description: 'purity of tumor in the sample'
+        versions: ['v4.0', 'latest']
+      - raw: 'AmberGender'
+        tidy: 'gender_amber'
+        type: 'char'
+        description: 'gender from amber data'
+        versions: ['v4.0', 'latest']
+      - raw: 'CobaltGender'
+        tidy: 'gender_cobalt'
+        type: 'char'
+        description: 'gender from cobalt data'
+        versions: ['v4.0', 'latest']
+      - raw: 'DeletedGenes'
+        tidy: 'deleted_genes'
+        type: 'int'
+        description: 'number of genes with cn < 0.5'
+        versions: ['v4.0', 'latest']
+      - raw: 'Contamination'
+        tidy: 'contamination'
+        type: 'float'
+        description: 'rate of contamination in tumor sample as determined by Amber'
+        versions: ['v4.0', 'latest']
+      - raw: 'GermlineAberrations'
+        tidy: 'germline_aberrations'
+        type: 'char'
+        description: 'any germline chromosomal aberrations detected (KLINEFELTER, TRISOMY_X, TRISOMY_21, TRISOMY_13, TRISOMY_18, TRISOMY_15, XYY, MOSAIC_X)'
+        versions: ['v4.0', 'latest']
+      - raw: 'AmberMeanDepth'
+        tidy: 'mean_depth_amber'
+        type: 'float'
+        description: 'as calculated by Amber'
+        versions: ['v4.0', 'latest']
+      - raw: 'LohPercent'
+        tidy: 'loh_percent'
+        type: 'float'
+        description: 'LOH percentage'
+        versions: ['v4.0', 'latest']
+      - raw: 'TincLevel'
+        tidy: 'tinc_level'
+        type: 'float'
+        description: 'tumor in normal contamination level'
+        versions: ['latest']
+      - raw: 'ChimerismPercentage'
+        tidy: 'chimerism_percent'
+        type: 'float'
+        description: 'chimerism percentage (presence of a donor sample)'
+        versions: ['latest']
+  somclonality:
+    description: 'Clonality peak model data.'
+    pattern: "\\.purple\\.somatic\\.clonality\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'peak'
+        tidy: 'peak'
+        type: 'float'
+        description: 'peak'
+        versions: ['latest']
+      - raw: 'bucket'
+        tidy: 'bucket'
+        type: 'float'
+        description: 'bucket'
+        versions: ['latest']
+      - raw: 'bucketWeight'
+        tidy: 'bucket_weight'
+        type: 'float'
+        description: 'bucket weight'
+        versions: ['latest']
+      - raw: 'peakAvgWeight'
+        tidy: 'peak_avg_weight'
+        type: 'float'
+        description: 'peak average weight'
+        versions: ['latest']
+      - raw: 'isValid'
+        tidy: 'is_valid'
+        type: 'char'
+        description: 'is valid'
+        versions: ['latest']
+      - raw: 'isSubclonal'
+        tidy: 'is_subclonal'
+        type: 'char'
+        description: 'is subclonal'
+        versions: ['latest']
+  somhist:
+    description: 'Somatic variant histogram data.'
+    pattern: "\\.purple\\.somatic\\.hist\\.tsv$"
+    ftype: 'txt'
+    columns:
+      - raw: 'variantCopyNumberBucket'
+        tidy: 'variant_cn_bucket'
+        type: 'float'
+        description: 'variant cn bucket'
+        versions: ['latest']
+      - raw: 'copyNumberBucket'
+        tidy: 'cn_bucket'
+        type: 'float'
+        description: 'cn bucket'
+        versions: ['latest']
+      - raw: 'count'
+        tidy: 'count'
+        type: 'float'
+        description: 'count'
+        versions: ['latest']
+  version:
+    description: 'Version of the tool.'
+    pattern: "^purple\\.version$"
+    ftype: 'txt-keyvalue'
+    delim: '='
+    columns:
+      - raw: 'version'
+        tidy: 'version'
+        type: 'char'
+        description: 'version of the tool'
+        versions: ['latest']
+      - raw: 'build.date'
+        tidy: 'date_build'
+        type: 'char'
+        description: 'build date'
+        versions: ['latest']

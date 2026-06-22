@@ -1,0 +1,5 @@
+outs:
+- md5: 249f2b447ada90a20b20bd5aba2b594c
+  size: 138
+  hash: md5
+  path: sample1.purple.somatic.hist.tsv

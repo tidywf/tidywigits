@@ -1,0 +1,5 @@
+outs:
+- md5: 05538e24828b5143645a13c2018f01a8
+  size: 275
+  hash: md5
+  path: sample1.teal.tellength.tsv
