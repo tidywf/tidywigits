@@ -51,7 +51,6 @@ options(width = 100)
 
 ## Contents
 
-
 - [tidywigits](#tidywigits)
 - [Documentation](#documentation)
 - [Quick Start](#quick-start)
@@ -98,7 +97,7 @@ glue(
 )
 ```
 
-## Quick Start
+## Quickstart
 
 ### Single tool
 
@@ -210,7 +209,6 @@ recommended for any multi-sample or multi-run pipeline:
 
 ```{r child=file.path(dir_nemo, "_r.qmd")}
 #| label: child-r
-#| echo: false
 ```
 
 Alternatively:
