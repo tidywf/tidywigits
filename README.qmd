@@ -3,7 +3,7 @@ format: gfm
 knitr:
   opts_chunk:
     collapse: true
-    comment: ''
+    comment: '#>'
     fig.path: "man/figures/README-"
 ---
 
@@ -49,28 +49,24 @@ options(width = 100)
 [conda-latest1]: <https://anaconda.org/tidywf/r-tidywigits/badges/latest_release_date.svg> "Conda latest release date"
 [gha]: <https://github.com/tidywf/tidywigits/actions/workflows/deploy.yaml/badge.svg> "GitHub Actions Status"
 
-```{r}
-#| label: toc
-#| echo: false
-#| results: asis
-base <- glue("https://{org_nm}.github.io/{pkg_nm}")
-glue(
-  "📚 Docs: ",
-  "[Installation]({base}/articles/installation) | ",
-  "[Quickstart]({base}/articles/quickstart) | ",
-  "[Files supported]({base}/articles/schema_table) | ",
-  "[Structure]({base}/articles/structure) | ",
-  "[Changelog]({base}/articles/NEWS) | ",
-  "[R6](https://{org_nm}.github.io/nemo/articles/structure)"
-)
-```
+## Contents
 
-[WiGiTS/hmftools]: <https://github.com/hartwigmedical/hmftools> "WiGiTS suite"
-[nemo]: <https://github.com/tidywf/nemo> "nemo"
+
+- [tidywigits](#tidywigits)
+- [Documentation](#documentation)
+- [Quick Start](#quick-start)
+  - [Single tool](#single-tool)
+  - [Full WiGiTS](#full-wigits)
+- [Installation](#installation)
+- [CLI](#cli)
+
+## tidywigits
 
 tidywigits is an R package for parsing and tidying output from the [WiGiTS/hmftools]
-suite of genome and transcriptome analysis tools. WiGiTS produces hundreds of files per
-sample across dozens of tools, but consuming them downstream is fragile: formats are
+suite of genome and transcriptome analysis tools.
+
+The WiGiTS pipeline produces hundreds of files per sample across dozens of tools,
+but consuming them downstream is fragile: formats are
 inconsistent, column names span a mix of conventions
 (e.g. `snake_case`, `camelCase`, `dot.separated`), some sub-tables are embedded
 in wide files, and column layouts change between tool versions.
@@ -82,15 +78,25 @@ variety of formats such as Apache Parquet, PostgreSQL, TSV, or RDS. Each run als
 produces a `metadata.parquet` file alongside the tidy tables, capturing IDs, paths,
 and R package versions.
 
-For better downstream tracing and joining, three columns can be prepended
-to every written table. All are opt-in and off by default, but highly
-recommended for any multi-sample or multi-run pipeline:
+[WiGiTS/hmftools]: <https://github.com/hartwigmedical/hmftools> "WiGiTS suite"
+[nemo]: <https://github.com/tidywf/nemo> "nemo"
 
-| Column         | Purpose                            |
-| ---------------| ---------------------------------- |
-| `input_id`     | identifies the sample or input run |
-| `output_id`    | identifies the processing run      |
-| `input_prefix` | filename prefix (e.g. sample name) |
+## Documentation
+
+```{r}
+#| label: docs
+#| echo: false
+#| results: asis
+base <- glue("https://{org_nm}.github.io/{pkg_nm}")
+glue(
+"- Installation: <{base}/articles/installation>
+- Quickstart: <{base}/articles/quickstart>
+- Files supported: <{base}/articles/schema_table>
+- Structure: <{base}/articles/structure>
+- Changelog: <{base}/articles/NEWS>
+- R6: <https://{org_nm}.github.io/nemo/articles/structure>"
+)
+```
 
 ## Quick Start
 
@@ -114,7 +120,9 @@ call via its `run()` method:
 #| label: quickstart_wrangle
 #| message: false
 outdir_ppl <- file.path(tempdir(), "ppl_out")
-Purple$new(indir_ppl)$run(
+# fmt: skip
+ppl <- Purple$new(indir_ppl)
+ppl$run(
   output_dir = outdir_ppl,
   format = "parquet",
   input_id = "run1"
@@ -140,6 +148,7 @@ utilise the `run()` method:
 #| label: example_input_tree
 #| code-fold: true
 #| code-summary: "View input files"
+#| comment: ""
 indir_w <- system.file("extdata/oa", package = "tidywigits")
 dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
 ```
@@ -187,6 +196,16 @@ res <- w2$run(
 
 > **Note:** Support for VCFs is a work in progress.
 
+Three optional columns can be prepended to every written table to support
+downstream tracing and joining. All are opt-in and off by default, but highly
+recommended for any multi-sample or multi-run pipeline:
+
+| Column         | Purpose                                  | User-supplied or auto-generated? |
+| ---------------| ---------------------------------------- | -------------------------------- |
+| `input_id`     | identifies the sample or input run       | user                             |
+| `output_id`    | identifies the tidywigits processing run | user or auto (ULID)              |
+| `input_prefix` | filename prefix (e.g. sample name)       | auto                             |
+
 ## Installation
 
 ```{r child=file.path(dir_nemo, "_r.qmd")}
@@ -221,6 +240,7 @@ export PATH="${tw_cli}:${PATH}"
 ```{bash}
 #| label: cli2
 #| echo: false
+#| comment: ""
 tw_cli=$(Rscript -e 'x = system.file("cli", package = "tidywigits"); cat(x, "\n")' | xargs)
 export PATH="${tw_cli}:${PATH}"
 
@@ -238,3 +258,4 @@ echo "#------- List ----------------------#"
 echo "$ tidywigits.R list --help" & tidywigits.R list --help
 echo ""
 ```
+
