@@ -308,7 +308,7 @@ res <- w$run(
   output_id = "out1",
   prefix_include = TRUE
 )
-res
+res # shows summary of Wigits object
 #> #--- Workflow Wigits ---#
 #> 
 #> |var           |value                                                              |
@@ -324,7 +324,7 @@ list.files(outdir_w, pattern = "\\.parquet$") |> str()
 #>  chr [1:120] "metadata.parquet" "sample1_2_2_linx_breakends.parquet" ...
 ```
 
-- PostgreSQL:
+- PostgreSQL (adjust dbname/user for your purposes):
 
 ``` r
 w2 <- Wigits$new(indir_w)

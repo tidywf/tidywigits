@@ -89,7 +89,7 @@ and R package versions.
 #| results: asis
 base <- glue("https://{org_nm}.github.io/{pkg_nm}")
 glue(
-"- Installation: <{base}/articles/installation>
+  "- Installation: <{base}/articles/installation>
 - Quickstart: <{base}/articles/quickstart>
 - Files supported: <{base}/articles/schema_table>
 - Structure: <{base}/articles/structure>
@@ -170,11 +170,11 @@ res <- w$run(
   output_id = "out1",
   prefix_include = TRUE
 )
-res
+res # shows summary of Wigits object
 list.files(outdir_w, pattern = "\\.parquet$") |> str()
 ```
 
-- PostgreSQL:
+- PostgreSQL (adjust dbname/user for your purposes):
 
 ```{r}
 #| label: postgresql_example
