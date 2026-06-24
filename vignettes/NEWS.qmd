@@ -53,6 +53,10 @@ user <- function(x) {
 }
 ```
 
+## dev
+
+- Move `dvc_download_file()` / `dvc_download_all()` functionality to nemo.
+
 ## v0.1.0 (2026-06-22)
 
 Major refactor. GitHub org migrated from `umccr` to `tidywf`. All 19 tool configs
