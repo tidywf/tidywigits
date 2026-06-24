@@ -73,5 +73,3 @@ reference:
       - WIGITS_TOOLS
       - purple_plot_getter
       - s3sync
-      - dvc_download_file
-      - dvc_download_all
