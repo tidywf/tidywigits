@@ -28,8 +28,7 @@ Cobalt <- R6::R6Class(
   public = list(
     #' @description Create a new Cobalt object.
     #' @param path (`character(1)`)\cr
-    #' Output directory of tool. If `files_tbl` is supplied, this basically gets
-    #' ignored.
+    #' Output directory of tool. If `files_tbl` is supplied, this is ignored.
     #' @param files_tbl (`tibble(n)`)\cr
     #' Tibble of files from [nemo::list_files_dir()].
     initialize = function(path = NULL, files_tbl = NULL) {
@@ -62,12 +61,6 @@ Cobalt <- R6::R6Class(
       colnames(d[["sample_stats"]]) <- c("mean", "median")
       list(sample = d[["sample_stats"]], buckets = d[["bucket_stats"]]) |>
         nemo::nemo_enframe()
-    },
-    #' @description Read `cobalt.version` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_version = function(x) {
-      private$parse_file_keyvalue(x, "version", delim = "=")
     }
   )
 )

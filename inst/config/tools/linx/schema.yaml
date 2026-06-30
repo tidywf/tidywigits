@@ -1040,10 +1040,9 @@ tables:
         description: 'in double minute'
         versions: ['v1.25', 'latest']
   version:
-    description: 'Tool version.'
+    description: 'Version of the tool.'
     pattern: "^linx\\.version$"
-    ftype: 'txt-keyvalue'
-    delim: '='
+    ftype: 'txt-keyvalue-eq'
     columns:
       - raw: 'version'
         tidy: 'version'

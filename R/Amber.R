@@ -25,30 +25,17 @@ Amber <- R6::R6Class(
   public = list(
     #' @description Create a new Amber object.
     #' @param path (`character(1)`)\cr
-    #' Output directory of tool. If `files_tbl` is supplied, this basically gets
-    #' ignored.
+    #' Output directory of tool. If `files_tbl` is supplied, this is ignored.
     #' @param files_tbl (`tibble(n)`)\cr
     #' Tibble of files from [nemo::list_files_dir()].
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "amber", pkg = pkg_name, path = path, files_tbl = files_tbl)
     },
-    #' @description Read `qc` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_qc = function(x) {
-      private$parse_file_keyvalue(x, "qc")
-    },
     #' @description Tidy `qc` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
+    #' @param x (`character(1)` or `tibble()`)\cr
+    #' Path to file or already parsed tibble.
     tidy_qc = function(x) {
       private$tidy_file(x, "qc", convert_types = TRUE)
-    },
-    #' @description Read `amber.version` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_version = function(x) {
-      private$parse_file_keyvalue(x, "version", delim = "=")
     }
   )
 )

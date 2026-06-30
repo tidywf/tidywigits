@@ -162,7 +162,7 @@ tables:
   version:
     description: 'Version of the tool.'
     pattern: "^amber\\.version$"
-    ftype: 'txt-keyvalue'
+    ftype: 'txt-keyvalue-eq'
     columns:
       - raw: 'version'
         tidy: 'version'
