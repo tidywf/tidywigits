@@ -657,8 +657,7 @@ tables:
   version:
     description: 'Version of the tool.'
     pattern: "^purple\\.version$"
-    ftype: 'txt-keyvalue'
-    delim: '='
+    ftype: 'txt-keyvalue-eq'
     columns:
       - raw: 'version'
         tidy: 'version'

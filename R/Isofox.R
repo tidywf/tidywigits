@@ -26,8 +26,7 @@ Isofox <- R6::R6Class(
   public = list(
     #' @description Create a new Isofox object.
     #' @param path (`character(1)`)\cr
-    #' Output directory of tool. If `files_tbl` is supplied, this basically gets
-    #' ignored.
+    #' Output directory of tool. If `files_tbl` is supplied, this is ignored.
     #' @param files_tbl (`tibble(n)`)\cr
     #' Tibble of files from [nemo::list_files_dir()].
     initialize = function(path = NULL, files_tbl = NULL) {

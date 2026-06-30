@@ -30,26 +30,23 @@ Linx <- R6::R6Class(
   public = list(
     #' @description Create a new Linx object.
     #' @param path (`character(1)`)\cr
-    #' Output directory of tool. If `files_tbl` is supplied, this basically gets
-    #' ignored.
+    #' Output directory of tool. If `files_tbl` is supplied, this is ignored.
     #' @param files_tbl (`tibble(n)`)\cr
     #' Tibble of files from [nemo::list_files_dir()].
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "linx", pkg = pkg_name, path = path, files_tbl = files_tbl)
-      private$files <- dplyr::mutate(
-        private$files,
+    }
+  ),
+  private = list(
+    post_process_files = function(files) {
+      dplyr::mutate(
+        files,
         prefix = dplyr::if_else(
           grepl("linx\\.germline", .data$bname),
           paste0(.data$prefix, "_germline"),
           .data$prefix
         )
       )
-    },
-    #' @description Read `linx.version` file.
-    #' @param x (`character(1)`)\cr
-    #' Path to file.
-    parse_version = function(x) {
-      private$parse_file_keyvalue(x, "version", delim = "=")
     }
   )
 )
