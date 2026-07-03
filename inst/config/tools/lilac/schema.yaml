@@ -2,7 +2,7 @@ tables:
   summary:
     description: 'Lilac solution summary.'
     pattern: "\\.lilac\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'Allele'
         tidy: 'allele'
@@ -102,7 +102,7 @@ tables:
   qc:
     description: 'Lilac QC.'
     pattern: "\\.lilac\\.qc\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'Status'
         tidy: 'status'

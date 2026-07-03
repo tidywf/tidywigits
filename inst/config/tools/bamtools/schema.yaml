@@ -2,7 +2,7 @@ tables:
   wgsmetrics:
     description: 'WGS coverage metrics.'
     pattern: "\\.wgsmetrics$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'GENOME_TERRITORY'
         tidy: 'tot_region_bases'
@@ -142,7 +142,7 @@ tables:
   coverage:
     description: 'Per-base coverage counts.'
     pattern: "\\.bam_metric\\.coverage\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'Coverage'
         tidy: 'coverage'
@@ -157,7 +157,7 @@ tables:
   fraglength:
     description: 'Fragment length counts.'
     pattern: "\\.bam_metric\\.frag_length\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'FragmentLength'
         tidy: 'length'
@@ -172,7 +172,7 @@ tables:
   partitionstats:
     description: 'Per-partition alignment stats.'
     pattern: "\\.bam_metric\\.partition_stats\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'Chromosome'
         tidy: 'chrom'
@@ -222,7 +222,7 @@ tables:
   flagstats:
     description: 'Counts of alignments for each FLAG type.'
     pattern: "\\.bam_metric\\.flag_counts\\.tsv$|\\.flagstat$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'passed_or_failed'
         tidy: 'passed_or_failed'
@@ -332,7 +332,7 @@ tables:
   summary:
     description: 'Coverage summary.'
     pattern: "\\.bam_metric\\.summary\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'TotalRegionBases'
         tidy: 'tot_region_bases'
@@ -477,7 +477,7 @@ tables:
   exoncvg:
     description: 'Exon median depth.'
     pattern: "\\.bam_metric\\.exon_medians\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'gene'
         tidy: 'gene'
@@ -512,7 +512,7 @@ tables:
   genecvg:
     description: 'Gene coverage depth ranges.'
     pattern: "\\.bam_metric\\.gene_coverage\\.tsv$|\\.sage\\.gene\\.coverage\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'gene'
         tidy: 'gene'

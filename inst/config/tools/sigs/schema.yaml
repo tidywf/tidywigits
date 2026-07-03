@@ -2,7 +2,7 @@ tables:
   allocation:
     description: 'Signature allocation.'
     pattern: "\\.sig\\.allocation\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'signature'
         tidy: 'signature'
@@ -22,7 +22,7 @@ tables:
   snvcounts:
     description: 'SNV counts.'
     pattern: "\\.sig\\.snv_counts\\.csv$"
-    ftype: 'txt-nohead'
+    ftype: 'tsv-nohead'
     columns:
       - raw: 'X1'
         tidy: 'bucket_name'

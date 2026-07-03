@@ -47,6 +47,13 @@ Purple <- R6::R6Class(
     }
   ),
   private = list(
+    extra_ftypes = function() {
+      list(
+        "equal-keyvalue" = function(x, table_name) {
+          private$parse_file_keyvalue(x, table_name, delim = "=")
+        }
+      )
+    },
     post_process_files = function(files) {
       dplyr::mutate(
         files,

@@ -2,7 +2,7 @@ tables:
   annotated:
     description: 'Processed oncoviral call/annotation data.'
     pattern: "\\.virus\\.annotated\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'taxid'
         tidy: 'taxid'

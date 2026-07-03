@@ -37,5 +37,14 @@ Amber <- R6::R6Class(
     tidy_qc = function(x) {
       private$tidy_file(x, "qc", convert_types = TRUE)
     }
+  ),
+  private = list(
+    extra_ftypes = function() {
+      list(
+        "equal-keyvalue" = function(x, table_name) {
+          private$parse_file_keyvalue(x, table_name, delim = "=")
+        }
+      )
+    }
   )
 )

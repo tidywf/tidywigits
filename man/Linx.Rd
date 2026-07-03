@@ -22,7 +22,6 @@ obj$run(output_dir = odir, format = "parquet", input_id = id)
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Linx-new}{\code{Linx$new()}}
-\item \href{#method-Linx-parse_version}{\code{Linx$parse_version()}}
 }
 }
 \if{html}{\out{
@@ -52,29 +51,10 @@ Create a new Linx object.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{path}}{(\code{character(1)})\cr
-Output directory of tool. If \code{files_tbl} is supplied, this basically gets
-ignored.}
+Output directory of tool. If \code{files_tbl} is supplied, this is ignored.}
 
 \item{\code{files_tbl}}{(\code{tibble(n)})\cr
 Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Linx-parse_version"></a>}}
-\if{latex}{\out{\hypertarget{method-Linx-parse_version}{}}}
-\subsection{Method \code{parse_version()}}{
-Read \code{linx.version} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Linx$parse_version(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
 }
 \if{html}{\out{</div>}}
 }

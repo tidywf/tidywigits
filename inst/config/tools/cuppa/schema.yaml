@@ -42,7 +42,7 @@ tables:
   predsum:
     description: 'Prediction summary.'
     pattern: "\\.cuppa\\.pred_summ\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'sample_id'
         tidy: 'sample_id'
@@ -102,7 +102,7 @@ tables:
   visdata:
     description: 'Visualisation data (CUPPA v2).'
     pattern: "\\.cuppa\\.vis_data\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'sample_id'
         tidy: 'sample_id'
