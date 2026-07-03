@@ -24,7 +24,6 @@ obj$run(output_dir = odir, format = "parquet", input_id = id)
 \item \href{#method-Cobalt-new}{\code{Cobalt$new()}}
 \item \href{#method-Cobalt-parse_gcmed}{\code{Cobalt$parse_gcmed()}}
 \item \href{#method-Cobalt-tidy_gcmed}{\code{Cobalt$tidy_gcmed()}}
-\item \href{#method-Cobalt-parse_version}{\code{Cobalt$parse_version()}}
 }
 }
 \if{html}{\out{
@@ -54,8 +53,7 @@ Create a new Cobalt object.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{path}}{(\code{character(1)})\cr
-Output directory of tool. If \code{files_tbl} is supplied, this basically gets
-ignored.}
+Output directory of tool. If \code{files_tbl} is supplied, this is ignored.}
 
 \item{\code{files_tbl}}{(\code{tibble(n)})\cr
 Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
@@ -90,24 +88,6 @@ Tidy \code{gc.median.tsv} file. Generates 2 sub-tbls:
 median depth per GC bucket.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cobalt$tidy_gcmed(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cobalt-parse_version"></a>}}
-\if{latex}{\out{\hypertarget{method-Cobalt-parse_version}{}}}
-\subsection{Method \code{parse_version()}}{
-Read \code{cobalt.version} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cobalt$parse_version(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

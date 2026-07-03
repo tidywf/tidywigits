@@ -62,5 +62,14 @@ Cobalt <- R6::R6Class(
       list(sample = d[["sample_stats"]], buckets = d[["bucket_stats"]]) |>
         nemo::nemo_enframe()
     }
+  ),
+  private = list(
+    extra_ftypes = function() {
+      list(
+        "equal-keyvalue" = function(x, table_name) {
+          private$parse_file_keyvalue(x, table_name, delim = "=")
+        }
+      )
+    }
   )
 )

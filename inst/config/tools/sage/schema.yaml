@@ -2,7 +2,7 @@ tables:
   bqrtsv:
     description: 'Base quality recalibration metrics.'
     pattern: "\\.sage\\.bqr\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'alt'
         tidy: 'alt'
@@ -42,7 +42,7 @@ tables:
   exoncvg:
     description: 'Exon coverage metrics.'
     pattern: "\\.sage\\.exon\\.medians\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'gene'
         tidy: 'gene'

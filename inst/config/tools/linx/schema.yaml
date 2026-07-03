@@ -2,7 +2,7 @@ tables:
   breakends:
     description: 'Impact of each non-PON filtered break junction on each overlapping gene.'
     pattern: "\\.linx\\.(germline\\.)?breakend\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'id'
         tidy: 'bnd_id'
@@ -137,7 +137,7 @@ tables:
   clusters:
     description: 'Clustering of all non-PON filtered SV events and their resolved classification.'
     pattern: "\\.linx\\.(germline\\.)?clusters\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'clusterId'
         tidy: 'cluster_id'
@@ -172,7 +172,7 @@ tables:
   drivercatalog:
     description: 'Driver catalog with homozygous disruption events appended.'
     pattern: "\\.linx\\.(germline\\.)?driver\\.catalog\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'chromosome'
         tidy: 'chrom'
@@ -262,7 +262,7 @@ tables:
   drivers:
     description: 'Linkage of drivers from driver catalog to SV cluster.'
     pattern: "\\.linx\\.drivers\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'clusterId'
         tidy: 'cluster_id'
@@ -282,7 +282,7 @@ tables:
   fusions:
     description: 'All inframe and out-of-frame fusions predicted in the sample.'
     pattern: "\\.linx\\.fusion\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'fivePrimeBreakendId'
         tidy: 'breakendid5'
@@ -407,7 +407,7 @@ tables:
   links:
     description: 'Chromosomal segments joining break junction pairs predicted to be linked and phased.'
     pattern: "\\.linx\\.(germline\\.)?links\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'clusterId'
         tidy: 'cluster_id'
@@ -497,7 +497,7 @@ tables:
   neoepitope:
     description: 'Gene fusion neoepitopes.'
     pattern: "\\.linx\\.neoepitope\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'geneIdUp'
         tidy: 'gene_id_up'
@@ -592,7 +592,7 @@ tables:
   svs:
     description: 'Additional annotations of each non-PON filtered break junction.'
     pattern: "\\.linx\\.(germline\\.)?svs\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'vcfId'
         tidy: 'vcf_id'
@@ -692,7 +692,7 @@ tables:
   viscn:
     description: 'Copy number segments for visualisation.'
     pattern: "\\.linx\\.vis_copy_number\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'SampleId'
         tidy: 'sample_id'
@@ -727,7 +727,7 @@ tables:
   visfusion:
     description: 'Fusion data for visualisation.'
     pattern: "\\.linx\\.vis_fusion\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'SampleId'
         tidy: 'sample_id'
@@ -817,7 +817,7 @@ tables:
   visgeneexon:
     description: 'Gene exon data for visualisation.'
     pattern: "\\.linx\\.vis_gene_exon\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'SampleId'
         tidy: 'sample_id'
@@ -867,7 +867,7 @@ tables:
   visproteindomain:
     description: 'Protein domain data for visualisation.'
     pattern: "\\.linx\\.vis_protein_domain\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'SampleId'
         tidy: 'sample_id'
@@ -907,7 +907,7 @@ tables:
   vissegments:
     description: 'Segment data for visualisation.'
     pattern: "\\.linx\\.vis_segments\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'SampleId'
         tidy: 'sample_id'
@@ -952,7 +952,7 @@ tables:
   vissvdata:
     description: 'SV data for visualisation.'
     pattern: "\\.linx\\.vis_sv_data\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'SampleId'
         tidy: 'sample_id'
@@ -1042,7 +1042,7 @@ tables:
   version:
     description: 'Version of the tool.'
     pattern: "^linx\\.version$"
-    ftype: 'txt-keyvalue-eq'
+    ftype: 'equal-keyvalue'
     columns:
       - raw: 'version'
         tidy: 'version'

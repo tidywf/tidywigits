@@ -2,7 +2,7 @@ tables:
   gcmed:
     description: 'GC median read depth per GC bucket.'
     pattern: "\\.cobalt\\.gc\\.median\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: '#gcBucket'
         tidy: 'gc_bucket'
@@ -17,7 +17,7 @@ tables:
   ratiomed:
     description: 'Chromosome median ratios.'
     pattern: "\\.cobalt\\.ratio\\.median\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'chromosome'
         tidy: 'chrom'
@@ -37,7 +37,7 @@ tables:
   ratiopcf:
     description: 'Segmented regions determined from the ratios (piecewise constant fit).'
     pattern: "\\.cobalt\\.ratio\\.pcf$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'sampleID'
         tidy: 'sample_id'
@@ -77,7 +77,7 @@ tables:
   version:
     description: 'Version of the tool.'
     pattern: "^cobalt\\.version$"
-    ftype: 'txt-keyvalue-eq'
+    ftype: 'equal-keyvalue'
     columns:
       - raw: 'version'
         tidy: 'version'

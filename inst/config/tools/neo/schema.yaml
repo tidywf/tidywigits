@@ -2,7 +2,7 @@ tables:
   candidates:
     description: 'Neoepitope candidates.'
     pattern: "\\.neo\\.neo_data\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'NeId'
         tidy: 'ne_id'
@@ -182,7 +182,7 @@ tables:
   predictions:
     description: 'Neoepitope predictions.'
     pattern: "\\.neo\\.neoepitope\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'NeId'
         tidy: 'ne_id'

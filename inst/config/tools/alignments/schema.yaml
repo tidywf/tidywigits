@@ -2,7 +2,7 @@ tables:
   dupfreq:
     description: 'Duplicate read count and frequency.'
     pattern: "(\\.redux)?\\.duplicate_freq\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'DuplicateReadCount'
         tidy: 'duplicate_read_count'
@@ -17,7 +17,7 @@ tables:
   markdup:
     description: 'Picard duplication metrics.'
     pattern: "\\.md\\.metrics$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'LIBRARY'
         tidy: 'library'

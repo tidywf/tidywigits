@@ -22,9 +22,7 @@ obj$run(output_dir = odir, format = "parquet", input_id = id)
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Purple-new}{\code{Purple$new()}}
-\item \href{#method-Purple-parse_qc}{\code{Purple$parse_qc()}}
 \item \href{#method-Purple-tidy_qc}{\code{Purple$tidy_qc()}}
-\item \href{#method-Purple-parse_version}{\code{Purple$parse_version()}}
 }
 }
 \if{html}{\out{
@@ -54,29 +52,10 @@ Create a new Purple object.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{path}}{(\code{character(1)})\cr
-Output directory of tool. If \code{files_tbl} is supplied, this basically gets
-ignored.}
+Output directory of tool. If \code{files_tbl} is supplied, this is ignored.}
 
 \item{\code{files_tbl}}{(\code{tibble(n)})\cr
 Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-parse_qc"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-parse_qc}{}}}
-\subsection{Method \code{parse_qc()}}{
-Read \code{purple.qc} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$parse_qc(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
 }
 \if{html}{\out{</div>}}
 }
@@ -93,26 +72,8 @@ Tidy \code{purple.qc} file.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Purple-parse_version"></a>}}
-\if{latex}{\out{\hypertarget{method-Purple-parse_version}{}}}
-\subsection{Method \code{parse_version()}}{
-Read \code{purple.version} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Purple$parse_version(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)})\cr
-Path to file.}
+\item{\code{x}}{(\code{character(1)} or \code{tibble()})\cr
+Path to file or already parsed tibble.}
 }
 \if{html}{\out{</div>}}
 }

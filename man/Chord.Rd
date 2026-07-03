@@ -53,8 +53,7 @@ Create a new Chord object.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{path}}{(\code{character(1)})\cr
-Output directory of tool. If \code{files_tbl} is supplied, this basically gets
-ignored.}
+Output directory of tool. If \code{files_tbl} is supplied, this is ignored.}
 
 \item{\code{files_tbl}}{(\code{tibble(n)})\cr
 Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}

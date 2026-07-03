@@ -2,7 +2,7 @@ tables:
   cnvgenetsv:
     description: 'Copy number alterations of each gene in the HMF gene panel.'
     pattern: "\\.purple\\.cnv\\.gene\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'chromosome'
         tidy: 'chrom'
@@ -102,7 +102,7 @@ tables:
   cnvsomtsv:
     description: 'Copy number profile of all (contiguous) segments of the tumor sample.'
     pattern: "\\.purple\\.cnv\\.somatic\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'chromosome'
         tidy: 'chrom'
@@ -187,7 +187,7 @@ tables:
   drivercatalog:
     description: 'Significant amplifications and deletions that occur in the HMF gene panel.'
     pattern: "\\.purple\\.driver\\.catalog\\.(germline|somatic)\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'chromosome'
         tidy: 'chrom'
@@ -277,7 +277,7 @@ tables:
   germdeltsv:
     description: 'Germline deletions.'
     pattern: "\\.purple\\.germline\\.deletion\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'gene'
         tidy: 'gene'
@@ -362,7 +362,7 @@ tables:
   purityrange:
     description: 'Best fit per purity sorted by score.'
     pattern: "\\.purple\\.purity\\.range\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'purity'
         tidy: 'purity'
@@ -397,7 +397,7 @@ tables:
   puritytsv:
     description: 'Purity/ploidy fit summary.'
     pattern: "\\.purple\\.purity\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'purity'
         tidy: 'purity'
@@ -527,7 +527,7 @@ tables:
   qc:
     description: 'QC metrics.'
     pattern: "\\.purple\\.qc$"
-    ftype: 'txt-keyvalue'
+    ftype: 'tsv-keyvalue'
     columns:
       - raw: 'QCStatus'
         tidy: 'qc_status'
@@ -602,7 +602,7 @@ tables:
   somclonality:
     description: 'Clonality peak model data.'
     pattern: "\\.purple\\.somatic\\.clonality\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'peak'
         tidy: 'peak'
@@ -637,7 +637,7 @@ tables:
   somhist:
     description: 'Somatic variant histogram data.'
     pattern: "\\.purple\\.somatic\\.hist\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'variantCopyNumberBucket'
         tidy: 'variant_cn_bucket'
@@ -657,7 +657,7 @@ tables:
   version:
     description: 'Version of the tool.'
     pattern: "^purple\\.version$"
-    ftype: 'txt-keyvalue-eq'
+    ftype: 'equal-keyvalue'
     columns:
       - raw: 'version'
         tidy: 'version'

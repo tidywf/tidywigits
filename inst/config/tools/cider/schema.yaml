@@ -2,7 +2,7 @@ tables:
   blastn:
     description: 'BLASTn hits.'
     pattern: "\\.cider\\.blastn_match\\.tsv\\.gz$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'cdr3Seq'
         tidy: 'cdr3_seq'
@@ -92,7 +92,7 @@ tables:
   locusstats:
     description: 'Locus stats.'
     pattern: "\\.cider\\.locus_stats\\.tsv$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'locus'
         tidy: 'locus'
@@ -127,7 +127,7 @@ tables:
   vdj:
     description: 'VDJ sequences.'
     pattern: "\\.cider\\.vdj\\.tsv\\.gz$"
-    ftype: 'txt'
+    ftype: 'tsv'
     columns:
       - raw: 'cdr3Seq'
         tidy: 'cdr3_seq'
