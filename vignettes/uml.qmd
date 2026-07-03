@@ -3,13 +3,14 @@ title: "UML"
 knitr:
   opts_chunk:
     collapse: true
-    comment: '#>'
+    comment: "#>"
     echo: false
 ---
 
 ```{r}
 #| label: pkgs
 #| include: false
+
 use("nemo", "nemo_uml")
 use("tidywigits", "WIGITS_TOOLS")
 use("purrr", "map_chr")
@@ -18,6 +19,7 @@ use("knitr", "asis_output")
 
 ```{r}
 #| label: uml
+
 x <- sort(c(
   map_chr(WIGITS_TOOLS, "classname"),
   "Config",

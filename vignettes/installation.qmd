@@ -3,12 +3,13 @@ title: "Installation"
 knitr:
   opts_chunk:
     collapse: true
-    comment: '#>'
+    comment: "#>"
     echo: false
 ---
 
 ```{r}
 #| label: pkgs
+
 use("tibble", "lst")
 use("glue", "glue")
 ```
@@ -16,6 +17,7 @@ use("glue", "glue")
 ```{r}
 #| label: setup
 #| echo: false
+
 pkg_nm <- "tidywigits"
 org_nm <- "tidywf"
 ver <- as.character(utils::packageVersion(pkg_nm))
@@ -24,29 +26,29 @@ conda <- tibble::lst(
   env = paste0(pkg_nm, "_env"),
   url = glue("https://anaconda.org/{org_nm}/{pkg}")
 )
-dir_nemo  <- system.file("doc-templates", "installation", package = "nemo")
+dir_nemo <- system.file("doc-templates", "installation", package = "nemo")
 ```
 
 ### R
 
-```{r child=file.path(dir_nemo, "_r.qmd")}
+```{r, child=file.path(dir_nemo, "_r.qmd")}
 #| label: child-r
 ```
 
 ### Conda
 
-```{r child=file.path(dir_nemo, "_conda.qmd")}
+```{r, child=file.path(dir_nemo, "_conda.qmd")}
 #| label: child-conda
 ```
 
 ### Docker
 
-```{r child=file.path(dir_nemo, "_docker.qmd")}
+```{r, child=file.path(dir_nemo, "_docker.qmd")}
 #| label: child-docker
 ```
 
 ### Pixi
 
-```{r child=file.path(dir_nemo, "_pixi.qmd")}
+```{r, child=file.path(dir_nemo, "_pixi.qmd")}
 #| label: child-pixi
 ```
