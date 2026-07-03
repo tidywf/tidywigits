@@ -3,7 +3,7 @@ title: "PostgreSQL"
 knitr:
   opts_chunk:
     collapse: true
-    comment: '#>'
+    comment: "#>"
     echo: false
 ---
 

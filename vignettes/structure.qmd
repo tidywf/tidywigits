@@ -3,7 +3,7 @@ title: "Structure"
 knitr:
   opts_chunk:
     collapse: true
-    comment: '#>'
+    comment: "#>"
 ---
 
 Each WiGiTS tool has a single `schema.yaml` under `inst/config/tools/<tool>/`.

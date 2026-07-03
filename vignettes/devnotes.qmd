@@ -31,8 +31,8 @@ title: "Devnotes"
 
 ### Data Version Control
 
-Instead of committing big data files into `git`, we can store the files
-remotely (e.g. Google Drive, AWS S3, Cloudflare R2) and just keep track of the data
+Instead of committing big data files into `git`, we can store the files remotely
+(e.g. Google Drive, AWS S3, Cloudflare R2) and just keep track of the data
 updates in `git` using [DVC](https://dvc.org/).
 
 The R package uses the data files when running the code examples and tests, and
@@ -41,19 +41,19 @@ remote storage and allow these processes to take place.
 
 The default remote (`cloudflare_r2_nemo`) is a public Cloudflare R2 bucket - no
 credentials needed to pull. Pushing requires the private S3 remote
-(`cloudflare_r2_nemo_push`), configured locally in `.dvc/config.local` (gitignored),
-with R2 credentials passed via env vars.
+(`cloudflare_r2_nemo_push`), configured locally in `.dvc/config.local`
+(gitignored), with R2 credentials passed via env vars.
 
-| Command                                                                                | Comments                                          |
-| -------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| `dvc init`                                                                             | initialise dvc                                    |
-| `dvc remote add -d storage gdrive://<...>`                                             | add GDrive remote                                 |
-| `dvc remote add -d my_r2 s3://<...>`                                                   | add Cloudflare R2 remote                          |
-| `dvc remote modify my_r2 endpointurl https://<...>.r2.cloudflarestorage.com`           | add Cloudflare R2 remote endpointurl              |
-| `dvc remote list`                                                                      | list all remotes                                  |
-| `dvc check-ignore *`                                                                   | check what is dvc-ignored                         |
-| `dvc list https://github.com/tidywf/tidywigits inst/extdata`                           | list dvc'ed data                                  |
-| `dvc add path/to/folder`                                                               | adds `folder` (and its contents) to dvc           |
-| `dvc add path/to/file.txt`                                                             | adds `file.txt` to dvc                            |
-| `dvc pull`                                                                             | pulls dvc data from public remote (no auth)       |
-| `AWS_ACCESS_KEY_ID=... AWS_SECRET_ACCESS_KEY=... dvc push -r cloudflare_r2_nemo_push`  | pushes dvc data to private R2 remote (needs auth) |
+| Command                                                                               | Comments                                          |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| `dvc init`                                                                            | initialise dvc                                    |
+| `dvc remote add -d storage gdrive://<...>`                                            | add GDrive remote                                 |
+| `dvc remote add -d my_r2 s3://<...>`                                                  | add Cloudflare R2 remote                          |
+| `dvc remote modify my_r2 endpointurl https://<...>.r2.cloudflarestorage.com`          | add Cloudflare R2 remote endpointurl              |
+| `dvc remote list`                                                                     | list all remotes                                  |
+| `dvc check-ignore *`                                                                  | check what is dvc-ignored                         |
+| `dvc list https://github.com/tidywf/tidywigits inst/extdata`                          | list dvc'ed data                                  |
+| `dvc add path/to/folder`                                                              | adds `folder` (and its contents) to dvc           |
+| `dvc add path/to/file.txt`                                                            | adds `file.txt` to dvc                            |
+| `dvc pull`                                                                            | pulls dvc data from public remote (no auth)       |
+| `AWS_ACCESS_KEY_ID=... AWS_SECRET_ACCESS_KEY=... dvc push -r cloudflare_r2_nemo_push` | pushes dvc data to private R2 remote (needs auth) |

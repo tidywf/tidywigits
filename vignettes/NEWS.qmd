@@ -3,7 +3,7 @@ title: "NEWS"
 knitr:
   opts_chunk:
     collapse: true
-    comment: '#>'
+    comment: "#>"
 ---
 
 ```{r}
@@ -11,13 +11,17 @@ knitr:
 #| message: false
 #| warning: false
 #| echo: false
+
 {
   use("htmltools", "a")
   use("glue", "glue")
 }
 ```
 
-```{r echo=FALSE}
+```{r}
+#| echo: false
+#| label: funcs
+
 repo <- "https://github.com/tidywf/tidywigits"
 vdiff <- function(new, old) {
   stopifnot(utils::compareVersion(new, old) == 1)
@@ -59,14 +63,14 @@ user <- function(x) {
 
 ## v0.1.0 (2026-06-22)
 
-Major refactor. GitHub org migrated from `umccr` to `tidywf`. All 19 tool configs
-consolidated from dual `raw.yaml` + `tidy.yaml` files into a single `schema.yaml`
-per tool, with parsing simplified across the board (`r pr(189)`). The nemo API
-was updated (`nemofy`/`diro` → `run`/`output_dir`, `r pr(200)`). DVC switched
-to per-file tracking backed by a public Cloudflare R2 remote (`r pr(190)`,
-`r pr(203)`). Docker images now build for both `linux/amd64` and `linux/arm64`
-(`r pr(198)`). GHA refactored to use reusable workflows from `tidywf/actions`
-(`r pr(181)`).
+Major refactor. GitHub org migrated from `umccr` to `tidywf`. All 19 tool
+configs consolidated from dual `raw.yaml` + `tidy.yaml` files into a single
+`schema.yaml` per tool, with parsing simplified across the board (`r pr(189)`).
+The nemo API was updated (`nemofy`/`diro` → `run`/`output_dir`, `r pr(200)`).
+DVC switched to per-file tracking backed by a public Cloudflare R2 remote
+(`r pr(190)`, `r pr(203)`). Docker images now build for both `linux/amd64` and
+`linux/arm64` (`r pr(198)`). GHA refactored to use reusable workflows from
+`tidywf/actions` (`r pr(181)`).
 
 ### Changes
 
@@ -74,15 +78,15 @@ to per-file tracking backed by a public Cloudflare R2 remote (`r pr(190)`,
 - Schema: all tools migrated from `raw.yaml` + `tidy.yaml` to a single
   `schema.yaml`; initially introduced as LinkML (`r pr(174)`) then simplified;
   old config files removed; parsing simplified across all tools (`r pr(189)`)
-- Flagstats: removed standalone class — covered by Bamtools
+- Flagstats: removed standalone class --- covered by Bamtools
 - Bamtools: dropped histogram parser; genecoverage returned as single table;
   handle `summary` + `wgsmetrics` subtables
 - Cobalt: handle `sample` + `buckets` subtables
 - Alignments: dropped histogram rows from `markdup` parser
 - Linx: fixed germline file handling (`r pr(189)`); added v1.25 test data
 - Sage: delegate genecoverage to Bamtools parser; added v3.4.4 test data
-- Cuppa: handle v1.4 `sampleId` column (fixes `r iss(172)`); use `csv` ftype
-  for datacsv; add plotter functions (`r pr(173)`); predsum tidy schema fix
+- Cuppa: handle v1.4 `sampleId` column (fixes `r iss(172)`); use `csv` ftype for
+  datacsv; add plotter functions (`r pr(173)`); predsum tidy schema fix
   (`r pr(179)`, `r iss(178)`)
 - DVC: switch from directory-level to per-file `.dvc` tracking; new
   `dvc_download_file()` / `dvc_download_all()` helpers backed by public
@@ -90,8 +94,8 @@ to per-file tracking backed by a public Cloudflare R2 remote (`r pr(190)`,
 - Wigits: re-add Esvee; use `metapkg`; `WIGITS_TOOLS` changed from character
   vector to named list of R6 classes (`r pr(191)`)
 - Vignettes: add `quickstart`, `structure`, `schema_table`, `cicd`, `devnotes`;
-  refactor `uml`; remove `schemas_raw` + `schemas_tidy`; consolidate installation
-  fragments (`r pr(193)`)
+  refactor `uml`; remove `schemas_raw` + `schemas_tidy`; consolidate
+  installation fragments (`r pr(193)`)
 - GHA: use reusable workflows for conda/docker/pkgdown (`r pr(181)`); add
   version-bumping workflow (`r pr(183)`, `r pr(185)`); fix permissions
   (`r pr(182)`); refactor deploy workflow (`r pr(175)`, `r pr(176)`); add
@@ -102,7 +106,8 @@ to per-file tracking backed by a public Cloudflare R2 remote (`r pr(190)`,
 
 ### nemo API changes (`r pr(200)`)
 
-- `nemofy()` / `diro` → `run()` / `output_dir` (two-step: first `wrangle`/`out_dir`, then `run`/`output_dir`)
+- `nemofy()` / `diro` → `run()` / `output_dir` (two-step: first
+  `wrangle`/`out_dir`, then `run`/`output_dir`)
 - `out_dir` → `output_dir`; `pfix_include` → `prefix_include`; output column
   `input_pfix` → `input_prefix`; CLI flag `--out_dir` → `--output_dir`
 - Config/Tool renames: `raw_schemas_all` → `schemas_raw`; `tidy_schemas_all` →
@@ -110,7 +115,8 @@ to per-file tracking backed by a public Cloudflare R2 remote (`r pr(190)`,
   `get_schema_raw`
 - All subclasses declare `cloneable = FALSE`
 - `.parse_file*()`/`.tidy_file()` public dot methods moved to private in nemo
-- `self$get_schema_*()` shortcuts removed from Tool; use `self$config$get_schema_*()` directly
+- `self$get_schema_*()` shortcuts removed from Tool; use
+  `self$config$get_schema_*()` directly
 - Linx/Purple: germline/somatic prefix logic moved to `initialize()`
 
 ### Contributors
@@ -130,17 +136,21 @@ to per-file tracking backed by a public Cloudflare R2 remote (`r pr(190)`,
 - Add Teal support (`r pr(154)`, `r iss(146)`)
 - Purple: handle v4.1 (`r pr(150)`, `r iss(141)`)
 - Bamtools: support gene/exon coverage files (`r pr(151)`, `r iss(149)`)
-- Quarto Website setup for tidywigits outputs (`r pr(157)`, `r pr(160)`, `r iss(156)`)
-- Add optional redux prefix pattern for Alignments dupfreq (`r iss(161)`, `r pr(164)`)
+- Quarto Website setup for tidywigits outputs (`r pr(157)`, `r pr(160)`,
+  `r iss(156)`)
+- Add optional redux prefix pattern for Alignments dupfreq (`r iss(161)`,
+  `r pr(164)`)
 - Add AWS S3 sync wrapper (`r pr(165)`)
 - Use renamed `input_id`/`input_pfix`/`diro` for `nemofy` (`r pr(166)`)
-- Metadata: override Workflow parent `get_metadata` method for pkg spec (`r iss(167)`, `r pr(168)`)
+- Metadata: override Workflow parent `get_metadata` method for pkg spec
+  (`r iss(167)`, `r pr(168)`)
 
 ## v0.0.5 (2025-09-07)
 
 - `r vdiff("0.0.5", "0.0.4")`
 
-Major refactor, moving core functionality to [nemo](https://github.com/tidywf/nemo)
+Major refactor, moving core functionality to
+[nemo](https://github.com/tidywf/nemo)
 
 - move Config, Tool, Workflow classes to nemo
 - move utils to nemo
@@ -164,7 +174,8 @@ Major documentation update - see `r pr(138)` for details.
 
 - `r vdiff("0.0.3", "0.0.2")`
 
-Fixed bug where `normalizePath` was getting called with NULL output directory in the db format case (`r pr(133)`).
+Fixed bug where `normalizePath` was getting called with NULL output directory in
+the db format case (`r pr(133)`).
 
 ## v0.0.2 (2025-07-14)
 
@@ -206,11 +217,12 @@ Initial release of tidywigits.
   - Lilac (`r pr(31)`, `r iss(21)`)
   - Linx (`r pr(50)`, `r pr(89)`, `r iss(22)`, `r iss(88)`)
   - Purple (`r pr(36)`, `r pr(51)`, `r iss(23)`, `r iss(49)`)
-  - Sage (`r pr(48)`, `r pr(72)`, `r pr(73)`, `r iss(24)`, `r iss(71)`, `r iss(57)`)
+  - Sage (`r pr(48)`, `r pr(72)`, `r pr(73)`, `r iss(24)`, `r iss(71)`,
+    `r iss(57)`)
   - Sigs (`r pr(47)`, `r iss(25)`)
   - Virusbreakend (`r pr(42)`, `r iss(26)`)
   - Virusinterpreter (`r pr(40)`, `r pr(65)`, `r iss(27)`, `r iss(41)`)
-- Schema: 
+- Schema:
   - versioning (`r pr(64)`, `r iss(43)`)
   - guesser (`r pr(69)`, `r iss(63)`)
 - Vignettes:
