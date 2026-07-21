@@ -1,0 +1,186 @@
+---
+title: "Output Naming"
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
+---
+
+```{r}
+#| label: pkgs
+#| include: false
+
+use("nemo")
+use("tidywigits")
+use("fs")
+use("arrow", "read_parquet")
+use("purrr", "map")
+use("dplyr")
+use("glue", "glue")
+
+# generic template comes from nemo; the special cases below are tidywigits-only
+child1 <- system.file(
+  "doc-templates/vignettes/_output_naming.qmd",
+  package = "nemo"
+)
+oa <- system.file("extdata/oa", package = "tidywigits")
+```
+
+```{r, child=child1}
+#| label: child-output-naming
+```
+
+## Special cases: semantic prefixes
+
+The disambiguation above (`_2`, `_3`) is purely positional; it keeps files from
+overwriting each other but tells you nothing about why two inputs collided. Some
+tools emit germline and somatic variants of the same table that, after the
+schema `pattern` is stripped, reduce to the same prefix and the same
+`tool_parser`. Left alone they would collapse to `sample1` / `sample1_2`, which
+is lossy since you can no longer tell which file was germline.
+
+A `Tool` subclass fixes this by overriding the private `refine_files(files)`
+hook. It runs on the base prefix *before* the disambiguation passes, so a
+subclass can fold the germline/somatic distinction into the prefix itself. Once
+germline and somatic carry different prefixes they no longer collide, so the
+generic pipeline never has to invent a `_2`, and any remaining `_2`/`_3` is a
+genuine repeat-run marker within a variant. `Linx` and `Purple` both use it.
+
+### Purple: `driver.catalog.germline` vs `driver.catalog.somatic`
+
+Purple's `drivercatalog` parser matches both files with a single schema pattern
+(`\.purple\.driver\.catalog\.(germline|somatic)\.tsv$`), so both strip to the
+prefix `sample1`. The hook rewrites them by basename into `sample1_germline` /
+`sample1_somatic` *before* the collision check, so they never collapse to a
+lossy `sample1_2`.
+
+Simulate three runs by copying both catalogs into separate run folders, then
+initialise one `Purple` on the parent:
+
+```{r}
+#| label: purple-init
+
+dirp <- path(tempdir(), "purple-runs")
+for (r in c("run1", "run2", "run3")) {
+  dest <- dir_create(path(dirp, r))
+  file_copy(
+    dir_ls(
+      path(oa, "purple"),
+      regexp = "driver\\.catalog\\.(germline|somatic)\\.tsv$"
+    ),
+    dest,
+    overwrite = TRUE
+  )
+}
+dir_tree(dirp)
+ppl <- Purple$new(path = dirp)
+```
+
+Now we tidy the same object. The semantic tag lands first, so any trailing
+`_2`/`_3` is a genuine repeat-run marker within `germline` or `somatic`, not a
+collision between them. The `prefix_include` option records the prefix as an
+`input_prefix` column, and each run/variant lands in its own file:
+
+```{r}
+#| label: purple-run
+
+dir_outP <- dir_create(path(tempdir(), "purple-out"))
+ppl$run(
+  input_id = "input1",
+  output_id = "output1",
+  output_dir = dir_outP,
+  format = "parquet",
+  prefix_include = TRUE
+)
+dir_tree(dir_outP)
+```
+
+Reading the six `drivercatalog` files and stacking them (top 2 rows),
+`input_prefix` keeps the germline/somatic and repeat-run provenance intact once
+the filename is gone:
+
+```{r}
+#| label: purple-merge
+
+dir_ls(dir_outP, regexp = "purple_drivercatalog\\.parquet") |>
+  purrr::map(\(x) arrow::read_parquet(x) |> dplyr::slice_head(n = 2)) |>
+  purrr::list_rbind() |>
+  dplyr::select(input_id, input_prefix, output_id, chrom, gene, cn_min)
+```
+
+### Linx: germline vs. somatic annotations
+
+Several Linx tables have an optional `germline.` segment in their pattern (e.g.
+`\.linx\.(germline\.)?breakend\.tsv$`), so `sample1.linx.breakend.tsv` and
+`sample1.linx.germline.breakend.tsv` both reduce to `sample1`. Linx tags both
+sides, but only for parsers that actually have a germline file present, so
+somatic-only tables (`drivers`, `fusion`, `vis_*`) are left untouched.
+
+Let us again simulate three runs by copying the paired germline and somatic
+tables into separate folders (including fusions too), then initialise one `Linx`
+object on the parent:
+
+```{r}
+#| label: linx-init
+
+dirl <- path(tempdir(), "linx-runs")
+patl <- "\\.(breakend|links|svs|fusion)\\.tsv$"
+linx_files <- c(
+  dir_ls(path(oa, "linx/germline_annotations"), regexp = patl),
+  dir_ls(path(oa, "linx/somatic_annotations"), regexp = patl)
+)
+for (r in c("run1", "run2", "run3")) {
+  dest <- dir_create(path(dirl, r))
+  file_copy(linx_files, dest, overwrite = TRUE)
+}
+dir_tree(dirl)
+l <- Linx$new(path = dirl)
+```
+
+Now we tidy the same object. The paired tables (`breakends`, `links`, `svs`)
+split cleanly into `sample1_germline` and `sample1_somatic`, and the
+somatic-only fusions only need to use `_2`/`3`:
+
+```{r}
+#| label: linx-run
+
+dir_outL <- dir_create(path(tempdir(), "linx-out"))
+l$run(
+  input_id = "input1",
+  output_id = "output1",
+  output_dir = dir_outL,
+  format = "parquet",
+  prefix_include = TRUE
+)
+dir_tree(dir_outL)
+```
+
+Stacking the `breakends` files (top 2 rows), similarly `input_prefix` tells
+germline from somatic and one run from the next after the merge:
+
+```{r}
+#| label: linx-merge
+
+dir_ls(dir_outL, regexp = "linx_breakends\\.parquet") |>
+  purrr::map(\(x) arrow::read_parquet(x) |> dplyr::slice_head(n = 2)) |>
+  purrr::list_rbind() |>
+  dplyr::select(
+    input_id,
+    input_prefix,
+    output_id,
+    gene,
+    undisrupted_cn,
+    region_type,
+    coding_type
+  )
+```
+
+### When to reach for the hook
+
+- Prefer schema `pattern`s that already separate variants where you can; the
+  generic pipeline then needs no help.
+- Use `refine_files()` when a single parser legitimately matches multiple input
+  files that must stay apart with a meaningful label rather than a positional
+  `_2`.
+- The hook can touch any `list_files()` column, but rewriting `prefix` is the
+  common case since that is what drives the output filename.

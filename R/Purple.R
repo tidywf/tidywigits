@@ -54,7 +54,7 @@ Purple <- R6::R6Class(
         }
       )
     },
-    post_process_files = function(files) {
+    refine_files = function(files) {
       dplyr::mutate(
         files,
         prefix = dplyr::case_when(
