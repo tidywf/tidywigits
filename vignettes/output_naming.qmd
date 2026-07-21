@@ -10,13 +10,15 @@ knitr:
 #| label: pkgs
 #| include: false
 
-use("nemo")
-use("tidywigits")
-use("fs")
-use("arrow", "read_parquet")
-use("purrr", "map")
-use("dplyr")
-use("glue", "glue")
+{
+  use("nemo")
+  use("tidywigits")
+  use("fs")
+  use("arrow", "read_parquet")
+  use("purrr", "map")
+  use("dplyr")
+  use("glue", "glue")
+}
 
 # generic template comes from nemo; the special cases below are tidywigits-only
 child1 <- system.file(
@@ -173,6 +175,81 @@ dir_ls(dir_outL, regexp = "linx_breakends\\.parquet") |>
     region_type,
     coding_type
   )
+```
+
+### Sage: germline vs. somatic *folders*
+
+Linx and Purple carry the germline/somatic distinction in the *basename*. Sage
+is different: it writes the same basenames (e.g. `sample1.sage.bqr.tsv`) into
+sibling `germline/` and `somatic/` subfolders, so the distinction lives in the
+*parent folder*, not the filename. `Sage$refine_files()` therefore keys off the
+folder, folding `germline` / `somatic` into the prefix:
+
+```{r}
+#| label: sage-init
+
+dirs <- path(tempdir(), "sage-runs")
+for (r in c("run1", "run2", "run3")) {
+  for (v in c("germline", "somatic")) {
+    dest <- dir_create(path(dirs, r, v))
+    file_copy(
+      path(oa, "sage", v, "sample1.sage.bqr.tsv"),
+      dest,
+      overwrite = TRUE
+    )
+  }
+}
+dir_tree(dirs)
+s <- Sage$new(path = dirs)
+```
+
+`list_files()` picks up the folder-derived label, so germline and somatic no
+longer collapse into one lossy stream, and each variant is numbered
+independently across the three runs:
+
+```{r}
+#| label: sage-listfiles
+
+s$list_files() |>
+  dplyr::filter(parser == "bqrtsv") |>
+  dplyr::select(bname, prefix) |>
+  dplyr::arrange(prefix)
+```
+
+There is a subtlety in getting the numbering clean. Sage's germline and somatic
+files share an *identical* basename (only the folder differs), and nemo's first
+disambiguation pass numbers repeat runs `by = "bname"`. Left alone that pass
+would treat all six files as one group and interleave the suffixes
+(`sample1_germline`, `sample1_germline_3`, `sample1_germline_5`, ...). To avoid
+that, the shared `refine_by_variant_folder()` helper also injects the variant
+into `bname` (`sample1.germline.sage.bqr.tsv` / `sample1.somatic.sage.bqr.tsv`)
+so the two streams are counted separately. The source `path` is left untouched,
+so provenance back to the original file is preserved.
+
+```{r}
+#| label: sage-run
+
+dir_outS <- dir_create(path(tempdir(), "sage-out"))
+s$run(
+  input_id = "input1",
+  output_id = "output1",
+  output_dir = dir_outS,
+  format = "parquet",
+  prefix_include = TRUE
+)
+dir_tree(dir_outS)
+```
+
+Stacking the `bqrtsv` files (top row each), `input_prefix` still separates
+germline from somatic across the runs:
+
+```{r}
+#| label: sage-merge
+
+dir_ls(dir_outS, regexp = "sage_bqrtsv\\.parquet") |>
+  purrr::map(\(x) arrow::read_parquet(x) |> dplyr::slice_head(n = 1)) |>
+  purrr::list_rbind() |>
+  dplyr::select(input_id, input_prefix, output_id, alt, ref, context)
 ```
 
 ### When to reach for the hook

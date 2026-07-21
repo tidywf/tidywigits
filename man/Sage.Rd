@@ -22,6 +22,7 @@ obj$run(output_dir = odir, format = "parquet", input_id = id)
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Sage-new}{\code{Sage$new()}}
+\item \href{#method-Sage-tidy_genecvg}{\code{Sage$tidy_genecvg()}}
 }
 }
 \if{html}{\out{
@@ -55,6 +56,26 @@ Output directory of tool. If \code{files_tbl} is supplied, this is ignored.}
 
 \item{\code{files_tbl}}{(\code{tibble(n)})\cr
 Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Sage-tidy_genecvg"></a>}}
+\if{latex}{\out{\hypertarget{method-Sage-tidy_genecvg}{}}}
+\subsection{Method \code{tidy_genecvg()}}{
+Tidy \code{gene.coverage.tsv} file. Generates 2 sub-tbls:
+\emph{genes} with the per-gene metadata and \emph{cvg} with the long-form
+depth-range counts.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Sage$tidy_genecvg(x)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{(\code{character(1)})\cr
+Path to file.}
 }
 \if{html}{\out{</div>}}
 }

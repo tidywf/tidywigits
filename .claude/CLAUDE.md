@@ -25,11 +25,23 @@ Medical Foundation). For deep context use the routing table in
   files) is not in nemo --- it is registered via `private$extra_ftypes()` in
   `Cobalt`, `Amber`, `Linx`, and `Purple`. Add it to any new tool whose schema
   uses `ftype: 'equal-keyvalue'`.
-- `Linx` and `Purple` override nemo's `private$refine_files()` hook to give
-  germline vs somatic outputs of the same parser distinct `_germline` /
-  `_somatic` prefixes (avoids a lossy positional `_2`). Purple keys off explicit
-  basename patterns; Linx tags both sides but only for parsers that actually
-  have a germline file present.
+- `Linx`, `Purple` and `Sage` override nemo's `private$refine_files()` hook to
+  give germline vs somatic outputs distinct `_germline` / `_somatic` prefixes
+  (avoids a lossy positional `_2`). Purple keys off explicit basename patterns;
+  Linx tags both sides but only for parsers that actually have a germline file
+  present. `Sage` uses `refine_by_variant_folder()` (in `R/utils.R`), which keys
+  off the parent *folder* (`germline/` vs `somatic/`) since Sage does not encode
+  the variant in the basename; because those germline/somatic files share an
+  identical basename, the helper also injects the variant into `bname` so nemo's
+  per-`bname` disambiguation numbers repeat runs independently per variant (the
+  source `path` is untouched).
+- Sage and Bamtools both have a `genecvg` table parsing the same gene-coverage
+  format (Sage's `\.sage\.gene\.coverage\.tsv$`, Bamtools'
+  `\.bam_metric\.gene_coverage\.tsv$`). The genes/cvg split logic is shared via
+  `tidy_genecvg_split()` in `R/utils.R`; each tool's `tidy_genecvg()` is a thin
+  wrapper. (Sage's gene-coverage file used to be matched by the bamtools schema
+  via an extra pattern alternate; it now lives in the sage schema so it is
+  tidied as `sage_genecvg` and picks up Sage's germline/somatic tagging.)
 
 ## AWS helper
 
