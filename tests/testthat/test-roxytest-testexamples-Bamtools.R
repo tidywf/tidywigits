@@ -11,7 +11,7 @@ test_that("Function Bamtools() @ L25", {
   obj <- cls$new(indir)
   obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "bamtools_.*parquet", full.names = FALSE))
-  expect_equal(length(lf), 17)
+  expect_equal(length(lf), 13)
   ss <- arrow::read_parquet(file.path(odir, grep("summary_stats", lf, value = TRUE)))
   expect_named(ss, c("input_id", "tot_region_bases", "tot_reads", "dup_reads", "dual_strand_reads",
     "cov_mean", "cov_sd", "cov_median", "cov_mad", "lowmapq_pct", "dup_pct", "unpaired_pct",

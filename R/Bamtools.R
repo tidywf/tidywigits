@@ -11,7 +11,7 @@
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "bamtools_.*parquet", full.names = FALSE))
 #' @testexamples
-#' expect_equal(length(lf), 17)
+#' expect_equal(length(lf), 13)
 #' ss <- arrow::read_parquet(file.path(odir, grep("summary_stats", lf, value = TRUE)))
 #' expect_named(ss, c("input_id", "tot_region_bases", "tot_reads", "dup_reads", "dual_strand_reads",
 #'   "cov_mean", "cov_sd", "cov_median", "cov_mad", "lowmapq_pct", "dup_pct", "unpaired_pct",
@@ -228,27 +228,7 @@ Bamtools <- R6::R6Class(
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_genecvg = function(x) {
-      d <- private$tidy_file(x, "genecvg") |>
-        dplyr::select("data")
-      version <- nemo::get_tbl_version_attr(d[["data"]][[1]])
-      d <- d |> tidyr::unnest("data")
-      # make sure genes are unique
-      if (nrow(d) != nrow(dplyr::distinct(d, .data$gene))) {
-        nemo::nemo_stop("Bamtools genecvg: duplicate gene names found.")
-      }
-      genes <- d |>
-        dplyr::select(!dplyr::starts_with("dr_")) |>
-        nemo::set_tbl_version_attr(version)
-      cvg <- d |>
-        tidyr::pivot_longer(
-          dplyr::starts_with("dr_"),
-          names_to = "dr",
-          values_to = "value"
-        ) |>
-        dplyr::select("gene", "dr", "value") |>
-        nemo::set_tbl_version_attr(version)
-      list(genes = genes, cvg = cvg) |>
-        nemo::nemo_enframe()
+      tidy_genecvg_split(private$tidy_file(x, "genecvg"))
     }
   )
 )

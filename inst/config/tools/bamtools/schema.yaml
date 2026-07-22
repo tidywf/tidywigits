@@ -511,7 +511,7 @@ tables:
         versions: ['latest']
   genecvg:
     description: 'Gene coverage depth ranges.'
-    pattern: "\\.bam_metric\\.gene_coverage\\.tsv$|\\.sage\\.gene\\.coverage\\.tsv$"
+    pattern: "\\.bam_metric\\.gene_coverage\\.tsv$"
     ftype: 'tsv'
     columns:
       - raw: 'gene'

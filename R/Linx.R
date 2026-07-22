@@ -45,15 +45,25 @@ Linx <- R6::R6Class(
         }
       )
     },
-    post_process_files = function(files) {
-      dplyr::mutate(
-        files,
-        prefix = dplyr::if_else(
-          grepl("linx\\.germline", .data$bname),
-          paste0(.data$prefix, "_germline"),
-          .data$prefix
-        )
-      )
+    refine_files = function(files) {
+      # Tables like breakend/links/svs come in germline and somatic flavours
+      # under one parser, so their prefixes collide. Tag both sides so they stay
+      # apart. Only touch parsers that actually have a germline file present;
+      # somatic-only tables (drivers, fusion, vis_*) are left untouched.
+      files |>
+        dplyr::mutate(
+          .is_germline = grepl("linx\\.germline", .data$bname),
+          .has_pair = any(.data$.is_germline) && any(!.data$.is_germline),
+          .by = "tool_parser"
+        ) |>
+        dplyr::mutate(
+          prefix = dplyr::case_when(
+            .data$.is_germline ~ paste0(.data$prefix, "_germline"),
+            .data$.has_pair ~ paste0(.data$prefix, "_somatic"),
+            .default = .data$prefix
+          )
+        ) |>
+        dplyr::select(-c(".is_germline", ".has_pair"))
     }
   )
 )

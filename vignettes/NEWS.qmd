@@ -59,7 +59,26 @@ user <- function(x) {
 
 ## dev
 
-- Move `dvc_download_file()` / `dvc_download_all()` functionality to nemo.
+- Move `dvc_download_file()` / `dvc_download_all()` functionality to nemo
+  (`r pr(204)`).
+- Simplify version/qc handling (`r pr(205)`)
+- Rename txt ftypes to tsv, add equal-keyvalue (`r pr(206)`)
+- Linx/Purple: germline vs somatic outputs now get symmetric `_germline` /
+  `_somatic` prefixes via the `refine_files` hook (Linx also tags the somatic
+  side, scoped to parsers that actually have a germline counterpart); relies on
+  nemo running the hook before disambiguation
+- Sage: germline vs somatic outputs (which Sage separates by `germline/` /
+  `somatic/` subfolder rather than by basename) now get `_germline` / `_somatic`
+  prefixes via `refine_files`, keyed off the parent folder; the variant is also
+  injected into `bname` so repeat runs are numbered independently per variant.
+  The folder logic lives in a `refine_by_variant_folder()` helper
+- Sage: gene-coverage file (`.sage.gene.coverage.tsv`) is now parsed by Sage's
+  own `genecvg` table rather than the `bamtools` schema, so it is tidied as
+  `sage_genecvg` and picks up the germline/somatic tagging. The genes/cvg split
+  is shared with Bamtools via `tidy_genecvg_split()`
+- New `Output Naming` vignette, extending nemo's shared template with the
+  Linx/Purple/Sage special cases
+- Panache format vignettes (`r pr(207)`)
 
 ## v0.1.0 (2026-06-22)
 
