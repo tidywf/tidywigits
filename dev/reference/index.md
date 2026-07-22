@@ -54,7 +54,3 @@
   : Retrieve PURPLE Plots
 - [`s3sync()`](https://tidywf.github.io/tidywigits/dev/reference/s3sync.md)
   : AWS S3 Sync Helper
-- [`dvc_download_file()`](https://tidywf.github.io/tidywigits/dev/reference/dvc_download_file.md)
-  : Download DVC-tracked File
-- [`dvc_download_all()`](https://tidywf.github.io/tidywigits/dev/reference/dvc_download_all.md)
-  : Download All DVC-tracked Data

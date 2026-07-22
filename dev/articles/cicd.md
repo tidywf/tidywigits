@@ -51,9 +51,11 @@ flowchart TD
         subgraph pkgdownise ["🌐 Pkgdownise"]
         J5S1["👾 Miniforge setup"]
         J5S2["📦 Install from source"]
-        J5S3["🌐 Website publish"]
+        J5S3["🌐 Website build"]
+        J5S4["🚀 Website publish"]
         J5S1 --> J5S2
         J5S2 --> J5S3
+        J5S3 --> J5S4
         end
 
         version --> condarise

@@ -39,10 +39,10 @@ the data from the remote storage and allow these processes to take
 place.
 
 The default remote (`cloudflare_r2_nemo`) is a public Cloudflare R2
-bucket served at `https://pdiakumis.com/dvc` - no credentials needed to
-pull. Pushing requires the private S3 remote
-(`cloudflare_r2_nemo_push`), configured locally in `.dvc/config.local`
-(gitignored), with R2 credentials passed via env vars.
+bucket - no credentials needed to pull. Pushing requires the private S3
+remote (`cloudflare_r2_nemo_push`), configured locally in
+`.dvc/config.local` (gitignored), with R2 credentials passed via env
+vars.
 
 | Command | Comments |
 |----|----|

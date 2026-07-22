@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9006</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,6 +21,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/quickstart.html">Quickstart</a></li>
     <li><a class="dropdown-item" href="../articles/installation.html">Installation</a></li>
     <li><a class="dropdown-item" href="../articles/structure.html">Structure</a></li>
+    <li><a class="dropdown-item" href="../articles/output_naming.html">Output Naming</a></li>
     <li><a class="dropdown-item" href="../articles/schema_table.html">Schema Table</a></li>
     <li><a class="dropdown-item" href="../articles/uml.html">UML</a></li>
     <li><a class="dropdown-item" href="../articles/cicd.html">CI/CD Workflow</a></li>
@@ -40,7 +41,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Linx Object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/main/R/Linx.R" class="external-link"><code>R/Linx.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/dev/R/Linx.R" class="external-link"><code>R/Linx.R</code></a></small>
       <div class="d-none name"><code>Linx.Rd</code></div>
     </div>
 
@@ -60,7 +61,6 @@
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
 <ul><li><p><a href="#method-Linx-new"><code>Linx$new()</code></a></p></li>
-<li><p><a href="#method-Linx-parse_version"><code>Linx$parse_version()</code></a></p></li>
 </ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="filter_files"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-filter_files"><code>nemo::Tool$filter_files()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_metadata"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-get_metadata"><code>nemo::Tool$get_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_tbls"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-get_tbls"><code>nemo::Tool$get_tbls()</code></a></span></li>
@@ -80,30 +80,12 @@
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>path</code></dt>
 <dd><p>(<code>character(1)</code>)<br>
-Output directory of tool. If <code>files_tbl</code> is supplied, this basically gets
-ignored.</p></dd>
+Output directory of tool. If <code>files_tbl</code> is supplied, this is ignored.</p></dd>
 
 
 <dt><code>files_tbl</code></dt>
 <dd><p>(<code>tibble(n)</code>)<br>
 Tibble of files from <code><a href="https://umccr.github.io/nemo/reference/list_files_dir.html" class="external-link">nemo::list_files_dir()</a></code>.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Linx-parse_version"></a><div class="section">
-<h3 id="method-parse-version-">Method <code>parse_version()</code><a class="anchor" aria-label="anchor" href="#method-parse-version-"></a></h3>
-<p>Read <code>linx.version</code> file.</p><div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Linx</span><span class="op">$</span><span class="fu">parse_version</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
 
 
 </dl><p></p></div>
@@ -122,32 +104,32 @@ Path to file.</p></dd>
 <span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="va">cls</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">indir</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obj</span><span class="op">$</span><span class="fu">run</span><span class="op">(</span>output_dir <span class="op">=</span> <span class="va">odir</span>, format <span class="op">=</span> <span class="st">"parquet"</span>, input_id <span class="op">=</span> <span class="va">id</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">lf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">odir</span>, pattern <span class="op">=</span> <span class="st">"linx_.*parquet"</span>, full.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "sample1_2_2_linx_breakends.parquet"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "sample1_2_germline_linx_breakends.parquet"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "sample1_2_linx_breakends.parquet"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "sample1_2_linx_clusters.parquet"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "sample1_2_linx_drivercatalog.parquet"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "sample1_2_linx_links.parquet"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "sample1_2_linx_svs.parquet"                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "sample1_2_linx_viscn.parquet"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "sample1_2_linx_visfusion.parquet"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "sample1_2_linx_visgeneexon.parquet"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "sample1_2_linx_visproteindomain.parquet"    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "sample1_2_linx_vissegments.parquet"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "sample1_2_linx_vissvdata.parquet"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [14] "sample1_germline_linx_breakends.parquet"    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "sample1_germline_linx_clusters.parquet"     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "sample1_germline_linx_drivercatalog.parquet"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "sample1_germline_linx_links.parquet"        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [18] "sample1_germline_linx_svs.parquet"          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "sample1_linx_drivers.parquet"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "sample1_linx_fusions.parquet"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "sample1_linx_viscn.parquet"                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "sample1_linx_visfusion.parquet"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "sample1_linx_visgeneexon.parquet"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [24] "sample1_linx_visproteindomain.parquet"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "sample1_linx_vissegments.parquet"           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [26] "sample1_linx_vissvdata.parquet"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "sample1_2_linx_viscn.parquet"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "sample1_2_linx_visfusion.parquet"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "sample1_2_linx_visgeneexon.parquet"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "sample1_2_linx_visproteindomain.parquet"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "sample1_2_linx_vissegments.parquet"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "sample1_2_linx_vissvdata.parquet"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "sample1_germline_2_linx_breakends.parquet"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "sample1_germline_linx_breakends.parquet"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "sample1_germline_linx_clusters.parquet"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "sample1_germline_linx_drivercatalog.parquet"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "sample1_germline_linx_links.parquet"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "sample1_germline_linx_svs.parquet"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "sample1_linx_drivers.parquet"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14] "sample1_linx_fusions.parquet"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "sample1_linx_viscn.parquet"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "sample1_linx_visfusion.parquet"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "sample1_linx_visgeneexon.parquet"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [18] "sample1_linx_visproteindomain.parquet"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "sample1_linx_vissegments.parquet"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "sample1_linx_vissvdata.parquet"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "sample1_somatic_2_linx_breakends.parquet"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "sample1_somatic_linx_breakends.parquet"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "sample1_somatic_linx_clusters.parquet"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [24] "sample1_somatic_linx_drivercatalog.parquet" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "sample1_somatic_linx_links.parquet"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [26] "sample1_somatic_linx_svs.parquet"           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [27] "version_2_linx_version.parquet"             </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [28] "version_3_linx_version.parquet"             </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [29] "version_4_linx_version.parquet"             </span>
@@ -163,7 +145,7 @@ Path to file.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

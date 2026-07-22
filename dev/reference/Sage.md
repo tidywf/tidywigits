@@ -13,6 +13,8 @@ Sage file parsing and manipulation.
 
 - [`Sage$new()`](#method-Sage-new)
 
+- [`Sage$tidy_genecvg()`](#method-Sage-tidy_genecvg)
+
 Inherited methods
 
 - [`nemo::Tool$filter_files()`](https://umccr.github.io/nemo/reference/Tool.html#method-filter_files)
@@ -39,14 +41,31 @@ Create a new Sage object.
 - `path`:
 
   (`character(1)`)  
-  Output directory of tool. If `files_tbl` is supplied, this basically
-  gets ignored.
+  Output directory of tool. If `files_tbl` is supplied, this is ignored.
 
 - `files_tbl`:
 
   (`tibble(n)`)  
   Tibble of files from
   [`nemo::list_files_dir()`](https://umccr.github.io/nemo/reference/list_files_dir.html).
+
+------------------------------------------------------------------------
+
+### Method `tidy_genecvg()`
+
+Tidy `gene.coverage.tsv` file. Generates 2 sub-tbls: *genes* with the
+per-gene metadata and *cvg* with the long-form depth-range counts.
+
+#### Usage
+
+    Sage$tidy_genecvg(x)
+
+#### Arguments
+
+- `x`:
+
+  (`character(1)`)  
+  Path to file.
 
 ## Examples
 
@@ -58,8 +77,15 @@ id <- "sage_run1"
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = "sage_.*parquet", full.names = FALSE))
-#> [1] "sample1_2_sage_bqrtsv.parquet" "sample1_3_sage_bqrtsv.parquet"
-#> [3] "sample1_sage_bqrtsv.parquet"   "sample1_sage_exoncvg.parquet" 
-#> [5] "sample2_2_sage_bqrtsv.parquet" "sample2_sage_bqrtsv.parquet"  
-#> [7] "sample2_sage_exoncvg.parquet" 
+#>  [1] "sample1_germline_sage_bqrtsv.parquet"       
+#>  [2] "sample1_sage_bqrtsv.parquet"                
+#>  [3] "sample1_somatic_sage_bqrtsv.parquet"        
+#>  [4] "sample1_somatic_sage_exoncvg.parquet"       
+#>  [5] "sample1_somatic_sage_genecvg_cvg.parquet"   
+#>  [6] "sample1_somatic_sage_genecvg_genes.parquet" 
+#>  [7] "sample2_germline_sage_bqrtsv.parquet"       
+#>  [8] "sample2_germline_sage_exoncvg.parquet"      
+#>  [9] "sample2_germline_sage_genecvg_cvg.parquet"  
+#> [10] "sample2_germline_sage_genecvg_genes.parquet"
+#> [11] "sample2_somatic_sage_bqrtsv.parquet"        
 ```

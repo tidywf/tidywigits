@@ -7,6 +7,7 @@
 <url><loc>https://tidywf.github.io/tidywigits/dev/articles/devnotes.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/dev/articles/index.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/dev/articles/installation.html</loc></url>
+<url><loc>https://tidywf.github.io/tidywigits/dev/articles/output_naming.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/dev/articles/postgresql.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/dev/articles/quickstart.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/dev/articles/schema_table.html</loc></url>
@@ -35,8 +36,6 @@
 <url><loc>https://tidywf.github.io/tidywigits/dev/reference/Virusinterpreter.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/dev/reference/WIGITS_TOOLS.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/dev/reference/Wigits.html</loc></url>
-<url><loc>https://tidywf.github.io/tidywigits/dev/reference/dvc_download_all.html</loc></url>
-<url><loc>https://tidywf.github.io/tidywigits/dev/reference/dvc_download_file.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/dev/reference/index.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/dev/reference/purple_plot_getter.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/dev/reference/s3sync.html</loc></url>

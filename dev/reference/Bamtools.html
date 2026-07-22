@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9006</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,6 +21,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/quickstart.html">Quickstart</a></li>
     <li><a class="dropdown-item" href="../articles/installation.html">Installation</a></li>
     <li><a class="dropdown-item" href="../articles/structure.html">Structure</a></li>
+    <li><a class="dropdown-item" href="../articles/output_naming.html">Output Naming</a></li>
     <li><a class="dropdown-item" href="../articles/schema_table.html">Schema Table</a></li>
     <li><a class="dropdown-item" href="../articles/uml.html">UML</a></li>
     <li><a class="dropdown-item" href="../articles/cicd.html">CI/CD Workflow</a></li>
@@ -40,7 +41,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Bamtools Object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/main/R/Bamtools.R" class="external-link"><code>R/Bamtools.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/dev/R/Bamtools.R" class="external-link"><code>R/Bamtools.R</code></a></small>
       <div class="d-none name"><code>Bamtools.Rd</code></div>
     </div>
 
@@ -86,8 +87,7 @@
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>path</code></dt>
 <dd><p>(<code>character(1)</code>)<br>
-Output directory of tool. If <code>files_tbl</code> is supplied, this basically gets
-ignored.</p></dd>
+Output directory of tool. If <code>files_tbl</code> is supplied, this is ignored.</p></dd>
 
 
 <dt><code>files_tbl</code></dt>
@@ -236,22 +236,18 @@ Path to file.</p></dd>
 <span class="r-in"><span><span class="va">obj</span><span class="op">$</span><span class="fu">run</span><span class="op">(</span>output_dir <span class="op">=</span> <span class="va">odir</span>, format <span class="op">=</span> <span class="st">"parquet"</span>, input_id <span class="op">=</span> <span class="va">id</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">lf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">odir</span>, pattern <span class="op">=</span> <span class="st">"bamtools_.*parquet"</span>, full.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "sample1_2_bamtools_flagstats.parquet"     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "sample1_2_bamtools_genecvg_cvg.parquet"   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "sample1_2_bamtools_genecvg_genes.parquet" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "sample1_bamtools_coverage.parquet"        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "sample1_bamtools_exoncvg.parquet"         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "sample1_bamtools_flagstats.parquet"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "sample1_bamtools_fraglength.parquet"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "sample1_bamtools_genecvg_cvg.parquet"     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "sample1_bamtools_genecvg_genes.parquet"   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "sample1_bamtools_partitionstats.parquet"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "sample1_bamtools_summary_dp.parquet"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "sample1_bamtools_summary_stats.parquet"   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "sample1_bamtools_wgsmetrics_dp.parquet"   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [14] "sample1_bamtools_wgsmetrics_histo.parquet"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "sample1_bamtools_wgsmetrics_stats.parquet"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "sample2_bamtools_genecvg_cvg.parquet"     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "sample2_bamtools_genecvg_genes.parquet"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "sample1_bamtools_coverage.parquet"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "sample1_bamtools_exoncvg.parquet"         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "sample1_bamtools_flagstats.parquet"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "sample1_bamtools_fraglength.parquet"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "sample1_bamtools_genecvg_cvg.parquet"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "sample1_bamtools_genecvg_genes.parquet"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "sample1_bamtools_partitionstats.parquet"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "sample1_bamtools_summary_dp.parquet"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "sample1_bamtools_summary_stats.parquet"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "sample1_bamtools_wgsmetrics_dp.parquet"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "sample1_bamtools_wgsmetrics_histo.parquet"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "sample1_bamtools_wgsmetrics_stats.parquet"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -263,7 +259,7 @@ Path to file.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

@@ -13,10 +13,17 @@ options:
 
 - `dvc pull`: requires dvc installation and cloned tidywigits source
   repo.
-- [`tidywigits::dvc_download_all()`](https://tidywf.github.io/tidywigits/dev/reference/dvc_download_all.md):
-  no additional requirements, uses
+- `?nemo::dvc_download_all()`: no additional requirements, uses
   [`download.file()`](https://rdrr.io/r/utils/download.file.html)
   internally.
+
+``` r
+
+dir1 <- "extdata/oa/purple" # adjust for whichever tool you want
+input_dir <- system.file(dir1, package = "tidywigits")
+output_dir <- file.path(tempdir(), "dvc_test")
+result <- dvc_download_all(input_dir, output_dir)
+```
 
 No credentials are required since the remote is a public Cloudflare R2
 bucket.
@@ -192,20 +199,20 @@ Purple$new(file.path(indir, "purple"))$run(
   input_id = "sample1_id"
 )
 list.files(outdir, pattern = "\\.parquet$")
-#>  [1] "metadata_purple.parquet"                       
-#>  [2] "sample1_2_purple_cnvgenetsv.parquet"           
-#>  [3] "sample1_2_purple_qc.parquet"                   
-#>  [4] "sample1_2_somatic_purple_drivercatalog.parquet"
-#>  [5] "sample1_germline_purple_drivercatalog.parquet" 
-#>  [6] "sample1_purple_cnvgenetsv.parquet"             
-#>  [7] "sample1_purple_cnvsomtsv.parquet"              
-#>  [8] "sample1_purple_germdeltsv.parquet"             
-#>  [9] "sample1_purple_purityrange.parquet"            
-#> [10] "sample1_purple_puritytsv.parquet"              
-#> [11] "sample1_purple_qc.parquet"                     
-#> [12] "sample1_purple_somclonality.parquet"           
-#> [13] "sample1_purple_somhist.parquet"                
-#> [14] "version_2_purple_version.parquet"              
+#>  [1] "metadata_purple.parquet"                      
+#>  [2] "sample1_2_purple_cnvgenetsv.parquet"          
+#>  [3] "sample1_2_purple_qc.parquet"                  
+#>  [4] "sample1_germline_purple_drivercatalog.parquet"
+#>  [5] "sample1_purple_cnvgenetsv.parquet"            
+#>  [6] "sample1_purple_cnvsomtsv.parquet"             
+#>  [7] "sample1_purple_germdeltsv.parquet"            
+#>  [8] "sample1_purple_purityrange.parquet"           
+#>  [9] "sample1_purple_puritytsv.parquet"             
+#> [10] "sample1_purple_qc.parquet"                    
+#> [11] "sample1_purple_somclonality.parquet"          
+#> [12] "sample1_purple_somhist.parquet"               
+#> [13] "sample1_somatic_purple_drivercatalog.parquet" 
+#> [14] "version_2_purple_version.parquet"             
 #> [15] "version_purple_version.parquet"
 ```
 
@@ -255,7 +262,7 @@ w$run(
   format = "parquet"
 )
 list.files(outdir_w, pattern = "\\.parquet$") |> sort() |> str()
-#>  chr [1:120] "metadata.parquet" "sample1_2_2_linx_breakends.parquet" ...
+#>  chr [1:120] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...
 ```
 
 ## ID columns
@@ -307,7 +314,7 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 #>  $ input_dirs  : list<character> [1:1] 
 #>   ..$ : chr "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa"
 #>   ..@ ptype: chr(0) 
-#>  $ output_dir  : chr "/tmp/Rtmpzu9R8E/qs_wigits"
+#>  $ output_dir  : chr "/tmp/RtmpRtyrqt/qs_wigits"
 #>  $ pkg_versions: list<
 #>   tbl_df<
 #>     name   : character
@@ -316,7 +323,7 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 #> > [1:1] 
 #>   ..$ : tibble [2 × 2] (S3: tbl_df/tbl/data.frame)
 #>   .. ..$ name   : chr [1:2] "nemo" "tidywigits"
-#>   .. ..$ version: chr [1:2] "0.0.3.9022" "0.0.7.9006"
+#>   .. ..$ version: chr [1:2] "0.0.3.9024" "0.0.7.9007"
 #>   ..@ ptype: tibble [0 × 2] (S3: tbl_df/tbl/data.frame)
 #>   .. ..$ name   : chr(0) 
 #>   .. ..$ version: chr(0) 

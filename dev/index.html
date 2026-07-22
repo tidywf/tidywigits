@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9006</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,6 +46,7 @@
 <li><a class="dropdown-item" href="articles/quickstart.html">Quickstart</a></li>
     <li><a class="dropdown-item" href="articles/installation.html">Installation</a></li>
     <li><a class="dropdown-item" href="articles/structure.html">Structure</a></li>
+    <li><a class="dropdown-item" href="articles/output_naming.html">Output Naming</a></li>
     <li><a class="dropdown-item" href="articles/schema_table.html">Schema Table</a></li>
     <li><a class="dropdown-item" href="articles/uml.html">UML</a></li>
     <li><a class="dropdown-item" href="articles/cicd.html">CI/CD Workflow</a></li>
@@ -82,7 +83,7 @@
 <li><a href="#tidywigits">tidywigits</a></li>
 <li><a href="#documentation">Documentation</a></li>
 <li>
-<a href="#quick-start">Quick Start</a>
+<a href="#quickstart">Quick Start</a>
 <ul>
 <li><a href="#single-tool">Single tool</a></li>
 <li><a href="#full-wigits">Full WiGiTS</a></li>
@@ -108,6 +109,8 @@
 <li>Quickstart: <a href="https://tidywf.github.io/tidywigits/articles/quickstart" class="uri">https://tidywf.github.io/tidywigits/articles/quickstart</a>
 </li>
 <li>Files supported: <a href="https://tidywf.github.io/tidywigits/articles/schema_table" class="uri">https://tidywf.github.io/tidywigits/articles/schema_table</a>
+</li>
+<li>Output naming: <a href="https://tidywf.github.io/tidywigits/articles/output_naming" class="uri">https://tidywf.github.io/tidywigits/articles/output_naming</a>
 </li>
 <li>Structure: <a href="https://tidywf.github.io/tidywigits/articles/structure" class="uri">https://tidywf.github.io/tidywigits/articles/structure</a>
 </li>
@@ -152,24 +155,21 @@
 <span>  input_id <span class="op">=</span> <span class="st">"run1"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">outdir_ppl</span>, pattern <span class="op">=</span> <span class="st">"\\.parquet$"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "metadata_purple.parquet"                       </span></span>
-<span><span class="co">#&gt;  [2] "sample1_2_purple_cnvgenetsv.parquet"           </span></span>
-<span><span class="co">#&gt;  [3] "sample1_2_purple_qc.parquet"                   </span></span>
-<span><span class="co">#&gt;  [4] "sample1_2_somatic_purple_drivercatalog.parquet"</span></span>
-<span><span class="co">#&gt;  [5] "sample1_germline_purple_drivercatalog.parquet" </span></span>
-<span><span class="co">#&gt;  [6] "sample1_purple_cnvgenetsv.parquet"             </span></span>
-<span><span class="co">#&gt;  [7] "sample1_purple_cnvsomtsv.parquet"              </span></span>
-<span><span class="co">#&gt;  [8] "sample1_purple_germdeltsv.parquet"             </span></span>
-<span><span class="co">#&gt;  [9] "sample1_purple_purityrange.parquet"            </span></span>
-<span><span class="co">#&gt; [10] "sample1_purple_puritytsv.parquet"              </span></span>
-<span><span class="co">#&gt; [11] "sample1_purple_qc.parquet"                     </span></span>
-<span><span class="co">#&gt; [12] "sample1_purple_somclonality.parquet"           </span></span>
-<span><span class="co">#&gt; [13] "sample1_purple_somhist.parquet"                </span></span>
-<span><span class="co">#&gt; [14] "version_2_purple_version.parquet"              </span></span>
+<span><span class="co">#&gt;  [1] "metadata_purple.parquet"                       "sample1_2_purple_cnvgenetsv.parquet"          </span></span>
+<span><span class="co">#&gt;  [3] "sample1_2_purple_qc.parquet"                   "sample1_germline_purple_drivercatalog.parquet"</span></span>
+<span><span class="co">#&gt;  [5] "sample1_purple_cnvgenetsv.parquet"             "sample1_purple_cnvsomtsv.parquet"             </span></span>
+<span><span class="co">#&gt;  [7] "sample1_purple_germdeltsv.parquet"             "sample1_purple_purityrange.parquet"           </span></span>
+<span><span class="co">#&gt;  [9] "sample1_purple_puritytsv.parquet"              "sample1_purple_qc.parquet"                    </span></span>
+<span><span class="co">#&gt; [11] "sample1_purple_somclonality.parquet"           "sample1_purple_somhist.parquet"               </span></span>
+<span><span class="co">#&gt; [13] "sample1_somatic_purple_drivercatalog.parquet"  "version_2_purple_version.parquet"             </span></span>
 <span><span class="co">#&gt; [15] "version_purple_version.parquet"</span></span></code></pre></div>
 <p>Now read back the tidied table:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">qc_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">outdir_ppl</span>, pattern <span class="op">=</span> <span class="st">"sample1_purple_qc.parquet"</span>, full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">qc_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span></span>
+<span>  <span class="va">outdir_ppl</span>,</span>
+<span>  pattern <span class="op">=</span> <span class="st">"sample1_purple_qc.parquet"</span>,</span>
+<span>  full.names <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu">arrow</span><span class="fu">::</span><span class="fu"><a href="https://arrow.apache.org/docs/r/reference/read_parquet.html" class="external-link">read_parquet</a></span><span class="op">(</span><span class="va">qc_file</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; tibble [1 × 15] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;  $ input_id               : chr "run1"</span></span>
@@ -369,7 +369,7 @@ View input files
 <span><span class="co">#&gt; |tidied        |true                                                                      |</span></span>
 <span><span class="co">#&gt; |written       |true                                                                      |</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">outdir_w</span>, pattern <span class="op">=</span> <span class="st">"\\.parquet$"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  chr [1:120] "metadata.parquet" "sample1_2_2_linx_breakends.parquet" ...</span></span></code></pre></div>
+<span><span class="co">#&gt;  chr [1:120] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...</span></span></code></pre></div>
 <ul>
 <li>PostgreSQL (adjust dbname/user for your purposes):</li>
 </ul>
@@ -429,7 +429,7 @@ View input files
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits"</span><span class="op">)</span> <span class="co"># latest main commit</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits@v0.0.7.9006"</span><span class="op">)</span> <span class="co"># specific version</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits@v0.0.7.9007"</span><span class="op">)</span> <span class="co"># specific version</span></span></code></pre></div>
 <p>Alternatively:</p>
 <ul>
 <li>conda package: <a href="https://anaconda.org/tidywf/r-tidywigits" class="external-link uri">https://anaconda.org/tidywf/r-tidywigits</a>
@@ -450,7 +450,7 @@ View input files
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="va">tw_cli</span><span class="op">=</span><span class="va">$(</span><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'x = system.file("cli", package = "tidywigits"); cat(x, "\n")'</span> <span class="kw">|</span> <span class="fu">xargs</span><span class="va">)</span></span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">"</span><span class="va">${tw_cli}</span><span class="st">:</span><span class="va">${PATH}</span><span class="st">"</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="sc">$</span> tidywigits.R <span class="sc">--</span>version</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>tidywigits <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">7.9006</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>tidywigits <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">7.9007</span></span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#-----------------------------------#</span></span>
 <span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="sc">$</span> tidywigits.R <span class="sc">--</span>help</span>
@@ -562,7 +562,7 @@ View input files
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

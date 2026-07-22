@@ -13,11 +13,7 @@ Amber file parsing and manipulation.
 
 - [`Amber$new()`](#method-Amber-new)
 
-- [`Amber$parse_qc()`](#method-Amber-parse_qc)
-
 - [`Amber$tidy_qc()`](#method-Amber-tidy_qc)
-
-- [`Amber$parse_version()`](#method-Amber-parse_version)
 
 Inherited methods
 
@@ -45,31 +41,13 @@ Create a new Amber object.
 - `path`:
 
   (`character(1)`)  
-  Output directory of tool. If `files_tbl` is supplied, this basically
-  gets ignored.
+  Output directory of tool. If `files_tbl` is supplied, this is ignored.
 
 - `files_tbl`:
 
   (`tibble(n)`)  
   Tibble of files from
   [`nemo::list_files_dir()`](https://umccr.github.io/nemo/reference/list_files_dir.html).
-
-------------------------------------------------------------------------
-
-### Method `parse_qc()`
-
-Read `qc` file.
-
-#### Usage
-
-    Amber$parse_qc(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
 
 ------------------------------------------------------------------------
 
@@ -85,25 +63,8 @@ Tidy `qc` file.
 
 - `x`:
 
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_version()`
-
-Read `amber.version` file.
-
-#### Usage
-
-    Amber$parse_version(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
+  (`character(1)` or `tibble()`)  
+  Path to file or already parsed tibble.
 
 ## Examples
 

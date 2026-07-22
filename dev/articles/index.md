@@ -7,6 +7,8 @@
 - [Devnotes](https://tidywf.github.io/tidywigits/dev/articles/devnotes.md):
 - [Installation](https://tidywf.github.io/tidywigits/dev/articles/installation.md):
 - [NEWS](https://tidywf.github.io/tidywigits/dev/articles/NEWS.md):
+- [Output
+  Naming](https://tidywf.github.io/tidywigits/dev/articles/output_naming.md):
 - [PostgreSQL](https://tidywf.github.io/tidywigits/dev/articles/postgresql.md):
 - [Quickstart](https://tidywf.github.io/tidywigits/dev/articles/quickstart.md):
 - [Schema

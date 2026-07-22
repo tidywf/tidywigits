@@ -13,11 +13,7 @@ Purple file parsing and manipulation.
 
 - [`Purple$new()`](#method-Purple-new)
 
-- [`Purple$parse_qc()`](#method-Purple-parse_qc)
-
 - [`Purple$tidy_qc()`](#method-Purple-tidy_qc)
-
-- [`Purple$parse_version()`](#method-Purple-parse_version)
 
 Inherited methods
 
@@ -45,31 +41,13 @@ Create a new Purple object.
 - `path`:
 
   (`character(1)`)  
-  Output directory of tool. If `files_tbl` is supplied, this basically
-  gets ignored.
+  Output directory of tool. If `files_tbl` is supplied, this is ignored.
 
 - `files_tbl`:
 
   (`tibble(n)`)  
   Tibble of files from
   [`nemo::list_files_dir()`](https://umccr.github.io/nemo/reference/list_files_dir.html).
-
-------------------------------------------------------------------------
-
-### Method `parse_qc()`
-
-Read `purple.qc` file.
-
-#### Usage
-
-    Purple$parse_qc(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
 
 ------------------------------------------------------------------------
 
@@ -85,25 +63,8 @@ Tidy `purple.qc` file.
 
 - `x`:
 
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_version()`
-
-Read `purple.version` file.
-
-#### Usage
-
-    Purple$parse_version(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
+  (`character(1)` or `tibble()`)  
+  Path to file or already parsed tibble.
 
 ## Examples
 
@@ -115,18 +76,18 @@ id <- "purple_run1"
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = "purple_.*parquet", full.names = FALSE))
-#>  [1] "sample1_2_purple_cnvgenetsv.parquet"           
-#>  [2] "sample1_2_purple_qc.parquet"                   
-#>  [3] "sample1_2_somatic_purple_drivercatalog.parquet"
-#>  [4] "sample1_germline_purple_drivercatalog.parquet" 
-#>  [5] "sample1_purple_cnvgenetsv.parquet"             
-#>  [6] "sample1_purple_cnvsomtsv.parquet"              
-#>  [7] "sample1_purple_germdeltsv.parquet"             
-#>  [8] "sample1_purple_purityrange.parquet"            
-#>  [9] "sample1_purple_puritytsv.parquet"              
-#> [10] "sample1_purple_qc.parquet"                     
-#> [11] "sample1_purple_somclonality.parquet"           
-#> [12] "sample1_purple_somhist.parquet"                
-#> [13] "version_2_purple_version.parquet"              
-#> [14] "version_purple_version.parquet"                
+#>  [1] "sample1_2_purple_cnvgenetsv.parquet"          
+#>  [2] "sample1_2_purple_qc.parquet"                  
+#>  [3] "sample1_germline_purple_drivercatalog.parquet"
+#>  [4] "sample1_purple_cnvgenetsv.parquet"            
+#>  [5] "sample1_purple_cnvsomtsv.parquet"             
+#>  [6] "sample1_purple_germdeltsv.parquet"            
+#>  [7] "sample1_purple_purityrange.parquet"           
+#>  [8] "sample1_purple_puritytsv.parquet"             
+#>  [9] "sample1_purple_qc.parquet"                    
+#> [10] "sample1_purple_somclonality.parquet"          
+#> [11] "sample1_purple_somhist.parquet"               
+#> [12] "sample1_somatic_purple_drivercatalog.parquet" 
+#> [13] "version_2_purple_version.parquet"             
+#> [14] "version_purple_version.parquet"               
 ```

@@ -53,8 +53,7 @@ Create a new Bamtools object.
 - `path`:
 
   (`character(1)`)  
-  Output directory of tool. If `files_tbl` is supplied, this basically
-  gets ignored.
+  Output directory of tool. If `files_tbl` is supplied, this is ignored.
 
 - `files_tbl`:
 
@@ -195,20 +194,16 @@ obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = "bamtools_.*parquet", full.names = FALSE))
 #>  [1] "sample1_2_bamtools_flagstats.parquet"     
-#>  [2] "sample1_2_bamtools_genecvg_cvg.parquet"   
-#>  [3] "sample1_2_bamtools_genecvg_genes.parquet" 
-#>  [4] "sample1_bamtools_coverage.parquet"        
-#>  [5] "sample1_bamtools_exoncvg.parquet"         
-#>  [6] "sample1_bamtools_flagstats.parquet"       
-#>  [7] "sample1_bamtools_fraglength.parquet"      
-#>  [8] "sample1_bamtools_genecvg_cvg.parquet"     
-#>  [9] "sample1_bamtools_genecvg_genes.parquet"   
-#> [10] "sample1_bamtools_partitionstats.parquet"  
-#> [11] "sample1_bamtools_summary_dp.parquet"      
-#> [12] "sample1_bamtools_summary_stats.parquet"   
-#> [13] "sample1_bamtools_wgsmetrics_dp.parquet"   
-#> [14] "sample1_bamtools_wgsmetrics_histo.parquet"
-#> [15] "sample1_bamtools_wgsmetrics_stats.parquet"
-#> [16] "sample2_bamtools_genecvg_cvg.parquet"     
-#> [17] "sample2_bamtools_genecvg_genes.parquet"   
+#>  [2] "sample1_bamtools_coverage.parquet"        
+#>  [3] "sample1_bamtools_exoncvg.parquet"         
+#>  [4] "sample1_bamtools_flagstats.parquet"       
+#>  [5] "sample1_bamtools_fraglength.parquet"      
+#>  [6] "sample1_bamtools_genecvg_cvg.parquet"     
+#>  [7] "sample1_bamtools_genecvg_genes.parquet"   
+#>  [8] "sample1_bamtools_partitionstats.parquet"  
+#>  [9] "sample1_bamtools_summary_dp.parquet"      
+#> [10] "sample1_bamtools_summary_stats.parquet"   
+#> [11] "sample1_bamtools_wgsmetrics_dp.parquet"   
+#> [12] "sample1_bamtools_wgsmetrics_histo.parquet"
+#> [13] "sample1_bamtools_wgsmetrics_stats.parquet"
 ```

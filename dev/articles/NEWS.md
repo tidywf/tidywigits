@@ -1,5 +1,32 @@
 # NEWS
 
+## dev
+
+- Move `dvc_download_file()` / `dvc_download_all()` functionality to
+  nemo ([pr204](https://github.com/tidywf/tidywigits/pull/204)).
+- Simplify version/qc handling
+  ([pr205](https://github.com/tidywf/tidywigits/pull/205))
+- Rename txt ftypes to tsv, add equal-keyvalue
+  ([pr206](https://github.com/tidywf/tidywigits/pull/206))
+- Linx/Purple: germline vs somatic outputs now get symmetric `_germline`
+  / `_somatic` prefixes via the `refine_files` hook (Linx also tags the
+  somatic side, scoped to parsers that actually have a germline
+  counterpart); relies on nemo running the hook before disambiguation
+- Sage: germline vs somatic outputs (which Sage separates by `germline/`
+  / `somatic/` subfolder rather than by basename) now get `_germline` /
+  `_somatic` prefixes via `refine_files`, keyed off the parent folder;
+  the variant is also injected into `bname` so repeat runs are numbered
+  independently per variant. The folder logic lives in a
+  `refine_by_variant_folder()` helper
+- Sage: gene-coverage file (`.sage.gene.coverage.tsv`) is now parsed by
+  Sage’s own `genecvg` table rather than the `bamtools` schema, so it is
+  tidied as `sage_genecvg` and picks up the germline/somatic tagging.
+  The genes/cvg split is shared with Bamtools via `tidy_genecvg_split()`
+- New `Output Naming` vignette, extending nemo’s shared template with
+  the Linx/Purple/Sage special cases
+- Panache format vignettes
+  ([pr207](https://github.com/tidywf/tidywigits/pull/207))
+
 ## v0.1.0 (2026-06-22)
 
 Major refactor. GitHub org migrated from `umccr` to `tidywf`. All 19
@@ -40,11 +67,8 @@ to use reusable workflows from `tidywf/actions`
   schema fix ([pr179](https://github.com/tidywf/tidywigits/pull/179),
   [iss178](https://github.com/tidywf/tidywigits/issues/178))
 - DVC: switch from directory-level to per-file `.dvc` tracking; new
-  [`dvc_download_file()`](https://tidywf.github.io/tidywigits/dev/reference/dvc_download_file.md)
-  /
-  [`dvc_download_all()`](https://tidywf.github.io/tidywigits/dev/reference/dvc_download_all.md)
-  helpers backed by public Cloudflare R2
-  ([pr190](https://github.com/tidywf/tidywigits/pull/190),
+  `dvc_download_file()` / `dvc_download_all()` helpers backed by public
+  Cloudflare R2 ([pr190](https://github.com/tidywf/tidywigits/pull/190),
   [pr203](https://github.com/tidywf/tidywigits/pull/203))
 - Wigits: re-add Esvee; use `metapkg`; `WIGITS_TOOLS` changed from
   character vector to named list of R6 classes

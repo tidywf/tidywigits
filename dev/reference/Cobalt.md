@@ -17,8 +17,6 @@ Cobalt file parsing and manipulation.
 
 - [`Cobalt$tidy_gcmed()`](#method-Cobalt-tidy_gcmed)
 
-- [`Cobalt$parse_version()`](#method-Cobalt-parse_version)
-
 Inherited methods
 
 - [`nemo::Tool$filter_files()`](https://umccr.github.io/nemo/reference/Tool.html#method-filter_files)
@@ -45,8 +43,7 @@ Create a new Cobalt object.
 - `path`:
 
   (`character(1)`)  
-  Output directory of tool. If `files_tbl` is supplied, this basically
-  gets ignored.
+  Output directory of tool. If `files_tbl` is supplied, this is ignored.
 
 - `files_tbl`:
 
@@ -82,23 +79,6 @@ GC bucket.
 #### Usage
 
     Cobalt$tidy_gcmed(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_version()`
-
-Read `cobalt.version` file.
-
-#### Usage
-
-    Cobalt$parse_version(x)
 
 #### Arguments
 

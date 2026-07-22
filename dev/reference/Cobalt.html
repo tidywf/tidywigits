@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9006</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,6 +21,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/quickstart.html">Quickstart</a></li>
     <li><a class="dropdown-item" href="../articles/installation.html">Installation</a></li>
     <li><a class="dropdown-item" href="../articles/structure.html">Structure</a></li>
+    <li><a class="dropdown-item" href="../articles/output_naming.html">Output Naming</a></li>
     <li><a class="dropdown-item" href="../articles/schema_table.html">Schema Table</a></li>
     <li><a class="dropdown-item" href="../articles/uml.html">UML</a></li>
     <li><a class="dropdown-item" href="../articles/cicd.html">CI/CD Workflow</a></li>
@@ -40,7 +41,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Cobalt Object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/main/R/Cobalt.R" class="external-link"><code>R/Cobalt.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/dev/R/Cobalt.R" class="external-link"><code>R/Cobalt.R</code></a></small>
       <div class="d-none name"><code>Cobalt.Rd</code></div>
     </div>
 
@@ -62,7 +63,6 @@
 <ul><li><p><a href="#method-Cobalt-new"><code>Cobalt$new()</code></a></p></li>
 <li><p><a href="#method-Cobalt-parse_gcmed"><code>Cobalt$parse_gcmed()</code></a></p></li>
 <li><p><a href="#method-Cobalt-tidy_gcmed"><code>Cobalt$tidy_gcmed()</code></a></p></li>
-<li><p><a href="#method-Cobalt-parse_version"><code>Cobalt$parse_version()</code></a></p></li>
 </ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="filter_files"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-filter_files"><code>nemo::Tool$filter_files()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_metadata"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-get_metadata"><code>nemo::Tool$get_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_tbls"><a href="https://umccr.github.io/nemo/reference/Tool.html#method-get_tbls"><code>nemo::Tool$get_tbls()</code></a></span></li>
@@ -82,8 +82,7 @@
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>path</code></dt>
 <dd><p>(<code>character(1)</code>)<br>
-Output directory of tool. If <code>files_tbl</code> is supplied, this basically gets
-ignored.</p></dd>
+Output directory of tool. If <code>files_tbl</code> is supplied, this is ignored.</p></dd>
 
 
 <dt><code>files_tbl</code></dt>
@@ -130,23 +129,6 @@ Path to file.</p></dd>
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Cobalt-parse_version"></a><div class="section">
-<h3 id="method-parse-version-">Method <code>parse_version()</code><a class="anchor" aria-label="anchor" href="#method-parse-version-"></a></h3>
-<p>Read <code>cobalt.version</code> file.</p><div class="section">
-<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Cobalt</span><span class="op">$</span><span class="fu">parse_version</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code>)<br>
-Path to file.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
 </div>
 
     </div>
@@ -176,7 +158,7 @@ Path to file.</p></dd>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>
