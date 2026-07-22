@@ -95,6 +95,7 @@ glue(
   "- Installation: <{base}/articles/installation>
 - Quickstart: <{base}/articles/quickstart>
 - Files supported: <{base}/articles/schema_table>
+- Output naming: <{base}/articles/output_naming>
 - Structure: <{base}/articles/structure>
 - Changelog: <{base}/articles/NEWS>
 - R6: <https://{org_nm}.github.io/nemo/articles/structure>"

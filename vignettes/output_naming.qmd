@@ -19,6 +19,7 @@ knitr:
   use("dplyr")
   use("glue", "glue")
 }
+set.seed(1)
 
 # generic template comes from nemo; the special cases below are tidywigits-only
 child1 <- system.file(
@@ -56,26 +57,26 @@ prefix `sample1`. The hook rewrites them by basename into `sample1_germline` /
 `sample1_somatic` *before* the collision check, so they never collapse to a
 lossy `sample1_2`.
 
-Simulate three runs by copying both catalogs into separate run folders, then
-initialise one `Purple` on the parent:
+Simulate three runs by copying both catalogs into separate run folders (include
+qc too), then initialise one `Purple` on the parent:
 
 ```{r}
 #| label: purple-init
 
-dirp <- path(tempdir(), "purple-runs")
+dir_inP <- path(tempdir(), "purple-runs")
 for (r in c("run1", "run2", "run3")) {
-  dest <- dir_create(path(dirp, r))
+  dest <- dir_create(path(dir_inP, r))
   file_copy(
     dir_ls(
       path(oa, "purple"),
-      regexp = "driver\\.catalog\\.(germline|somatic)\\.tsv$"
+      regexp = "driver\\.catalog\\.(germline|somatic)\\.tsv$|purple\\.qc$"
     ),
     dest,
     overwrite = TRUE
   )
 }
-dir_tree(dirp)
-ppl <- Purple$new(path = dirp)
+dir_tree(dir_inP)
+ppl <- Purple$new(path = dir_inP)
 ```
 
 Now we tidy the same object. The semantic tag lands first, so any trailing
@@ -108,6 +109,19 @@ dir_ls(dir_outP, regexp = "purple_drivercatalog\\.parquet") |>
   purrr::map(\(x) arrow::read_parquet(x) |> dplyr::slice_head(n = 2)) |>
   purrr::list_rbind() |>
   dplyr::select(input_id, input_prefix, output_id, chrom, gene, cn_min)
+# and look at qc too
+dir_ls(dir_outP, regexp = "purple_qc\\.parquet") |>
+  purrr::map(\(x) arrow::read_parquet(x)) |>
+  purrr::list_rbind() |>
+  dplyr::select(
+    input_id,
+    input_prefix,
+    output_id,
+    qc_status,
+    cn_segments,
+    purity,
+    gender_amber
+  )
 ```
 
 ### Linx: germline vs. somatic annotations
@@ -125,23 +139,23 @@ object on the parent:
 ```{r}
 #| label: linx-init
 
-dirl <- path(tempdir(), "linx-runs")
+dir_inL <- path(tempdir(), "linx-runs")
 patl <- "\\.(breakend|links|svs|fusion)\\.tsv$"
 linx_files <- c(
   dir_ls(path(oa, "linx/germline_annotations"), regexp = patl),
   dir_ls(path(oa, "linx/somatic_annotations"), regexp = patl)
 )
 for (r in c("run1", "run2", "run3")) {
-  dest <- dir_create(path(dirl, r))
+  dest <- dir_create(path(dir_inL, r))
   file_copy(linx_files, dest, overwrite = TRUE)
 }
-dir_tree(dirl)
-l <- Linx$new(path = dirl)
+dir_tree(dir_inL)
+l <- Linx$new(path = dir_inL)
 ```
 
 Now we tidy the same object. The paired tables (`breakends`, `links`, `svs`)
 split cleanly into `sample1_germline` and `sample1_somatic`, and the
-somatic-only fusions only need to use `_2`/`3`:
+somatic-only fusions only need to use `_2`/`_3`:
 
 ```{r}
 #| label: linx-run
@@ -157,8 +171,8 @@ l$run(
 dir_tree(dir_outL)
 ```
 
-Stacking the `breakends` files (top 2 rows), similarly `input_prefix` tells
-germline from somatic and one run from the next after the merge:
+By stacking the `breakends` files (top 2 rows), similarly `input_prefix`
+distinguishes germline from somatic and one run from the other after the merge:
 
 ```{r}
 #| label: linx-merge
@@ -166,65 +180,39 @@ germline from somatic and one run from the next after the merge:
 dir_ls(dir_outL, regexp = "linx_breakends\\.parquet") |>
   purrr::map(\(x) arrow::read_parquet(x) |> dplyr::slice_head(n = 2)) |>
   purrr::list_rbind() |>
-  dplyr::select(
-    input_id,
-    input_prefix,
-    output_id,
-    gene,
-    undisrupted_cn,
-    region_type,
-    coding_type
-  )
+  dplyr::select(input_id, input_prefix, output_id, gene, undisrupted_cn)
 ```
 
-### Sage: germline vs. somatic *folders*
+### Sage: germline vs. somatic folders
 
-Linx and Purple carry the germline/somatic distinction in the *basename*. Sage
-is different: it writes the same basenames (e.g. `sample1.sage.bqr.tsv`) into
+Linx and Purple carry the germline/somatic distinction in the basename. Sage is
+different: it writes the same basenames (e.g. `sample1.sage.bqr.tsv`) into
 sibling `germline/` and `somatic/` subfolders, so the distinction lives in the
-*parent folder*, not the filename. `Sage$refine_files()` therefore keys off the
+parent folder, not the filename. `Sage$refine_files()` therefore keys off the
 folder, folding `germline` / `somatic` into the prefix:
 
 ```{r}
 #| label: sage-init
 
-dirs <- path(tempdir(), "sage-runs")
+dir_inS <- path(tempdir(), "sage-runs")
 for (r in c("run1", "run2", "run3")) {
   for (v in c("germline", "somatic")) {
-    dest <- dir_create(path(dirs, r, v))
+    dest <- dir_create(path(dir_inS, r, v))
     file_copy(
-      path(oa, "sage", v, "sample1.sage.bqr.tsv"),
+      dir_ls(
+        path(oa, "sage", v),
+        regexp = "\\.sage\\.bqr\\.tsv$|\\.sage\\.gene\\.coverage\\.tsv$"
+      ),
       dest,
       overwrite = TRUE
     )
   }
 }
-dir_tree(dirs)
-s <- Sage$new(path = dirs)
+dir_tree(dir_inS)
+s <- Sage$new(path = dir_inS)
 ```
 
-`list_files()` picks up the folder-derived label, so germline and somatic no
-longer collapse into one lossy stream, and each variant is numbered
-independently across the three runs:
-
-```{r}
-#| label: sage-listfiles
-
-s$list_files() |>
-  dplyr::filter(parser == "bqrtsv") |>
-  dplyr::select(bname, prefix) |>
-  dplyr::arrange(prefix)
-```
-
-There is a subtlety in getting the numbering clean. Sage's germline and somatic
-files share an *identical* basename (only the folder differs), and nemo's first
-disambiguation pass numbers repeat runs `by = "bname"`. Left alone that pass
-would treat all six files as one group and interleave the suffixes
-(`sample1_germline`, `sample1_germline_3`, `sample1_germline_5`, ...). To avoid
-that, the shared `refine_by_variant_folder()` helper also injects the variant
-into `bname` (`sample1.germline.sage.bqr.tsv` / `sample1.somatic.sage.bqr.tsv`)
-so the two streams are counted separately. The source `path` is left untouched,
-so provenance back to the original file is preserved.
+Now we tidy, and note how the output files are distinguished:
 
 ```{r}
 #| label: sage-run
@@ -240,16 +228,16 @@ s$run(
 dir_tree(dir_outS)
 ```
 
-Stacking the `bqrtsv` files (top row each), `input_prefix` still separates
+Stacking the `bqrtsv` files (one random row), `input_prefix` still separates
 germline from somatic across the runs:
 
 ```{r}
 #| label: sage-merge
 
 dir_ls(dir_outS, regexp = "sage_bqrtsv\\.parquet") |>
-  purrr::map(\(x) arrow::read_parquet(x) |> dplyr::slice_head(n = 1)) |>
+  purrr::map(\(x) arrow::read_parquet(x) |> dplyr::slice_sample(n = 1)) |>
   purrr::list_rbind() |>
-  dplyr::select(input_id, input_prefix, output_id, alt, ref, context)
+  dplyr::select(input_id, input_prefix, output_id, dplyr::everything())
 ```
 
 ### When to reach for the hook
