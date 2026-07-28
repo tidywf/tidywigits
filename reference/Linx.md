@@ -4,7 +4,7 @@ Linx file parsing and manipulation.
 
 ## Super class
 
-[`nemo::Tool`](https://umccr.github.io/nemo/reference/Tool.html) -\>
+[`nemo::Tool`](https://tidywf.github.io/nemo/reference/Tool.html) -\>
 `Linx`
 
 ## Methods
@@ -13,82 +13,16 @@ Linx file parsing and manipulation.
 
 - [`Linx$new()`](#method-Linx-new)
 
-- [`Linx$list_files()`](#method-Linx-list_files)
-
-- [`Linx$parse_breakends()`](#method-Linx-parse_breakends)
-
-- [`Linx$tidy_breakends()`](#method-Linx-tidy_breakends)
-
-- [`Linx$parse_clusters()`](#method-Linx-parse_clusters)
-
-- [`Linx$tidy_clusters()`](#method-Linx-tidy_clusters)
-
-- [`Linx$parse_drivercatalog()`](#method-Linx-parse_drivercatalog)
-
-- [`Linx$tidy_drivercatalog()`](#method-Linx-tidy_drivercatalog)
-
-- [`Linx$parse_drivers()`](#method-Linx-parse_drivers)
-
-- [`Linx$tidy_drivers()`](#method-Linx-tidy_drivers)
-
-- [`Linx$parse_fusions()`](#method-Linx-parse_fusions)
-
-- [`Linx$tidy_fusions()`](#method-Linx-tidy_fusions)
-
-- [`Linx$parse_links()`](#method-Linx-parse_links)
-
-- [`Linx$tidy_links()`](#method-Linx-tidy_links)
-
-- [`Linx$parse_neoepitope()`](#method-Linx-parse_neoepitope)
-
-- [`Linx$tidy_neoepitope()`](#method-Linx-tidy_neoepitope)
-
-- [`Linx$parse_svs()`](#method-Linx-parse_svs)
-
-- [`Linx$tidy_svs()`](#method-Linx-tidy_svs)
-
-- [`Linx$parse_viscn()`](#method-Linx-parse_viscn)
-
-- [`Linx$tidy_viscn()`](#method-Linx-tidy_viscn)
-
-- [`Linx$parse_visfusion()`](#method-Linx-parse_visfusion)
-
-- [`Linx$tidy_visfusion()`](#method-Linx-tidy_visfusion)
-
-- [`Linx$parse_visgeneexon()`](#method-Linx-parse_visgeneexon)
-
-- [`Linx$tidy_visgeneexon()`](#method-Linx-tidy_visgeneexon)
-
-- [`Linx$parse_visproteindomain()`](#method-Linx-parse_visproteindomain)
-
-- [`Linx$tidy_visproteindomain()`](#method-Linx-tidy_visproteindomain)
-
-- [`Linx$parse_vissegments()`](#method-Linx-parse_vissegments)
-
-- [`Linx$tidy_vissegments()`](#method-Linx-tidy_vissegments)
-
-- [`Linx$parse_vissvdata()`](#method-Linx-parse_vissvdata)
-
-- [`Linx$tidy_vissvdata()`](#method-Linx-tidy_vissvdata)
-
-- [`Linx$parse_version()`](#method-Linx-parse_version)
-
-- [`Linx$tidy_version()`](#method-Linx-tidy_version)
-
-- [`Linx$clone()`](#method-Linx-clone)
-
 Inherited methods
 
-- [`nemo::Tool$.eval_func()`](https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func)
-- [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
-- [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
-- [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
-- [`nemo::Tool$.tidy_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.tidy_file)
-- [`nemo::Tool$filter_files()`](https://umccr.github.io/nemo/reference/Tool.html#method-filter_files)
-- [`nemo::Tool$nemofy()`](https://umccr.github.io/nemo/reference/Tool.html#method-nemofy)
-- [`nemo::Tool$print()`](https://umccr.github.io/nemo/reference/Tool.html#method-print)
-- [`nemo::Tool$tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-tidy)
-- [`nemo::Tool$write()`](https://umccr.github.io/nemo/reference/Tool.html#method-write)
+- [`nemo::Tool$filter_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-filter_files)
+- [`nemo::Tool$get_metadata()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_metadata)
+- [`nemo::Tool$get_tbls()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_tbls)
+- [`nemo::Tool$list_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-list_files)
+- [`nemo::Tool$print()`](https://tidywf.github.io/nemo/reference/Tool.html#method-print)
+- [`nemo::Tool$run()`](https://tidywf.github.io/nemo/reference/Tool.html#method-run)
+- [`nemo::Tool$tidy()`](https://tidywf.github.io/nemo/reference/Tool.html#method-tidy)
+- [`nemo::Tool$write()`](https://tidywf.github.io/nemo/reference/Tool.html#method-write)
 
 ------------------------------------------------------------------------
 
@@ -105,563 +39,13 @@ Create a new Linx object.
 - `path`:
 
   (`character(1)`)  
-  Output directory of tool. If `files_tbl` is supplied, this basically
-  gets ignored.
+  Output directory of tool. If `files_tbl` is supplied, this is ignored.
 
 - `files_tbl`:
 
   (`tibble(n)`)  
   Tibble of files from
-  [`nemo::list_files_dir()`](https://umccr.github.io/nemo/reference/list_files_dir.html).
-
-------------------------------------------------------------------------
-
-### Method `list_files()`
-
-List files in given linx directory. Overwrites parent class to handle
-germline LINX files.
-
-#### Usage
-
-    Linx$list_files(type = "file")
-
-#### Arguments
-
-- `type`:
-
-  (`character(1)`)  
-  File type(s) to return (e.g. any, file, directory, symlink). See
-  [`fs::dir_info`](https://fs.r-lib.org/reference/dir_ls.html).
-
-#### Returns
-
-A tibble of file paths.
-
-------------------------------------------------------------------------
-
-### Method `parse_breakends()`
-
-Read `breakend.tsv` file.
-
-#### Usage
-
-    Linx$parse_breakends(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_breakends()`
-
-Tidy `breakend.tsv` file.
-
-#### Usage
-
-    Linx$tidy_breakends(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_clusters()`
-
-Read `clusters.tsv` file.
-
-#### Usage
-
-    Linx$parse_clusters(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_clusters()`
-
-Tidy `clusters.tsv` file.
-
-#### Usage
-
-    Linx$tidy_clusters(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_drivercatalog()`
-
-Read `linx.driver.catalog.tsv` file.
-
-#### Usage
-
-    Linx$parse_drivercatalog(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_drivercatalog()`
-
-Tidy `linx.driver.catalog.tsv` file.
-
-#### Usage
-
-    Linx$tidy_drivercatalog(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_drivers()`
-
-Read `linx.drivers.tsv` file.
-
-#### Usage
-
-    Linx$parse_drivers(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_drivers()`
-
-Tidy `linx.drivers.tsv` file.
-
-#### Usage
-
-    Linx$tidy_drivers(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_fusions()`
-
-Read `linx.fusion.tsv` file.
-
-#### Usage
-
-    Linx$parse_fusions(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_fusions()`
-
-Tidy `linx.fusion.tsv` file.
-
-#### Usage
-
-    Linx$tidy_fusions(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_links()`
-
-Read `links.tsv` file.
-
-#### Usage
-
-    Linx$parse_links(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_links()`
-
-Tidy `links.tsv` file.
-
-#### Usage
-
-    Linx$tidy_links(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_neoepitope()`
-
-Read `neoepitope.tsv` file.
-
-#### Usage
-
-    Linx$parse_neoepitope(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_neoepitope()`
-
-Tidy `neoepitope.tsv` file.
-
-#### Usage
-
-    Linx$tidy_neoepitope(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_svs()`
-
-Read `svs.tsv` file.
-
-#### Usage
-
-    Linx$parse_svs(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_svs()`
-
-Tidy `svs.tsv` file.
-
-#### Usage
-
-    Linx$tidy_svs(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_viscn()`
-
-Read `linx.vis_copy_number.tsv` file.
-
-#### Usage
-
-    Linx$parse_viscn(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_viscn()`
-
-Tidy `linx.vis_copy_number.tsv` file.
-
-#### Usage
-
-    Linx$tidy_viscn(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_visfusion()`
-
-Read `linx.vis_fusion.tsv` file.
-
-#### Usage
-
-    Linx$parse_visfusion(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_visfusion()`
-
-Tidy `linx.vis_fusion.tsv` file.
-
-#### Usage
-
-    Linx$tidy_visfusion(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_visgeneexon()`
-
-Read `linx.vis_gene_exon.tsv` file.
-
-#### Usage
-
-    Linx$parse_visgeneexon(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_visgeneexon()`
-
-Tidy `linx.vis_gene_exon.tsv` file.
-
-#### Usage
-
-    Linx$tidy_visgeneexon(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_visproteindomain()`
-
-Read `linx.vis_protein_domain.tsv` file.
-
-#### Usage
-
-    Linx$parse_visproteindomain(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_visproteindomain()`
-
-Tidy `linx.vis_protein_domain.tsv` file.
-
-#### Usage
-
-    Linx$tidy_visproteindomain(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_vissegments()`
-
-Read `linx.vis_segments.tsv` file.
-
-#### Usage
-
-    Linx$parse_vissegments(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_vissegments()`
-
-Tidy `linx.vis_segments.tsv` file.
-
-#### Usage
-
-    Linx$tidy_vissegments(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_vissvdata()`
-
-Read `linx.vis_sv_data.tsv` file.
-
-#### Usage
-
-    Linx$parse_vissvdata(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_vissvdata()`
-
-Tidy `linx.vis_sv_data.tsv` file.
-
-#### Usage
-
-    Linx$tidy_vissvdata(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_version()`
-
-Read `linx.version` file.
-
-#### Usage
-
-    Linx$parse_version(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_version()`
-
-Tidy `linx.version` file.
-
-#### Usage
-
-    Linx$tidy_version(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `clone()`
-
-The objects of this class are cloneable with this method.
-
-#### Usage
-
-    Linx$clone(deep = FALSE)
-
-#### Arguments
-
-- `deep`:
-
-  Whether to make a deep clone.
+  [`nemo::list_files_dir()`](https://tidywf.github.io/nemo/reference/list_files_dir.html).
 
 ## Examples
 
@@ -671,8 +55,36 @@ indir <- system.file("extdata/oa", package = "tidywigits")
 odir <- tempdir()
 id <- "linx_run1"
 obj <- cls$new(indir)
-obj$nemofy(diro = odir, format = "parquet", input_id = id)
-#> NULL
-(lf <- list.files(odir, pattern = "linx.*parquet", full.names = FALSE))
-#> character(0)
+obj$run(output_dir = odir, format = "parquet", input_id = id)
+(lf <- list.files(odir, pattern = "linx_.*parquet", full.names = FALSE))
+#>  [1] "sample1_2_linx_viscn.parquet"               
+#>  [2] "sample1_2_linx_visfusion.parquet"           
+#>  [3] "sample1_2_linx_visgeneexon.parquet"         
+#>  [4] "sample1_2_linx_visproteindomain.parquet"    
+#>  [5] "sample1_2_linx_vissegments.parquet"         
+#>  [6] "sample1_2_linx_vissvdata.parquet"           
+#>  [7] "sample1_germline_2_linx_breakends.parquet"  
+#>  [8] "sample1_germline_linx_breakends.parquet"    
+#>  [9] "sample1_germline_linx_clusters.parquet"     
+#> [10] "sample1_germline_linx_drivercatalog.parquet"
+#> [11] "sample1_germline_linx_links.parquet"        
+#> [12] "sample1_germline_linx_svs.parquet"          
+#> [13] "sample1_linx_drivers.parquet"               
+#> [14] "sample1_linx_fusions.parquet"               
+#> [15] "sample1_linx_viscn.parquet"                 
+#> [16] "sample1_linx_visfusion.parquet"             
+#> [17] "sample1_linx_visgeneexon.parquet"           
+#> [18] "sample1_linx_visproteindomain.parquet"      
+#> [19] "sample1_linx_vissegments.parquet"           
+#> [20] "sample1_linx_vissvdata.parquet"             
+#> [21] "sample1_somatic_2_linx_breakends.parquet"   
+#> [22] "sample1_somatic_linx_breakends.parquet"     
+#> [23] "sample1_somatic_linx_clusters.parquet"      
+#> [24] "sample1_somatic_linx_drivercatalog.parquet" 
+#> [25] "sample1_somatic_linx_links.parquet"         
+#> [26] "sample1_somatic_linx_svs.parquet"           
+#> [27] "version_2_linx_version.parquet"             
+#> [28] "version_3_linx_version.parquet"             
+#> [29] "version_4_linx_version.parquet"             
+#> [30] "version_linx_version.parquet"               
 ```

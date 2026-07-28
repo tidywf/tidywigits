@@ -4,7 +4,7 @@ WiGiTS file parsing and manipulation.
 
 ## Super class
 
-[`nemo::Workflow`](https://umccr.github.io/nemo/reference/Workflow.html)
+[`nemo::Workflow`](https://tidywf.github.io/nemo/reference/Workflow.html)
 -\> `Wigits`
 
 ## Methods
@@ -13,21 +13,19 @@ WiGiTS file parsing and manipulation.
 
 - [`Wigits$new()`](#method-Wigits-new)
 
-- [`Wigits$get_metadata()`](#method-Wigits-get_metadata)
-
-- [`Wigits$clone()`](#method-Wigits-clone)
-
 Inherited methods
 
-- [`nemo::Workflow$filter_files()`](https://umccr.github.io/nemo/reference/Workflow.html#method-filter_files)
-- [`nemo::Workflow$get_raw_schemas_all()`](https://umccr.github.io/nemo/reference/Workflow.html#method-get_raw_schemas_all)
-- [`nemo::Workflow$get_tbls()`](https://umccr.github.io/nemo/reference/Workflow.html#method-get_tbls)
-- [`nemo::Workflow$get_tidy_schemas_all()`](https://umccr.github.io/nemo/reference/Workflow.html#method-get_tidy_schemas_all)
-- [`nemo::Workflow$list_files()`](https://umccr.github.io/nemo/reference/Workflow.html#method-list_files)
-- [`nemo::Workflow$nemofy()`](https://umccr.github.io/nemo/reference/Workflow.html#method-nemofy)
-- [`nemo::Workflow$print()`](https://umccr.github.io/nemo/reference/Workflow.html#method-print)
-- [`nemo::Workflow$tidy()`](https://umccr.github.io/nemo/reference/Workflow.html#method-tidy)
-- [`nemo::Workflow$write()`](https://umccr.github.io/nemo/reference/Workflow.html#method-write)
+- [`nemo::Workflow$filter_files()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-filter_files)
+- [`nemo::Workflow$get_metadata()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_metadata)
+- [`nemo::Workflow$get_schemas_raw()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_schemas_raw)
+- [`nemo::Workflow$get_schemas_tidy()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_schemas_tidy)
+- [`nemo::Workflow$get_tbls()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_tbls)
+- [`nemo::Workflow$get_tools()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_tools)
+- [`nemo::Workflow$list_files()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-list_files)
+- [`nemo::Workflow$print()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-print)
+- [`nemo::Workflow$run()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-run)
+- [`nemo::Workflow$tidy()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-tidy)
+- [`nemo::Workflow$write()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-write)
 
 ------------------------------------------------------------------------
 
@@ -46,87 +44,25 @@ Create a new Wigits object.
   (`character(n)`)  
   Path(s) to Wigits results.
 
-------------------------------------------------------------------------
-
-### Method `get_metadata()`
-
-Get metadata. Overwrites parent class to handle tidywigits not being a
-dependency of nemo (see tidywigits issue 167)
-
-#### Usage
-
-    Wigits$get_metadata(
-      input_id,
-      output_id,
-      output_dir,
-      pkgs = c("nemo", "tidywigits")
-    )
-
-#### Arguments
-
-- `input_id`:
-
-  (`character(1)`)  
-  Input ID to use for the dataset (e.g. `run123`).
-
-- `output_id`:
-
-  (`character(1)`)  
-  Output ID to use for the dataset (e.g. `run123`).
-
-- `output_dir`:
-
-  (`character(1)`)  
-  Output directory.
-
-- `pkgs`:
-
-  (`character(n)`)  
-  Which R packages to extract versions for.
-
-#### Returns
-
-List with metadata
-
-------------------------------------------------------------------------
-
-### Method `clone()`
-
-The objects of this class are cloneable with this method.
-
-#### Usage
-
-    Wigits$clone(deep = FALSE)
-
-#### Arguments
-
-- `deep`:
-
-  Whether to make a deep clone.
-
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
-path <- here::here("nogit/oa_v2")
+path <- system.file("extdata/oa", package = "tidywigits")
 w <- Wigits$new(path)
-x <-
-  w$nemofy(
-    diro = "nogit/test_data",
-    format = "parquet",
-    input_id = "run1"
-)
-dbconn <- DBI::dbConnect(
-  drv = RPostgres::Postgres(),
-  dbname = "nemo",
-  user = "orcabus"
-)
-x <-
-  w$nemofy(
-    format = "db",
-    input_id = "runABC456",
-    dbconn = dbconn
-)
-DBI::dbDisconnect(dbconn)
-} # }
+dir1 <- tempdir()
+#w$tidy()
+#w$write(output_dir = dir1, format = "tsv", input_id = "input1", output_id = "out1")
+x <- w$run(output_dir = file.path(dir1, "out1"), format = "parquet", input_id = "run1")
+#dbconn <- DBI::dbConnect(
+#  drv = RPostgres::Postgres(),
+#  dbname = "nemo",
+#  user = "orcabus"
+#)
+#x <-
+#  w$run(
+#    format = "db",
+#    input_id = "runABC456",
+#    dbconn = dbconn
+#)
+#DBI::dbDisconnect(dbconn)
 ```

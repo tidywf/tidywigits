@@ -11,13 +11,13 @@
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="postgresql_files/libs/quarto-html/popper.min.js"></script><script src="postgresql_files/libs/quarto-html/tippy.umd.min.js"></script><link href="postgresql_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="postgresql_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="PostgreSQL">
-<meta property="og:image" content="https://umccr.github.io/tidywigits/logo.png">
+<meta property="og:image" content="https://tidywf.github.io/tidywigits/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,12 +40,15 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/installation.html">Installation</a></li>
-    <li><a class="dropdown-item" href="../articles/schemas_raw.html">Schemas Raw</a></li>
-    <li><a class="dropdown-item" href="../articles/schemas_tidy.html">Schemas Tidy</a></li>
-    <li><a class="dropdown-item" href="../articles/developers.html">Developers</a></li>
+<li><a class="dropdown-item" href="../articles/quickstart.html">Quickstart</a></li>
+    <li><a class="dropdown-item" href="../articles/installation.html">Installation</a></li>
+    <li><a class="dropdown-item" href="../articles/structure.html">Structure</a></li>
+    <li><a class="dropdown-item" href="../articles/output_naming.html">Output Naming</a></li>
+    <li><a class="dropdown-item" href="../articles/schema_table.html">Schema Table</a></li>
     <li><a class="dropdown-item" href="../articles/uml.html">UML</a></li>
+    <li><a class="dropdown-item" href="../articles/cicd.html">CI/CD Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/postgresql.html">PostgreSQL</a></li>
+    <li><a class="dropdown-item" href="../articles/devnotes.html">Devnotes</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../articles/NEWS.html">NEWS</a></li>
@@ -55,7 +58,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/umccr/tidywigits/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/tidywf/tidywigits/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -69,7 +72,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/umccr/tidywigits/blob/main/vignettes/postgresql.qmd" class="external-link"><code>vignettes/postgresql.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/main/vignettes/postgresql.qmd" class="external-link"><code>vignettes/postgresql.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -86,116 +89,47 @@
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dbconn</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span></span>
-<span>  drv <span class="op">=</span> <span class="fu">RPostgres</span><span class="fu">::</span><span class="fu"><a href="https://rpostgres.r-dbi.org/reference/Postgres.html" class="external-link">Postgres</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  dbname <span class="op">=</span> <span class="st">"nemo"</span>,</span>
-<span>  user <span class="op">=</span> <span class="st">"orcabus"</span></span>
+<span>  drv <span class="op">=</span> <span class="fu">RPostgres</span><span class="fu">::</span><span class="fu">Postgres</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  dbname <span class="op">=</span> <span class="st">"tidywigits"</span>,</span>
+<span>  user <span class="op">=</span> <span class="st">"user1"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">Oncoanalyser</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"nogit/oa_v1"</span><span class="op">)</span></span>
-<span><span class="va">oa</span><span class="op">$</span><span class="fu">magic</span><span class="op">(</span>format <span class="op">=</span> <span class="st">"db"</span>, id <span class="op">=</span> <span class="st">"oa_run_v1"</span>, dbconn <span class="op">=</span> <span class="va">dbconn</span><span class="op">)</span></span>
+<span><span class="va">oa</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Wigits.html">Wigits</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"nogit/oa_v1"</span><span class="op">)</span></span>
+<span><span class="va">oa</span><span class="op">$</span><span class="fu">run</span><span class="op">(</span>format <span class="op">=</span> <span class="st">"db"</span>, input_id <span class="op">=</span> <span class="st">"oa_run_v1"</span>, dbconn <span class="op">=</span> <span class="va">dbconn</span><span class="op">)</span></span>
 <span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html" class="external-link">dbDisconnect</a></span><span class="op">(</span><span class="va">dbconn</span><span class="op">)</span></span></code></pre></div>
-<pre class="shell"><code>pg_dump --schema-only nemo &gt; schema_oa_v1.txt
-dropdb --force nemo
-createdb nemo</code></pre>
+<pre class="shell"><code>pg_dump --schema-only tidywigits &gt; schema_oa_v1.txt
+dropdb --force tidywigits
+createdb tidywigits</code></pre>
 <ul>
 <li>Write OA v2 tables</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dbconn</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span></span>
-<span>  drv <span class="op">=</span> <span class="fu">RPostgres</span><span class="fu">::</span><span class="fu"><a href="https://rpostgres.r-dbi.org/reference/Postgres.html" class="external-link">Postgres</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  dbname <span class="op">=</span> <span class="st">"nemo"</span>,</span>
-<span>  user <span class="op">=</span> <span class="st">"orcabus"</span></span>
+<span>  drv <span class="op">=</span> <span class="fu">RPostgres</span><span class="fu">::</span><span class="fu">Postgres</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  dbname <span class="op">=</span> <span class="st">"tidywigits"</span>,</span>
+<span>  user <span class="op">=</span> <span class="st">"user1"</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">Oncoanalyser</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"nogit/oa_v2"</span><span class="op">)</span></span>
-<span><span class="va">oa</span><span class="op">$</span><span class="fu">magic</span><span class="op">(</span>format <span class="op">=</span> <span class="st">"db"</span>, id <span class="op">=</span> <span class="st">"oa_run_v2"</span>, dbconn <span class="op">=</span> <span class="va">dbconn</span><span class="op">)</span></span>
+<span><span class="va">oa</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Wigits.html">Wigits</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="st">"nogit/oa_v2"</span><span class="op">)</span></span>
+<span><span class="va">oa</span><span class="op">$</span><span class="fu">run</span><span class="op">(</span>format <span class="op">=</span> <span class="st">"db"</span>, input_id <span class="op">=</span> <span class="st">"oa_run_v2"</span>, dbconn <span class="op">=</span> <span class="va">dbconn</span><span class="op">)</span></span>
 <span><span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbDisconnect.html" class="external-link">dbDisconnect</a></span><span class="op">(</span><span class="va">dbconn</span><span class="op">)</span></span></code></pre></div>
-<pre class="shell"><code>pg_dump --schema-only nemo &gt; schema_oa_v2.txt
-dropdb --force nemo</code></pre>
+<pre class="shell"><code>pg_dump --schema-only tidywigits &gt; schema_oa_v2.txt
+dropdb --force tidywigits</code></pre>
 <ul>
 <li>Merge schemas</li>
 </ul>
 <p>After diffing the two schemas a merged one was (manually) created.</p>
 </section><section class="level2"><h2 id="database-creation">Database creation<a class="anchor" aria-label="anchor" href="#database-creation"></a>
 </h2>
-<pre><code>createdb nemo
-cat schema1.sql | psql nemo</code></pre>
+<pre><code>createdb tidywigits
+cat schema1.sql | psql tidywigits</code></pre>
 <section class="level3"><h3 id="result">Result<a class="anchor" aria-label="anchor" href="#result"></a>
 </h3>
 <pre class="text"><code>select * from pg_catalog.pg_tables where schemaname='public';
  schemaname │          tablename          │ tableowner │ tablespace │ hasindexes │ hasrules │ hastriggers │ rowsecurity
 ════════════╪═════════════════════════════╪════════════╪════════════╪════════════╪══════════╪═════════════╪═════════════
- public     │ amber_contaminationtsv      │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ alignments_dupfreq          │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ alignments_markdup_histo    │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ alignments_markdup_metrics  │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ amber_bafpcf                │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ amber_baftsv                │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ amber_homozygousregion      │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ bamtools_coverage           │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ amber_qc                    │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ bamtools_flagstats          │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ bamtools_fraglength         │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ bamtools_partitionstats     │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ bamtools_summary            │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ bamtools_summary_covx       │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ bamtools_wgsmetrics_metrics │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ bamtools_wgsmetrics_histo   │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ chord_prediction            │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ chord_signatures            │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ cobalt_gcmed_bucket_stats   │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ cobalt_gcmed_sample_stats   │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ cobalt_ratiomed             │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ cobalt_ratiopcf             │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ cobalt_ratiotsv             │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ cobalt_version              │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ cuppa_datacsv               │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ cuppa_datatsv               │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ cuppa_feat                  │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ cuppa_predsum               │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ flagstats_flagstats         │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ isofox_altsj                │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ isofox_fusionsall           │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ isofox_fusionspass          │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ isofox_retintron            │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ isofox_genecollection       │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ isofox_genedata             │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ isofox_summary              │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ isofox_transdata            │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ lilac_qc                    │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ lilac_summary               │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ linx_breakends              │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ linx_clusters               │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ linx_drivercatalog          │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ linx_version                │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ linx_drivers                │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ linx_fusions                │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ linx_links                  │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ linx_neoepitope             │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ linx_svs                    │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ linx_visgeneexon            │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ linx_viscn                  │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ linx_visfusion              │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ linx_visproteindomain       │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ linx_vissegments            │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ linx_vissvdata              │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ purple_cnvgenetsv           │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ purple_cnvsomtsv            │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ purple_drivercatalog        │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ purple_germdeltsv           │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ purple_purityrange          │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ purple_puritytsv            │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ purple_qc                   │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ purple_somclonality         │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ purple_somhist              │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ sage_exoncvg                │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ purple_version              │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ sage_bqrtsv                 │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ sage_genecvg_cvg            │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ sage_genecvg_genes          │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ sigs_allocation             │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ sigs_snvcounts              │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ virusbreakend_summary       │ orcabus    │ ¤          │ f          │ f        │ f           │ f
- public     │ virusinterpreter_annotated  │ orcabus    │ ¤          │ f          │ f        │ f           │ f
-(72 rows)</code></pre>
+ public     │ amber_contaminationtsv      │ user       │ ¤          │ f          │ f        │ f           │ f
+ public     │ alignments_dupfreq          │ user       │ ¤          │ f          │ f        │ f           │ f
+ public     │ virusinterpreter_annotated  │ user       │ ¤          │ f          │ f        │ f           │ f
+(X rows)</code></pre>
 </section></section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
@@ -289,7 +223,7 @@ cat schema1.sql | psql nemo</code></pre>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

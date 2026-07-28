@@ -1,6 +1,6 @@
 # MIT License
 
-Copyright (c) 2025 Collaborative Centre for Genomic Cancer Medicine
+Copyright (c) 2026 Collaborative Centre for Genomic Cancer Medicine
 (CCGCM) - Genomics Platform Group
 
 Permission is hereby granted, free of charge, to any person obtaining a

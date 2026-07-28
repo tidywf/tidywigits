@@ -2,12 +2,16 @@
 
 ### All vignettes
 
-- [Developers](https://umccr.github.io/tidywigits/articles/developers.md):
-- [Installation](https://umccr.github.io/tidywigits/articles/installation.md):
-- [NEWS](https://umccr.github.io/tidywigits/articles/NEWS.md):
-- [PostgreSQL](https://umccr.github.io/tidywigits/articles/postgresql.md):
-- [Schemas
-  Raw](https://umccr.github.io/tidywigits/articles/schemas_raw.md):
-- [Schemas
-  Tidy](https://umccr.github.io/tidywigits/articles/schemas_tidy.md):
-- [UML](https://umccr.github.io/tidywigits/articles/uml.md):
+- [CI/CD
+  Workflow](https://tidywf.github.io/tidywigits/articles/cicd.md):
+- [Devnotes](https://tidywf.github.io/tidywigits/articles/devnotes.md):
+- [Installation](https://tidywf.github.io/tidywigits/articles/installation.md):
+- [NEWS](https://tidywf.github.io/tidywigits/articles/NEWS.md):
+- [Output
+  Naming](https://tidywf.github.io/tidywigits/articles/output_naming.md):
+- [PostgreSQL](https://tidywf.github.io/tidywigits/articles/postgresql.md):
+- [Quickstart](https://tidywf.github.io/tidywigits/articles/quickstart.md):
+- [Schema
+  Table](https://tidywf.github.io/tidywigits/articles/schema_table.md):
+- [Structure](https://tidywf.github.io/tidywigits/articles/structure.md):
+- [UML](https://tidywf.github.io/tidywigits/articles/uml.md):

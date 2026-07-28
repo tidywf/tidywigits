@@ -4,7 +4,7 @@ Lilac file parsing and manipulation.
 
 ## Super class
 
-[`nemo::Tool`](https://umccr.github.io/nemo/reference/Tool.html) -\>
+[`nemo::Tool`](https://tidywf.github.io/nemo/reference/Tool.html) -\>
 `Lilac`
 
 ## Methods
@@ -13,29 +13,16 @@ Lilac file parsing and manipulation.
 
 - [`Lilac$new()`](#method-Lilac-new)
 
-- [`Lilac$parse_summary()`](#method-Lilac-parse_summary)
-
-- [`Lilac$tidy_summary()`](#method-Lilac-tidy_summary)
-
-- [`Lilac$parse_qc()`](#method-Lilac-parse_qc)
-
-- [`Lilac$tidy_qc()`](#method-Lilac-tidy_qc)
-
-- [`Lilac$clone()`](#method-Lilac-clone)
-
 Inherited methods
 
-- [`nemo::Tool$.eval_func()`](https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func)
-- [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
-- [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
-- [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
-- [`nemo::Tool$.tidy_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.tidy_file)
-- [`nemo::Tool$filter_files()`](https://umccr.github.io/nemo/reference/Tool.html#method-filter_files)
-- [`nemo::Tool$list_files()`](https://umccr.github.io/nemo/reference/Tool.html#method-list_files)
-- [`nemo::Tool$nemofy()`](https://umccr.github.io/nemo/reference/Tool.html#method-nemofy)
-- [`nemo::Tool$print()`](https://umccr.github.io/nemo/reference/Tool.html#method-print)
-- [`nemo::Tool$tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-tidy)
-- [`nemo::Tool$write()`](https://umccr.github.io/nemo/reference/Tool.html#method-write)
+- [`nemo::Tool$filter_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-filter_files)
+- [`nemo::Tool$get_metadata()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_metadata)
+- [`nemo::Tool$get_tbls()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_tbls)
+- [`nemo::Tool$list_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-list_files)
+- [`nemo::Tool$print()`](https://tidywf.github.io/nemo/reference/Tool.html#method-print)
+- [`nemo::Tool$run()`](https://tidywf.github.io/nemo/reference/Tool.html#method-run)
+- [`nemo::Tool$tidy()`](https://tidywf.github.io/nemo/reference/Tool.html#method-tidy)
+- [`nemo::Tool$write()`](https://tidywf.github.io/nemo/reference/Tool.html#method-write)
 
 ------------------------------------------------------------------------
 
@@ -52,98 +39,13 @@ Create a new Lilac object.
 - `path`:
 
   (`character(1)`)  
-  Output directory of tool. If `files_tbl` is supplied, this basically
-  gets ignored.
+  Output directory of tool. If `files_tbl` is supplied, this is ignored.
 
 - `files_tbl`:
 
   (`tibble(n)`)  
   Tibble of files from
-  [`nemo::list_files_dir()`](https://umccr.github.io/nemo/reference/list_files_dir.html).
-
-------------------------------------------------------------------------
-
-### Method `parse_summary()`
-
-Read `lilac.tsv` file.
-
-#### Usage
-
-    Lilac$parse_summary(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_summary()`
-
-Tidy `lilac.tsv` file.
-
-#### Usage
-
-    Lilac$tidy_summary(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_qc()`
-
-Read `lilac.qc.tsv` file.
-
-#### Usage
-
-    Lilac$parse_qc(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_qc()`
-
-Tidy `lilac.qc.tsv` file.
-
-#### Usage
-
-    Lilac$tidy_qc(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `clone()`
-
-The objects of this class are cloneable with this method.
-
-#### Usage
-
-    Lilac$clone(deep = FALSE)
-
-#### Arguments
-
-- `deep`:
-
-  Whether to make a deep clone.
+  [`nemo::list_files_dir()`](https://tidywf.github.io/nemo/reference/list_files_dir.html).
 
 ## Examples
 
@@ -153,8 +55,7 @@ indir <- system.file("extdata/oa", package = "tidywigits")
 odir <- tempdir()
 id <- "lilac_run1"
 obj <- cls$new(indir)
-obj$nemofy(diro = odir, format = "parquet", input_id = id)
-#> NULL
-(lf <- list.files(odir, pattern = "lilac.*parquet", full.names = FALSE))
-#> character(0)
+obj$run(output_dir = odir, format = "parquet", input_id = id)
+(lf <- list.files(odir, pattern = "lilac_.*parquet", full.names = FALSE))
+#> [1] "sample1_lilac_qc.parquet"      "sample1_lilac_summary.parquet"
 ```

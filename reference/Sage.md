@@ -4,7 +4,7 @@ Sage file parsing and manipulation.
 
 ## Super class
 
-[`nemo::Tool`](https://umccr.github.io/nemo/reference/Tool.html) -\>
+[`nemo::Tool`](https://tidywf.github.io/nemo/reference/Tool.html) -\>
 `Sage`
 
 ## Methods
@@ -13,33 +13,18 @@ Sage file parsing and manipulation.
 
 - [`Sage$new()`](#method-Sage-new)
 
-- [`Sage$parse_bqrtsv()`](#method-Sage-parse_bqrtsv)
-
-- [`Sage$tidy_bqrtsv()`](#method-Sage-tidy_bqrtsv)
-
-- [`Sage$parse_genecvg()`](#method-Sage-parse_genecvg)
-
 - [`Sage$tidy_genecvg()`](#method-Sage-tidy_genecvg)
-
-- [`Sage$parse_exoncvg()`](#method-Sage-parse_exoncvg)
-
-- [`Sage$tidy_exoncvg()`](#method-Sage-tidy_exoncvg)
-
-- [`Sage$clone()`](#method-Sage-clone)
 
 Inherited methods
 
-- [`nemo::Tool$.eval_func()`](https://umccr.github.io/nemo/reference/Tool.html#method-.eval_func)
-- [`nemo::Tool$.parse_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file)
-- [`nemo::Tool$.parse_file_keyvalue()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_keyvalue)
-- [`nemo::Tool$.parse_file_nohead()`](https://umccr.github.io/nemo/reference/Tool.html#method-.parse_file_nohead)
-- [`nemo::Tool$.tidy_file()`](https://umccr.github.io/nemo/reference/Tool.html#method-.tidy_file)
-- [`nemo::Tool$filter_files()`](https://umccr.github.io/nemo/reference/Tool.html#method-filter_files)
-- [`nemo::Tool$list_files()`](https://umccr.github.io/nemo/reference/Tool.html#method-list_files)
-- [`nemo::Tool$nemofy()`](https://umccr.github.io/nemo/reference/Tool.html#method-nemofy)
-- [`nemo::Tool$print()`](https://umccr.github.io/nemo/reference/Tool.html#method-print)
-- [`nemo::Tool$tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-tidy)
-- [`nemo::Tool$write()`](https://umccr.github.io/nemo/reference/Tool.html#method-write)
+- [`nemo::Tool$filter_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-filter_files)
+- [`nemo::Tool$get_metadata()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_metadata)
+- [`nemo::Tool$get_tbls()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_tbls)
+- [`nemo::Tool$list_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-list_files)
+- [`nemo::Tool$print()`](https://tidywf.github.io/nemo/reference/Tool.html#method-print)
+- [`nemo::Tool$run()`](https://tidywf.github.io/nemo/reference/Tool.html#method-run)
+- [`nemo::Tool$tidy()`](https://tidywf.github.io/nemo/reference/Tool.html#method-tidy)
+- [`nemo::Tool$write()`](https://tidywf.github.io/nemo/reference/Tool.html#method-write)
 
 ------------------------------------------------------------------------
 
@@ -56,71 +41,20 @@ Create a new Sage object.
 - `path`:
 
   (`character(1)`)  
-  Output directory of tool. If `files_tbl` is supplied, this basically
-  gets ignored.
+  Output directory of tool. If `files_tbl` is supplied, this is ignored.
 
 - `files_tbl`:
 
   (`tibble(n)`)  
   Tibble of files from
-  [`nemo::list_files_dir()`](https://umccr.github.io/nemo/reference/list_files_dir.html).
-
-------------------------------------------------------------------------
-
-### Method `parse_bqrtsv()`
-
-Read `bqr.tsv` file.
-
-#### Usage
-
-    Sage$parse_bqrtsv(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_bqrtsv()`
-
-Tidy `bqr.tsv` file.
-
-#### Usage
-
-    Sage$tidy_bqrtsv(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `parse_genecvg()`
-
-Read `gene.coverage.tsv` file.
-
-#### Usage
-
-    Sage$parse_genecvg(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
+  [`nemo::list_files_dir()`](https://tidywf.github.io/nemo/reference/list_files_dir.html).
 
 ------------------------------------------------------------------------
 
 ### Method `tidy_genecvg()`
 
-Tidy `gene.coverage.tsv` file.
+Tidy `gene.coverage.tsv` file. Generates 2 sub-tbls: *genes* with the
+per-gene metadata and *cvg* with the long-form depth-range counts.
 
 #### Usage
 
@@ -133,56 +67,6 @@ Tidy `gene.coverage.tsv` file.
   (`character(1)`)  
   Path to file.
 
-------------------------------------------------------------------------
-
-### Method `parse_exoncvg()`
-
-Read `exon.medians.tsv` file.
-
-#### Usage
-
-    Sage$parse_exoncvg(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `tidy_exoncvg()`
-
-Tidy `exon.medians.tsv` file.
-
-#### Usage
-
-    Sage$tidy_exoncvg(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
-------------------------------------------------------------------------
-
-### Method `clone()`
-
-The objects of this class are cloneable with this method.
-
-#### Usage
-
-    Sage$clone(deep = FALSE)
-
-#### Arguments
-
-- `deep`:
-
-  Whether to make a deep clone.
-
 ## Examples
 
 ``` r
@@ -191,8 +75,17 @@ indir <- system.file("extdata/oa", package = "tidywigits")
 odir <- tempdir()
 id <- "sage_run1"
 obj <- cls$new(indir)
-obj$nemofy(diro = odir, format = "parquet", input_id = id)
-#> NULL
-(lf <- list.files(odir, pattern = "sage.*parquet", full.names = FALSE))
-#> character(0)
+obj$run(output_dir = odir, format = "parquet", input_id = id)
+(lf <- list.files(odir, pattern = "sage_.*parquet", full.names = FALSE))
+#>  [1] "sample1_germline_sage_bqrtsv.parquet"      
+#>  [2] "sample1_sage_bqrtsv.parquet"               
+#>  [3] "sample1_somatic_sage_bqrtsv.parquet"       
+#>  [4] "sample1_somatic_sage_exoncvg.parquet"      
+#>  [5] "sample1_somatic_sage_genecvgcvg.parquet"   
+#>  [6] "sample1_somatic_sage_genecvggenes.parquet" 
+#>  [7] "sample2_germline_sage_bqrtsv.parquet"      
+#>  [8] "sample2_germline_sage_exoncvg.parquet"     
+#>  [9] "sample2_germline_sage_genecvgcvg.parquet"  
+#> [10] "sample2_germline_sage_genecvggenes.parquet"
+#> [11] "sample2_somatic_sage_bqrtsv.parquet"       
 ```
