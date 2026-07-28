@@ -14,7 +14,7 @@
 
 - [tidywigits](#tidywigits)
 - [Documentation](#documentation)
-- [Quick Start](#quick-start)
+- [Quick Start](#quickstart)
   - [Single tool](#single-tool)
   - [Full WiGiTS](#full-wigits)
 - [Installation](#installation)
@@ -47,6 +47,8 @@ tidy tables, capturing IDs, paths, and R package versions.
 - Quickstart: <https://tidywf.github.io/tidywigits/articles/quickstart>
 - Files supported:
   <https://tidywf.github.io/tidywigits/articles/schema_table>
+- Output naming:
+  <https://tidywf.github.io/tidywigits/articles/output_naming>
 - Structure: <https://tidywf.github.io/tidywigits/articles/structure>
 - Changelog: <https://tidywf.github.io/tidywigits/articles/NEWS>
 - R6: <https://tidywf.github.io/nemo/articles/structure>
@@ -91,27 +93,24 @@ ppl$run(
   input_id = "run1"
 )
 list.files(outdir_ppl, pattern = "\\.parquet$")
-#>  [1] "metadata_purple.parquet"                       
-#>  [2] "sample1_2_purple_cnvgenetsv.parquet"           
-#>  [3] "sample1_2_purple_qc.parquet"                   
-#>  [4] "sample1_2_somatic_purple_drivercatalog.parquet"
-#>  [5] "sample1_germline_purple_drivercatalog.parquet" 
-#>  [6] "sample1_purple_cnvgenetsv.parquet"             
-#>  [7] "sample1_purple_cnvsomtsv.parquet"              
-#>  [8] "sample1_purple_germdeltsv.parquet"             
-#>  [9] "sample1_purple_purityrange.parquet"            
-#> [10] "sample1_purple_puritytsv.parquet"              
-#> [11] "sample1_purple_qc.parquet"                     
-#> [12] "sample1_purple_somclonality.parquet"           
-#> [13] "sample1_purple_somhist.parquet"                
-#> [14] "version_2_purple_version.parquet"              
+#>  [1] "metadata_purple.parquet"                       "sample1_2_purple_cnvgenetsv.parquet"          
+#>  [3] "sample1_2_purple_qc.parquet"                   "sample1_germline_purple_drivercatalog.parquet"
+#>  [5] "sample1_purple_cnvgenetsv.parquet"             "sample1_purple_cnvsomtsv.parquet"             
+#>  [7] "sample1_purple_germdeltsv.parquet"             "sample1_purple_purityrange.parquet"           
+#>  [9] "sample1_purple_puritytsv.parquet"              "sample1_purple_qc.parquet"                    
+#> [11] "sample1_purple_somclonality.parquet"           "sample1_purple_somhist.parquet"               
+#> [13] "sample1_somatic_purple_drivercatalog.parquet"  "version_2_purple_version.parquet"             
 #> [15] "version_purple_version.parquet"
 ```
 
 Now read back the tidied table:
 
 ``` r
-qc_file <- list.files(outdir_ppl, pattern = "sample1_purple_qc.parquet", full.names = TRUE)
+qc_file <- list.files(
+  outdir_ppl,
+  pattern = "sample1_purple_qc.parquet",
+  full.names = TRUE
+)
 arrow::read_parquet(qc_file) |> str()
 #> tibble [1 × 15] (S3: tbl_df/tbl/data.frame)
 #>  $ input_id               : chr "run1"
@@ -321,7 +320,7 @@ res # shows summary of Wigits object
 #> |tidied        |true                                                                      |
 #> |written       |true                                                                      |
 list.files(outdir_w, pattern = "\\.parquet$") |> str()
-#>  chr [1:120] "metadata.parquet" "sample1_2_2_linx_breakends.parquet" ...
+#>  chr [1:120] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...
 ```
 
 - PostgreSQL (adjust dbname/user for your purposes):
@@ -362,7 +361,7 @@ Using {remotes} directly from GitHub:
 ``` r
 install.packages("remotes")
 remotes::install_github("tidywf/tidywigits") # latest main commit
-remotes::install_github("tidywf/tidywigits@v0.0.7.9006") # specific version
+remotes::install_github("tidywf/tidywigits@v0.0.7.9008") # specific version
 ```
 
 Alternatively:
@@ -390,7 +389,7 @@ export PATH="${tw_cli}:${PATH}"
 ```
 
     $ tidywigits.R --version
-    tidywigits 0.0.7.9006
+    tidywigits 0.0.7.9008
 
     #-----------------------------------#
     $ tidywigits.R --help
