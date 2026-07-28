@@ -17,7 +17,7 @@
 #' expect_equal(nrow(ver), 1L)
 #' rmed <- arrow::read_parquet(file.path(odir, grep("cobalt_ratiomed", lf, value = TRUE)))
 #' expect_named(rmed, c("input_id", "chrom", "median_ratio", "count"))
-#' gcmed_s <- arrow::read_parquet(file.path(odir, grep("gcmed_sample", lf, value = TRUE)))
+#' gcmed_s <- arrow::read_parquet(file.path(odir, grep("gcmedsample", lf, value = TRUE)))
 #' expect_named(gcmed_s, c("input_id", "mean", "median"))
 #' expect_equal(nrow(gcmed_s), 1L)
 #' @export

@@ -15,11 +15,13 @@ options(stringsAsFactors = FALSE)
 
 paths <- list(
   both = list(
-    input = "~/s3/pipeline-prod-cache-503977275616-ap-southeast-2/byob-icav2/production/analysis/oncoanalyser-wgts-dna-rna/202605219ad374eb/L2600300__L2600299__L2600308/cuppa/L2600300.cuppa.vis_data.tsv",
+    # input = "~/s3/pipeline-prod-cache-503977275616-ap-southeast-2/byob-icav2/production/analysis/oncoanalyser-wgts-dna-rna/202605219ad374eb/L2600300__L2600299__L2600308/cuppa/L2600300.cuppa.vis_data.tsv",
+    input = "/Users/pdiakumis/Downloads/L2600153/both/byob-icav2_production_analysis_oncoanalyser-wgts-dna-rna_2026032311a0ebdf_L2600153__L2600152__L2600159_cuppa_L2600153.cuppa.vis_data.tsv",
     output = "nogit/outputs/cuppa_plot_both.pdf"
   ),
   dna = list(
-    input = "~/s3/pipeline-prod-cache-503977275616-ap-southeast-2/byob-icav2/production/analysis/oncoanalyser-wgts-dna/2026052108b8b71d/L2600300__L2600299/cuppa/L2600300.cuppa.vis_data.tsv",
+    # input = "~/s3/pipeline-prod-cache-503977275616-ap-southeast-2/byob-icav2/production/analysis/oncoanalyser-wgts-dna/2026052108b8b71d/L2600300__L2600299/cuppa/L2600300.cuppa.vis_data.tsv",
+    input = "/Users/pdiakumis/Downloads/L2600153/dna/byob-icav2_production_analysis_oncoanalyser-wgts-dna_2026032337e43024_L2600153__L2600152_cuppa_L2600153.cuppa.vis_data.tsv",
     output = "nogit/outputs/cuppa_plot_dna.pdf"
   )
 )
