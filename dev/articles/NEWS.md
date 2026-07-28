@@ -1,33 +1,6 @@
 # NEWS
 
-## dev
-
-- Move `dvc_download_file()` / `dvc_download_all()` functionality to
-  nemo ([pr204](https://github.com/tidywf/tidywigits/pull/204)).
-- Simplify version/qc handling
-  ([pr205](https://github.com/tidywf/tidywigits/pull/205))
-- Rename txt ftypes to tsv, add equal-keyvalue
-  ([pr206](https://github.com/tidywf/tidywigits/pull/206))
-- Linx/Purple: germline vs somatic outputs now get symmetric `_germline`
-  / `_somatic` prefixes via the `refine_files` hook (Linx also tags the
-  somatic side, scoped to parsers that actually have a germline
-  counterpart); relies on nemo running the hook before disambiguation
-- Sage: germline vs somatic outputs (which Sage separates by `germline/`
-  / `somatic/` subfolder rather than by basename) now get `_germline` /
-  `_somatic` prefixes via `refine_files`, keyed off the parent folder;
-  the variant is also injected into `bname` so repeat runs are numbered
-  independently per variant. The folder logic lives in a
-  `refine_by_variant_folder()` helper
-- Sage: gene-coverage file (`.sage.gene.coverage.tsv`) is now parsed by
-  Sage’s own `genecvg` table rather than the `bamtools` schema, so it is
-  tidied as `sage_genecvg` and picks up the germline/somatic tagging.
-  The genes/cvg split is shared with Bamtools via `tidy_genecvg_split()`
-- New `Output Naming` vignette, extending nemo’s shared template with
-  the Linx/Purple/Sage special cases
-- Panache format vignettes
-  ([pr207](https://github.com/tidywf/tidywigits/pull/207))
-
-## v0.1.0 (2026-06-22)
+## v0.1.0 (2026-07-28)
 
 Major refactor. GitHub org migrated from `umccr` to `tidywf`. All 19
 tool configs consolidated from dual `raw.yaml` + `tidy.yaml` files into
@@ -50,33 +23,65 @@ to use reusable workflows from `tidywf/actions`
   `schema.yaml`; initially introduced as LinkML
   ([pr174](https://github.com/tidywf/tidywigits/pull/174)) then
   simplified; old config files removed; parsing simplified across all
-  tools ([pr189](https://github.com/tidywf/tidywigits/pull/189))
+  tools ([pr189](https://github.com/tidywf/tidywigits/pull/189));
+  simplified version/qc handling
+  ([pr205](https://github.com/tidywf/tidywigits/pull/205)); renamed
+  `txt` ftypes to `tsv`, added `equal-keyvalue` ftype
+  ([pr206](https://github.com/tidywf/tidywigits/pull/206))
 - Flagstats: removed standalone class — covered by Bamtools
-- Bamtools: dropped histogram parser; genecoverage returned as single
-  table; handle `summary` + `wgsmetrics` subtables
+- Bamtools: dropped histogram parser; gene-coverage split into
+  `genecvggenes` + `genecvgcvg` tables via `tidy_genecvg_split()`
+  ([pr210](https://github.com/tidywf/tidywigits/pull/210)); handle
+  `summary` + `wgsmetrics` subtables
 - Cobalt: handle `sample` + `buckets` subtables
 - Alignments: dropped histogram rows from `markdup` parser
 - Linx: fixed germline file handling
   ([pr189](https://github.com/tidywf/tidywigits/pull/189)); added v1.25
-  test data
-- Sage: delegate genecoverage to Bamtools parser; added v3.4.4 test data
+  test data; germline vs somatic outputs now get symmetric `_germline` /
+  `_somatic` prefixes via the `refine_files` hook (also tags the somatic
+  side, scoped to parsers that actually have a germline counterpart);
+  relies on nemo running the hook before disambiguation
+  ([pr208](https://github.com/tidywf/tidywigits/pull/208))
+- Purple: germline vs somatic outputs now get symmetric `_germline` /
+  `_somatic` prefixes via the `refine_files` hook
+  ([pr208](https://github.com/tidywf/tidywigits/pull/208))
+- Sage: added v3.4.4 test data; germline vs somatic outputs (separated
+  by a `germline/` / `somatic/` subfolder rather than by basename) now
+  get `_germline` / `_somatic` prefixes via `refine_files`, keyed off
+  the parent folder, with the variant also injected into `bname` so
+  repeat runs are numbered independently per variant (logic in the
+  `refine_by_variant_folder()` helper); the gene-coverage file
+  (`.sage.gene.coverage.tsv`) is now parsed by Sage’s own `genecvg`
+  table rather than the `bamtools` schema, so it is tidied as
+  `sage_genecvg` and picks up the germline/somatic tagging, with the
+  genes/cvg split shared with Bamtools via `tidy_genecvg_split()`
+  ([pr208](https://github.com/tidywf/tidywigits/pull/208),
+  [pr210](https://github.com/tidywf/tidywigits/pull/210))
 - Cuppa: handle v1.4 `sampleId` column (fixes
   [iss172](https://github.com/tidywf/tidywigits/issues/172)); use `csv`
   ftype for datacsv; add plotter functions
   ([pr173](https://github.com/tidywf/tidywigits/pull/173)); predsum tidy
   schema fix ([pr179](https://github.com/tidywf/tidywigits/pull/179),
   [iss178](https://github.com/tidywf/tidywigits/issues/178))
-- DVC: switch from directory-level to per-file `.dvc` tracking; new
-  `dvc_download_file()` / `dvc_download_all()` helpers backed by public
-  Cloudflare R2 ([pr190](https://github.com/tidywf/tidywigits/pull/190),
-  [pr203](https://github.com/tidywf/tidywigits/pull/203))
+- DVC: switch from directory-level to per-file `.dvc` tracking, backed
+  by public Cloudflare R2
+  ([pr190](https://github.com/tidywf/tidywigits/pull/190),
+  [pr203](https://github.com/tidywf/tidywigits/pull/203));
+  `dvc_download_file()` / `dvc_download_all()` download helpers
+  subsequently moved to nemo
+  ([pr204](https://github.com/tidywf/tidywigits/pull/204))
 - Wigits: re-add Esvee; use `metapkg`; `WIGITS_TOOLS` changed from
   character vector to named list of R6 classes
   ([pr191](https://github.com/tidywf/tidywigits/pull/191))
 - Vignettes: add `quickstart`, `structure`, `schema_table`, `cicd`,
   `devnotes`; refactor `uml`; remove `schemas_raw` + `schemas_tidy`;
   consolidate installation fragments
-  ([pr193](https://github.com/tidywf/tidywigits/pull/193))
+  ([pr193](https://github.com/tidywf/tidywigits/pull/193)); add
+  `Output Naming` vignette extending nemo’s shared template with the
+  Linx/Purple/Sage special cases
+  ([pr208](https://github.com/tidywf/tidywigits/pull/208)); add Panache
+  format vignettes
+  ([pr207](https://github.com/tidywf/tidywigits/pull/207))
 - GHA: use reusable workflows for conda/docker/pkgdown
   ([pr181](https://github.com/tidywf/tidywigits/pull/181)); add
   version-bumping workflow
@@ -111,6 +116,8 @@ to use reusable workflows from `tidywf/actions`
 - `self$get_schema_*()` shortcuts removed from Tool; use
   `self$config$get_schema_*()` directly
 - Linx/Purple: germline/somatic prefix logic moved to `initialize()`
+  (later reworked into the `refine_files` hook,
+  [pr208](https://github.com/tidywf/tidywigits/pull/208))
 
 ### Contributors
 

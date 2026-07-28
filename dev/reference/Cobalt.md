@@ -97,9 +97,7 @@ id <- "cobalt_run1"
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = "cobalt_.*parquet", full.names = FALSE))
-#> [1] "sample1_cobalt_gcmed_buckets.parquet"
-#> [2] "sample1_cobalt_gcmed_sample.parquet" 
-#> [3] "sample1_cobalt_ratiomed.parquet"     
-#> [4] "sample1_cobalt_ratiopcf.parquet"     
-#> [5] "version_cobalt_version.parquet"      
+#> [1] "sample1_cobalt_gcmedbuckets.parquet" "sample1_cobalt_gcmedsample.parquet" 
+#> [3] "sample1_cobalt_ratiomed.parquet"     "sample1_cobalt_ratiopcf.parquet"    
+#> [5] "version_cobalt_version.parquet"     
 ```

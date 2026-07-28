@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9007</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,36 +82,25 @@
 
 
 
-    <section class="level2"><h2 id="dev">dev<a class="anchor" aria-label="anchor" href="#dev"></a>
-</h2>
-<ul>
-<li>Move <code>dvc_download_file()</code> / <code>dvc_download_all()</code> functionality to nemo (<a href="https://github.com/tidywf/tidywigits/pull/204" class="external-link">pr204</a>).</li>
-<li>Simplify version/qc handling (<a href="https://github.com/tidywf/tidywigits/pull/205" class="external-link">pr205</a>)</li>
-<li>Rename txt ftypes to tsv, add equal-keyvalue (<a href="https://github.com/tidywf/tidywigits/pull/206" class="external-link">pr206</a>)</li>
-<li>Linx/Purple: germline vs somatic outputs now get symmetric <code>_germline</code> / <code>_somatic</code> prefixes via the <code>refine_files</code> hook (Linx also tags the somatic side, scoped to parsers that actually have a germline counterpart); relies on nemo running the hook before disambiguation</li>
-<li>Sage: germline vs somatic outputs (which Sage separates by <code>germline/</code> / <code>somatic/</code> subfolder rather than by basename) now get <code>_germline</code> / <code>_somatic</code> prefixes via <code>refine_files</code>, keyed off the parent folder; the variant is also injected into <code>bname</code> so repeat runs are numbered independently per variant. The folder logic lives in a <code>refine_by_variant_folder()</code> helper</li>
-<li>Sage: gene-coverage file (<code>.sage.gene.coverage.tsv</code>) is now parsed by Sage’s own <code>genecvg</code> table rather than the <code>bamtools</code> schema, so it is tidied as <code>sage_genecvg</code> and picks up the germline/somatic tagging. The genes/cvg split is shared with Bamtools via <code>tidy_genecvg_split()</code>
-</li>
-<li>New <code>Output Naming</code> vignette, extending nemo’s shared template with the Linx/Purple/Sage special cases</li>
-<li>Panache format vignettes (<a href="https://github.com/tidywf/tidywigits/pull/207" class="external-link">pr207</a>)</li>
-</ul></section><section class="level2"><h2 id="v0-1-0-2026-06-22">v0.1.0 (2026-06-22)<a class="anchor" aria-label="anchor" href="#v0-1-0-2026-06-22"></a>
+    <section class="level2"><h2 id="v0-1-0-2026-07-28">v0.1.0 (2026-07-28)<a class="anchor" aria-label="anchor" href="#v0-1-0-2026-07-28"></a>
 </h2>
 <p>Major refactor. GitHub org migrated from <code>umccr</code> to <code>tidywf</code>. All 19 tool configs consolidated from dual <code>raw.yaml</code> + <code>tidy.yaml</code> files into a single <code>schema.yaml</code> per tool, with parsing simplified across the board (<a href="https://github.com/tidywf/tidywigits/pull/189" class="external-link">pr189</a>). The nemo API was updated (<code>nemofy</code>/<code>diro</code> → <code>run</code>/<code>output_dir</code>, <a href="https://github.com/tidywf/tidywigits/pull/200" class="external-link">pr200</a>). DVC switched to per-file tracking backed by a public Cloudflare R2 remote (<a href="https://github.com/tidywf/tidywigits/pull/190" class="external-link">pr190</a>, <a href="https://github.com/tidywf/tidywigits/pull/203" class="external-link">pr203</a>). Docker images now build for both <code>linux/amd64</code> and <code>linux/arm64</code> (<a href="https://github.com/tidywf/tidywigits/pull/198" class="external-link">pr198</a>). GHA refactored to use reusable workflows from <code>tidywf/actions</code> (<a href="https://github.com/tidywf/tidywigits/pull/181" class="external-link">pr181</a>).</p>
 <section class="level3"><h3 id="changes">Changes<a class="anchor" aria-label="anchor" href="#changes"></a>
 </h3>
 <ul>
 <li>GitHub org: <code>umccr</code> → <code>tidywf</code> (URLs, remotes, labels, conda recipe)</li>
-<li>Schema: all tools migrated from <code>raw.yaml</code> + <code>tidy.yaml</code> to a single <code>schema.yaml</code>; initially introduced as LinkML (<a href="https://github.com/tidywf/tidywigits/pull/174" class="external-link">pr174</a>) then simplified; old config files removed; parsing simplified across all tools (<a href="https://github.com/tidywf/tidywigits/pull/189" class="external-link">pr189</a>)</li>
+<li>Schema: all tools migrated from <code>raw.yaml</code> + <code>tidy.yaml</code> to a single <code>schema.yaml</code>; initially introduced as LinkML (<a href="https://github.com/tidywf/tidywigits/pull/174" class="external-link">pr174</a>) then simplified; old config files removed; parsing simplified across all tools (<a href="https://github.com/tidywf/tidywigits/pull/189" class="external-link">pr189</a>); simplified version/qc handling (<a href="https://github.com/tidywf/tidywigits/pull/205" class="external-link">pr205</a>); renamed <code>txt</code> ftypes to <code>tsv</code>, added <code>equal-keyvalue</code> ftype (<a href="https://github.com/tidywf/tidywigits/pull/206" class="external-link">pr206</a>)</li>
 <li>Flagstats: removed standalone class — covered by Bamtools</li>
-<li>Bamtools: dropped histogram parser; genecoverage returned as single table; handle <code>summary</code> + <code>wgsmetrics</code> subtables</li>
+<li>Bamtools: dropped histogram parser; gene-coverage split into <code>genecvggenes</code> + <code>genecvgcvg</code> tables via <code>tidy_genecvg_split()</code> (<a href="https://github.com/tidywf/tidywigits/pull/210" class="external-link">pr210</a>); handle <code>summary</code> + <code>wgsmetrics</code> subtables</li>
 <li>Cobalt: handle <code>sample</code> + <code>buckets</code> subtables</li>
 <li>Alignments: dropped histogram rows from <code>markdup</code> parser</li>
-<li>Linx: fixed germline file handling (<a href="https://github.com/tidywf/tidywigits/pull/189" class="external-link">pr189</a>); added v1.25 test data</li>
-<li>Sage: delegate genecoverage to Bamtools parser; added v3.4.4 test data</li>
+<li>Linx: fixed germline file handling (<a href="https://github.com/tidywf/tidywigits/pull/189" class="external-link">pr189</a>); added v1.25 test data; germline vs somatic outputs now get symmetric <code>_germline</code> / <code>_somatic</code> prefixes via the <code>refine_files</code> hook (also tags the somatic side, scoped to parsers that actually have a germline counterpart); relies on nemo running the hook before disambiguation (<a href="https://github.com/tidywf/tidywigits/pull/208" class="external-link">pr208</a>)</li>
+<li>Purple: germline vs somatic outputs now get symmetric <code>_germline</code> / <code>_somatic</code> prefixes via the <code>refine_files</code> hook (<a href="https://github.com/tidywf/tidywigits/pull/208" class="external-link">pr208</a>)</li>
+<li>Sage: added v3.4.4 test data; germline vs somatic outputs (separated by a <code>germline/</code> / <code>somatic/</code> subfolder rather than by basename) now get <code>_germline</code> / <code>_somatic</code> prefixes via <code>refine_files</code>, keyed off the parent folder, with the variant also injected into <code>bname</code> so repeat runs are numbered independently per variant (logic in the <code>refine_by_variant_folder()</code> helper); the gene-coverage file (<code>.sage.gene.coverage.tsv</code>) is now parsed by Sage’s own <code>genecvg</code> table rather than the <code>bamtools</code> schema, so it is tidied as <code>sage_genecvg</code> and picks up the germline/somatic tagging, with the genes/cvg split shared with Bamtools via <code>tidy_genecvg_split()</code> (<a href="https://github.com/tidywf/tidywigits/pull/208" class="external-link">pr208</a>, <a href="https://github.com/tidywf/tidywigits/pull/210" class="external-link">pr210</a>)</li>
 <li>Cuppa: handle v1.4 <code>sampleId</code> column (fixes <a href="https://github.com/tidywf/tidywigits/issues/172" class="external-link">iss172</a>); use <code>csv</code> ftype for datacsv; add plotter functions (<a href="https://github.com/tidywf/tidywigits/pull/173" class="external-link">pr173</a>); predsum tidy schema fix (<a href="https://github.com/tidywf/tidywigits/pull/179" class="external-link">pr179</a>, <a href="https://github.com/tidywf/tidywigits/issues/178" class="external-link">iss178</a>)</li>
-<li>DVC: switch from directory-level to per-file <code>.dvc</code> tracking; new <code>dvc_download_file()</code> / <code>dvc_download_all()</code> helpers backed by public Cloudflare R2 (<a href="https://github.com/tidywf/tidywigits/pull/190" class="external-link">pr190</a>, <a href="https://github.com/tidywf/tidywigits/pull/203" class="external-link">pr203</a>)</li>
+<li>DVC: switch from directory-level to per-file <code>.dvc</code> tracking, backed by public Cloudflare R2 (<a href="https://github.com/tidywf/tidywigits/pull/190" class="external-link">pr190</a>, <a href="https://github.com/tidywf/tidywigits/pull/203" class="external-link">pr203</a>); <code>dvc_download_file()</code> / <code>dvc_download_all()</code> download helpers subsequently moved to nemo (<a href="https://github.com/tidywf/tidywigits/pull/204" class="external-link">pr204</a>)</li>
 <li>Wigits: re-add Esvee; use <code>metapkg</code>; <code>WIGITS_TOOLS</code> changed from character vector to named list of R6 classes (<a href="https://github.com/tidywf/tidywigits/pull/191" class="external-link">pr191</a>)</li>
-<li>Vignettes: add <code>quickstart</code>, <code>structure</code>, <code>schema_table</code>, <code>cicd</code>, <code>devnotes</code>; refactor <code>uml</code>; remove <code>schemas_raw</code> + <code>schemas_tidy</code>; consolidate installation fragments (<a href="https://github.com/tidywf/tidywigits/pull/193" class="external-link">pr193</a>)</li>
+<li>Vignettes: add <code>quickstart</code>, <code>structure</code>, <code>schema_table</code>, <code>cicd</code>, <code>devnotes</code>; refactor <code>uml</code>; remove <code>schemas_raw</code> + <code>schemas_tidy</code>; consolidate installation fragments (<a href="https://github.com/tidywf/tidywigits/pull/193" class="external-link">pr193</a>); add <code>Output Naming</code> vignette extending nemo’s shared template with the Linx/Purple/Sage special cases (<a href="https://github.com/tidywf/tidywigits/pull/208" class="external-link">pr208</a>); add Panache format vignettes (<a href="https://github.com/tidywf/tidywigits/pull/207" class="external-link">pr207</a>)</li>
 <li>GHA: use reusable workflows for conda/docker/pkgdown (<a href="https://github.com/tidywf/tidywigits/pull/181" class="external-link">pr181</a>); add version-bumping workflow (<a href="https://github.com/tidywf/tidywigits/pull/183" class="external-link">pr183</a>, <a href="https://github.com/tidywf/tidywigits/pull/185" class="external-link">pr185</a>); fix permissions (<a href="https://github.com/tidywf/tidywigits/pull/182" class="external-link">pr182</a>); refactor deploy workflow (<a href="https://github.com/tidywf/tidywigits/pull/175" class="external-link">pr175</a>, <a href="https://github.com/tidywf/tidywigits/pull/176" class="external-link">pr176</a>); add multi-arch Docker support (<a href="https://github.com/tidywf/tidywigits/pull/198" class="external-link">pr198</a>)</li>
 <li>Move shiny and website to separate repos (<a href="https://github.com/tidywf/tidywigits/pull/171" class="external-link">pr171</a>)</li>
 <li>Pre-commit: replace <code>lorenzwalthert/precommit</code> with <code>posit-dev/air-pre-commit</code> (<code>air-format</code>); add <code>CLAUDE.md</code> + <code>new-tool</code> skill (<a href="https://github.com/tidywf/tidywigits/pull/180" class="external-link">pr180</a>)</li>
@@ -131,8 +120,7 @@
 <code>.parse_file*()</code>/<code>.tidy_file()</code> public dot methods moved to private in nemo</li>
 <li>
 <code>self$get_schema_*()</code> shortcuts removed from Tool; use <code>self$config$get_schema_*()</code> directly</li>
-<li>Linx/Purple: germline/somatic prefix logic moved to <code>initialize()</code>
-</li>
+<li>Linx/Purple: germline/somatic prefix logic moved to <code>initialize()</code> (later reworked into the <code>refine_files</code> hook, <a href="https://github.com/tidywf/tidywigits/pull/208" class="external-link">pr208</a>)</li>
 </ul></section><section class="level3"><h3 id="contributors">Contributors<a class="anchor" aria-label="anchor" href="#contributors"></a>
 </h3>
 <ul>
