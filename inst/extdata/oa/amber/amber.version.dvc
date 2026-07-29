@@ -1,0 +1,5 @@
+outs:
+- md5: ad243b6cf0380e09a293d555de4c3218
+  size: 39
+  hash: md5
+  path: amber.version
