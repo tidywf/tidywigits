@@ -8,36 +8,57 @@ tables:
         tidy: 'sampleid'
         type: 'char'
         description: 'sample ID'
-        versions: ['latest']
+        versions: ['v4.2']
       - raw: 'chrom'
         tidy: 'chrom'
         type: 'char'
         description: 'chromosome'
-        versions: ['latest']
+        versions: ['v4.2']
       - raw: 'arm'
         tidy: 'arm'
         type: 'char'
         description: 'chromosome arm'
-        versions: ['latest']
+        versions: ['v4.2']
       - raw: 'start.pos'
         tidy: 'start_pos'
         type: 'int'
         description: 'start position'
-        versions: ['latest']
+        versions: ['v4.2']
       - raw: 'end.pos'
         tidy: 'end_pos'
         type: 'int'
         description: 'end position'
-        versions: ['latest']
+        versions: ['v4.2']
       - raw: 'n.probes'
         tidy: 'n_probes'
         type: 'int'
         description: 'number of probes'
-        versions: ['latest']
+        versions: ['v4.2']
       - raw: 'mean'
         tidy: 'mean'
         type: 'float'
         description: 'mean BAF value'
+        versions: ['v4.2']
+      # latest (v3 oncoanalyser) layout
+      - raw: 'Chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['latest']
+      - raw: 'Start'
+        tidy: 'start'
+        type: 'int'
+        description: 'segment start position'
+        versions: ['latest']
+      - raw: 'End'
+        tidy: 'end'
+        type: 'int'
+        description: 'segment end position'
+        versions: ['latest']
+      - raw: 'MeanRatio'
+        tidy: 'mean_ratio'
+        type: 'float'
+        description: 'mean ratio value'
         versions: ['latest']
   contaminationtsv:
     description: 'Entry at each homozygous site in the reference and tumor.'
