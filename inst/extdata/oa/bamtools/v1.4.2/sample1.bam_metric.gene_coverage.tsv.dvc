@@ -1,5 +1,5 @@
 outs:
-- md5: 3fcbf577d3261adf4bb9d8777e81414f
-  size: 2522
+- md5: 630077c38754f6b6f64f8dac2bb859e8
+  size: 2554
   hash: md5
   path: sample1.bam_metric.gene_coverage.tsv
