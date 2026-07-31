@@ -3,20 +3,29 @@
 #' @description
 #' Bamtools file parsing and manipulation.
 #' @examples
-#' cls <- Bamtools
-#' indir <- system.file("extdata/oa", package = "tidywigits")
+#' cls <- Bamtools; tool <- "bamtools"
+#' indir <- system.file("extdata/oa", tool, package = "tidywigits")
 #' odir <- tempdir()
-#' id <- "bamtools_run1"
+#' id <- paste0(tool, "_run1")
 #' obj <- cls$new(indir)
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "bamtools_.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
-#' expect_equal(length(lf), 13)
-#' ss <- arrow::read_parquet(file.path(odir, grep("summarystats", lf, value = TRUE)))
+#' expect_equal(length(lf), 18)
+#' ssf <- grep("_bamtools_summarystats", lf, value = TRUE)
+#' ss <- arrow::read_parquet(file.path(odir, ssf[!grepl("_2_", ssf)][1]))
 #' expect_named(ss, c("input_id", "tot_region_bases", "tot_reads", "dup_reads", "dual_strand_reads",
-#'   "cov_mean", "cov_sd", "cov_median", "cov_mad", "lowmapq_pct", "dup_pct", "unpaired_pct",
-#'   "lowbaseq_pct", "overlap_read_pct", "cov_capped"))
+#'   "off_target_reads", "cov_mean", "cov_sd", "cov_median", "cov_mad", "lowmapq_pct", "dup_pct",
+#'   "unmapped_pct", "lowbaseq_pct", "overlap_read_pct", "cov_capped"))
 #' expect_equal(nrow(ss), 1L)
+#' ss_old <- arrow::read_parquet(file.path(odir, grep("_2_bamtools_summarystats", lf, value = TRUE)))
+#' expect_true("unpaired_pct" %in% names(ss_old))
+#' expect_false("off_target_reads" %in% names(ss_old))
+#' # latest exon_coverage splits into per-exon stats + long perc-above-depth
+#' exons <- arrow::read_parquet(file.path(odir, grep("_bamtools_exoncvgexons", lf, value = TRUE)[1]))
+#' expect_named(exons, c("input_id", "gene", "chrom", "start", "end", "exon", "dp_med", "dp_mean"))
+#' perc <- arrow::read_parquet(file.path(odir, grep("_bamtools_exoncvgperc", lf, value = TRUE)[1]))
+#' expect_named(perc, c("input_id", "gene", "exon", "dp", "value"))
 #' genes <- arrow::read_parquet(file.path(odir, grep("genecvggenes", lf, value = TRUE)[1]))
 #' expect_named(genes, c("input_id", "gene", "chrom", "pos_start", "pos_end", "missed_var_likelihood"))
 #' cvg <- arrow::read_parquet(file.path(odir, grep("genecvgcvg", lf, value = TRUE)[1]))
@@ -74,8 +83,8 @@ Bamtools <- R6::R6Class(
     #' Path to file.
     parse_wgsmetrics = function(x) {
       # handle two different sections
-      # schema unlikely to change, use latest
-      schema <- self$config$get_schema_raw("wgsmetrics", version = "latest") |>
+      # wgsmetrics dropped in oncoanalyser v3; only exists at v1.4.2
+      schema <- self$config$get_schema_raw("wgsmetrics", version = "v1.4.2") |>
         dplyr::select("field", "type")
       hdr1 <- nemo::file_hdr(x, comment = "#")
       if (!identical(hdr1, schema[["field"]])) {
@@ -229,6 +238,32 @@ Bamtools <- R6::R6Class(
     #' Path to file.
     tidy_genecvg = function(x) {
       tidy_genecvg_split(private$tidy_file(x, "genecvg"))
+    },
+    #' @description Tidy `exon_coverage.tsv` file. Generates 2 sub-tbls:
+    #' _exons_ with per-exon depth stats and _perc_ with the long-format
+    #' percentage of bases above each depth threshold.
+    #' @param x (`character(1)`)\cr
+    #' Path to file.
+    tidy_exoncvg = function(x) {
+      d <- private$tidy_file(x, "exoncvg") |>
+        dplyr::select("data")
+      version <- nemo::get_tbl_version_attr(d[["data"]][[1]])
+      d <- d |> tidyr::unnest("data")
+      exons <- d |>
+        dplyr::select(!dplyr::starts_with("perc_above_dp_")) |>
+        nemo::set_tbl_version_attr(version)
+      perc <- d |>
+        tidyr::pivot_longer(
+          dplyr::starts_with("perc_above_dp_"),
+          names_to = "dp",
+          values_to = "value",
+          names_prefix = "perc_above_dp_"
+        ) |>
+        dplyr::mutate(dp = as.numeric(.data$dp)) |>
+        dplyr::select("gene", "exon", "dp", "value") |>
+        nemo::set_tbl_version_attr(version)
+      list(exons = exons, perc = perc) |>
+        nemo::nemo_enframe()
     }
   )
 )
