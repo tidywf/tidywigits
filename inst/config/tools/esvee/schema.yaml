@@ -93,61 +93,66 @@ tables:
         tidy: 'chrom'
         type: 'char'
         description: 'chromosome'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'Position'
         tidy: 'position'
         type: 'float'
         description: 'position'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'Orientation'
         tidy: 'orientation'
         type: 'float'
         description: 'orientation'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'JunctionFrags'
         tidy: 'junc_frags'
         type: 'float'
         description: 'junction fragments'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'ExactSupportFrags'
         tidy: 'exact_support_frags'
         type: 'float'
         description: 'exact support fragments'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'OtherSupportFrags'
         tidy: 'other_support_frags'
         type: 'float'
         description: 'other support fragments'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'LowMapQualFrags'
         tidy: 'low_map_qual_frags'
         type: 'float'
         description: 'low mapping quality fragments'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'MaxQual'
         tidy: 'max_qual'
         type: 'float'
         description: 'maximum quality'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'ExtraInfo'
         tidy: 'extra_info'
         type: 'float'
         description: 'extra info'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'Indel'
         tidy: 'indel'
         type: 'char'
         description: 'indel flag'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'Hotspot'
         tidy: 'hotspot'
         type: 'char'
         description: 'hotspot flag'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'InitialReadId'
         tidy: 'initial_read_id'
         type: 'char'
         description: 'initial read ID'
+        versions: ['v1.0', 'latest']
+      - raw: 'Depth'
+        tidy: 'depth'
+        type: 'float'
+        description: 'depth'
         versions: ['latest']
   assemblephased:
     description: 'Phased assemblies.'
@@ -353,212 +358,222 @@ tables:
         tidy: 'id'
         type: 'char'
         description: 'ID'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'PhaseGroupId'
         tidy: 'phase_group_id'
         type: 'char'
         description: 'phase group ID'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'PhaseSetId'
         tidy: 'phase_set_id'
         type: 'char'
         description: 'phase set ID'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'AssemblyId'
         tidy: 'assembly_id'
         type: 'char'
         description: 'assembly ID'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'MateId'
         tidy: 'mate_id'
         type: 'char'
         description: 'mate ID'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'AssemblyInfo'
         tidy: 'assembly_info'
         type: 'char'
         description: 'assembly info'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'Type'
         tidy: 'type'
         type: 'char'
         description: 'type'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'Chromosome'
         tidy: 'chrom'
         type: 'char'
         description: 'chromosome'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'Position'
         tidy: 'position'
         type: 'float'
         description: 'position'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'Orientation'
         tidy: 'orientation'
         type: 'float'
         description: 'orientation'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'MateChr'
         tidy: 'mate_chr'
         type: 'char'
         description: 'mate chromosome'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'MatePos'
         tidy: 'mate_pos'
         type: 'float'
         description: 'mate position'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'MateOrient'
         tidy: 'mate_orient'
         type: 'float'
         description: 'mate orientation'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'Length'
         tidy: 'length'
         type: 'float'
         description: 'length'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'InsertedBases'
         tidy: 'inserted_bases'
         type: 'char'
         description: 'inserted bases'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'Homology'
         tidy: 'homology'
         type: 'char'
         description: 'homology'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'ConfidenceInterval'
         tidy: 'confidence_interval'
         type: 'char'
         description: 'confidence interval'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'InexactOffset'
         tidy: 'inexact_offset'
         type: 'char'
         description: 'inexact offset'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'Qual'
         tidy: 'qual'
         type: 'float'
         description: 'quality'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'SplitFragments'
         tidy: 'split_fragments'
         type: 'float'
         description: 'split fragments'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'RefSplitFragments'
         tidy: 'ref_split_fragments'
         type: 'float'
         description: 'reference split fragments'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'DiscFragments'
         tidy: 'disc_fragments'
         type: 'float'
         description: 'discordant fragments'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'RefDiscFragments'
         tidy: 'ref_disc_fragments'
         type: 'float'
         description: 'reference discordant fragments'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'ForwardReads'
         tidy: 'forward_reads'
         type: 'float'
         description: 'forward reads'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'ReverseReads'
         tidy: 'reverse_reads'
         type: 'float'
         description: 'reverse reads'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'SequenceLength'
         tidy: 'sequence_length'
         type: 'float'
         description: 'sequence length'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'SegmentCount'
         tidy: 'segment_count'
         type: 'float'
         description: 'segment count'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'SegmentIndex'
         tidy: 'segment_index'
         type: 'float'
         description: 'segment index'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'SequenceIndex'
         tidy: 'sequence_index'
         type: 'float'
         description: 'sequence index'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'AlignedBases'
         tidy: 'aligned_bases'
         type: 'float'
         description: 'aligned bases'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'MapQual'
         tidy: 'map_qual'
         type: 'float'
         description: 'mapping quality'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'Score'
         tidy: 'score'
         type: 'float'
         description: 'score'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'AdjAlignedBases'
         tidy: 'adj_aligned_bases'
         type: 'float'
         description: 'adjusted aligned bases'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'AvgFragmentLength'
         tidy: 'avg_fragment_length'
         type: 'float'
         description: 'average fragment length'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'IncompleteFragments'
         tidy: 'incomplete_fragments'
         type: 'float'
         description: 'incomplete fragments'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'BreakendQual'
         tidy: 'breakend_qual'
         type: 'float'
         description: 'breakend quality'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'FacingBreakendIds'
         tidy: 'facing_breakend_ids'
         type: 'char'
         description: 'facing breakend IDs'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'AltAlignments'
         tidy: 'alt_alignments'
         type: 'char'
         description: 'alternative alignments'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'InsertionType'
         tidy: 'insertion_type'
         type: 'char'
         description: 'insertion type'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'UniqueFragPos'
         tidy: 'unique_frag_pos'
         type: 'float'
         description: 'unique fragment positions'
+        versions: ['v1.0', 'latest']
+      - raw: 'StrandBias'
+        tidy: 'strand_bias'
+        type: 'char'
+        description: 'strand bias (start;end)'
+        versions: ['latest']
+      - raw: 'ThreePrimeRange'
+        tidy: 'three_prime_range'
+        type: 'char'
+        description: 'three prime range (start;end)'
         versions: ['latest']
       - raw: 'ClosestAssembly'
         tidy: 'closest_assembly'
         type: 'char'
         description: 'closest assembly'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
       - raw: 'NonPrimaryFragments'
         tidy: 'non_primary_frags'
         type: 'float'
         description: 'non-primary fragments'
-        versions: ['latest']
+        versions: ['v1.0', 'latest']
   assemblealignment:
     description: 'Realigned assemblies.'
     pattern: "\\.esvee\\.alignment\\.tsv$"
