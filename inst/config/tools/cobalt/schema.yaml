@@ -43,37 +43,37 @@ tables:
         tidy: 'sample_id'
         type: 'char'
         description: 'sample ID'
-        versions: ['2.0']
+        versions: ['v2.0']
       - raw: 'chrom'
         tidy: 'chrom'
         type: 'char'
         description: 'chromosome'
-        versions: ['2.0']
+        versions: ['v2.0']
       - raw: 'arm'
         tidy: 'arm'
         type: 'char'
         description: 'chromosome arm'
-        versions: ['2.0']
+        versions: ['v2.0']
       - raw: 'start.pos'
         tidy: 'start'
         type: 'float'
         description: 'start position'
-        versions: ['2.0']
+        versions: ['v2.0']
       - raw: 'end.pos'
         tidy: 'end'
         type: 'float'
         description: 'end position'
-        versions: ['2.0']
+        versions: ['v2.0']
       - raw: 'n.probes'
         tidy: 'n_probes'
         type: 'int'
         description: 'number of probes'
-        versions: ['2.0']
+        versions: ['v2.0']
       - raw: 'mean'
         tidy: 'mean'
         type: 'float'
         description: 'mean'
-        versions: ['2.0']
+        versions: ['v2.0']
       - raw: 'Chromosome'
         tidy: 'chrom'
         type: 'char'
