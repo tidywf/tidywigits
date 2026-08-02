@@ -1,0 +1,5 @@
+outs:
+- md5: 07f91de0a5aedcea81c3079825e95d38
+  size: 2762
+  hash: md5
+  path: sample1.linx.germline.disruption.tsv

@@ -1,5 +1,5 @@
 outs:
-- md5: 8af584962fd93214f3ea060cb9229569
-  size: 1224
+- md5: c2e787838767cde3a8d22edb17031479
+  size: 670
   hash: md5
   path: sample1.linx.driver.catalog.tsv
