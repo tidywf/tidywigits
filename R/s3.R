@@ -117,6 +117,8 @@ s3sync <- function(src, dest, pats = NULL) {
     "in"  , "*sage*/*.sage.gene.coverage.tsv"                ,
     "in"  , "*sigs/*.sig.allocation.tsv"                     ,
     "in"  , "*sigs/*.sig.snv_counts.csv"                     ,
+    "in"  , "*qsee/*.qsee.status.tsv.gz"                     ,
+    "in"  , "*qsee/*.qsee.vis.data.tsv.gz"                   ,
     "in"  , "*teal/*.teal.breakend.tsv.gz"                   ,
     "in"  , "*teal/*.teal.tellength.tsv"                     ,
     "in"  , "*virusbreakend/*.virusbreakend.vcf.summary.tsv" ,
