@@ -1,0 +1,5 @@
+outs:
+- md5: 0c3959b1e19361008b8493e9db81a9c7
+  size: 1875
+  hash: md5
+  path: sample1.neo.peptide_scores.tsv
