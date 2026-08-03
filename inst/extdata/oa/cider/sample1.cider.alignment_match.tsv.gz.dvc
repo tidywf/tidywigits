@@ -1,0 +1,5 @@
+outs:
+- md5: 9c1ca4350c1ec906ccd4a6c2361e2dd2
+  size: 569
+  hash: md5
+  path: sample1.cider.alignment_match.tsv.gz

@@ -37,6 +37,7 @@ s3sync <- function(src, dest, pats = NULL) {
     "in"  , "*chord/*prediction*"                            ,
     "in"  , "*chord/*signatures*"                            ,
     "in"  , "*cider/*.cider.blastn_match.tsv.gz"             ,
+    "in"  , "*cider/*.cider.alignment_match.tsv.gz"          ,
     "in"  , "*cider/*.cider.locus_stats.tsv"                 ,
     "in"  , "*cider/*.cider.vdj.tsv.gz"                      ,
     "in"  , "*cobalt/cobalt.version"                         ,
