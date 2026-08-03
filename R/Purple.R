@@ -3,15 +3,15 @@
 #' @description
 #' Purple file parsing and manipulation.
 #' @examples
-#' cls <- Purple
-#' indir <- system.file("extdata/oa", package = "tidywigits")
+#' cls <- Purple; tool <- "purple"
+#' indir <- system.file("extdata/oa", tool, package = "tidywigits")
 #' odir <- tempdir()
-#' id <- "purple_run1"
+#' id <- paste0(tool, "_run1")
 #' obj <- cls$new(indir)
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "purple_.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
-#' expect_equal(length(lf), 14)
+#' expect_equal(length(lf), 19)
 #' pur <- arrow::read_parquet(file.path(odir, grep("^sample1_purple_puritytsv", lf, value = TRUE)))
 #' expect_named(pur, c("input_id", "purity", "norm_factor", "fit_score", "diploid_proportion",
 #'   "ploidy", "gender", "status", "polyclonal_proportion", "purity_min", "purity_max",
@@ -25,6 +25,18 @@
 #'   "germline_aberrations", "mean_depth_amber", "loh_percent", "tinc_level",
 #'   "chimerism_percent"))
 #' expect_equal(nrow(qc), 1L)
+#' cnvs <- lapply(grep("purple_cnvgenetsv", lf, value = TRUE),
+#'   function(f) names(arrow::read_parquet(file.path(odir, f))))
+#' expect_equal(length(cnvs), 3)
+#' expect_true(any(vapply(cnvs, function(n) "driver_type" %in% n, logical(1))))
+#' expect_true(any(vapply(cnvs, function(n) !("gc_content" %in% n), logical(1))))
+#' gad <- arrow::read_parquet(file.path(odir, grep("purple_germampdel", lf, value = TRUE)))
+#' expect_true(all(c("transcript", "is_partial", "reported_status") %in% names(gad)))
+#' car <- arrow::read_parquet(file.path(odir, grep("purple_chromarm", lf, value = TRUE)))
+#' expect_named(car, c("input_id", "chrom", "arm", "cn_mean", "cn_median", "cn_min", "cn_max"))
+#' dcs <- lapply(grep("germline_purple_drivercatalog|germline_2_purple_drivercatalog", lf, value = TRUE),
+#'   function(f) names(arrow::read_parquet(file.path(odir, f))))
+#' expect_true(any(vapply(dcs, function(n) "reported_status" %in% n, logical(1))))
 #' @export
 Purple <- R6::R6Class(
   "Purple",
