@@ -92,6 +92,8 @@ s3sync <- function(src, dest, pats = NULL) {
     "in"  , "*linx/*.linx.vis_sv_data.tsv"                   ,
     "in"  , "*neo/*.neo.neo_data.tsv"                        ,
     "in"  , "*neo/*.neo.neoepitope.tsv"                      ,
+    "in"  , "*neo/*.neo.peptide_scores.tsv"                  ,
+    "in"  , "*neo/*.isf.neoepitope.tsv"                      ,
     "in"  , "*peach/*.peach.events.tsv"                      ,
     "in"  , "*peach/*.peach.gene.events.tsv"                 ,
     "in"  , "*peach/*.peach.haplotypes.all.tsv"              ,

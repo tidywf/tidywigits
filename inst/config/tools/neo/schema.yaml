@@ -344,3 +344,138 @@ tables:
         type: 'float'
         description: 'Subclonal likelihood of variant (for point mutations only)'
         versions: ['latest']
+  scores:
+    description: 'Neoepitope peptide binding scores.'
+    pattern: "\\.neo\\.peptide_scores\\.tsv$"
+    ftype: 'tsv'
+    columns:
+      - raw: 'NeIds'
+        tidy: 'ne_ids'
+        type: 'int'
+        description: 'Unique ID(s) for neoepitope'
+        versions: ['latest']
+      - raw: 'VariantType'
+        tidy: 'variant_type'
+        type: 'char'
+        description: 'MISSENSE, INFRAME, OUT_OF_FRAME_FUSION, INFRAME_FUSION, FRAMESHIFT'
+        versions: ['latest']
+      - raw: 'VariantInfo'
+        tidy: 'variant_info'
+        type: 'char'
+        description: 'Unique identifier for variant'
+        versions: ['latest']
+      - raw: 'Gene'
+        tidy: 'gene'
+        type: 'char'
+        description: 'Gene name or fusion name for fusions'
+        versions: ['latest']
+      - raw: 'Allele'
+        tidy: 'allele'
+        type: 'char'
+        description: 'HLA allele'
+        versions: ['latest']
+      - raw: 'Peptide'
+        tidy: 'peptide'
+        type: 'char'
+        description: 'Novel peptide sequence'
+        versions: ['latest']
+      - raw: 'FlankUp'
+        tidy: 'flank_up'
+        type: 'char'
+        description: 'Upstream flanking AA sequence'
+        versions: ['latest']
+      - raw: 'FlankDown'
+        tidy: 'flank_down'
+        type: 'char'
+        description: 'Downstream flanking AA sequence'
+        versions: ['latest']
+      - raw: 'Score'
+        tidy: 'score'
+        type: 'float'
+        description: 'Peptide binding score'
+        versions: ['latest']
+      - raw: 'Rank'
+        tidy: 'rank'
+        type: 'float'
+        description: 'Peptide binding rank'
+        versions: ['latest']
+      - raw: 'Likelihood'
+        tidy: 'likelihood'
+        type: 'float'
+        description: 'Binding likelihood'
+        versions: ['latest']
+      - raw: 'LikelihoodRank'
+        tidy: 'likelihood_rank'
+        type: 'float'
+        description: 'Binding likelihood rank'
+        versions: ['latest']
+      - raw: 'ExpLikelihood'
+        tidy: 'exp_likelihood'
+        type: 'float'
+        description: 'Expression-weighted binding likelihood'
+        versions: ['latest']
+      - raw: 'ExpLikelihoodRank'
+        tidy: 'exp_likelihood_rank'
+        type: 'float'
+        description: 'Expression-weighted binding likelihood rank'
+        versions: ['latest']
+      - raw: 'EffectiveTpm'
+        tidy: 'tpm_effective'
+        type: 'float'
+        description: 'Combined TPM estimate from direct fragment count and transcript expression'
+        versions: ['latest']
+      - raw: 'RecogSim'
+        tidy: 'recog_sim'
+        type: 'float'
+        description: 'Recognition similarity for the allele'
+        versions: ['latest']
+      - raw: 'OtherAlleleRecogSim'
+        tidy: 'other_allele_recog_sim'
+        type: 'float'
+        description: 'Recognition similarity for the other allele'
+        versions: ['latest']
+      - raw: 'AlleleCN'
+        tidy: 'allele_cn'
+        type: 'float'
+        description: 'HLA allele copy number'
+        versions: ['latest']
+      - raw: 'AlleleDisrupted'
+        tidy: 'allele_disrupted'
+        type: 'char'
+        description: 'Whether the HLA allele is disrupted'
+        versions: ['latest']
+  isofusions:
+    description: 'Isofox-annotated fusion neoepitopes.'
+    pattern: "\\.isf\\.neoepitope\\.tsv$"
+    ftype: 'tsv'
+    columns:
+      - raw: 'NeId'
+        tidy: 'ne_id'
+        type: 'int'
+        description: 'Unique ID for neoepitope'
+        versions: ['latest']
+      - raw: 'VariantType'
+        tidy: 'variant_type'
+        type: 'char'
+        description: 'MISSENSE, INFRAME, OUT_OF_FRAME_FUSION, INFRAME_FUSION, FRAMESHIFT'
+        versions: ['latest']
+      - raw: 'VariantInfo'
+        tidy: 'variant_info'
+        type: 'char'
+        description: 'Unique identifier for variant'
+        versions: ['latest']
+      - raw: 'FragmentCount'
+        tidy: 'fragment_count'
+        type: 'int'
+        description: 'RNA fragments supporting the fusion neoepitope'
+        versions: ['latest']
+      - raw: 'BaseDepthUp'
+        tidy: 'base_depth_up'
+        type: 'int'
+        description: 'RNA base depth at the upstream breakend'
+        versions: ['latest']
+      - raw: 'BaseDepthDown'
+        tidy: 'base_depth_down'
+        type: 'int'
+        description: 'RNA base depth at the downstream breakend'
+        versions: ['latest']
