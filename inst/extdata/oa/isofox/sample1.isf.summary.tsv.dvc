@@ -1,0 +1,5 @@
+outs:
+- md5: f30c5b85a0d8ab13db0538d9a6df0de3
+  size: 363
+  hash: md5
+  path: sample1.isf.summary.tsv
