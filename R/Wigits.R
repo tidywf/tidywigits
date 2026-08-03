@@ -62,6 +62,7 @@ WIGITS_TOOLS <- list(
   neo = Neo,
   peach = Peach,
   purple = Purple,
+  qsee = Qsee,
   sage = Sage,
   sigs = Sigs,
   teal = Teal,
