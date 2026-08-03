@@ -9,3 +9,5 @@
 /sample1.purple.qc
 /sample1.purple.somatic.clonality.tsv
 /sample1.purple.somatic.hist.tsv
+/sample1.purple.germline_amp_del.tsv
+/sample1.purple.chromosome_arm.tsv

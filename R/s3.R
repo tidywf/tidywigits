@@ -104,6 +104,8 @@ s3sync <- function(src, dest, pats = NULL) {
     "in"  , "*purple/*.purple.driver.catalog.germline.tsv"   ,
     "in"  , "*purple/*.purple.driver.catalog.somatic.tsv"    ,
     "in"  , "*purple/*.purple.germline.deletion.tsv"         ,
+    "in"  , "*purple/*.purple.germline_amp_del.tsv"          ,
+    "in"  , "*purple/*.purple.chromosome_arm.tsv"            ,
     "in"  , "*purple/*.purple.purity.range.tsv"              ,
     "in"  , "*purple/*.purple.purity.tsv"                    ,
     "in"  , "*purple/*.purple.qc"                            ,
