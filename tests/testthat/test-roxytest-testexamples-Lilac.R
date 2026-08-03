@@ -2,25 +2,28 @@
 
 # File R/Lilac.R: @testexamples
 
-test_that("Function Lilac() @ L26", {
+test_that("Function Lilac() @ L29", {
   
-  cls <- Lilac
-  indir <- system.file("extdata/oa", package = "tidywigits")
+  cls <- Lilac; tool <- "lilac"
+  indir <- system.file("extdata/oa", tool, package = "tidywigits")
   odir <- tempdir()
-  id <- "lilac_run1"
+  id <- paste0(tool, "_run1")
   obj <- cls$new(indir)
   obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "lilac_.*parquet", full.names = FALSE))
-  expect_equal(length(lf), 2)
-  qc <- arrow::read_parquet(file.path(odir, grep("lilac_qc", lf, value = TRUE)))
-  expect_named(qc, c("input_id", "status", "score_margin", "next_solution_alleles",
-    "median_base_quality", "hla_y_allele", "discarded_indels", "discarded_indel_max_frags",
-    "discarded_alignment_fragments", "a_low_coverage_bases", "b_low_coverage_bases",
-    "c_low_coverage_bases", "a_types", "b_types", "c_types", "total_fragments",
-    "fitted_fragments", "unmatched_fragments", "uninformative_fragments", "hla_y_fragments",
-    "percent_unique", "percent_shared", "percent_wildcard", "unused_amino_acids",
-    "unused_amino_acid_max_frags", "unused_haplotypes", "unused_haplotype_max_frags",
-    "somatic_variants_matched", "somatic_variants_unmatched"))
-  expect_equal(nrow(qc), 1L)
+  expect_equal(length(lf), 4)
+  qcs <- lapply(grep("lilac_qc", lf, value = TRUE),
+    function(f) names(arrow::read_parquet(file.path(odir, f))))
+  qc_new <- Filter(function(n) "low_coverage_bases" %in% n, qcs)[[1]]
+  qc_old <- Filter(function(n) "a_low_coverage_bases" %in% n, qcs)[[1]]
+  expect_true(all(c("genes", "low_coverage_bases", "gene_types") %in% qc_new))
+  expect_false(any(c("a_low_coverage_bases", "a_types") %in% qc_new))
+  expect_true(all(c("a_low_coverage_bases", "b_low_coverage_bases", "c_low_coverage_bases",
+    "a_types", "b_types", "c_types") %in% qc_old))
+  expect_false(any(c("genes", "low_coverage_bases", "gene_types") %in% qc_old))
+  sms <- lapply(grep("lilac_summary", lf, value = TRUE),
+    function(f) names(arrow::read_parquet(file.path(odir, f))))
+  expect_true(any(vapply(sms, function(n) "genes" %in% n, logical(1))))
+  expect_true(any(vapply(sms, function(n) !("genes" %in% n), logical(1))))
 })
 
