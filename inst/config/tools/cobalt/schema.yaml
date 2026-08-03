@@ -43,36 +43,56 @@ tables:
         tidy: 'sample_id'
         type: 'char'
         description: 'sample ID'
-        versions: ['latest']
+        versions: ['v2.0']
       - raw: 'chrom'
         tidy: 'chrom'
         type: 'char'
         description: 'chromosome'
-        versions: ['latest']
+        versions: ['v2.0']
       - raw: 'arm'
         tidy: 'arm'
         type: 'char'
         description: 'chromosome arm'
-        versions: ['latest']
+        versions: ['v2.0']
       - raw: 'start.pos'
-        tidy: 'start_pos'
+        tidy: 'start'
         type: 'float'
         description: 'start position'
-        versions: ['latest']
+        versions: ['v2.0']
       - raw: 'end.pos'
-        tidy: 'end_pos'
+        tidy: 'end'
         type: 'float'
         description: 'end position'
-        versions: ['latest']
+        versions: ['v2.0']
       - raw: 'n.probes'
         tidy: 'n_probes'
         type: 'int'
         description: 'number of probes'
-        versions: ['latest']
+        versions: ['v2.0']
       - raw: 'mean'
         tidy: 'mean'
         type: 'float'
         description: 'mean'
+        versions: ['v2.0']
+      - raw: 'Chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['latest']
+      - raw: 'Start'
+        tidy: 'start'
+        type: 'int'
+        description: 'start position'
+        versions: ['latest']
+      - raw: 'End'
+        tidy: 'end'
+        type: 'int'
+        description: 'end position'
+        versions: ['latest']
+      - raw: 'MeanRatio'
+        tidy: 'mean'
+        type: 'float'
+        description: 'mean ratio'
         versions: ['latest']
   version:
     description: 'Version of the tool.'
