@@ -27,6 +27,7 @@ s3sync <- function(src, dest, pats = NULL) {
     "in"  , "*bamtools/*.wgsmetrics"                         ,
     "in"  , "*bamtools/*.bam_metric.coverage.tsv"            ,
     "in"  , "*bamtools/*.bam_metric.exon_medians.tsv"        ,
+    "in"  , "*bamtools/*.bam_metric.exon_coverage.tsv"       ,
     "in"  , "*bamtools/*.bam_metric.flag_counts.tsv"         ,
     "in"  , "*bamtools/*.bam_metric.frag_length.tsv"         ,
     "in"  , "*bamtools/*.bam_metric.gene_coverage.tsv"       ,
