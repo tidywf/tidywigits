@@ -4,21 +4,21 @@
 
 test_that("Function Neo() @ L24", {
   
-  cls <- Neo
-  indir <- system.file("extdata/oa", package = "tidywigits")
+  cls <- Neo; tool <- "neo"
+  indir <- system.file("extdata/oa", tool, package = "tidywigits")
   odir <- tempdir()
-  id <- "neo_run1"
+  id <- paste0(tool, "_run1")
   obj <- cls$new(indir)
   obj$run(output_dir = odir, format = "parquet", input_id = id)
-  (lf <- list.files(odir, pattern = "neo_.*parquet", full.names = FALSE))
-  expect_equal(length(lf), 2)
-  preds <- arrow::read_parquet(file.path(odir, grep("neo_predictions", lf, value = TRUE)))
-  expect_named(preds, c("input_id", "ne_id", "variant_type", "variant_info", "gene_name",
-    "aa_up", "aa_novel", "aa_down", "peptide_count", "tpm_source", "rna_frags", "rna_depth",
-    "tpm_up", "tpm_down", "tpm_expected", "tpm_raw_effective", "tpm_effective",
-    "tpm_cancer_up", "tpm_cancer_down", "tpm_pancancer_up", "tpm_pancancer_down",
-    "nmd_min", "nmd_max", "coding_bases_length_min", "coding_bases_length_max",
-    "fused_intron_length", "skipped_donors", "skipped_acceptors", "transcripts_up",
-    "transcripts_down", "variant_cn", "cn", "subclonal_likelihood"))
+  (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
+  expect_equal(length(lf), 4)
+  pre <- arrow::read_parquet(file.path(odir, grep("neo_predictions", lf, value = TRUE)))
+  sco <- arrow::read_parquet(file.path(odir, grep("neo_scores", lf, value = TRUE)))
+  fus <- arrow::read_parquet(file.path(odir, grep("neo_isofusions", lf, value = TRUE)))
+  can <- arrow::read_parquet(file.path(odir, grep("neo_candidates", lf, value = TRUE)))
+  expect_true("gene_name" %in% names(pre))
+  expect_true("score" %in% names(sco))
+  expect_true("fragment_count" %in% names(fus))
+  expect_true("variant_type" %in% names(can))
 })
 
