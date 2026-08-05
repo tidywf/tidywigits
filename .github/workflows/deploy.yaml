@@ -2,55 +2,49 @@ name: conda-docker-docs
 
 on:
   push:
-    branches:
-      - main
-      - dev
+    tags:
+      - "v*"
 
 jobs:
-  version:
-    name: 📋 Get version
-    if: "startsWith(github.event.head_commit.message, 'Bump version:')"
-    uses: tidywf/actions/.github/workflows/version.yaml@main
+  prep:
+    name: 📋 Version
+    runs-on: ubuntu-latest
+    outputs:
+      pkg_version: ${{ steps.v.outputs.pkg_version }}
+    steps:
+      - id: v
+        run: echo "pkg_version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
 
   condarise:
     name: 🐍 Condarise
-    needs: [version]
+    needs: [prep]
     uses: tidywf/actions/.github/workflows/condarise.yaml@main
     permissions:
       contents: write
     with:
       pkg_name: tidywigits
-      pkg_version: ${{ needs.version.outputs.pkg_version }}
-    secrets: inherit
-
-  tag:
-    name: 🔖 Tag
-    needs: [condarise, version]
-    uses: tidywf/actions/.github/workflows/tag.yaml@main
-    permissions:
-      contents: write
-    with:
-      pkg_version: ${{ needs.version.outputs.pkg_version }}
+      pkg_version: ${{ needs.prep.outputs.pkg_version }}
     secrets: inherit
 
   dockerise:
     name: 🐳 Dockerise
-    needs: [tag, version]
+    needs: [prep, condarise]
     uses: tidywf/actions/.github/workflows/dockerise.yaml@main
     permissions:
+      contents: read # gh release download (fresh lockfiles)
       packages: write
     with:
-      pkg_version: ${{ needs.version.outputs.pkg_version }}
+      pkg_version: ${{ needs.prep.outputs.pkg_version }}
 
   pkgdownise:
     name: 🌐 Pkgdownise
-    needs: [tag, version]
+    needs: [prep, condarise]
     uses: tidywf/actions/.github/workflows/pkgdownise.yaml@main
     permissions:
       contents: write
     with:
       pkg_name: tidywigits
-      pkg_version: ${{ needs.version.outputs.pkg_version }}
+      pkg_version: ${{ needs.prep.outputs.pkg_version }}
       dvc: true
       install_from_source: true
     secrets: inherit
