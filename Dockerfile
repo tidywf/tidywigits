@@ -30,7 +30,13 @@ RUN apt-get update && \
 # create conda env
 ENV PATH="/opt/${MINIF}/bin:$PATH"
 ARG CONDA_ENV_DIR="/home/conda_envs"
-COPY "./deploy/conda/env/lock/" "${CONDA_ENV_DIR}/"
+# Lockfiles are not committed; they are fetched into the repo root at build
+# time. CI (dockerise.yaml) downloads them from the release assets. For a
+# local build first run, from the repo root:
+#   for p in linux-64 linux-aarch64; do
+#     gh release download vX.Y.Z --pattern "*-conda-${p}.lock" \
+#       --output "conda-${p}.lock"; done
+COPY "./conda-linux-64.lock" "./conda-linux-aarch64.lock" "${CONDA_ENV_DIR}/"
 RUN case "${TARGETARCH}" in \
       amd64) LOCKFILE="conda-linux-64.lock" ;; \
       arm64) LOCKFILE="conda-linux-aarch64.lock" ;; \
