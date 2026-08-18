@@ -11,7 +11,12 @@
 #' \dontrun{
 #' src <- "s3://my-awesome-bucket/path/to/run1"
 #' dest <- sub("s3:/", "~/s3", src)
-#' s3sync(src, dest)
+#' pats <- tibble::tribble(
+#'   ~inex, ~pat,
+#'   "ex", "*",
+#'   "in", "*purple/*.purple.qc"
+#' )
+#' s3sync(src, dest, pats)
 #' }
 #' @export
 s3sync <- function(src, dest, pats = NULL) {
@@ -127,10 +132,5 @@ s3sync <- function(src, dest, pats = NULL) {
     "in"  , "*virusinterpreter/*.virus.annotated.tsv"
   )
   pats <- pats %||% pats_default
-  cmd_args <- pats |>
-    dplyr::mutate(arg = glue::glue('--{.data$inex}clude "{.data$pat}"')) |>
-    dplyr::pull(.data$arg) |>
-    paste(collapse = " ")
-  cmd <- glue::glue("aws s3 sync {src} {dest} {cmd_args}")
-  system(cmd)
+  nemo::s3sync(src = src, dest = dest, pats = pats)
 }
