@@ -23,6 +23,11 @@ AWS S3 Sync Helper
 \dontrun{
 src <- "s3://my-awesome-bucket/path/to/run1"
 dest <- sub("s3:/", "~/s3", src)
-s3sync(src, dest)
+pats <- tibble::tribble(
+  ~inex, ~pat,
+  "ex", "*",
+  "in", "*purple/*.purple.qc"
+)
+s3sync(src, dest, pats)
 }
 }
