@@ -1,5 +1,5 @@
 Package: tidywigits
-Title: Tidy WiGiTS
+Title: Tidy WiGiTS Outputs
 Version: 0.1.0
 Description: Tidies outputs from The Hartwig Medical Foundation's WiGiTS
              suite of genome and transcriptome analysis tools.

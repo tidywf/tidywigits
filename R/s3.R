@@ -1,11 +1,6 @@
 #' AWS S3 Sync Helper
 #'
-#' @param src (`character(1)`)\cr
-#' S3 source path.
-#' @param dest (`character(1)`)\cr
-#' Local destination path.
-#' @param pats (`tibble()`)\cr
-#' Patterns tibble with `inex` ("in" or "ex") and `pat` (pattern) columns.
+#' @inheritParams nemo::s3sync
 #'
 #' @examples
 #' \dontrun{
@@ -19,7 +14,7 @@
 #' s3sync(src, dest, pats)
 #' }
 #' @export
-s3sync <- function(src, dest, pats = NULL) {
+s3sync <- function(src, dest, pats = NULL, dryrun = FALSE) {
   pats_default <- tibble::tribble(
     ~inex , ~pat                                             ,
     "ex"  , "*"                                              ,
@@ -132,5 +127,5 @@ s3sync <- function(src, dest, pats = NULL) {
     "in"  , "*virusinterpreter/*.virus.annotated.tsv"
   )
   pats <- pats %||% pats_default
-  nemo::s3sync(src = src, dest = dest, pats = pats)
+  nemo::s3sync(src = src, dest = dest, pats = pats, dryrun = dryrun)
 }
