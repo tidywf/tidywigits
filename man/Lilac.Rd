@@ -7,10 +7,10 @@
 Lilac file parsing and manipulation.
 }
 \examples{
-cls <- Lilac
-indir <- system.file("extdata/oa", package = "tidywigits")
+cls <- Lilac; tool <- "lilac"
+indir <- system.file("extdata/oa", tool, package = "tidywigits")
 odir <- tempdir()
-id <- "lilac_run1"
+id <- paste0(tool, "_run1")
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = "lilac_.*parquet", full.names = FALSE))

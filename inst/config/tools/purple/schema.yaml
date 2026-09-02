@@ -8,96 +8,111 @@ tables:
         tidy: 'chrom'
         type: 'char'
         description: 'chromosome of gene'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'start'
         tidy: 'start'
         type: 'float'
         description: 'start location of gene transcript'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'end'
         tidy: 'end'
         type: 'float'
         description: 'end location of gene transcript'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'gene'
         tidy: 'gene'
         type: 'char'
         description: 'name of gene as per Ensembl and HGNC'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'minCopyNumber'
         tidy: 'cn_min'
         type: 'float'
         description: 'minimum cn found in the gene exons'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'maxCopyNumber'
         tidy: 'cn_max'
         type: 'float'
         description: 'maximum cn found in the gene exons'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'somaticRegions'
         tidy: 'somatic_regions'
         type: 'float'
         description: 'count of somatic cn regions this gene spans'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'transcriptId'
         tidy: 'transcript_id'
         type: 'char'
         description: 'ensembl transcript ID'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'isCanonical'
         tidy: 'is_canonical'
         type: 'char'
         description: 'is canonical'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'chromosomeBand'
         tidy: 'chrom_band'
         type: 'char'
         description: 'chromosome band of the gene'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'minRegions'
         tidy: 'regions_min'
         type: 'float'
         description: 'number of somatic regions inside the gene that share the min cn'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'minRegionStart'
         tidy: 'start_region_min'
         type: 'float'
         description: 'start base of the cn region overlapping the gene with the minimum cn'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'minRegionEnd'
         tidy: 'end_region_min'
         type: 'float'
         description: 'end base of the cn region overlapping the gene with the minimum cn'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'minRegionStartSupport'
         tidy: 'start_region_min_support'
         type: 'char'
         description: 'start support of the cn region overlapping the gene with the minimum cn'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'minRegionEndSupport'
         tidy: 'end_region_min_support'
         type: 'char'
         description: 'end support of the cn region overlapping the gene with the minimum cn'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'minRegionMethod'
         tidy: 'region_min_method'
         type: 'char'
         description: 'method used to determine cn of the cn region overlapping the gene with the minimum cn'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'minMinorAlleleCopyNumber'
         tidy: 'cn_minor_allele_min'
         type: 'float'
         description: 'minimum allele cn found over the gene exons - useful for identifying LOH events'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
+      - raw: 'relativeMinCopyNumber'
+        tidy: 'cn_min_relative'
+        type: 'float'
+        description: 'minimum cn of the gene relative to the sample ploidy'
+        versions: ['latest']
       - raw: 'depthWindowCount'
         tidy: 'window_count_depth'
         type: 'float'
         description: 'count of cobalt windows covered by this segment'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'gcContent'
         tidy: 'gc_content'
         type: 'float'
         description: 'proportion of segment that is G or C'
+        versions: ['v4.2', 'latest']
+      - raw: 'reportedStatus'
+        tidy: 'reported_status'
+        type: 'char'
+        description: 'reportable status of the gene copy number event'
+        versions: ['latest']
+      - raw: 'driverType'
+        tidy: 'driver_type'
+        type: 'char'
+        description: 'driver type of the gene copy number event'
         versions: ['latest']
   cnvsomtsv:
     description: 'Copy number profile of all (contiguous) segments of the tumor sample.'
@@ -193,87 +208,92 @@ tables:
         tidy: 'chrom'
         type: 'char'
         description: 'chromosome of the gene'
-        versions: ['latest']
+        versions: ['v4.2', 'latest']
       - raw: 'chromosomeBand'
         tidy: 'chrom_band'
         type: 'char'
         description: 'chromosome band of driver'
-        versions: ['latest']
+        versions: ['v4.2', 'latest']
       - raw: 'gene'
         tidy: 'gene'
         type: 'char'
         description: 'name of gene'
-        versions: ['latest']
+        versions: ['v4.2', 'latest']
       - raw: 'transcript'
         tidy: 'transcript'
         type: 'char'
         description: 'ensembl transcript ID'
-        versions: ['latest']
+        versions: ['v4.2', 'latest']
       - raw: 'isCanonical'
         tidy: 'is_canonical'
         type: 'char'
         description: 'is canonical (True/False)'
-        versions: ['latest']
+        versions: ['v4.2', 'latest']
       - raw: 'driver'
         tidy: 'driver'
         type: 'char'
         description: 'driver type (amp, del, mutation)'
-        versions: ['latest']
+        versions: ['v4.2', 'latest']
       - raw: 'category'
         tidy: 'category'
         type: 'char'
         description: 'gene driver type (oncogene or tumor suppressor)'
-        versions: ['latest']
+        versions: ['v4.2', 'latest']
       - raw: 'likelihoodMethod'
         tidy: 'likelihood_method'
         type: 'char'
         description: 'method used to determine likelihood'
+        versions: ['v4.2', 'latest']
+      - raw: 'reportedStatus'
+        tidy: 'reported_status'
+        type: 'char'
+        description: 'reportable status of the driver'
         versions: ['latest']
       - raw: 'driverLikelihood'
         tidy: 'driver_likelihood'
         type: 'float'
         description: 'likelihood that gene is a driver'
-        versions: ['latest']
+        versions: ['v4.2', 'latest']
       - raw: 'missense'
         tidy: 'missense'
         type: 'float'
         description: 'number of missense variants in gene'
-        versions: ['latest']
+        versions: ['v4.2', 'latest']
       - raw: 'nonsense'
         tidy: 'nonsense'
         type: 'float'
         description: 'number of nonsense variants in gene'
-        versions: ['latest']
+        versions: ['v4.2', 'latest']
       - raw: 'splice'
         tidy: 'splice'
         type: 'float'
         description: 'number of splice variants in gene'
-        versions: ['latest']
+        versions: ['v4.2', 'latest']
       - raw: 'inframe'
         tidy: 'inframe'
         type: 'float'
         description: 'number of inframe variants in gene'
-        versions: ['latest']
+        versions: ['v4.2', 'latest']
       - raw: 'frameshift'
         tidy: 'frameshift'
         type: 'float'
         description: 'number of frameshift variants in gene'
-        versions: ['latest']
+        versions: ['v4.2', 'latest']
       - raw: 'biallelic'
         tidy: 'biallelic'
         type: 'char'
         description: 'true if any variants in the gene are biallelic'
-        versions: ['latest']
+        versions: ['v4.2', 'latest']
       - raw: 'minCopyNumber'
         tidy: 'cn_min'
         type: 'float'
         description: 'minimum cn found in the gene exons'
-        versions: ['latest']
+        versions: ['v4.2', 'latest']
       - raw: 'maxCopyNumber'
         tidy: 'cn_max'
         type: 'float'
         description: 'maximum cn found in the gene exons'
-        versions: ['latest']
+        versions: ['v4.2', 'latest']
   germdeltsv:
     description: 'Germline deletions.'
     pattern: "\\.purple\\.germline\\.deletion\\.tsv$"
@@ -358,6 +378,136 @@ tables:
         tidy: 'reported'
         type: 'char'
         description: 'reported deletion'
+        versions: ['latest']
+  germampdel:
+    description: 'Germline amplifications and deletions.'
+    pattern: "\\.purple\\.germline_amp_del\\.tsv$"
+    ftype: 'tsv'
+    columns:
+      - raw: 'gene'
+        tidy: 'gene'
+        type: 'char'
+        description: 'name of gene as per Ensembl and HGNC'
+        versions: ['latest']
+      - raw: 'transcript'
+        tidy: 'transcript'
+        type: 'char'
+        description: 'ensembl transcript ID'
+        versions: ['latest']
+      - raw: 'chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome of gene'
+        versions: ['latest']
+      - raw: 'chromosomeBand'
+        tidy: 'chrom_band'
+        type: 'char'
+        description: 'chromosome band of gene'
+        versions: ['latest']
+      - raw: 'regionStart'
+        tidy: 'start_region'
+        type: 'float'
+        description: 'start base of the event'
+        versions: ['latest']
+      - raw: 'regionEnd'
+        tidy: 'end_region'
+        type: 'float'
+        description: 'end base of the event'
+        versions: ['latest']
+      - raw: 'depthWindowCount'
+        tidy: 'window_count_depth'
+        type: 'float'
+        description: 'count of cobalt windows covered by this segment'
+        versions: ['latest']
+      - raw: 'exonStart'
+        tidy: 'start_exon'
+        type: 'float'
+        description: 'start base of exon'
+        versions: ['latest']
+      - raw: 'exonEnd'
+        tidy: 'end_exon'
+        type: 'float'
+        description: 'end base of exon'
+        versions: ['latest']
+      - raw: 'isPartial'
+        tidy: 'is_partial'
+        type: 'char'
+        description: 'whether the event partially overlaps the gene'
+        versions: ['latest']
+      - raw: 'detectionMethod'
+        tidy: 'detection_method'
+        type: 'char'
+        description: 'method used to determine the cn of the region'
+        versions: ['latest']
+      - raw: 'germlineStatus'
+        tidy: 'status_germline'
+        type: 'char'
+        description: 'germline status of the event'
+        versions: ['latest']
+      - raw: 'tumorStatus'
+        tidy: 'status_tumor'
+        type: 'char'
+        description: 'tumor status of the event'
+        versions: ['latest']
+      - raw: 'germlineCopyNumber'
+        tidy: 'cn_germline'
+        type: 'float'
+        description: 'germline cn of the event'
+        versions: ['latest']
+      - raw: 'tumorCopyNumber'
+        tidy: 'cn_tumor'
+        type: 'float'
+        description: 'tumor cn of the event'
+        versions: ['latest']
+      - raw: 'filter'
+        tidy: 'filter'
+        type: 'char'
+        description: 'filter applied to the event'
+        versions: ['latest']
+      - raw: 'cohortFrequency'
+        tidy: 'cohort_frequency'
+        type: 'float'
+        description: 'frequency of the event in the HMF cohort'
+        versions: ['latest']
+      - raw: 'reportedStatus'
+        tidy: 'reported_status'
+        type: 'char'
+        description: 'reportable status of the event'
+        versions: ['latest']
+  chromarm:
+    description: 'Copy number summary per chromosome arm.'
+    pattern: "\\.purple\\.chromosome_arm\\.tsv$"
+    ftype: 'tsv'
+    columns:
+      - raw: 'chromosome'
+        tidy: 'chrom'
+        type: 'char'
+        description: 'chromosome'
+        versions: ['latest']
+      - raw: 'arm'
+        tidy: 'arm'
+        type: 'char'
+        description: 'chromosome arm (P or Q)'
+        versions: ['latest']
+      - raw: 'meanCopyNumber'
+        tidy: 'cn_mean'
+        type: 'float'
+        description: 'mean cn across the arm'
+        versions: ['latest']
+      - raw: 'medianCopyNumber'
+        tidy: 'cn_median'
+        type: 'float'
+        description: 'median cn across the arm'
+        versions: ['latest']
+      - raw: 'minCopyNumber'
+        tidy: 'cn_min'
+        type: 'float'
+        description: 'minimum cn across the arm'
+        versions: ['latest']
+      - raw: 'maxCopyNumber'
+        tidy: 'cn_max'
+        type: 'float'
+        description: 'maximum cn across the arm'
         versions: ['latest']
   purityrange:
     description: 'Best fit per purity sorted by score.'

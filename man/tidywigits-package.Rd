@@ -4,7 +4,7 @@
 \name{tidywigits-package}
 \alias{tidywigits}
 \alias{tidywigits-package}
-\title{tidywigits: Tidy WiGiTS}
+\title{tidywigits: Tidy WiGiTS Outputs}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 

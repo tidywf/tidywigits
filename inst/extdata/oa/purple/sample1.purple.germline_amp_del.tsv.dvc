@@ -1,0 +1,5 @@
+outs:
+- md5: 578cdb0fcbee6fac22d5eb86f3160537
+  size: 1571
+  hash: md5
+  path: sample1.purple.germline_amp_del.tsv

@@ -3,15 +3,15 @@
 #' @description
 #' Cobalt file parsing and manipulation.
 #' @examples
-#' cls <- Cobalt
-#' indir <- system.file("extdata/oa", package = "tidywigits")
+#' cls <- Cobalt; tool <- "cobalt"
+#' indir <- system.file("extdata/oa", tool, package = "tidywigits")
 #' odir <- tempdir()
-#' id <- "cobalt_run1"
+#' id <- paste0(tool, "_run1")
 #' obj <- cls$new(indir)
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "cobalt_.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
-#' expect_equal(length(lf), 5)
+#' expect_equal(length(lf), 6)
 #' ver <- arrow::read_parquet(file.path(odir, grep("cobalt_version", lf, value = TRUE)))
 #' expect_named(ver, c("input_id", "version", "date_build"))
 #' expect_equal(nrow(ver), 1L)
@@ -20,6 +20,11 @@
 #' gcmed_s <- arrow::read_parquet(file.path(odir, grep("gcmedsample", lf, value = TRUE)))
 #' expect_named(gcmed_s, c("input_id", "mean", "median"))
 #' expect_equal(nrow(gcmed_s), 1L)
+#' pcfs <- lapply(grep("cobalt_ratiopcf", lf, value = TRUE),
+#'   function(f) names(arrow::read_parquet(file.path(odir, f))))
+#' pcf_old <- Filter(function(n) "n_probes" %in% n, pcfs)[[1]]
+#' expect_equal(pcf_old, c("input_id", "sample_id", "chrom", "arm", "start", "end",
+#'   "n_probes", "mean"))
 #' @export
 Cobalt <- R6::R6Class(
   "Cobalt",

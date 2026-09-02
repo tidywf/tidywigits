@@ -1,5 +1,5 @@
 outs:
-- md5: 3f97a641eba93fd7bf04510edf6ee115
-  size: 570
+- md5: e002942ddee01964eae91b6cb5f5f1cb
+  size: 580
   hash: md5
   path: sample1.bam_metric.flag_counts.tsv

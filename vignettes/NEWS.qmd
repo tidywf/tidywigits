@@ -57,6 +57,24 @@ user <- function(x) {
 }
 ```
 
+## v0.2.0 (2026-08-04)
+
+Oncoanalyser v3 (WiGiTS) support across every tool (`r pr(212)`-`r pr(222)`). v3
+outputs are folded in as the `latest` schema + test fixture, with breaking
+pre-v3 tables/columns demoted to per-tool older versions for regression
+coverage. The fixture is flattened to distinct sample ids
+(`tumor_dna`/`normal_dna`/`tumor_rna` => `sample1`/`sample2`/`sample3`),
+removing same-basename collisions.
+
+- New tool: Qsee (v3 QC summary) (`r pr(222)`)
+- Breaking updates (old versions retained): Amber (`r pr(212)`), Bamtools
+  (`r pr(213)`), Cider (`r pr(214)`), Cobalt (`r pr(215)`), Isofox
+  (`r pr(217)`), Lilac (`r pr(218)`), Linx (`r pr(219)`)
+- Additive updates: Esvee (`r pr(216)`), Neo (`r pr(220)`), Purple (`r pr(221)`)
+- Isofox: most outputs moved `.csv` → `.tsv`, unified via a delimiter-agnostic
+  `dsv` ftype (`r pr(217)`)
+- `orange`/`pave` ignored; `alignments`/`flagstats` kept as pre-v3 only
+
 ## v0.1.0 (2026-07-28)
 
 Major refactor. GitHub org migrated from `umccr` to `tidywf`. All 19 tool

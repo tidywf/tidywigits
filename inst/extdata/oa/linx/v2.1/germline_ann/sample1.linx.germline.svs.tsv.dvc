@@ -1,0 +1,5 @@
+outs:
+- md5: e04dd43208c33dba298ce502ad1ab25f
+  size: 1050
+  hash: md5
+  path: sample1.linx.germline.svs.tsv

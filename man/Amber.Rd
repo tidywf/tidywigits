@@ -7,13 +7,13 @@
 Amber file parsing and manipulation.
 }
 \examples{
-cls <- Amber
-indir <- system.file("extdata/oa", package = "tidywigits")
+cls <- Amber; tool <- "amber"
+indir <- system.file("extdata/oa", tool, package = "tidywigits")
 odir <- tempdir()
-id <- "amber_run1"
+id <- paste0(tool, "_run1")
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "amber_.*parquet", full.names = FALSE))
+(lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 }
 \section{Super class}{
 \code{\link[nemo:Tool]{nemo::Tool}} -> \code{Amber}

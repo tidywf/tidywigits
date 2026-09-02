@@ -21,6 +21,9 @@
 #' #    dbconn = dbconn
 #' #)
 #' #DBI::dbDisconnect(dbconn)
+#' @include Alignments.R Amber.R Bamtools.R Chord.R Cider.R Cobalt.R Cuppa.R
+#' @include Esvee.R Isofox.R Lilac.R Linx.R Neo.R Peach.R Purple.R Qsee.R
+#' @include Sage.R Sigs.R Teal.R Virusbreakend.R Virusinterpreter.R
 #' @export
 Wigits <- R6::R6Class(
   "Wigits",
@@ -62,6 +65,7 @@ WIGITS_TOOLS <- list(
   neo = Neo,
   peach = Peach,
   purple = Purple,
+  qsee = Qsee,
   sage = Sage,
   sigs = Sigs,
   teal = Teal,

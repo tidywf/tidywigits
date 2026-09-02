@@ -1,5 +1,5 @@
 outs:
-- md5: 4404c9d5ae514096bcb1c2a2fc70a180
-  size: 671
+- md5: 8eff82bde269f7d1c0898c51affdb3bd
+  size: 689
   hash: md5
   path: sample1.bam_metric.summary.tsv

@@ -1,0 +1,5 @@
+outs:
+- md5: 34eada0c55f0ff0affde39688ed31c5f
+  size: 591
+  hash: md5
+  path: sample1.amber.baf.pcf
