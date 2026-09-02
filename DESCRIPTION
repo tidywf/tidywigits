@@ -38,9 +38,34 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 Roxygen: list(markdown = TRUE,
-              roclets = c("namespace", "rd", "roxytest::testthat_roclet"))
+              roclets = c("namespace", "rd", "collate", "roxytest::testthat_roclet"))
 biocViews:
 ByteCompile: true
 Config/testthat/edition: 3
 Encoding: UTF-8
 RoxygenNote: 7.3.3
+Collate: 
+    'Alignments.R'
+    'Amber.R'
+    'Bamtools.R'
+    'Chord.R'
+    'Cider.R'
+    'Cobalt.R'
+    'Cuppa.R'
+    'Esvee.R'
+    'Isofox.R'
+    'Lilac.R'
+    'Linx.R'
+    'Neo.R'
+    'Peach.R'
+    'Purple.R'
+    'Qsee.R'
+    'Sage.R'
+    'Sigs.R'
+    'Teal.R'
+    'Virusbreakend.R'
+    'Virusinterpreter.R'
+    'Wigits.R'
+    's3.R'
+    'tidywigits-package.R'
+    'utils.R'
