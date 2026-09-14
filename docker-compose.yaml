@@ -12,9 +12,10 @@
 #   FORMAT      output format           (default: parquet; parquet|tsv|csv|rds)
 #
 # Pass extra CLI flags after the service name — the image's ENTRYPOINT is
-# tidywigits.R, so args append to it, e.g. include/exclude:
+# tidywigits.R, so args append to it. --include/--exclude take nemo tool_parser
+# names (<tool>_<table>, e.g. linx_fusions), not R6 class names:
 #   docker compose run --rm tidywigits tidy -d /data/in -o /data/out \
-#     -f parquet --include Linx
+#     -f parquet --include linx_fusions
 #
 # Build locally instead of pulling (needs conda lockfiles in repo root — see
 # Dockerfile): docker compose build
