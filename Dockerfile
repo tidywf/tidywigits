@@ -7,7 +7,7 @@ LABEL org.opencontainers.image.authors="peterdiakumis@gmail.com" \
       org.opencontainers.image.licenses="MIT"
 
 ARG MINIF="miniforge"
-ARG MINIF_VERSION="25.3.1-0"
+ARG MINIF_VERSION="26.7.2-0"
 # set by docker buildx
 ARG TARGETARCH
 
@@ -56,4 +56,7 @@ ARG CONDA_ENV_NAME="tidywigits_env"
 ENV PATH="/opt/${MINIF}/envs/${CONDA_ENV_NAME}/bin:${PATH}"
 ENV CONDA_PREFIX="/opt/${MINIF}/envs/${CONDA_ENV_NAME}"
 
-CMD [ "tidywigits.R" ]
+# tidywigits.R is the fixed executable; args passed to `docker run`/compose
+# append as its subcommand + flags. Override with --entrypoint for a raw shell.
+ENTRYPOINT [ "tidywigits.R" ]
+CMD [ "--help" ]

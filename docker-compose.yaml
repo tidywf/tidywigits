@@ -1,0 +1,37 @@
+# docker-compose for tidywigits — tidy a WiGiTS output dir to a local dir.
+#
+# Quick start:
+#   mkdir -p in out                 # put a WiGiTS sample dir under ./in
+#   docker compose run --rm tidywigits
+#
+# Overridable via env (or a .env file next to this one):
+#   IMAGE_TAG   image tag to pull       (default: pinned pkg version below,
+#                                        kept in sync by bump2version)
+#   IN_DIR      host input dir          (default: ./in,  mounted read-only)
+#   OUT_DIR     host output dir         (default: ./out)
+#   FORMAT      output format           (default: parquet; parquet|tsv|csv|rds)
+#
+# Pass extra CLI flags after the service name — the image's ENTRYPOINT is
+# tidywigits.R, so args append to it, e.g. include/exclude:
+#   docker compose run --rm tidywigits tidy -d /data/in -o /data/out \
+#     -f parquet --include Linx
+#
+# Build locally instead of pulling (needs conda lockfiles in repo root — see
+# Dockerfile): docker compose build
+
+services:
+  tidywigits:
+    image: ghcr.io/tidywf/tidywigits:${IMAGE_TAG:-0.1.0}
+    build:
+      context: .
+    volumes:
+      - ${IN_DIR:-./in}:/data/in:ro
+      - ${OUT_DIR:-./out}:/data/out
+    command:
+      - tidy
+      - -d
+      - /data/in
+      - -o
+      - /data/out
+      - -f
+      - ${FORMAT:-parquet}
