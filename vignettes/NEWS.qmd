@@ -8,53 +8,17 @@ knitr:
 
 ```{r}
 #| label: pkgs
-#| message: false
-#| warning: false
-#| echo: false
-
-{
-  use("htmltools", "a")
-  use("glue", "glue")
-}
-```
-
-```{r}
-#| echo: false
-#| label: funcs
+#| include: false
 
 repo <- "https://github.com/tidywf/tidywigits"
-vdiff <- function(new, old) {
-  stopifnot(utils::compareVersion(new, old) == 1)
-  htmltools::a(
-    href = glue::glue("{repo}/compare/v{old}...v{new}"),
-    glue::glue("v{new} - v{old} diff")
-  )
-}
+child1 <- system.file(
+  "doc-templates/vignettes/_news.qmd",
+  package = "nemo"
+)
+```
 
-pr_or_issue <- function(n, type) {
-  x <- c(iss = "issues", pr = "pull")
-  stopifnot(is.numeric(n), n > 0, type %in% names(x))
-  type2 <- x[type]
-  htmltools::a(
-    href = glue::glue("{repo}/{type2}/{n}"),
-    glue::glue("{type}{n}")
-  )
-}
-
-iss <- function(n) {
-  pr_or_issue(n, "iss")
-}
-
-pr <- function(n) {
-  pr_or_issue(n, "pr")
-}
-
-user <- function(x) {
-  a(
-    href = glue("https://github.com/{x}"),
-    glue("@{x}")
-  )
-}
+```{r, child=child1}
+#| label: child-news
 ```
 
 ## v0.2.0 (2026-08-04)
