@@ -7,10 +7,10 @@
 Isofox file parsing and manipulation.
 }
 \examples{
-cls <- Isofox
-indir <- system.file("extdata/oa", package = "tidywigits")
+cls <- Isofox; tool <- "isofox"
+indir <- system.file("extdata/oa", tool, package = "tidywigits")
 odir <- tempdir()
-id <- "isofox_run1"
+id <- paste0(tool, "_run1")
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = "isofox_.*parquet", full.names = FALSE))

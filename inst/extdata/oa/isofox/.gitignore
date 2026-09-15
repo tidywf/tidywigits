@@ -6,3 +6,11 @@
 /sample1.isf.retained_intron.csv
 /sample1.isf.summary.csv
 /sample1.isf.transcript_data.csv
+/sample1.isf.alt_splice_junc.tsv
+/sample1.isf.alt_splice_junc_unfiltered.tsv
+/sample1.isf.fusions.tsv
+/sample1.isf.gene_collection.tsv
+/sample1.isf.gene_data.tsv
+/sample1.isf.pass_fusions.tsv
+/sample1.isf.summary.tsv
+/sample1.isf.transcript_data.tsv

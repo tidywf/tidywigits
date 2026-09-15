@@ -4,7 +4,7 @@
 \alias{s3sync}
 \title{AWS S3 Sync Helper}
 \usage{
-s3sync(src, dest, pats = NULL)
+s3sync(src, dest, pats = NULL, dryrun = FALSE)
 }
 \arguments{
 \item{src}{(\code{character(1)})\cr
@@ -15,6 +15,10 @@ Local destination path.}
 
 \item{pats}{(\code{tibble()})\cr
 Patterns tibble with \code{inex} ("in" or "ex") and \code{pat} (pattern) columns.}
+
+\item{dryrun}{(\code{logical(1)})\cr
+If \code{TRUE}, passes \code{--dryrun} to \verb{aws s3 sync} so operations are displayed
+without being executed.}
 }
 \description{
 AWS S3 Sync Helper
@@ -23,6 +27,11 @@ AWS S3 Sync Helper
 \dontrun{
 src <- "s3://my-awesome-bucket/path/to/run1"
 dest <- sub("s3:/", "~/s3", src)
-s3sync(src, dest)
+pats <- tibble::tribble(
+  ~inex, ~pat,
+  "ex", "*",
+  "in", "*purple/*.purple.qc"
+)
+s3sync(src, dest, pats)
 }
 }

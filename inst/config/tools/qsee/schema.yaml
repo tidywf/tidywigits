@@ -1,0 +1,86 @@
+tables:
+  status:
+    description: 'QC status per feature.'
+    pattern: "\\.qsee\\.status\\.tsv\\.gz$"
+    ftype: 'tsv'
+    columns:
+      - raw: 'SampleId'
+        tidy: 'sample_id'
+        type: 'char'
+        description: 'Sample identifier'
+        versions: ['latest']
+      - raw: 'SampleType'
+        tidy: 'sample_type'
+        type: 'char'
+        description: 'Sample type (e.g. TUMOR, REFERENCE)'
+        versions: ['latest']
+      - raw: 'SourceTool'
+        tidy: 'source_tool'
+        type: 'char'
+        description: 'Tool the feature was sourced from'
+        versions: ['latest']
+      - raw: 'FeatureType'
+        tidy: 'feature_type'
+        type: 'char'
+        description: 'Feature type'
+        versions: ['latest']
+      - raw: 'FeatureName'
+        tidy: 'feature_name'
+        type: 'char'
+        description: 'Feature name'
+        versions: ['latest']
+      - raw: 'FeatureValue'
+        tidy: 'feature_value'
+        type: 'char'
+        description: 'Feature value'
+        versions: ['latest']
+      - raw: 'QcStatus'
+        tidy: 'qc_status'
+        type: 'char'
+        description: 'QC status of the feature (PASS/WARN/FAIL)'
+        versions: ['latest']
+      - raw: 'FailCondition'
+        tidy: 'fail_condition'
+        type: 'char'
+        description: 'Condition under which the feature fails QC'
+        versions: ['latest']
+  visdata:
+    description: 'QC visualisation data per feature.'
+    pattern: "\\.qsee\\.vis\\.data\\.tsv\\.gz$"
+    ftype: 'tsv'
+    columns:
+      - raw: 'SampleId'
+        tidy: 'sample_id'
+        type: 'char'
+        description: 'Sample identifier'
+        versions: ['latest']
+      - raw: 'SampleType'
+        tidy: 'sample_type'
+        type: 'char'
+        description: 'Sample type (e.g. TUMOR, REFERENCE)'
+        versions: ['latest']
+      - raw: 'SourceTool'
+        tidy: 'source_tool'
+        type: 'char'
+        description: 'Tool the feature was sourced from'
+        versions: ['latest']
+      - raw: 'FeatureType'
+        tidy: 'feature_type'
+        type: 'char'
+        description: 'Feature type'
+        versions: ['latest']
+      - raw: 'FeatureName'
+        tidy: 'feature_name'
+        type: 'char'
+        description: 'Feature name'
+        versions: ['latest']
+      - raw: 'FeatureValue'
+        tidy: 'feature_value'
+        type: 'char'
+        description: 'Feature value'
+        versions: ['latest']
+      - raw: 'PlotMetadata'
+        tidy: 'plot_metadata'
+        type: 'char'
+        description: 'Semicolon-delimited key-value plot metadata'
+        versions: ['latest']

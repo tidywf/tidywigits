@@ -7,10 +7,10 @@
 Linx file parsing and manipulation.
 }
 \examples{
-cls <- Linx
-indir <- system.file("extdata/oa", package = "tidywigits")
+cls <- Linx; tool <- "linx"
+indir <- system.file("extdata/oa", tool, package = "tidywigits")
 odir <- tempdir()
-id <- "linx_run1"
+id <- paste0(tool, "_run1")
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = "linx_.*parquet", full.names = FALSE))

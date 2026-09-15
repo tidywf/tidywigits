@@ -2,21 +2,30 @@
 
 # File R/Bamtools.R: @testexamples
 
-test_that("Function Bamtools() @ L25", {
+test_that("Function Bamtools() @ L34", {
   
-  cls <- Bamtools
-  indir <- system.file("extdata/oa", package = "tidywigits")
+  cls <- Bamtools; tool <- "bamtools"
+  indir <- system.file("extdata/oa", tool, package = "tidywigits")
   odir <- tempdir()
-  id <- "bamtools_run1"
+  id <- paste0(tool, "_run1")
   obj <- cls$new(indir)
   obj$run(output_dir = odir, format = "parquet", input_id = id)
-  (lf <- list.files(odir, pattern = "bamtools_.*parquet", full.names = FALSE))
-  expect_equal(length(lf), 13)
-  ss <- arrow::read_parquet(file.path(odir, grep("summarystats", lf, value = TRUE)))
+  (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
+  expect_equal(length(lf), 18)
+  ssf <- grep("_bamtools_summarystats", lf, value = TRUE)
+  ss <- arrow::read_parquet(file.path(odir, ssf[!grepl("_2_", ssf)][1]))
   expect_named(ss, c("input_id", "tot_region_bases", "tot_reads", "dup_reads", "dual_strand_reads",
-    "cov_mean", "cov_sd", "cov_median", "cov_mad", "lowmapq_pct", "dup_pct", "unpaired_pct",
-    "lowbaseq_pct", "overlap_read_pct", "cov_capped"))
+    "off_target_reads", "cov_mean", "cov_sd", "cov_median", "cov_mad", "lowmapq_pct", "dup_pct",
+    "unmapped_pct", "lowbaseq_pct", "overlap_read_pct", "cov_capped"))
   expect_equal(nrow(ss), 1L)
+  ss_old <- arrow::read_parquet(file.path(odir, grep("_2_bamtools_summarystats", lf, value = TRUE)))
+  expect_true("unpaired_pct" %in% names(ss_old))
+  expect_false("off_target_reads" %in% names(ss_old))
+  # latest exon_coverage splits into per-exon stats + long perc-above-depth
+  exons <- arrow::read_parquet(file.path(odir, grep("_bamtools_exoncvgexons", lf, value = TRUE)[1]))
+  expect_named(exons, c("input_id", "gene", "chrom", "start", "end", "exon", "dp_med", "dp_mean"))
+  perc <- arrow::read_parquet(file.path(odir, grep("_bamtools_exoncvgperc", lf, value = TRUE)[1]))
+  expect_named(perc, c("input_id", "gene", "exon", "dp", "value"))
   genes <- arrow::read_parquet(file.path(odir, grep("genecvggenes", lf, value = TRUE)[1]))
   expect_named(genes, c("input_id", "gene", "chrom", "pos_start", "pos_end", "missed_var_likelihood"))
   cvg <- arrow::read_parquet(file.path(odir, grep("genecvgcvg", lf, value = TRUE)[1]))

@@ -2,21 +2,36 @@
 
 # File R/Isofox.R: @testexamples
 
-test_that("Function Isofox() @ L22", {
+test_that("Function Isofox() @ L37", {
   
-  cls <- Isofox
-  indir <- system.file("extdata/oa", package = "tidywigits")
+  cls <- Isofox; tool <- "isofox"
+  indir <- system.file("extdata/oa", tool, package = "tidywigits")
   odir <- tempdir()
-  id <- "isofox_run1"
+  id <- paste0(tool, "_run1")
   obj <- cls$new(indir)
   obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "isofox_.*parquet", full.names = FALSE))
-  expect_equal(length(lf), 8)
-  summ <- arrow::read_parquet(file.path(odir, grep("isofox_summary", lf, value = TRUE)))
+  expect_equal(length(lf), 16)
+  rp <- function(pat) arrow::read_parquet(file.path(odir, grep(pat, lf, value = TRUE)[1]))
+  nm <- function(pat) lapply(grep(pat, lf, value = TRUE),
+    function(f) names(arrow::read_parquet(file.path(odir, f))))
+  # summary: csv + tsv have identical cols (both latest)
+  expect_equal(length(grep("isofox_summary\\.parquet", lf)), 2L)
+  summ <- rp("isofox_summary\\.parquet")
   expect_named(summ, c("input_id", "sample_id", "qc_status", "frag_tot", "frag_dup",
     "frag_spliced_pct", "frag_unspliced_pct", "frag_alt_pct", "frag_chimeric_pct",
     "spliced_gene_count", "read_length", "frag_length_5th", "frag_length_50th",
     "frag_length_95th", "enriched_gene_pct", "median_gc_ratio", "forward_strand_pct"))
-  expect_equal(nrow(summ), 1L)
+  # genedata: csv=v1.7.2 (no new cols), tsv=latest (+5). Assert by content, not label.
+  gd <- nm("isofox_genedata")
+  expect_true(any(vapply(gd, function(n) "reported_status" %in% n, logical(1))))
+  expect_true(any(vapply(gd, function(n) !("reported_status" %in% n), logical(1))))
+  # fusionspass: latest has 'name', v1.7.2 has 'fusion_id'
+  fp <- nm("isofox_fusionspass")
+  expect_true(any(vapply(fp, function(n) "name" %in% n, logical(1))))
+  expect_true(any(vapply(fp, function(n) "fusion_id" %in% n, logical(1))))
+  # altsjunfilt: tsv only
+  expect_equal(length(grep("isofox_altsjunfilt", lf)), 1L)
+  expect_true(all(c("gene_id", "init_read_id", "filter") %in% names(rp("isofox_altsjunfilt"))))
 })
 
