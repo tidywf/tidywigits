@@ -1,0 +1,5 @@
+outs:
+- md5: c6ae41f69baa3c62a9182c656839bc8c
+  size: 857
+  hash: md5
+  path: sample1.bam_metric.exon_coverage.tsv

@@ -1,0 +1,5 @@
+outs:
+- md5: e9b08a36ab499b518eaf78bdcd3e0866
+  size: 973
+  hash: md5
+  path: sample1.esvee.prep.junction.tsv

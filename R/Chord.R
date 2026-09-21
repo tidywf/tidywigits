@@ -12,7 +12,7 @@
 #' (lf <- list.files(odir, pattern = "chord_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 2)
-#' pred <- arrow::read_parquet(file.path(odir, grep("chord_prediction", lf, value = TRUE)))
+#' pred <- nemo::read_parquet_grep(odir, lf, "chord_prediction")
 #' expect_named(pred, c("input_id", "sample_id", "p_brca1", "p_brca2", "p_hrd", "hr_status",
 #'   "hrd_type", "remarks_hr_status", "remarks_hrd_type"))
 #' expect_equal(nrow(pred), 1L)

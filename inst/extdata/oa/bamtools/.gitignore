@@ -6,3 +6,4 @@
 /sample1.bam_metric.partition_stats.tsv
 /sample1.bam_metric.summary.tsv
 /sample1.wgsmetrics
+/sample1.bam_metric.exon_coverage.tsv

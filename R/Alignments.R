@@ -12,7 +12,7 @@
 #' (lf <- list.files(odir, pattern = "alignments_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 3)
-#' mdup <- arrow::read_parquet(file.path(odir, grep("markdup", lf, value = TRUE)))
+#' mdup <- nemo::read_parquet_grep(odir, lf, "markdup")
 #' expect_named(mdup, c("input_id", "library", "unpaired_reads_examined", "read_pairs_examined",
 #'   "secondary_or_supplementary_reads", "unmapped_reads", "unpaired_read_duplicates",
 #'   "read_pair_duplicates", "read_pair_optical_duplicates", "percent_duplication",

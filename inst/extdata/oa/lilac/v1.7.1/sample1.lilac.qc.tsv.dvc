@@ -1,0 +1,5 @@
+outs:
+- md5: 7c9993ef5c385cfcb9ca7b73548c7754
+  size: 570
+  hash: md5
+  path: sample1.lilac.qc.tsv

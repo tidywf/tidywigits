@@ -1,4 +1,44 @@
 tables:
+  bqrtsv:
+    description: 'Base quality recalibration metrics.'
+    pattern: "\\.redux\\.bqr\\.tsv$"
+    ftype: 'tsv'
+    columns:
+      - raw: 'alt'
+        tidy: 'alt'
+        type: 'char'
+        description: 'alternate allele'
+        versions: ['latest']
+      - raw: 'ref'
+        tidy: 'ref'
+        type: 'char'
+        description: 'reference allele'
+        versions: ['latest']
+      - raw: 'trinucleotideContext'
+        tidy: 'context'
+        type: 'char'
+        description: 'trinucleotide context'
+        versions: ['latest']
+      - raw: 'readType'
+        tidy: 'read_type'
+        type: 'char'
+        description: 'read type'
+        versions: ['latest']
+      - raw: 'count'
+        tidy: 'count'
+        type: 'float'
+        description: 'count'
+        versions: ['latest']
+      - raw: 'originalQual'
+        tidy: 'origq'
+        type: 'float'
+        description: 'original quality'
+        versions: ['latest']
+      - raw: 'recalibratedQual'
+        tidy: 'recalq'
+        type: 'float'
+        description: 'recalibrated quality'
+        versions: ['latest']
   dupfreq:
     description: 'Duplicate read count and frequency.'
     pattern: "(\\.redux)?\\.duplicate_freq\\.tsv$"

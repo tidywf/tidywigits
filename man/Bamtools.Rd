@@ -7,13 +7,13 @@
 Bamtools file parsing and manipulation.
 }
 \examples{
-cls <- Bamtools
-indir <- system.file("extdata/oa", package = "tidywigits")
+cls <- Bamtools; tool <- "bamtools"
+indir <- system.file("extdata/oa", tool, package = "tidywigits")
 odir <- tempdir()
-id <- "bamtools_run1"
+id <- paste0(tool, "_run1")
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "bamtools_.*parquet", full.names = FALSE))
+(lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 }
 \section{Super class}{
 \code{\link[nemo:Tool]{nemo::Tool}} -> \code{Bamtools}
@@ -29,6 +29,7 @@ obj$run(output_dir = odir, format = "parquet", input_id = id)
 \item \href{#method-Bamtools-parse_flagstats}{\code{Bamtools$parse_flagstats()}}
 \item \href{#method-Bamtools-tidy_flagstats}{\code{Bamtools$tidy_flagstats()}}
 \item \href{#method-Bamtools-tidy_genecvg}{\code{Bamtools$tidy_genecvg()}}
+\item \href{#method-Bamtools-tidy_exoncvg}{\code{Bamtools$tidy_exoncvg()}}
 }
 }
 \if{html}{\out{
@@ -186,6 +187,26 @@ Path to file.}
 Tidy \code{gene_coverage.tsv} file.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_genecvg(x)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{(\code{character(1)})\cr
+Path to file.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Bamtools-tidy_exoncvg"></a>}}
+\if{latex}{\out{\hypertarget{method-Bamtools-tidy_exoncvg}{}}}
+\subsection{Method \code{tidy_exoncvg()}}{
+Tidy \code{exon_coverage.tsv} file. Generates 2 sub-tbls:
+\emph{exons} with per-exon depth stats and \emph{perc} with the long-format
+percentage of bases above each depth threshold.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_exoncvg(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

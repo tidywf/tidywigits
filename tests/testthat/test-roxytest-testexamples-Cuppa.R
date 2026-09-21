@@ -12,7 +12,7 @@ test_that("Function Cuppa() @ L19", {
   obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "cuppa_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 4)
-  ps <- arrow::read_parquet(file.path(odir, grep("cuppa_predsum", lf, value = TRUE)))
+  ps <- nemo::read_parquet_grep(odir, lf, "cuppa_predsum")
   expect_named(ps, c("input_id", "sample_id", "clf_group", "clf_name", "rank", "class", "prob",
     "extra_info", "extra_info_format"))
 })

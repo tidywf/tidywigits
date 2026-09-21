@@ -8,54 +8,36 @@ knitr:
 
 ```{r}
 #| label: pkgs
-#| message: false
-#| warning: false
-#| echo: false
-
-{
-  use("htmltools", "a")
-  use("glue", "glue")
-}
-```
-
-```{r}
-#| echo: false
-#| label: funcs
+#| include: false
 
 repo <- "https://github.com/tidywf/tidywigits"
-vdiff <- function(new, old) {
-  stopifnot(utils::compareVersion(new, old) == 1)
-  htmltools::a(
-    href = glue::glue("{repo}/compare/v{old}...v{new}"),
-    glue::glue("v{new} - v{old} diff")
-  )
-}
-
-pr_or_issue <- function(n, type) {
-  x <- c(iss = "issues", pr = "pull")
-  stopifnot(is.numeric(n), n > 0, type %in% names(x))
-  type2 <- x[type]
-  htmltools::a(
-    href = glue::glue("{repo}/{type2}/{n}"),
-    glue::glue("{type}{n}")
-  )
-}
-
-iss <- function(n) {
-  pr_or_issue(n, "iss")
-}
-
-pr <- function(n) {
-  pr_or_issue(n, "pr")
-}
-
-user <- function(x) {
-  a(
-    href = glue("https://github.com/{x}"),
-    glue("@{x}")
-  )
-}
+child1 <- system.file(
+  "doc-templates/vignettes/_news.qmd",
+  package = "nemo"
+)
 ```
+
+```{r, child=child1}
+#| label: child-news
+```
+
+## v0.2.0 (2026-08-04)
+
+Oncoanalyser v3 (WiGiTS) support across every tool (`r pr(212)`-`r pr(222)`). v3
+outputs are folded in as the `latest` schema + test fixture, with breaking
+pre-v3 tables/columns demoted to per-tool older versions for regression
+coverage. The fixture is flattened to distinct sample ids
+(`tumor_dna`/`normal_dna`/`tumor_rna` => `sample1`/`sample2`/`sample3`),
+removing same-basename collisions.
+
+- New tool: Qsee (v3 QC summary) (`r pr(222)`)
+- Breaking updates (old versions retained): Amber (`r pr(212)`), Bamtools
+  (`r pr(213)`), Cider (`r pr(214)`), Cobalt (`r pr(215)`), Isofox
+  (`r pr(217)`), Lilac (`r pr(218)`), Linx (`r pr(219)`)
+- Additive updates: Esvee (`r pr(216)`), Neo (`r pr(220)`), Purple (`r pr(221)`)
+- Isofox: most outputs moved `.csv` → `.tsv`, unified via a delimiter-agnostic
+  `dsv` ftype (`r pr(217)`)
+- `orange`/`pave` ignored; `alignments`/`flagstats` kept as pre-v3 only
 
 ## v0.1.0 (2026-07-28)
 

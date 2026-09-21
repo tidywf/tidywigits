@@ -1,20 +1,20 @@
 #' AWS S3 Sync Helper
 #'
-#' @param src (`character(1)`)\cr
-#' S3 source path.
-#' @param dest (`character(1)`)\cr
-#' Local destination path.
-#' @param pats (`tibble()`)\cr
-#' Patterns tibble with `inex` ("in" or "ex") and `pat` (pattern) columns.
+#' @inheritParams nemo::s3sync
 #'
 #' @examples
 #' \dontrun{
 #' src <- "s3://my-awesome-bucket/path/to/run1"
 #' dest <- sub("s3:/", "~/s3", src)
-#' s3sync(src, dest)
+#' pats <- tibble::tribble(
+#'   ~inex, ~pat,
+#'   "ex", "*",
+#'   "in", "*purple/*.purple.qc"
+#' )
+#' s3sync(src, dest, pats)
 #' }
 #' @export
-s3sync <- function(src, dest, pats = NULL) {
+s3sync <- function(src, dest, pats = NULL, dryrun = FALSE) {
   pats_default <- tibble::tribble(
     ~inex , ~pat                                             ,
     "ex"  , "*"                                              ,
@@ -27,6 +27,7 @@ s3sync <- function(src, dest, pats = NULL) {
     "in"  , "*bamtools/*.wgsmetrics"                         ,
     "in"  , "*bamtools/*.bam_metric.coverage.tsv"            ,
     "in"  , "*bamtools/*.bam_metric.exon_medians.tsv"        ,
+    "in"  , "*bamtools/*.bam_metric.exon_coverage.tsv"       ,
     "in"  , "*bamtools/*.bam_metric.flag_counts.tsv"         ,
     "in"  , "*bamtools/*.bam_metric.frag_length.tsv"         ,
     "in"  , "*bamtools/*.bam_metric.gene_coverage.tsv"       ,
@@ -36,6 +37,7 @@ s3sync <- function(src, dest, pats = NULL) {
     "in"  , "*chord/*prediction*"                            ,
     "in"  , "*chord/*signatures*"                            ,
     "in"  , "*cider/*.cider.blastn_match.tsv.gz"             ,
+    "in"  , "*cider/*.cider.alignment_match.tsv.gz"          ,
     "in"  , "*cider/*.cider.locus_stats.tsv"                 ,
     "in"  , "*cider/*.cider.vdj.tsv.gz"                      ,
     "in"  , "*cobalt/cobalt.version"                         ,
@@ -56,6 +58,14 @@ s3sync <- function(src, dest, pats = NULL) {
     "in"  , "*isofox/*.isf.retained_intron.csv"              ,
     "in"  , "*isofox/*.isf.summary.csv"                      ,
     "in"  , "*isofox/*.isf.transcript_data.csv"              ,
+    "in"  , "*isofox/*.isf.alt_splice_junc.tsv"              ,
+    "in"  , "*isofox/*.isf.alt_splice_junc_unfiltered.tsv"   ,
+    "in"  , "*isofox/*.isf.fusions.tsv"                      ,
+    "in"  , "*isofox/*.isf.gene_collection.tsv"              ,
+    "in"  , "*isofox/*.isf.gene_data.tsv"                    ,
+    "in"  , "*isofox/*.isf.pass_fusions.tsv"                 ,
+    "in"  , "*isofox/*.isf.summary.tsv"                      ,
+    "in"  , "*isofox/*.isf.transcript_data.tsv"              ,
     "in"  , "*lilac/*.lilac.candidates.coverage.tsv"         ,
     "in"  , "*lilac/*.lilac.qc.tsv"                          ,
     "in"  , "*lilac/*.lilac.tsv"                             ,
@@ -82,6 +92,8 @@ s3sync <- function(src, dest, pats = NULL) {
     "in"  , "*linx/*.linx.vis_sv_data.tsv"                   ,
     "in"  , "*neo/*.neo.neo_data.tsv"                        ,
     "in"  , "*neo/*.neo.neoepitope.tsv"                      ,
+    "in"  , "*neo/*.neo.peptide_scores.tsv"                  ,
+    "in"  , "*neo/*.isf.neoepitope.tsv"                      ,
     "in"  , "*peach/*.peach.events.tsv"                      ,
     "in"  , "*peach/*.peach.gene.events.tsv"                 ,
     "in"  , "*peach/*.peach.haplotypes.all.tsv"              ,
@@ -92,6 +104,8 @@ s3sync <- function(src, dest, pats = NULL) {
     "in"  , "*purple/*.purple.driver.catalog.germline.tsv"   ,
     "in"  , "*purple/*.purple.driver.catalog.somatic.tsv"    ,
     "in"  , "*purple/*.purple.germline.deletion.tsv"         ,
+    "in"  , "*purple/*.purple.germline_amp_del.tsv"          ,
+    "in"  , "*purple/*.purple.chromosome_arm.tsv"            ,
     "in"  , "*purple/*.purple.purity.range.tsv"              ,
     "in"  , "*purple/*.purple.purity.tsv"                    ,
     "in"  , "*purple/*.purple.qc"                            ,
@@ -105,16 +119,13 @@ s3sync <- function(src, dest, pats = NULL) {
     "in"  , "*sage*/*.sage.gene.coverage.tsv"                ,
     "in"  , "*sigs/*.sig.allocation.tsv"                     ,
     "in"  , "*sigs/*.sig.snv_counts.csv"                     ,
+    "in"  , "*qsee/*.qsee.status.tsv.gz"                     ,
+    "in"  , "*qsee/*.qsee.vis.data.tsv.gz"                   ,
     "in"  , "*teal/*.teal.breakend.tsv.gz"                   ,
     "in"  , "*teal/*.teal.tellength.tsv"                     ,
     "in"  , "*virusbreakend/*.virusbreakend.vcf.summary.tsv" ,
     "in"  , "*virusinterpreter/*.virus.annotated.tsv"
   )
   pats <- pats %||% pats_default
-  cmd_args <- pats |>
-    dplyr::mutate(arg = glue::glue('--{.data$inex}clude "{.data$pat}"')) |>
-    dplyr::pull(.data$arg) |>
-    paste(collapse = " ")
-  cmd <- glue::glue("aws s3 sync {src} {dest} {cmd_args}")
-  system(cmd)
+  nemo::s3sync(src = src, dest = dest, pats = pats, dryrun = dryrun)
 }

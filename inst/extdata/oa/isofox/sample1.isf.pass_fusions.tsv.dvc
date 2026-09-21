@@ -1,0 +1,5 @@
+outs:
+- md5: 2fb2f17b36bfb1ebe936a07fe3b873ac
+  size: 1386
+  hash: md5
+  path: sample1.isf.pass_fusions.tsv
