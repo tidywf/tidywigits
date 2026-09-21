@@ -1,5 +1,5 @@
 outs:
-- md5: 465d60915d9ad42a5da52b37e560220b
-  size: 223
+- md5: 0fbfede9183b811c0456119c40c68588
+  size: 212
   hash: md5
   path: sample1.cider.locus_stats.tsv
