@@ -93,14 +93,26 @@ ppl$run(
   input_id = "run1"
 )
 list.files(outdir_ppl, pattern = "\\.parquet$")
-#>  [1] "metadata_purple.parquet"                       "sample1_2_purple_cnvgenetsv.parquet"          
-#>  [3] "sample1_2_purple_qc.parquet"                   "sample1_germline_purple_drivercatalog.parquet"
-#>  [5] "sample1_purple_cnvgenetsv.parquet"             "sample1_purple_cnvsomtsv.parquet"             
-#>  [7] "sample1_purple_germdeltsv.parquet"             "sample1_purple_purityrange.parquet"           
-#>  [9] "sample1_purple_puritytsv.parquet"              "sample1_purple_qc.parquet"                    
-#> [11] "sample1_purple_somclonality.parquet"           "sample1_purple_somhist.parquet"               
-#> [13] "sample1_somatic_purple_drivercatalog.parquet"  "version_2_purple_version.parquet"             
-#> [15] "version_purple_version.parquet"
+#>  [1] "metadata_purple.parquet"                        
+#>  [2] "sample1_2_purple_cnvgenetsv.parquet"            
+#>  [3] "sample1_2_purple_qc.parquet"                    
+#>  [4] "sample1_3_purple_cnvgenetsv.parquet"            
+#>  [5] "sample1_germline_2_purple_drivercatalog.parquet"
+#>  [6] "sample1_germline_purple_drivercatalog.parquet"  
+#>  [7] "sample1_purple_chromarm.parquet"                
+#>  [8] "sample1_purple_cnvgenetsv.parquet"              
+#>  [9] "sample1_purple_cnvsomtsv.parquet"               
+#> [10] "sample1_purple_germampdel.parquet"              
+#> [11] "sample1_purple_germdeltsv.parquet"              
+#> [12] "sample1_purple_purityrange.parquet"             
+#> [13] "sample1_purple_puritytsv.parquet"               
+#> [14] "sample1_purple_qc.parquet"                      
+#> [15] "sample1_purple_somclonality.parquet"            
+#> [16] "sample1_purple_somhist.parquet"                 
+#> [17] "sample1_somatic_2_purple_drivercatalog.parquet" 
+#> [18] "sample1_somatic_purple_drivercatalog.parquet"   
+#> [19] "version_2_purple_version.parquet"               
+#> [20] "version_purple_version.parquet"
 ```
 
 Now read back the tidied table:
@@ -149,31 +161,43 @@ dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
 │   ├── sample1.md.metrics
 │   └── sample1.redux.duplicate_freq.tsv
 ├── amber
+│   ├── amber.version
 │   ├── sample1.amber.baf.pcf
 │   ├── sample1.amber.contamination.tsv
 │   ├── sample1.amber.homozygousregion.tsv
-│   └── sample1.amber.qc
+│   ├── sample1.amber.qc
+│   └── v4.2
+│       └── sample1.amber.baf.pcf
 ├── bamtools
 │   ├── sample1.bam_metric.coverage.tsv
-│   ├── sample1.bam_metric.exon_medians.tsv
+│   ├── sample1.bam_metric.exon_coverage.tsv
 │   ├── sample1.bam_metric.flag_counts.tsv
 │   ├── sample1.bam_metric.frag_length.tsv
 │   ├── sample1.bam_metric.gene_coverage.tsv
 │   ├── sample1.bam_metric.partition_stats.tsv
 │   ├── sample1.bam_metric.summary.tsv
-│   └── sample1.wgsmetrics
+│   └── v1.4.2
+│       ├── sample1.bam_metric.exon_medians.tsv
+│       ├── sample1.bam_metric.gene_coverage.tsv
+│       ├── sample1.bam_metric.summary.tsv
+│       └── sample1.wgsmetrics
 ├── chord
 │   ├── sample1.chord.mutation_contexts.tsv
 │   └── sample1.chord.prediction.tsv
 ├── cider
-│   ├── sample1.cider.blastn_match.tsv.gz
+│   ├── sample1.cider.alignment_match.tsv.gz
 │   ├── sample1.cider.locus_stats.tsv
-│   └── sample1.cider.vdj.tsv.gz
+│   ├── sample1.cider.vdj.tsv.gz
+│   └── v1.0.0
+│       ├── sample1.cider.blastn_match.tsv.gz
+│       └── sample1.cider.vdj.tsv.gz
 ├── cobalt
 │   ├── cobalt.version
 │   ├── sample1.cobalt.gc.median.tsv
 │   ├── sample1.cobalt.ratio.median.tsv
-│   └── sample1.cobalt.ratio.pcf
+│   ├── sample1.cobalt.ratio.pcf
+│   └── v2.0
+│       └── sample1.cobalt.ratio.pcf
 ├── cuppa
 │   ├── sample1.cup.data.csv
 │   ├── sample1.cuppa.pred_summ.tsv
@@ -188,27 +212,41 @@ dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
 │   ├── sample1.esvee.phased_assembly.tsv
 │   ├── sample1.esvee.prep.disc_stats.tsv
 │   ├── sample1.esvee.prep.fragment_length.tsv
-│   └── sample1.esvee.prep.junction.tsv
+│   ├── sample1.esvee.prep.junction.tsv
+│   └── v1.0
+│       ├── sample1.esvee.breakend.tsv
+│       └── sample1.esvee.prep.junction.tsv
 ├── flagstats
 │   └── sample1.flagstat
 ├── isofox
 │   ├── sample1.isf.alt_splice_junc.csv
+│   ├── sample1.isf.alt_splice_junc.tsv
+│   ├── sample1.isf.alt_splice_junc_unfiltered.tsv
 │   ├── sample1.isf.fusions.csv
+│   ├── sample1.isf.fusions.tsv
 │   ├── sample1.isf.gene_collection.csv
+│   ├── sample1.isf.gene_collection.tsv
 │   ├── sample1.isf.gene_data.csv
+│   ├── sample1.isf.gene_data.tsv
 │   ├── sample1.isf.pass_fusions.csv
+│   ├── sample1.isf.pass_fusions.tsv
 │   ├── sample1.isf.retained_intron.csv
 │   ├── sample1.isf.summary.csv
-│   └── sample1.isf.transcript_data.csv
+│   ├── sample1.isf.summary.tsv
+│   ├── sample1.isf.transcript_data.csv
+│   └── sample1.isf.transcript_data.tsv
 ├── lilac
-│   ├── sample1.lilac.candidates.coverage.tsv
 │   ├── sample1.lilac.qc.tsv
-│   └── sample1.lilac.tsv
+│   ├── sample1.lilac.tsv
+│   └── v1.7.1
+│       ├── sample1.lilac.qc.tsv
+│       └── sample1.lilac.tsv
 ├── linx
 │   ├── germline_annotations
 │   │   ├── linx.version
 │   │   ├── sample1.linx.germline.breakend.tsv
 │   │   ├── sample1.linx.germline.clusters.tsv
+│   │   ├── sample1.linx.germline.disruption.tsv
 │   │   ├── sample1.linx.germline.driver.catalog.tsv
 │   │   ├── sample1.linx.germline.links.tsv
 │   │   └── sample1.linx.germline.svs.tsv
@@ -220,6 +258,7 @@ dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
 │   │   ├── sample1.linx.drivers.tsv
 │   │   ├── sample1.linx.fusion.tsv
 │   │   ├── sample1.linx.links.tsv
+│   │   ├── sample1.linx.neoepitope.tsv
 │   │   ├── sample1.linx.svs.tsv
 │   │   ├── sample1.linx.vis_copy_number.tsv
 │   │   ├── sample1.linx.vis_fusion.tsv
@@ -227,22 +266,34 @@ dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
 │   │   ├── sample1.linx.vis_protein_domain.tsv
 │   │   ├── sample1.linx.vis_segments.tsv
 │   │   └── sample1.linx.vis_sv_data.tsv
-│   └── v1.25
-│       ├── germline_annotations
-│       │   ├── linx.version
-│       │   └── sample1.linx.germline.breakend.tsv
-│       └── somatic_annotations
-│           ├── linx.version
+│   ├── v1.25
+│   │   ├── germline_ann
+│   │   │   ├── linx.version
+│   │   │   └── sample1.linx.germline.breakend.tsv
+│   │   └── somatic_ann
+│   │       ├── linx.version
+│   │       ├── sample1.linx.breakend.tsv
+│   │       ├── sample1.linx.vis_copy_number.tsv
+│   │       ├── sample1.linx.vis_fusion.tsv
+│   │       ├── sample1.linx.vis_gene_exon.tsv
+│   │       ├── sample1.linx.vis_protein_domain.tsv
+│   │       ├── sample1.linx.vis_segments.tsv
+│   │       └── sample1.linx.vis_sv_data.tsv
+│   └── v2.1
+│       ├── germline_ann
+│       │   ├── sample1.linx.germline.breakend.tsv
+│       │   ├── sample1.linx.germline.driver.catalog.tsv
+│       │   └── sample1.linx.germline.svs.tsv
+│       └── somatic_ann
 │           ├── sample1.linx.breakend.tsv
-│           ├── sample1.linx.vis_copy_number.tsv
-│           ├── sample1.linx.vis_fusion.tsv
-│           ├── sample1.linx.vis_gene_exon.tsv
-│           ├── sample1.linx.vis_protein_domain.tsv
-│           ├── sample1.linx.vis_segments.tsv
-│           └── sample1.linx.vis_sv_data.tsv
+│           ├── sample1.linx.driver.catalog.tsv
+│           ├── sample1.linx.fusion.tsv
+│           └── sample1.linx.svs.tsv
 ├── neo
+│   ├── sample1.isf.neoepitope.tsv
 │   ├── sample1.neo.neo_data.tsv
-│   └── sample1.neo.neoepitope.tsv
+│   ├── sample1.neo.neoepitope.tsv
+│   └── sample1.neo.peptide_scores.tsv
 ├── peach
 │   ├── sample1.peach.events.tsv
 │   ├── sample1.peach.gene.events.tsv
@@ -251,20 +302,29 @@ dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
 │   └── sample1.peach.qc.tsv
 ├── purple
 │   ├── purple.version
+│   ├── sample1.purple.chromosome_arm.tsv
 │   ├── sample1.purple.cnv.gene.tsv
 │   ├── sample1.purple.cnv.somatic.tsv
 │   ├── sample1.purple.driver.catalog.germline.tsv
 │   ├── sample1.purple.driver.catalog.somatic.tsv
-│   ├── sample1.purple.germline.deletion.tsv
+│   ├── sample1.purple.germline_amp_del.tsv
 │   ├── sample1.purple.purity.range.tsv
 │   ├── sample1.purple.purity.tsv
 │   ├── sample1.purple.qc
 │   ├── sample1.purple.somatic.clonality.tsv
 │   ├── sample1.purple.somatic.hist.tsv
-│   └── v4.0
-│       ├── purple.version
+│   ├── v4.0
+│   │   ├── purple.version
+│   │   ├── sample1.purple.cnv.gene.tsv
+│   │   └── sample1.purple.qc
+│   └── v4.2
 │       ├── sample1.purple.cnv.gene.tsv
-│       └── sample1.purple.qc
+│       ├── sample1.purple.driver.catalog.germline.tsv
+│       ├── sample1.purple.driver.catalog.somatic.tsv
+│       └── sample1.purple.germline.deletion.tsv
+├── qsee
+│   ├── sample1.qsee.status.tsv.gz
+│   └── sample1.qsee.vis.data.tsv.gz
 ├── sage
 │   ├── germline
 │   │   ├── sample1.sage.bqr.tsv
@@ -314,13 +374,13 @@ res # shows summary of Wigits object
 #> |:-------------|:-------------------------------------------------------------------------|
 #> |name          |Wigits                                                                    |
 #> |path          |/home/runner/miniconda3/envs/bump_env/lib/R/library/tidywigits/extdata/oa |
-#> |ntools        |19                                                                        |
-#> |files_total   |228                                                                       |
-#> |files_matched |112                                                                       |
+#> |ntools        |20                                                                        |
+#> |files_total   |302                                                                       |
+#> |files_matched |150                                                                       |
 #> |tidied        |true                                                                      |
 #> |written       |true                                                                      |
 list.files(outdir_w, pattern = "\\.parquet$") |> str()
-#>  chr [1:120] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...
+#>  chr [1:161] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...
 ```
 
 - PostgreSQL (adjust dbname/user for your purposes):
@@ -361,7 +421,7 @@ Using {remotes} directly from GitHub:
 ``` r
 install.packages("remotes")
 remotes::install_github("tidywf/tidywigits") # latest main commit
-remotes::install_github("tidywf/tidywigits@v0.1.0") # specific version
+remotes::install_github("tidywf/tidywigits@v0.1.0.9000") # specific version
 ```
 
 Alternatively:
@@ -389,7 +449,7 @@ export PATH="${tw_cli}:${PATH}"
 ```
 
     $ tidywigits.R --version
-    tidywigits 0.1.0
+    tidywigits 0.1.0.9000
 
     #-----------------------------------#
     $ tidywigits.R --help
