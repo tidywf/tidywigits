@@ -12,14 +12,14 @@
 #' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 19)
-#' pur <- arrow::read_parquet(file.path(odir, grep("^sample1_purple_puritytsv", lf, value = TRUE)))
+#' pur <- nemo::read_parquet_grep(odir, lf, "^sample1_purple_puritytsv")
 #' expect_named(pur, c("input_id", "purity", "norm_factor", "fit_score", "diploid_proportion",
 #'   "ploidy", "gender", "status", "polyclonal_proportion", "purity_min", "purity_max",
 #'   "ploidy_min", "ploidy_max", "diploid_proportion_min", "diploid_proportion_max",
 #'   "somatic_penalty", "whole_genome_duplication", "ms_indels_per_mb", "ms_status", "tml",
 #'   "tml_status", "tmb_per_mb", "tmb_status", "tmb_sv", "run_mode", "targeted"))
 #' expect_equal(nrow(pur), 1L)
-#' qc <- arrow::read_parquet(file.path(odir, grep("^sample1_purple_qc", lf, value = TRUE)))
+#' qc <- nemo::read_parquet_grep(odir, lf, "^sample1_purple_qc")
 #' expect_named(qc, c("input_id", "qc_status", "method", "cn_segments", "cn_segments_unsupported",
 #'   "purity", "gender_amber", "gender_cobalt", "deleted_genes", "contamination",
 #'   "germline_aberrations", "mean_depth_amber", "loh_percent", "tinc_level",
@@ -30,9 +30,9 @@
 #' expect_equal(length(cnvs), 3)
 #' expect_true(any(vapply(cnvs, function(n) "driver_type" %in% n, logical(1))))
 #' expect_true(any(vapply(cnvs, function(n) !("gc_content" %in% n), logical(1))))
-#' gad <- arrow::read_parquet(file.path(odir, grep("purple_germampdel", lf, value = TRUE)))
+#' gad <- nemo::read_parquet_grep(odir, lf, "purple_germampdel")
 #' expect_true(all(c("transcript", "is_partial", "reported_status") %in% names(gad)))
-#' car <- arrow::read_parquet(file.path(odir, grep("purple_chromarm", lf, value = TRUE)))
+#' car <- nemo::read_parquet_grep(odir, lf, "purple_chromarm")
 #' expect_named(car, c("input_id", "chrom", "arm", "cn_mean", "cn_median", "cn_min", "cn_max"))
 #' dcs <- lapply(grep("germline_purple_drivercatalog|germline_2_purple_drivercatalog", lf, value = TRUE),
 #'   function(f) names(arrow::read_parquet(file.path(odir, f))))

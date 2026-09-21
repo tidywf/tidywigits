@@ -12,7 +12,7 @@
 #' (lf <- list.files(odir, pattern = "teal_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 2)
-#' tel <- arrow::read_parquet(file.path(odir, grep("teal_tellength", lf, value = TRUE)))
+#' tel <- nemo::read_parquet_grep(odir, lf, "teal_tellength")
 #' expect_named(tel, c("input_id", "sample_id", "type", "tel_length_raw", "tel_length_final",
 #'   "fragments_full", "fragments_c_rich_partial", "fragments_g_rich_partial",
 #'   "reads_telomeric_total", "purity", "ploidy", "dup_prop", "dp_read_mean", "dp_read_gc50"))

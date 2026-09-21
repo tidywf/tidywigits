@@ -11,7 +11,7 @@
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = "linx_.*parquet", full.names = FALSE))
 #' @testexamples
-#' rpn <- function(pat) names(arrow::read_parquet(file.path(odir, grep(pat, lf, value = TRUE)[1])))
+#' rpn <- function(pat) names(nemo::read_parquet_grep(odir, lf, pat, first = TRUE))
 #' expect_equal(length(lf), 39)
 #' # fusion top-level is now v3 (latest): five_prime_vcf_id in, gene_start dropped
 #' fus <- rpn("^sample1_linx_fusions")
@@ -30,7 +30,7 @@
 #' # new tables
 #' expect_true(all(c("cohort_frequency", "germline_fragments") %in% rpn("linx_disruption")))
 #' expect_true("chain_length" %in% rpn("linx_neoepitope"))
-#' drv <- arrow::read_parquet(file.path(odir, grep("^sample1_linx_drivers", lf, value = TRUE)))
+#' drv <- nemo::read_parquet_grep(odir, lf, "^sample1_linx_drivers")
 #' expect_named(drv, c("input_id", "cluster_id", "gene", "event_type"))
 #' expect_equal(nrow(drv), 1L)
 #' @export

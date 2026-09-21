@@ -18,17 +18,17 @@ test_that("Function Bamtools() @ L34", {
     "off_target_reads", "cov_mean", "cov_sd", "cov_median", "cov_mad", "lowmapq_pct", "dup_pct",
     "unmapped_pct", "lowbaseq_pct", "overlap_read_pct", "cov_capped"))
   expect_equal(nrow(ss), 1L)
-  ss_old <- arrow::read_parquet(file.path(odir, grep("_2_bamtools_summarystats", lf, value = TRUE)))
+  ss_old <- nemo::read_parquet_grep(odir, lf, "_2_bamtools_summarystats")
   expect_true("unpaired_pct" %in% names(ss_old))
   expect_false("off_target_reads" %in% names(ss_old))
   # latest exon_coverage splits into per-exon stats + long perc-above-depth
-  exons <- arrow::read_parquet(file.path(odir, grep("_bamtools_exoncvgexons", lf, value = TRUE)[1]))
+  exons <- nemo::read_parquet_grep(odir, lf, "_bamtools_exoncvgexons", first = TRUE)
   expect_named(exons, c("input_id", "gene", "chrom", "start", "end", "exon", "dp_med", "dp_mean"))
-  perc <- arrow::read_parquet(file.path(odir, grep("_bamtools_exoncvgperc", lf, value = TRUE)[1]))
+  perc <- nemo::read_parquet_grep(odir, lf, "_bamtools_exoncvgperc", first = TRUE)
   expect_named(perc, c("input_id", "gene", "exon", "dp", "value"))
-  genes <- arrow::read_parquet(file.path(odir, grep("genecvggenes", lf, value = TRUE)[1]))
+  genes <- nemo::read_parquet_grep(odir, lf, "genecvggenes", first = TRUE)
   expect_named(genes, c("input_id", "gene", "chrom", "pos_start", "pos_end", "missed_var_likelihood"))
-  cvg <- arrow::read_parquet(file.path(odir, grep("genecvgcvg", lf, value = TRUE)[1]))
+  cvg <- nemo::read_parquet_grep(odir, lf, "genecvgcvg", first = TRUE)
   expect_named(cvg, c("input_id", "gene", "dr", "value"))
 })
 

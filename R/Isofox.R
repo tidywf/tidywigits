@@ -12,7 +12,7 @@
 #' (lf <- list.files(odir, pattern = "isofox_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 16)
-#' rp <- function(pat) arrow::read_parquet(file.path(odir, grep(pat, lf, value = TRUE)[1]))
+#' rp <- function(pat) nemo::read_parquet_grep(odir, lf, pat, first = TRUE)
 #' nm <- function(pat) lapply(grep(pat, lf, value = TRUE),
 #'   function(f) names(arrow::read_parquet(file.path(odir, f))))
 #' # summary: csv + tsv have identical cols (both latest)

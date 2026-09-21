@@ -12,10 +12,10 @@
 #' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 2)
-#' st <- arrow::read_parquet(file.path(odir, grep("qsee_status", lf, value = TRUE)))
+#' st <- nemo::read_parquet_grep(odir, lf, "qsee_status")
 #' expect_named(st, c("input_id", "sample_id", "sample_type", "source_tool", "feature_type",
 #'   "feature_name", "feature_value", "qc_status", "fail_condition"))
-#' vd <- arrow::read_parquet(file.path(odir, grep("qsee_visdata", lf, value = TRUE)))
+#' vd <- nemo::read_parquet_grep(odir, lf, "qsee_visdata")
 #' expect_named(vd, c("input_id", "sample_id", "sample_type", "source_tool", "feature_type",
 #'   "feature_name", "feature_value", "plot_metadata"))
 #' expect_equal(length(unique(vd$sample_id)), 2)

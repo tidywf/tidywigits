@@ -12,7 +12,7 @@
 #' (lf <- list.files(odir, pattern = "sigs_.*parquet", full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 2)
-#' alloc <- arrow::read_parquet(file.path(odir, grep("sigs_allocation", lf, value = TRUE)))
+#' alloc <- nemo::read_parquet_grep(odir, lf, "sigs_allocation")
 #' expect_named(alloc, c("input_id", "signature", "allocation", "percent"))
 #' @export
 Sigs <- R6::R6Class(

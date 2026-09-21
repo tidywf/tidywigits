@@ -12,7 +12,7 @@ test_that("Function Virusinterpreter() @ L21", {
   obj$run(output_dir = odir, format = "parquet", input_id = id)
   (lf <- list.files(odir, pattern = "virusinterpreter_.*parquet", full.names = FALSE))
   expect_equal(length(lf), 1)
-  vi <- arrow::read_parquet(file.path(odir, grep("virusinterpreter_annotated", lf, value = TRUE)))
+  vi <- nemo::read_parquet_grep(odir, lf, "virusinterpreter_annotated")
   expect_named(vi, c("input_id", "taxid", "name", "qc_status", "integrations", "interpretation",
     "percentage_covered", "mean_coverage", "expected_clonal_coverage", "reported",
     "blacklisted", "driver_likelihood"))
