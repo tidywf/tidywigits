@@ -30,6 +30,8 @@
   : Peach Object
 - [`Purple`](https://tidywf.github.io/tidywigits/dev/reference/Purple.md)
   : Purple Object
+- [`Qsee`](https://tidywf.github.io/tidywigits/dev/reference/Qsee.md) :
+  Qsee Object
 - [`Sage`](https://tidywf.github.io/tidywigits/dev/reference/Sage.md) :
   Sage Object
 - [`Sigs`](https://tidywf.github.io/tidywigits/dev/reference/Sigs.md) :

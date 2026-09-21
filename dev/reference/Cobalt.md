@@ -4,7 +4,7 @@ Cobalt file parsing and manipulation.
 
 ## Super class
 
-[`nemo::Tool`](https://umccr.github.io/nemo/reference/Tool.html) -\>
+[`nemo::Tool`](https://tidywf.github.io/nemo/reference/Tool.html) -\>
 `Cobalt`
 
 ## Methods
@@ -19,14 +19,14 @@ Cobalt file parsing and manipulation.
 
 Inherited methods
 
-- [`nemo::Tool$filter_files()`](https://umccr.github.io/nemo/reference/Tool.html#method-filter_files)
-- [`nemo::Tool$get_metadata()`](https://umccr.github.io/nemo/reference/Tool.html#method-get_metadata)
-- [`nemo::Tool$get_tbls()`](https://umccr.github.io/nemo/reference/Tool.html#method-get_tbls)
-- [`nemo::Tool$list_files()`](https://umccr.github.io/nemo/reference/Tool.html#method-list_files)
-- [`nemo::Tool$print()`](https://umccr.github.io/nemo/reference/Tool.html#method-print)
-- [`nemo::Tool$run()`](https://umccr.github.io/nemo/reference/Tool.html#method-run)
-- [`nemo::Tool$tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-tidy)
-- [`nemo::Tool$write()`](https://umccr.github.io/nemo/reference/Tool.html#method-write)
+- [`nemo::Tool$filter_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-filter_files)
+- [`nemo::Tool$get_metadata()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_metadata)
+- [`nemo::Tool$get_tbls()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_tbls)
+- [`nemo::Tool$list_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-list_files)
+- [`nemo::Tool$print()`](https://tidywf.github.io/nemo/reference/Tool.html#method-print)
+- [`nemo::Tool$run()`](https://tidywf.github.io/nemo/reference/Tool.html#method-run)
+- [`nemo::Tool$tidy()`](https://tidywf.github.io/nemo/reference/Tool.html#method-tidy)
+- [`nemo::Tool$write()`](https://tidywf.github.io/nemo/reference/Tool.html#method-write)
 
 ------------------------------------------------------------------------
 
@@ -49,7 +49,7 @@ Create a new Cobalt object.
 
   (`tibble(n)`)  
   Tibble of files from
-  [`nemo::list_files_dir()`](https://umccr.github.io/nemo/reference/list_files_dir.html).
+  [`nemo::list_files_dir()`](https://tidywf.github.io/nemo/reference/list_files_dir.html).
 
 ------------------------------------------------------------------------
 
@@ -90,14 +90,14 @@ GC bucket.
 ## Examples
 
 ``` r
-cls <- Cobalt
-indir <- system.file("extdata/oa", package = "tidywigits")
+cls <- Cobalt; tool <- "cobalt"
+indir <- system.file("extdata/oa", tool, package = "tidywigits")
 odir <- tempdir()
-id <- "cobalt_run1"
+id <- paste0(tool, "_run1")
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "cobalt_.*parquet", full.names = FALSE))
-#> [1] "sample1_cobalt_gcmedbuckets.parquet" "sample1_cobalt_gcmedsample.parquet" 
-#> [3] "sample1_cobalt_ratiomed.parquet"     "sample1_cobalt_ratiopcf.parquet"    
-#> [5] "version_cobalt_version.parquet"     
+(lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
+#> [1] "sample1_2_cobalt_ratiopcf.parquet"   "sample1_cobalt_gcmedbuckets.parquet"
+#> [3] "sample1_cobalt_gcmedsample.parquet"  "sample1_cobalt_ratiomed.parquet"    
+#> [5] "sample1_cobalt_ratiopcf.parquet"     "version_cobalt_version.parquet"     
 ```

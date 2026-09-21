@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9008</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -155,14 +155,26 @@
 <span>  input_id <span class="op">=</span> <span class="st">"run1"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">outdir_ppl</span>, pattern <span class="op">=</span> <span class="st">"\\.parquet$"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "metadata_purple.parquet"                       "sample1_2_purple_cnvgenetsv.parquet"          </span></span>
-<span><span class="co">#&gt;  [3] "sample1_2_purple_qc.parquet"                   "sample1_germline_purple_drivercatalog.parquet"</span></span>
-<span><span class="co">#&gt;  [5] "sample1_purple_cnvgenetsv.parquet"             "sample1_purple_cnvsomtsv.parquet"             </span></span>
-<span><span class="co">#&gt;  [7] "sample1_purple_germdeltsv.parquet"             "sample1_purple_purityrange.parquet"           </span></span>
-<span><span class="co">#&gt;  [9] "sample1_purple_puritytsv.parquet"              "sample1_purple_qc.parquet"                    </span></span>
-<span><span class="co">#&gt; [11] "sample1_purple_somclonality.parquet"           "sample1_purple_somhist.parquet"               </span></span>
-<span><span class="co">#&gt; [13] "sample1_somatic_purple_drivercatalog.parquet"  "version_2_purple_version.parquet"             </span></span>
-<span><span class="co">#&gt; [15] "version_purple_version.parquet"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "metadata_purple.parquet"                        </span></span>
+<span><span class="co">#&gt;  [2] "sample1_2_purple_cnvgenetsv.parquet"            </span></span>
+<span><span class="co">#&gt;  [3] "sample1_2_purple_qc.parquet"                    </span></span>
+<span><span class="co">#&gt;  [4] "sample1_3_purple_cnvgenetsv.parquet"            </span></span>
+<span><span class="co">#&gt;  [5] "sample1_germline_2_purple_drivercatalog.parquet"</span></span>
+<span><span class="co">#&gt;  [6] "sample1_germline_purple_drivercatalog.parquet"  </span></span>
+<span><span class="co">#&gt;  [7] "sample1_purple_chromarm.parquet"                </span></span>
+<span><span class="co">#&gt;  [8] "sample1_purple_cnvgenetsv.parquet"              </span></span>
+<span><span class="co">#&gt;  [9] "sample1_purple_cnvsomtsv.parquet"               </span></span>
+<span><span class="co">#&gt; [10] "sample1_purple_germampdel.parquet"              </span></span>
+<span><span class="co">#&gt; [11] "sample1_purple_germdeltsv.parquet"              </span></span>
+<span><span class="co">#&gt; [12] "sample1_purple_purityrange.parquet"             </span></span>
+<span><span class="co">#&gt; [13] "sample1_purple_puritytsv.parquet"               </span></span>
+<span><span class="co">#&gt; [14] "sample1_purple_qc.parquet"                      </span></span>
+<span><span class="co">#&gt; [15] "sample1_purple_somclonality.parquet"            </span></span>
+<span><span class="co">#&gt; [16] "sample1_purple_somhist.parquet"                 </span></span>
+<span><span class="co">#&gt; [17] "sample1_somatic_2_purple_drivercatalog.parquet" </span></span>
+<span><span class="co">#&gt; [18] "sample1_somatic_purple_drivercatalog.parquet"   </span></span>
+<span><span class="co">#&gt; [19] "version_2_purple_version.parquet"               </span></span>
+<span><span class="co">#&gt; [20] "version_purple_version.parquet"</span></span></code></pre></div>
 <p>Now read back the tidied table:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">qc_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span></span>
@@ -203,145 +215,193 @@ View input files
 <span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>│   ├── sample1.md.metrics</span>
 <span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>│   └── sample1.redux.duplicate_freq.tsv</span>
 <span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>├── amber</span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>│   ├── sample1.amber.baf.pcf</span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>│   ├── sample1.amber.contamination.tsv</span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>│   ├── sample1.amber.homozygousregion.tsv</span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>│   └── sample1.amber.qc</span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>├── bamtools</span>
-<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>│   ├── sample1.bam_metric.coverage.tsv</span>
-<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>│   ├── sample1.bam_metric.exon_medians.tsv</span>
-<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>│   ├── sample1.bam_metric.flag_counts.tsv</span>
-<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>│   ├── sample1.bam_metric.frag_length.tsv</span>
-<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>│   ├── sample1.bam_metric.gene_coverage.tsv</span>
-<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>│   ├── sample1.bam_metric.partition_stats.tsv</span>
-<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>│   ├── sample1.bam_metric.summary.tsv</span>
-<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a>│   └── sample1.wgsmetrics</span>
-<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a>├── chord</span>
-<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a>│   ├── sample1.chord.mutation_contexts.tsv</span>
-<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a>│   └── sample1.chord.prediction.tsv</span>
-<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a>├── cider</span>
-<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a>│   ├── sample1.cider.blastn_match.tsv.gz</span>
-<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a>│   ├── sample1.cider.locus_stats.tsv</span>
-<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a>│   └── sample1.cider.vdj.tsv.gz</span>
-<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a>├── cobalt</span>
-<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a>│   ├── cobalt.version</span>
-<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a>│   ├── sample1.cobalt.gc.median.tsv</span>
-<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a>│   ├── sample1.cobalt.ratio.median.tsv</span>
-<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a>│   └── sample1.cobalt.ratio.pcf</span>
-<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a>├── cuppa</span>
-<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a>│   ├── sample1.cup.data.csv</span>
-<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a>│   ├── sample1.cuppa.pred_summ.tsv</span>
-<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a>│   ├── sample1.cuppa.vis_data.tsv</span>
-<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a>│   ├── sample1.cuppa_data.tsv.gz</span>
-<span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a>│   └── v1<span class="fl">.4</span></span>
-<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a>│       └── sample1.cup.data.csv</span>
-<span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a>├── esvee</span>
-<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a>│   ├── sample1.esvee.alignment.tsv</span>
-<span id="cb4-43"><a href="#cb4-43" tabindex="-1"></a>│   ├── sample1.esvee.assembly.tsv</span>
-<span id="cb4-44"><a href="#cb4-44" tabindex="-1"></a>│   ├── sample1.esvee.breakend.tsv</span>
-<span id="cb4-45"><a href="#cb4-45" tabindex="-1"></a>│   ├── sample1.esvee.phased_assembly.tsv</span>
-<span id="cb4-46"><a href="#cb4-46" tabindex="-1"></a>│   ├── sample1.esvee.prep.disc_stats.tsv</span>
-<span id="cb4-47"><a href="#cb4-47" tabindex="-1"></a>│   ├── sample1.esvee.prep.fragment_length.tsv</span>
-<span id="cb4-48"><a href="#cb4-48" tabindex="-1"></a>│   └── sample1.esvee.prep.junction.tsv</span>
-<span id="cb4-49"><a href="#cb4-49" tabindex="-1"></a>├── flagstats</span>
-<span id="cb4-50"><a href="#cb4-50" tabindex="-1"></a>│   └── sample1.flagstat</span>
-<span id="cb4-51"><a href="#cb4-51" tabindex="-1"></a>├── isofox</span>
-<span id="cb4-52"><a href="#cb4-52" tabindex="-1"></a>│   ├── sample1.isf.alt_splice_junc.csv</span>
-<span id="cb4-53"><a href="#cb4-53" tabindex="-1"></a>│   ├── sample1.isf.fusions.csv</span>
-<span id="cb4-54"><a href="#cb4-54" tabindex="-1"></a>│   ├── sample1.isf.gene_collection.csv</span>
-<span id="cb4-55"><a href="#cb4-55" tabindex="-1"></a>│   ├── sample1.isf.gene_data.csv</span>
-<span id="cb4-56"><a href="#cb4-56" tabindex="-1"></a>│   ├── sample1.isf.pass_fusions.csv</span>
-<span id="cb4-57"><a href="#cb4-57" tabindex="-1"></a>│   ├── sample1.isf.retained_intron.csv</span>
-<span id="cb4-58"><a href="#cb4-58" tabindex="-1"></a>│   ├── sample1.isf.summary.csv</span>
-<span id="cb4-59"><a href="#cb4-59" tabindex="-1"></a>│   └── sample1.isf.transcript_data.csv</span>
-<span id="cb4-60"><a href="#cb4-60" tabindex="-1"></a>├── lilac</span>
-<span id="cb4-61"><a href="#cb4-61" tabindex="-1"></a>│   ├── sample1.lilac.candidates.coverage.tsv</span>
-<span id="cb4-62"><a href="#cb4-62" tabindex="-1"></a>│   ├── sample1.lilac.qc.tsv</span>
-<span id="cb4-63"><a href="#cb4-63" tabindex="-1"></a>│   └── sample1.lilac.tsv</span>
-<span id="cb4-64"><a href="#cb4-64" tabindex="-1"></a>├── linx</span>
-<span id="cb4-65"><a href="#cb4-65" tabindex="-1"></a>│   ├── germline_annotations</span>
-<span id="cb4-66"><a href="#cb4-66" tabindex="-1"></a>│   │   ├── linx.version</span>
-<span id="cb4-67"><a href="#cb4-67" tabindex="-1"></a>│   │   ├── sample1.linx.germline.breakend.tsv</span>
-<span id="cb4-68"><a href="#cb4-68" tabindex="-1"></a>│   │   ├── sample1.linx.germline.clusters.tsv</span>
-<span id="cb4-69"><a href="#cb4-69" tabindex="-1"></a>│   │   ├── sample1.linx.germline.driver.catalog.tsv</span>
-<span id="cb4-70"><a href="#cb4-70" tabindex="-1"></a>│   │   ├── sample1.linx.germline.links.tsv</span>
-<span id="cb4-71"><a href="#cb4-71" tabindex="-1"></a>│   │   └── sample1.linx.germline.svs.tsv</span>
-<span id="cb4-72"><a href="#cb4-72" tabindex="-1"></a>│   ├── somatic_annotations</span>
-<span id="cb4-73"><a href="#cb4-73" tabindex="-1"></a>│   │   ├── linx.version</span>
-<span id="cb4-74"><a href="#cb4-74" tabindex="-1"></a>│   │   ├── sample1.linx.breakend.tsv</span>
-<span id="cb4-75"><a href="#cb4-75" tabindex="-1"></a>│   │   ├── sample1.linx.clusters.tsv</span>
-<span id="cb4-76"><a href="#cb4-76" tabindex="-1"></a>│   │   ├── sample1.linx.driver.catalog.tsv</span>
-<span id="cb4-77"><a href="#cb4-77" tabindex="-1"></a>│   │   ├── sample1.linx.drivers.tsv</span>
-<span id="cb4-78"><a href="#cb4-78" tabindex="-1"></a>│   │   ├── sample1.linx.fusion.tsv</span>
-<span id="cb4-79"><a href="#cb4-79" tabindex="-1"></a>│   │   ├── sample1.linx.links.tsv</span>
-<span id="cb4-80"><a href="#cb4-80" tabindex="-1"></a>│   │   ├── sample1.linx.svs.tsv</span>
-<span id="cb4-81"><a href="#cb4-81" tabindex="-1"></a>│   │   ├── sample1.linx.vis_copy_number.tsv</span>
-<span id="cb4-82"><a href="#cb4-82" tabindex="-1"></a>│   │   ├── sample1.linx.vis_fusion.tsv</span>
-<span id="cb4-83"><a href="#cb4-83" tabindex="-1"></a>│   │   ├── sample1.linx.vis_gene_exon.tsv</span>
-<span id="cb4-84"><a href="#cb4-84" tabindex="-1"></a>│   │   ├── sample1.linx.vis_protein_domain.tsv</span>
-<span id="cb4-85"><a href="#cb4-85" tabindex="-1"></a>│   │   ├── sample1.linx.vis_segments.tsv</span>
-<span id="cb4-86"><a href="#cb4-86" tabindex="-1"></a>│   │   └── sample1.linx.vis_sv_data.tsv</span>
-<span id="cb4-87"><a href="#cb4-87" tabindex="-1"></a>│   └── v1<span class="fl">.25</span></span>
-<span id="cb4-88"><a href="#cb4-88" tabindex="-1"></a>│       ├── germline_annotations</span>
-<span id="cb4-89"><a href="#cb4-89" tabindex="-1"></a>│       │   ├── linx.version</span>
-<span id="cb4-90"><a href="#cb4-90" tabindex="-1"></a>│       │   └── sample1.linx.germline.breakend.tsv</span>
-<span id="cb4-91"><a href="#cb4-91" tabindex="-1"></a>│       └── somatic_annotations</span>
-<span id="cb4-92"><a href="#cb4-92" tabindex="-1"></a>│           ├── linx.version</span>
-<span id="cb4-93"><a href="#cb4-93" tabindex="-1"></a>│           ├── sample1.linx.breakend.tsv</span>
-<span id="cb4-94"><a href="#cb4-94" tabindex="-1"></a>│           ├── sample1.linx.vis_copy_number.tsv</span>
-<span id="cb4-95"><a href="#cb4-95" tabindex="-1"></a>│           ├── sample1.linx.vis_fusion.tsv</span>
-<span id="cb4-96"><a href="#cb4-96" tabindex="-1"></a>│           ├── sample1.linx.vis_gene_exon.tsv</span>
-<span id="cb4-97"><a href="#cb4-97" tabindex="-1"></a>│           ├── sample1.linx.vis_protein_domain.tsv</span>
-<span id="cb4-98"><a href="#cb4-98" tabindex="-1"></a>│           ├── sample1.linx.vis_segments.tsv</span>
-<span id="cb4-99"><a href="#cb4-99" tabindex="-1"></a>│           └── sample1.linx.vis_sv_data.tsv</span>
-<span id="cb4-100"><a href="#cb4-100" tabindex="-1"></a>├── neo</span>
-<span id="cb4-101"><a href="#cb4-101" tabindex="-1"></a>│   ├── sample1.neo.neo_data.tsv</span>
-<span id="cb4-102"><a href="#cb4-102" tabindex="-1"></a>│   └── sample1.neo.neoepitope.tsv</span>
-<span id="cb4-103"><a href="#cb4-103" tabindex="-1"></a>├── peach</span>
-<span id="cb4-104"><a href="#cb4-104" tabindex="-1"></a>│   ├── sample1.peach.events.tsv</span>
-<span id="cb4-105"><a href="#cb4-105" tabindex="-1"></a>│   ├── sample1.peach.gene.events.tsv</span>
-<span id="cb4-106"><a href="#cb4-106" tabindex="-1"></a>│   ├── sample1.peach.haplotypes.all.tsv</span>
-<span id="cb4-107"><a href="#cb4-107" tabindex="-1"></a>│   ├── sample1.peach.haplotypes.best.tsv</span>
-<span id="cb4-108"><a href="#cb4-108" tabindex="-1"></a>│   └── sample1.peach.qc.tsv</span>
-<span id="cb4-109"><a href="#cb4-109" tabindex="-1"></a>├── purple</span>
-<span id="cb4-110"><a href="#cb4-110" tabindex="-1"></a>│   ├── purple.version</span>
-<span id="cb4-111"><a href="#cb4-111" tabindex="-1"></a>│   ├── sample1.purple.cnv.gene.tsv</span>
-<span id="cb4-112"><a href="#cb4-112" tabindex="-1"></a>│   ├── sample1.purple.cnv.somatic.tsv</span>
-<span id="cb4-113"><a href="#cb4-113" tabindex="-1"></a>│   ├── sample1.purple.driver.catalog.germline.tsv</span>
-<span id="cb4-114"><a href="#cb4-114" tabindex="-1"></a>│   ├── sample1.purple.driver.catalog.somatic.tsv</span>
-<span id="cb4-115"><a href="#cb4-115" tabindex="-1"></a>│   ├── sample1.purple.germline.deletion.tsv</span>
-<span id="cb4-116"><a href="#cb4-116" tabindex="-1"></a>│   ├── sample1.purple.purity.range.tsv</span>
-<span id="cb4-117"><a href="#cb4-117" tabindex="-1"></a>│   ├── sample1.purple.purity.tsv</span>
-<span id="cb4-118"><a href="#cb4-118" tabindex="-1"></a>│   ├── sample1.purple.qc</span>
-<span id="cb4-119"><a href="#cb4-119" tabindex="-1"></a>│   ├── sample1.purple.somatic.clonality.tsv</span>
-<span id="cb4-120"><a href="#cb4-120" tabindex="-1"></a>│   ├── sample1.purple.somatic.hist.tsv</span>
-<span id="cb4-121"><a href="#cb4-121" tabindex="-1"></a>│   └── v4<span class="fl">.0</span></span>
-<span id="cb4-122"><a href="#cb4-122" tabindex="-1"></a>│       ├── purple.version</span>
-<span id="cb4-123"><a href="#cb4-123" tabindex="-1"></a>│       ├── sample1.purple.cnv.gene.tsv</span>
-<span id="cb4-124"><a href="#cb4-124" tabindex="-1"></a>│       └── sample1.purple.qc</span>
-<span id="cb4-125"><a href="#cb4-125" tabindex="-1"></a>├── sage</span>
-<span id="cb4-126"><a href="#cb4-126" tabindex="-1"></a>│   ├── germline</span>
-<span id="cb4-127"><a href="#cb4-127" tabindex="-1"></a>│   │   ├── sample1.sage.bqr.tsv</span>
-<span id="cb4-128"><a href="#cb4-128" tabindex="-1"></a>│   │   ├── sample2.sage.bqr.tsv</span>
-<span id="cb4-129"><a href="#cb4-129" tabindex="-1"></a>│   │   ├── sample2.sage.exon.medians.tsv</span>
-<span id="cb4-130"><a href="#cb4-130" tabindex="-1"></a>│   │   └── sample2.sage.gene.coverage.tsv</span>
-<span id="cb4-131"><a href="#cb4-131" tabindex="-1"></a>│   ├── somatic</span>
-<span id="cb4-132"><a href="#cb4-132" tabindex="-1"></a>│   │   ├── sample1.sage.bqr.tsv</span>
-<span id="cb4-133"><a href="#cb4-133" tabindex="-1"></a>│   │   ├── sample1.sage.exon.medians.tsv</span>
-<span id="cb4-134"><a href="#cb4-134" tabindex="-1"></a>│   │   ├── sample1.sage.gene.coverage.tsv</span>
-<span id="cb4-135"><a href="#cb4-135" tabindex="-1"></a>│   │   └── sample2.sage.bqr.tsv</span>
-<span id="cb4-136"><a href="#cb4-136" tabindex="-1"></a>│   └── v3.<span class="fl">4.4</span></span>
-<span id="cb4-137"><a href="#cb4-137" tabindex="-1"></a>│       └── sample1.sage.bqr.tsv</span>
-<span id="cb4-138"><a href="#cb4-138" tabindex="-1"></a>├── sigs</span>
-<span id="cb4-139"><a href="#cb4-139" tabindex="-1"></a>│   ├── sample1.sig.allocation.tsv</span>
-<span id="cb4-140"><a href="#cb4-140" tabindex="-1"></a>│   └── sample1.sig.snv_counts.csv</span>
-<span id="cb4-141"><a href="#cb4-141" tabindex="-1"></a>├── teal</span>
-<span id="cb4-142"><a href="#cb4-142" tabindex="-1"></a>│   ├── sample1.teal.breakend.tsv.gz</span>
-<span id="cb4-143"><a href="#cb4-143" tabindex="-1"></a>│   └── sample1.teal.tellength.tsv</span>
-<span id="cb4-144"><a href="#cb4-144" tabindex="-1"></a>├── virusbreakend</span>
-<span id="cb4-145"><a href="#cb4-145" tabindex="-1"></a>│   └── sample1.virusbreakend.vcf.summary.tsv</span>
-<span id="cb4-146"><a href="#cb4-146" tabindex="-1"></a>└── virusinterpreter</span>
-<span id="cb4-147"><a href="#cb4-147" tabindex="-1"></a>    └── sample1.virus.annotated.tsv</span></code></pre></div>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>│   ├── amber.version</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>│   ├── sample1.amber.baf.pcf</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>│   ├── sample1.amber.contamination.tsv</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>│   ├── sample1.amber.homozygousregion.tsv</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>│   ├── sample1.amber.qc</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>│   └── v4<span class="fl">.2</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>│       └── sample1.amber.baf.pcf</span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>├── bamtools</span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>│   ├── sample1.bam_metric.coverage.tsv</span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>│   ├── sample1.bam_metric.exon_coverage.tsv</span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>│   ├── sample1.bam_metric.flag_counts.tsv</span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>│   ├── sample1.bam_metric.frag_length.tsv</span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a>│   ├── sample1.bam_metric.gene_coverage.tsv</span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a>│   ├── sample1.bam_metric.partition_stats.tsv</span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a>│   ├── sample1.bam_metric.summary.tsv</span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a>│   └── v1.<span class="fl">4.2</span></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a>│       ├── sample1.bam_metric.exon_medians.tsv</span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a>│       ├── sample1.bam_metric.gene_coverage.tsv</span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a>│       ├── sample1.bam_metric.summary.tsv</span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a>│       └── sample1.wgsmetrics</span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a>├── chord</span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a>│   ├── sample1.chord.mutation_contexts.tsv</span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a>│   └── sample1.chord.prediction.tsv</span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a>├── cider</span>
+<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a>│   ├── sample1.cider.alignment_match.tsv.gz</span>
+<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a>│   ├── sample1.cider.locus_stats.tsv</span>
+<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a>│   ├── sample1.cider.vdj.tsv.gz</span>
+<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a>│   └── v1.<span class="fl">0.0</span></span>
+<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a>│       ├── sample1.cider.blastn_match.tsv.gz</span>
+<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a>│       └── sample1.cider.vdj.tsv.gz</span>
+<span id="cb4-39"><a href="#cb4-39" tabindex="-1"></a>├── cobalt</span>
+<span id="cb4-40"><a href="#cb4-40" tabindex="-1"></a>│   ├── cobalt.version</span>
+<span id="cb4-41"><a href="#cb4-41" tabindex="-1"></a>│   ├── sample1.cobalt.gc.median.tsv</span>
+<span id="cb4-42"><a href="#cb4-42" tabindex="-1"></a>│   ├── sample1.cobalt.ratio.median.tsv</span>
+<span id="cb4-43"><a href="#cb4-43" tabindex="-1"></a>│   ├── sample1.cobalt.ratio.pcf</span>
+<span id="cb4-44"><a href="#cb4-44" tabindex="-1"></a>│   └── v2<span class="fl">.0</span></span>
+<span id="cb4-45"><a href="#cb4-45" tabindex="-1"></a>│       └── sample1.cobalt.ratio.pcf</span>
+<span id="cb4-46"><a href="#cb4-46" tabindex="-1"></a>├── cuppa</span>
+<span id="cb4-47"><a href="#cb4-47" tabindex="-1"></a>│   ├── sample1.cup.data.csv</span>
+<span id="cb4-48"><a href="#cb4-48" tabindex="-1"></a>│   ├── sample1.cuppa.pred_summ.tsv</span>
+<span id="cb4-49"><a href="#cb4-49" tabindex="-1"></a>│   ├── sample1.cuppa.vis_data.tsv</span>
+<span id="cb4-50"><a href="#cb4-50" tabindex="-1"></a>│   ├── sample1.cuppa_data.tsv.gz</span>
+<span id="cb4-51"><a href="#cb4-51" tabindex="-1"></a>│   └── v1<span class="fl">.4</span></span>
+<span id="cb4-52"><a href="#cb4-52" tabindex="-1"></a>│       └── sample1.cup.data.csv</span>
+<span id="cb4-53"><a href="#cb4-53" tabindex="-1"></a>├── esvee</span>
+<span id="cb4-54"><a href="#cb4-54" tabindex="-1"></a>│   ├── sample1.esvee.alignment.tsv</span>
+<span id="cb4-55"><a href="#cb4-55" tabindex="-1"></a>│   ├── sample1.esvee.assembly.tsv</span>
+<span id="cb4-56"><a href="#cb4-56" tabindex="-1"></a>│   ├── sample1.esvee.breakend.tsv</span>
+<span id="cb4-57"><a href="#cb4-57" tabindex="-1"></a>│   ├── sample1.esvee.phased_assembly.tsv</span>
+<span id="cb4-58"><a href="#cb4-58" tabindex="-1"></a>│   ├── sample1.esvee.prep.disc_stats.tsv</span>
+<span id="cb4-59"><a href="#cb4-59" tabindex="-1"></a>│   ├── sample1.esvee.prep.fragment_length.tsv</span>
+<span id="cb4-60"><a href="#cb4-60" tabindex="-1"></a>│   ├── sample1.esvee.prep.junction.tsv</span>
+<span id="cb4-61"><a href="#cb4-61" tabindex="-1"></a>│   └── v1<span class="fl">.0</span></span>
+<span id="cb4-62"><a href="#cb4-62" tabindex="-1"></a>│       ├── sample1.esvee.breakend.tsv</span>
+<span id="cb4-63"><a href="#cb4-63" tabindex="-1"></a>│       └── sample1.esvee.prep.junction.tsv</span>
+<span id="cb4-64"><a href="#cb4-64" tabindex="-1"></a>├── flagstats</span>
+<span id="cb4-65"><a href="#cb4-65" tabindex="-1"></a>│   └── sample1.flagstat</span>
+<span id="cb4-66"><a href="#cb4-66" tabindex="-1"></a>├── isofox</span>
+<span id="cb4-67"><a href="#cb4-67" tabindex="-1"></a>│   ├── sample1.isf.alt_splice_junc.csv</span>
+<span id="cb4-68"><a href="#cb4-68" tabindex="-1"></a>│   ├── sample1.isf.alt_splice_junc.tsv</span>
+<span id="cb4-69"><a href="#cb4-69" tabindex="-1"></a>│   ├── sample1.isf.alt_splice_junc_unfiltered.tsv</span>
+<span id="cb4-70"><a href="#cb4-70" tabindex="-1"></a>│   ├── sample1.isf.fusions.csv</span>
+<span id="cb4-71"><a href="#cb4-71" tabindex="-1"></a>│   ├── sample1.isf.fusions.tsv</span>
+<span id="cb4-72"><a href="#cb4-72" tabindex="-1"></a>│   ├── sample1.isf.gene_collection.csv</span>
+<span id="cb4-73"><a href="#cb4-73" tabindex="-1"></a>│   ├── sample1.isf.gene_collection.tsv</span>
+<span id="cb4-74"><a href="#cb4-74" tabindex="-1"></a>│   ├── sample1.isf.gene_data.csv</span>
+<span id="cb4-75"><a href="#cb4-75" tabindex="-1"></a>│   ├── sample1.isf.gene_data.tsv</span>
+<span id="cb4-76"><a href="#cb4-76" tabindex="-1"></a>│   ├── sample1.isf.pass_fusions.csv</span>
+<span id="cb4-77"><a href="#cb4-77" tabindex="-1"></a>│   ├── sample1.isf.pass_fusions.tsv</span>
+<span id="cb4-78"><a href="#cb4-78" tabindex="-1"></a>│   ├── sample1.isf.retained_intron.csv</span>
+<span id="cb4-79"><a href="#cb4-79" tabindex="-1"></a>│   ├── sample1.isf.summary.csv</span>
+<span id="cb4-80"><a href="#cb4-80" tabindex="-1"></a>│   ├── sample1.isf.summary.tsv</span>
+<span id="cb4-81"><a href="#cb4-81" tabindex="-1"></a>│   ├── sample1.isf.transcript_data.csv</span>
+<span id="cb4-82"><a href="#cb4-82" tabindex="-1"></a>│   └── sample1.isf.transcript_data.tsv</span>
+<span id="cb4-83"><a href="#cb4-83" tabindex="-1"></a>├── lilac</span>
+<span id="cb4-84"><a href="#cb4-84" tabindex="-1"></a>│   ├── sample1.lilac.qc.tsv</span>
+<span id="cb4-85"><a href="#cb4-85" tabindex="-1"></a>│   ├── sample1.lilac.tsv</span>
+<span id="cb4-86"><a href="#cb4-86" tabindex="-1"></a>│   └── v1.<span class="fl">7.1</span></span>
+<span id="cb4-87"><a href="#cb4-87" tabindex="-1"></a>│       ├── sample1.lilac.qc.tsv</span>
+<span id="cb4-88"><a href="#cb4-88" tabindex="-1"></a>│       └── sample1.lilac.tsv</span>
+<span id="cb4-89"><a href="#cb4-89" tabindex="-1"></a>├── linx</span>
+<span id="cb4-90"><a href="#cb4-90" tabindex="-1"></a>│   ├── germline_annotations</span>
+<span id="cb4-91"><a href="#cb4-91" tabindex="-1"></a>│   │   ├── linx.version</span>
+<span id="cb4-92"><a href="#cb4-92" tabindex="-1"></a>│   │   ├── sample1.linx.germline.breakend.tsv</span>
+<span id="cb4-93"><a href="#cb4-93" tabindex="-1"></a>│   │   ├── sample1.linx.germline.clusters.tsv</span>
+<span id="cb4-94"><a href="#cb4-94" tabindex="-1"></a>│   │   ├── sample1.linx.germline.disruption.tsv</span>
+<span id="cb4-95"><a href="#cb4-95" tabindex="-1"></a>│   │   ├── sample1.linx.germline.driver.catalog.tsv</span>
+<span id="cb4-96"><a href="#cb4-96" tabindex="-1"></a>│   │   ├── sample1.linx.germline.links.tsv</span>
+<span id="cb4-97"><a href="#cb4-97" tabindex="-1"></a>│   │   └── sample1.linx.germline.svs.tsv</span>
+<span id="cb4-98"><a href="#cb4-98" tabindex="-1"></a>│   ├── somatic_annotations</span>
+<span id="cb4-99"><a href="#cb4-99" tabindex="-1"></a>│   │   ├── linx.version</span>
+<span id="cb4-100"><a href="#cb4-100" tabindex="-1"></a>│   │   ├── sample1.linx.breakend.tsv</span>
+<span id="cb4-101"><a href="#cb4-101" tabindex="-1"></a>│   │   ├── sample1.linx.clusters.tsv</span>
+<span id="cb4-102"><a href="#cb4-102" tabindex="-1"></a>│   │   ├── sample1.linx.driver.catalog.tsv</span>
+<span id="cb4-103"><a href="#cb4-103" tabindex="-1"></a>│   │   ├── sample1.linx.drivers.tsv</span>
+<span id="cb4-104"><a href="#cb4-104" tabindex="-1"></a>│   │   ├── sample1.linx.fusion.tsv</span>
+<span id="cb4-105"><a href="#cb4-105" tabindex="-1"></a>│   │   ├── sample1.linx.links.tsv</span>
+<span id="cb4-106"><a href="#cb4-106" tabindex="-1"></a>│   │   ├── sample1.linx.neoepitope.tsv</span>
+<span id="cb4-107"><a href="#cb4-107" tabindex="-1"></a>│   │   ├── sample1.linx.svs.tsv</span>
+<span id="cb4-108"><a href="#cb4-108" tabindex="-1"></a>│   │   ├── sample1.linx.vis_copy_number.tsv</span>
+<span id="cb4-109"><a href="#cb4-109" tabindex="-1"></a>│   │   ├── sample1.linx.vis_fusion.tsv</span>
+<span id="cb4-110"><a href="#cb4-110" tabindex="-1"></a>│   │   ├── sample1.linx.vis_gene_exon.tsv</span>
+<span id="cb4-111"><a href="#cb4-111" tabindex="-1"></a>│   │   ├── sample1.linx.vis_protein_domain.tsv</span>
+<span id="cb4-112"><a href="#cb4-112" tabindex="-1"></a>│   │   ├── sample1.linx.vis_segments.tsv</span>
+<span id="cb4-113"><a href="#cb4-113" tabindex="-1"></a>│   │   └── sample1.linx.vis_sv_data.tsv</span>
+<span id="cb4-114"><a href="#cb4-114" tabindex="-1"></a>│   ├── v1<span class="fl">.25</span></span>
+<span id="cb4-115"><a href="#cb4-115" tabindex="-1"></a>│   │   ├── germline_ann</span>
+<span id="cb4-116"><a href="#cb4-116" tabindex="-1"></a>│   │   │   ├── linx.version</span>
+<span id="cb4-117"><a href="#cb4-117" tabindex="-1"></a>│   │   │   └── sample1.linx.germline.breakend.tsv</span>
+<span id="cb4-118"><a href="#cb4-118" tabindex="-1"></a>│   │   └── somatic_ann</span>
+<span id="cb4-119"><a href="#cb4-119" tabindex="-1"></a>│   │       ├── linx.version</span>
+<span id="cb4-120"><a href="#cb4-120" tabindex="-1"></a>│   │       ├── sample1.linx.breakend.tsv</span>
+<span id="cb4-121"><a href="#cb4-121" tabindex="-1"></a>│   │       ├── sample1.linx.vis_copy_number.tsv</span>
+<span id="cb4-122"><a href="#cb4-122" tabindex="-1"></a>│   │       ├── sample1.linx.vis_fusion.tsv</span>
+<span id="cb4-123"><a href="#cb4-123" tabindex="-1"></a>│   │       ├── sample1.linx.vis_gene_exon.tsv</span>
+<span id="cb4-124"><a href="#cb4-124" tabindex="-1"></a>│   │       ├── sample1.linx.vis_protein_domain.tsv</span>
+<span id="cb4-125"><a href="#cb4-125" tabindex="-1"></a>│   │       ├── sample1.linx.vis_segments.tsv</span>
+<span id="cb4-126"><a href="#cb4-126" tabindex="-1"></a>│   │       └── sample1.linx.vis_sv_data.tsv</span>
+<span id="cb4-127"><a href="#cb4-127" tabindex="-1"></a>│   └── v2<span class="fl">.1</span></span>
+<span id="cb4-128"><a href="#cb4-128" tabindex="-1"></a>│       ├── germline_ann</span>
+<span id="cb4-129"><a href="#cb4-129" tabindex="-1"></a>│       │   ├── sample1.linx.germline.breakend.tsv</span>
+<span id="cb4-130"><a href="#cb4-130" tabindex="-1"></a>│       │   ├── sample1.linx.germline.driver.catalog.tsv</span>
+<span id="cb4-131"><a href="#cb4-131" tabindex="-1"></a>│       │   └── sample1.linx.germline.svs.tsv</span>
+<span id="cb4-132"><a href="#cb4-132" tabindex="-1"></a>│       └── somatic_ann</span>
+<span id="cb4-133"><a href="#cb4-133" tabindex="-1"></a>│           ├── sample1.linx.breakend.tsv</span>
+<span id="cb4-134"><a href="#cb4-134" tabindex="-1"></a>│           ├── sample1.linx.driver.catalog.tsv</span>
+<span id="cb4-135"><a href="#cb4-135" tabindex="-1"></a>│           ├── sample1.linx.fusion.tsv</span>
+<span id="cb4-136"><a href="#cb4-136" tabindex="-1"></a>│           └── sample1.linx.svs.tsv</span>
+<span id="cb4-137"><a href="#cb4-137" tabindex="-1"></a>├── neo</span>
+<span id="cb4-138"><a href="#cb4-138" tabindex="-1"></a>│   ├── sample1.isf.neoepitope.tsv</span>
+<span id="cb4-139"><a href="#cb4-139" tabindex="-1"></a>│   ├── sample1.neo.neo_data.tsv</span>
+<span id="cb4-140"><a href="#cb4-140" tabindex="-1"></a>│   ├── sample1.neo.neoepitope.tsv</span>
+<span id="cb4-141"><a href="#cb4-141" tabindex="-1"></a>│   └── sample1.neo.peptide_scores.tsv</span>
+<span id="cb4-142"><a href="#cb4-142" tabindex="-1"></a>├── peach</span>
+<span id="cb4-143"><a href="#cb4-143" tabindex="-1"></a>│   ├── sample1.peach.events.tsv</span>
+<span id="cb4-144"><a href="#cb4-144" tabindex="-1"></a>│   ├── sample1.peach.gene.events.tsv</span>
+<span id="cb4-145"><a href="#cb4-145" tabindex="-1"></a>│   ├── sample1.peach.haplotypes.all.tsv</span>
+<span id="cb4-146"><a href="#cb4-146" tabindex="-1"></a>│   ├── sample1.peach.haplotypes.best.tsv</span>
+<span id="cb4-147"><a href="#cb4-147" tabindex="-1"></a>│   └── sample1.peach.qc.tsv</span>
+<span id="cb4-148"><a href="#cb4-148" tabindex="-1"></a>├── purple</span>
+<span id="cb4-149"><a href="#cb4-149" tabindex="-1"></a>│   ├── purple.version</span>
+<span id="cb4-150"><a href="#cb4-150" tabindex="-1"></a>│   ├── sample1.purple.chromosome_arm.tsv</span>
+<span id="cb4-151"><a href="#cb4-151" tabindex="-1"></a>│   ├── sample1.purple.cnv.gene.tsv</span>
+<span id="cb4-152"><a href="#cb4-152" tabindex="-1"></a>│   ├── sample1.purple.cnv.somatic.tsv</span>
+<span id="cb4-153"><a href="#cb4-153" tabindex="-1"></a>│   ├── sample1.purple.driver.catalog.germline.tsv</span>
+<span id="cb4-154"><a href="#cb4-154" tabindex="-1"></a>│   ├── sample1.purple.driver.catalog.somatic.tsv</span>
+<span id="cb4-155"><a href="#cb4-155" tabindex="-1"></a>│   ├── sample1.purple.germline_amp_del.tsv</span>
+<span id="cb4-156"><a href="#cb4-156" tabindex="-1"></a>│   ├── sample1.purple.purity.range.tsv</span>
+<span id="cb4-157"><a href="#cb4-157" tabindex="-1"></a>│   ├── sample1.purple.purity.tsv</span>
+<span id="cb4-158"><a href="#cb4-158" tabindex="-1"></a>│   ├── sample1.purple.qc</span>
+<span id="cb4-159"><a href="#cb4-159" tabindex="-1"></a>│   ├── sample1.purple.somatic.clonality.tsv</span>
+<span id="cb4-160"><a href="#cb4-160" tabindex="-1"></a>│   ├── sample1.purple.somatic.hist.tsv</span>
+<span id="cb4-161"><a href="#cb4-161" tabindex="-1"></a>│   ├── v4<span class="fl">.0</span></span>
+<span id="cb4-162"><a href="#cb4-162" tabindex="-1"></a>│   │   ├── purple.version</span>
+<span id="cb4-163"><a href="#cb4-163" tabindex="-1"></a>│   │   ├── sample1.purple.cnv.gene.tsv</span>
+<span id="cb4-164"><a href="#cb4-164" tabindex="-1"></a>│   │   └── sample1.purple.qc</span>
+<span id="cb4-165"><a href="#cb4-165" tabindex="-1"></a>│   └── v4<span class="fl">.2</span></span>
+<span id="cb4-166"><a href="#cb4-166" tabindex="-1"></a>│       ├── sample1.purple.cnv.gene.tsv</span>
+<span id="cb4-167"><a href="#cb4-167" tabindex="-1"></a>│       ├── sample1.purple.driver.catalog.germline.tsv</span>
+<span id="cb4-168"><a href="#cb4-168" tabindex="-1"></a>│       ├── sample1.purple.driver.catalog.somatic.tsv</span>
+<span id="cb4-169"><a href="#cb4-169" tabindex="-1"></a>│       └── sample1.purple.germline.deletion.tsv</span>
+<span id="cb4-170"><a href="#cb4-170" tabindex="-1"></a>├── qsee</span>
+<span id="cb4-171"><a href="#cb4-171" tabindex="-1"></a>│   ├── sample1.qsee.status.tsv.gz</span>
+<span id="cb4-172"><a href="#cb4-172" tabindex="-1"></a>│   └── sample1.qsee.vis.data.tsv.gz</span>
+<span id="cb4-173"><a href="#cb4-173" tabindex="-1"></a>├── sage</span>
+<span id="cb4-174"><a href="#cb4-174" tabindex="-1"></a>│   ├── germline</span>
+<span id="cb4-175"><a href="#cb4-175" tabindex="-1"></a>│   │   ├── sample1.sage.bqr.tsv</span>
+<span id="cb4-176"><a href="#cb4-176" tabindex="-1"></a>│   │   ├── sample2.sage.bqr.tsv</span>
+<span id="cb4-177"><a href="#cb4-177" tabindex="-1"></a>│   │   ├── sample2.sage.exon.medians.tsv</span>
+<span id="cb4-178"><a href="#cb4-178" tabindex="-1"></a>│   │   └── sample2.sage.gene.coverage.tsv</span>
+<span id="cb4-179"><a href="#cb4-179" tabindex="-1"></a>│   ├── somatic</span>
+<span id="cb4-180"><a href="#cb4-180" tabindex="-1"></a>│   │   ├── sample1.sage.bqr.tsv</span>
+<span id="cb4-181"><a href="#cb4-181" tabindex="-1"></a>│   │   ├── sample1.sage.exon.medians.tsv</span>
+<span id="cb4-182"><a href="#cb4-182" tabindex="-1"></a>│   │   ├── sample1.sage.gene.coverage.tsv</span>
+<span id="cb4-183"><a href="#cb4-183" tabindex="-1"></a>│   │   └── sample2.sage.bqr.tsv</span>
+<span id="cb4-184"><a href="#cb4-184" tabindex="-1"></a>│   └── v3.<span class="fl">4.4</span></span>
+<span id="cb4-185"><a href="#cb4-185" tabindex="-1"></a>│       └── sample1.sage.bqr.tsv</span>
+<span id="cb4-186"><a href="#cb4-186" tabindex="-1"></a>├── sigs</span>
+<span id="cb4-187"><a href="#cb4-187" tabindex="-1"></a>│   ├── sample1.sig.allocation.tsv</span>
+<span id="cb4-188"><a href="#cb4-188" tabindex="-1"></a>│   └── sample1.sig.snv_counts.csv</span>
+<span id="cb4-189"><a href="#cb4-189" tabindex="-1"></a>├── teal</span>
+<span id="cb4-190"><a href="#cb4-190" tabindex="-1"></a>│   ├── sample1.teal.breakend.tsv.gz</span>
+<span id="cb4-191"><a href="#cb4-191" tabindex="-1"></a>│   └── sample1.teal.tellength.tsv</span>
+<span id="cb4-192"><a href="#cb4-192" tabindex="-1"></a>├── virusbreakend</span>
+<span id="cb4-193"><a href="#cb4-193" tabindex="-1"></a>│   └── sample1.virusbreakend.vcf.summary.tsv</span>
+<span id="cb4-194"><a href="#cb4-194" tabindex="-1"></a>└── virusinterpreter</span>
+<span id="cb4-195"><a href="#cb4-195" tabindex="-1"></a>    └── sample1.virus.annotated.tsv</span></code></pre></div>
 </details><p>We can parse, tidy up, and write the WiGiTS results into e.g. Parquet format or a PostgreSQL database as follows:</p>
 <ul>
 <li>Parquet:</li>
@@ -363,13 +423,13 @@ View input files
 <span><span class="co">#&gt; |:-------------|:-------------------------------------------------------------------------|</span></span>
 <span><span class="co">#&gt; |name          |Wigits                                                                    |</span></span>
 <span><span class="co">#&gt; |path          |/home/runner/miniconda3/envs/bump_env/lib/R/library/tidywigits/extdata/oa |</span></span>
-<span><span class="co">#&gt; |ntools        |19                                                                        |</span></span>
-<span><span class="co">#&gt; |files_total   |228                                                                       |</span></span>
-<span><span class="co">#&gt; |files_matched |112                                                                       |</span></span>
+<span><span class="co">#&gt; |ntools        |20                                                                        |</span></span>
+<span><span class="co">#&gt; |files_total   |302                                                                       |</span></span>
+<span><span class="co">#&gt; |files_matched |150                                                                       |</span></span>
 <span><span class="co">#&gt; |tidied        |true                                                                      |</span></span>
 <span><span class="co">#&gt; |written       |true                                                                      |</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">outdir_w</span>, pattern <span class="op">=</span> <span class="st">"\\.parquet$"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  chr [1:120] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...</span></span></code></pre></div>
+<span><span class="co">#&gt;  chr [1:161] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...</span></span></code></pre></div>
 <ul>
 <li>PostgreSQL (adjust dbname/user for your purposes):</li>
 </ul>
@@ -429,7 +489,7 @@ View input files
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits"</span><span class="op">)</span> <span class="co"># latest main commit</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits@v0.0.7.9008"</span><span class="op">)</span> <span class="co"># specific version</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits@v0.1.0.9000"</span><span class="op">)</span> <span class="co"># specific version</span></span></code></pre></div>
 <p>Alternatively:</p>
 <ul>
 <li>conda package: <a href="https://anaconda.org/tidywf/r-tidywigits" class="external-link uri">https://anaconda.org/tidywf/r-tidywigits</a>
@@ -450,7 +510,7 @@ View input files
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="va">tw_cli</span><span class="op">=</span><span class="va">$(</span><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'x = system.file("cli", package = "tidywigits"); cat(x, "\n")'</span> <span class="kw">|</span> <span class="fu">xargs</span><span class="va">)</span></span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">"</span><span class="va">${tw_cli}</span><span class="st">:</span><span class="va">${PATH}</span><span class="st">"</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="sc">$</span> tidywigits.R <span class="sc">--</span>version</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>tidywigits <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">7.9008</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>tidywigits <span class="dv">0</span>.<span class="dv">1</span>.<span class="fl">0.9000</span></span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#-----------------------------------#</span></span>
 <span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="sc">$</span> tidywigits.R <span class="sc">--</span>help</span>

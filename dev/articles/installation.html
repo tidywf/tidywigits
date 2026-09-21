@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9008</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +73,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/dev/vignettes/installation.qmd" class="external-link"><code>vignettes/installation.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9000/vignettes/installation.qmd" class="external-link"><code>vignettes/installation.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -88,32 +88,39 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits"</span><span class="op">)</span> <span class="co"># latest main commit</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits@v0.0.7.9008"</span><span class="op">)</span> <span class="co"># specific version</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits@v0.1.0.9000"</span><span class="op">)</span> <span class="co"># specific version</span></span></code></pre></div>
 </section><section class="level3"><h3 id="conda">Conda<a class="anchor" aria-label="anchor" href="#conda"></a>
 </h3>
 <p><a href="https://anaconda.org/tidywf/r-tidywigits" class="external-link"><img src="https://anaconda.org/tidywf/r-tidywigits/badges/version.svg" title="Conda package version" alt="conda-version"><img src="https://anaconda.org/tidywf/r-tidywigits/badges/latest_release_date.svg" title="Conda package latest release date" alt="conda-latest"></a></p>
 <p>The conda package is available from the tidywf channel at <a href="https://anaconda.org/tidywf/r-tidywigits" class="external-link uri">https://anaconda.org/tidywf/r-tidywigits</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> tidywigits_env <span class="at">-c</span> tidywf <span class="at">-c</span> conda-forge r-tidywigits==0.0.7.9008</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> tidywigits_env <span class="at">-c</span> tidywf <span class="at">-c</span> conda-forge r-tidywigits==0.1.0.9000</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate tidywigits_env</span></code></pre></div>
 </section><section class="level3"><h3 id="docker">Docker<a class="anchor" aria-label="anchor" href="#docker"></a>
 </h3>
-<p><a href="https://github.com/tidywf/tidywigits/pkgs/container/tidywigits" class="external-link"><img src="https://ghcr-badge.egpl.dev/tidywf/tidywigits/latest_tag?color=%2344cc11&amp;ignore=latest&amp;label=docker-version-latest&amp;trim=.png" title="GHCR latest tag" alt="ghcr-latest"><img src="https://ghcr-badge.egpl.dev/tidywf/tidywigits/size?tag=0.0.7.9008" title="GHCR image size" alt="ghcr-size"></a></p>
+<p><a href="https://github.com/tidywf/tidywigits/pkgs/container/tidywigits" class="external-link"><img src="https://ghcr-badge.egpl.dev/tidywf/tidywigits/latest_tag?color=%2344cc11&amp;ignore=latest&amp;label=docker-version-latest&amp;trim=.png" title="GHCR latest tag" alt="ghcr-latest"><img src="https://ghcr-badge.egpl.dev/tidywf/tidywigits/size?tag=0.1.0.9000" title="GHCR image size" alt="ghcr-size"></a></p>
 <p>The Docker image is available from the GitHub Container Registry at <a href="https://github.com/tidywf/tidywigits/pkgs/container/tidywigits" class="external-link uri">https://github.com/tidywf/tidywigits/pkgs/container/tidywigits</a>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull <span class="at">--platform</span> linux/amd64 ghcr.io/tidywf/tidywigits:0.0.7.9008</span></code></pre></div>
-</section><section class="level3"><h3 id="pixi">Pixi<a class="anchor" aria-label="anchor" href="#pixi"></a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull <span class="at">--platform</span> linux/amd64 ghcr.io/tidywf/tidywigits:0.1.0.9000</span></code></pre></div>
+</section><section class="level2"><h2 id="docker-compose">Docker Compose<a class="anchor" aria-label="anchor" href="#docker-compose"></a>
+</h2>
+<p>The repo ships a <code>docker-compose.yaml</code> that wraps the CLI: it mounts a local input directory (<code>./in</code>, read-only) and output directory (<code>./out</code>), then tidies the input to parquet. Place a pipeline output directory under <code>./in</code> and run:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> in out</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> compose run <span class="at">--rm</span> tidywigits</span></code></pre></div>
+<p>Override defaults with environment variables (or a <code>.env</code> file): <code>IMAGE_TAG</code> (image tag, defaults to the pinned package version), <code>IN_DIR</code>, <code>OUT_DIR</code>, and <code>FORMAT</code> (<code>parquet</code> | <code>tsv</code> | <code>csv</code> | <code>rds</code>). The image’s <code>ENTRYPOINT</code> is <code>tidywigits.R</code>, so any flags after the service name append to it:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">IN_DIR</span><span class="op">=</span>/path/to/samples <span class="ex">docker</span> compose run <span class="at">--rm</span> tidywigits tidy <span class="at">-d</span> /data/in <span class="at">-o</span> /data/out <span class="at">-f</span> tsv</span></code></pre></div>
+<section class="level3"><h3 id="pixi">Pixi<a class="anchor" aria-label="anchor" href="#pixi"></a>
 </h3>
 <p>If you use <a href="https://pixi.sh/" class="external-link">Pixi</a>, you can create a new isolated environment with the deployed conda package:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> init <span class="at">-c</span> tidywf <span class="at">-c</span> conda-forge ./tidy_env</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ./tidy_env</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> add r-tidywigits==0.0.7.9008</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> init <span class="at">-c</span> tidywf <span class="at">-c</span> conda-forge ./tidy_env</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ./tidy_env</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> add r-tidywigits==0.1.0.9000</span></code></pre></div>
 <p>Then you can create a task to run the <code>tidywigits.R</code> CLI script:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> task add tidywigits <span class="st">"tidywigits.R"</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run tidywigits <span class="at">--help</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> task add tidywigits <span class="st">"tidywigits.R"</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> run tidywigits <span class="at">--help</span></span></code></pre></div>
 <p>Or activate the environment and use tidywigits directly in an R environment:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> shell</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pixi</span> shell</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span></span></code></pre></div>
 <pre class="text"><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidywf/tidywigits" class="external-link">tidywigits</a></span><span class="op">)</span></span></code></pre>
-</section><script id="quarto-html-after-body" type="application/javascript">
+</section></section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);

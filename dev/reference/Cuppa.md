@@ -4,7 +4,7 @@ Cuppa file parsing and manipulation.
 
 ## Super class
 
-[`nemo::Tool`](https://umccr.github.io/nemo/reference/Tool.html) -\>
+[`nemo::Tool`](https://tidywf.github.io/nemo/reference/Tool.html) -\>
 `Cuppa`
 
 ## Methods
@@ -19,14 +19,14 @@ Cuppa file parsing and manipulation.
 
 Inherited methods
 
-- [`nemo::Tool$filter_files()`](https://umccr.github.io/nemo/reference/Tool.html#method-filter_files)
-- [`nemo::Tool$get_metadata()`](https://umccr.github.io/nemo/reference/Tool.html#method-get_metadata)
-- [`nemo::Tool$get_tbls()`](https://umccr.github.io/nemo/reference/Tool.html#method-get_tbls)
-- [`nemo::Tool$list_files()`](https://umccr.github.io/nemo/reference/Tool.html#method-list_files)
-- [`nemo::Tool$print()`](https://umccr.github.io/nemo/reference/Tool.html#method-print)
-- [`nemo::Tool$run()`](https://umccr.github.io/nemo/reference/Tool.html#method-run)
-- [`nemo::Tool$tidy()`](https://umccr.github.io/nemo/reference/Tool.html#method-tidy)
-- [`nemo::Tool$write()`](https://umccr.github.io/nemo/reference/Tool.html#method-write)
+- [`nemo::Tool$filter_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-filter_files)
+- [`nemo::Tool$get_metadata()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_metadata)
+- [`nemo::Tool$get_tbls()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_tbls)
+- [`nemo::Tool$list_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-list_files)
+- [`nemo::Tool$print()`](https://tidywf.github.io/nemo/reference/Tool.html#method-print)
+- [`nemo::Tool$run()`](https://tidywf.github.io/nemo/reference/Tool.html#method-run)
+- [`nemo::Tool$tidy()`](https://tidywf.github.io/nemo/reference/Tool.html#method-tidy)
+- [`nemo::Tool$write()`](https://tidywf.github.io/nemo/reference/Tool.html#method-write)
 
 ------------------------------------------------------------------------
 
@@ -49,7 +49,7 @@ Create a new Cuppa object.
 
   (`tibble(n)`)  
   Tibble of files from
-  [`nemo::list_files_dir()`](https://umccr.github.io/nemo/reference/list_files_dir.html).
+  [`nemo::list_files_dir()`](https://tidywf.github.io/nemo/reference/list_files_dir.html).
 
 ------------------------------------------------------------------------
 

@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.0.7.9008</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +73,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/dev/vignettes/quickstart.qmd" class="external-link"><code>vignettes/quickstart.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9000/vignettes/quickstart.qmd" class="external-link"><code>vignettes/quickstart.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -111,31 +111,43 @@
 <span><span class="co">#&gt; │   ├── sample1.md.metrics</span></span>
 <span><span class="co">#&gt; │   └── sample1.redux.duplicate_freq.tsv</span></span>
 <span><span class="co">#&gt; ├── amber</span></span>
+<span><span class="co">#&gt; │   ├── amber.version</span></span>
 <span><span class="co">#&gt; │   ├── sample1.amber.baf.pcf</span></span>
 <span><span class="co">#&gt; │   ├── sample1.amber.contamination.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.amber.homozygousregion.tsv</span></span>
-<span><span class="co">#&gt; │   └── sample1.amber.qc</span></span>
+<span><span class="co">#&gt; │   ├── sample1.amber.qc</span></span>
+<span><span class="co">#&gt; │   └── v4.2</span></span>
+<span><span class="co">#&gt; │       └── sample1.amber.baf.pcf</span></span>
 <span><span class="co">#&gt; ├── bamtools</span></span>
 <span><span class="co">#&gt; │   ├── sample1.bam_metric.coverage.tsv</span></span>
-<span><span class="co">#&gt; │   ├── sample1.bam_metric.exon_medians.tsv</span></span>
+<span><span class="co">#&gt; │   ├── sample1.bam_metric.exon_coverage.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.bam_metric.flag_counts.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.bam_metric.frag_length.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.bam_metric.gene_coverage.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.bam_metric.partition_stats.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.bam_metric.summary.tsv</span></span>
-<span><span class="co">#&gt; │   └── sample1.wgsmetrics</span></span>
+<span><span class="co">#&gt; │   └── v1.4.2</span></span>
+<span><span class="co">#&gt; │       ├── sample1.bam_metric.exon_medians.tsv</span></span>
+<span><span class="co">#&gt; │       ├── sample1.bam_metric.gene_coverage.tsv</span></span>
+<span><span class="co">#&gt; │       ├── sample1.bam_metric.summary.tsv</span></span>
+<span><span class="co">#&gt; │       └── sample1.wgsmetrics</span></span>
 <span><span class="co">#&gt; ├── chord</span></span>
 <span><span class="co">#&gt; │   ├── sample1.chord.mutation_contexts.tsv</span></span>
 <span><span class="co">#&gt; │   └── sample1.chord.prediction.tsv</span></span>
 <span><span class="co">#&gt; ├── cider</span></span>
-<span><span class="co">#&gt; │   ├── sample1.cider.blastn_match.tsv.gz</span></span>
+<span><span class="co">#&gt; │   ├── sample1.cider.alignment_match.tsv.gz</span></span>
 <span><span class="co">#&gt; │   ├── sample1.cider.locus_stats.tsv</span></span>
-<span><span class="co">#&gt; │   └── sample1.cider.vdj.tsv.gz</span></span>
+<span><span class="co">#&gt; │   ├── sample1.cider.vdj.tsv.gz</span></span>
+<span><span class="co">#&gt; │   └── v1.0.0</span></span>
+<span><span class="co">#&gt; │       ├── sample1.cider.blastn_match.tsv.gz</span></span>
+<span><span class="co">#&gt; │       └── sample1.cider.vdj.tsv.gz</span></span>
 <span><span class="co">#&gt; ├── cobalt</span></span>
 <span><span class="co">#&gt; │   ├── cobalt.version</span></span>
 <span><span class="co">#&gt; │   ├── sample1.cobalt.gc.median.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.cobalt.ratio.median.tsv</span></span>
-<span><span class="co">#&gt; │   └── sample1.cobalt.ratio.pcf</span></span>
+<span><span class="co">#&gt; │   ├── sample1.cobalt.ratio.pcf</span></span>
+<span><span class="co">#&gt; │   └── v2.0</span></span>
+<span><span class="co">#&gt; │       └── sample1.cobalt.ratio.pcf</span></span>
 <span><span class="co">#&gt; ├── cuppa</span></span>
 <span><span class="co">#&gt; │   ├── sample1.cup.data.csv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.cuppa.pred_summ.tsv</span></span>
@@ -150,27 +162,41 @@
 <span><span class="co">#&gt; │   ├── sample1.esvee.phased_assembly.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.esvee.prep.disc_stats.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.esvee.prep.fragment_length.tsv</span></span>
-<span><span class="co">#&gt; │   └── sample1.esvee.prep.junction.tsv</span></span>
+<span><span class="co">#&gt; │   ├── sample1.esvee.prep.junction.tsv</span></span>
+<span><span class="co">#&gt; │   └── v1.0</span></span>
+<span><span class="co">#&gt; │       ├── sample1.esvee.breakend.tsv</span></span>
+<span><span class="co">#&gt; │       └── sample1.esvee.prep.junction.tsv</span></span>
 <span><span class="co">#&gt; ├── flagstats</span></span>
 <span><span class="co">#&gt; │   └── sample1.flagstat</span></span>
 <span><span class="co">#&gt; ├── isofox</span></span>
 <span><span class="co">#&gt; │   ├── sample1.isf.alt_splice_junc.csv</span></span>
+<span><span class="co">#&gt; │   ├── sample1.isf.alt_splice_junc.tsv</span></span>
+<span><span class="co">#&gt; │   ├── sample1.isf.alt_splice_junc_unfiltered.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.isf.fusions.csv</span></span>
+<span><span class="co">#&gt; │   ├── sample1.isf.fusions.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.isf.gene_collection.csv</span></span>
+<span><span class="co">#&gt; │   ├── sample1.isf.gene_collection.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.isf.gene_data.csv</span></span>
+<span><span class="co">#&gt; │   ├── sample1.isf.gene_data.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.isf.pass_fusions.csv</span></span>
+<span><span class="co">#&gt; │   ├── sample1.isf.pass_fusions.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.isf.retained_intron.csv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.isf.summary.csv</span></span>
-<span><span class="co">#&gt; │   └── sample1.isf.transcript_data.csv</span></span>
+<span><span class="co">#&gt; │   ├── sample1.isf.summary.tsv</span></span>
+<span><span class="co">#&gt; │   ├── sample1.isf.transcript_data.csv</span></span>
+<span><span class="co">#&gt; │   └── sample1.isf.transcript_data.tsv</span></span>
 <span><span class="co">#&gt; ├── lilac</span></span>
-<span><span class="co">#&gt; │   ├── sample1.lilac.candidates.coverage.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.lilac.qc.tsv</span></span>
-<span><span class="co">#&gt; │   └── sample1.lilac.tsv</span></span>
+<span><span class="co">#&gt; │   ├── sample1.lilac.tsv</span></span>
+<span><span class="co">#&gt; │   └── v1.7.1</span></span>
+<span><span class="co">#&gt; │       ├── sample1.lilac.qc.tsv</span></span>
+<span><span class="co">#&gt; │       └── sample1.lilac.tsv</span></span>
 <span><span class="co">#&gt; ├── linx</span></span>
 <span><span class="co">#&gt; │   ├── germline_annotations</span></span>
 <span><span class="co">#&gt; │   │   ├── linx.version</span></span>
 <span><span class="co">#&gt; │   │   ├── sample1.linx.germline.breakend.tsv</span></span>
 <span><span class="co">#&gt; │   │   ├── sample1.linx.germline.clusters.tsv</span></span>
+<span><span class="co">#&gt; │   │   ├── sample1.linx.germline.disruption.tsv</span></span>
 <span><span class="co">#&gt; │   │   ├── sample1.linx.germline.driver.catalog.tsv</span></span>
 <span><span class="co">#&gt; │   │   ├── sample1.linx.germline.links.tsv</span></span>
 <span><span class="co">#&gt; │   │   └── sample1.linx.germline.svs.tsv</span></span>
@@ -182,6 +208,7 @@
 <span><span class="co">#&gt; │   │   ├── sample1.linx.drivers.tsv</span></span>
 <span><span class="co">#&gt; │   │   ├── sample1.linx.fusion.tsv</span></span>
 <span><span class="co">#&gt; │   │   ├── sample1.linx.links.tsv</span></span>
+<span><span class="co">#&gt; │   │   ├── sample1.linx.neoepitope.tsv</span></span>
 <span><span class="co">#&gt; │   │   ├── sample1.linx.svs.tsv</span></span>
 <span><span class="co">#&gt; │   │   ├── sample1.linx.vis_copy_number.tsv</span></span>
 <span><span class="co">#&gt; │   │   ├── sample1.linx.vis_fusion.tsv</span></span>
@@ -189,22 +216,34 @@
 <span><span class="co">#&gt; │   │   ├── sample1.linx.vis_protein_domain.tsv</span></span>
 <span><span class="co">#&gt; │   │   ├── sample1.linx.vis_segments.tsv</span></span>
 <span><span class="co">#&gt; │   │   └── sample1.linx.vis_sv_data.tsv</span></span>
-<span><span class="co">#&gt; │   └── v1.25</span></span>
-<span><span class="co">#&gt; │       ├── germline_annotations</span></span>
-<span><span class="co">#&gt; │       │   ├── linx.version</span></span>
-<span><span class="co">#&gt; │       │   └── sample1.linx.germline.breakend.tsv</span></span>
-<span><span class="co">#&gt; │       └── somatic_annotations</span></span>
-<span><span class="co">#&gt; │           ├── linx.version</span></span>
+<span><span class="co">#&gt; │   ├── v1.25</span></span>
+<span><span class="co">#&gt; │   │   ├── germline_ann</span></span>
+<span><span class="co">#&gt; │   │   │   ├── linx.version</span></span>
+<span><span class="co">#&gt; │   │   │   └── sample1.linx.germline.breakend.tsv</span></span>
+<span><span class="co">#&gt; │   │   └── somatic_ann</span></span>
+<span><span class="co">#&gt; │   │       ├── linx.version</span></span>
+<span><span class="co">#&gt; │   │       ├── sample1.linx.breakend.tsv</span></span>
+<span><span class="co">#&gt; │   │       ├── sample1.linx.vis_copy_number.tsv</span></span>
+<span><span class="co">#&gt; │   │       ├── sample1.linx.vis_fusion.tsv</span></span>
+<span><span class="co">#&gt; │   │       ├── sample1.linx.vis_gene_exon.tsv</span></span>
+<span><span class="co">#&gt; │   │       ├── sample1.linx.vis_protein_domain.tsv</span></span>
+<span><span class="co">#&gt; │   │       ├── sample1.linx.vis_segments.tsv</span></span>
+<span><span class="co">#&gt; │   │       └── sample1.linx.vis_sv_data.tsv</span></span>
+<span><span class="co">#&gt; │   └── v2.1</span></span>
+<span><span class="co">#&gt; │       ├── germline_ann</span></span>
+<span><span class="co">#&gt; │       │   ├── sample1.linx.germline.breakend.tsv</span></span>
+<span><span class="co">#&gt; │       │   ├── sample1.linx.germline.driver.catalog.tsv</span></span>
+<span><span class="co">#&gt; │       │   └── sample1.linx.germline.svs.tsv</span></span>
+<span><span class="co">#&gt; │       └── somatic_ann</span></span>
 <span><span class="co">#&gt; │           ├── sample1.linx.breakend.tsv</span></span>
-<span><span class="co">#&gt; │           ├── sample1.linx.vis_copy_number.tsv</span></span>
-<span><span class="co">#&gt; │           ├── sample1.linx.vis_fusion.tsv</span></span>
-<span><span class="co">#&gt; │           ├── sample1.linx.vis_gene_exon.tsv</span></span>
-<span><span class="co">#&gt; │           ├── sample1.linx.vis_protein_domain.tsv</span></span>
-<span><span class="co">#&gt; │           ├── sample1.linx.vis_segments.tsv</span></span>
-<span><span class="co">#&gt; │           └── sample1.linx.vis_sv_data.tsv</span></span>
+<span><span class="co">#&gt; │           ├── sample1.linx.driver.catalog.tsv</span></span>
+<span><span class="co">#&gt; │           ├── sample1.linx.fusion.tsv</span></span>
+<span><span class="co">#&gt; │           └── sample1.linx.svs.tsv</span></span>
 <span><span class="co">#&gt; ├── neo</span></span>
+<span><span class="co">#&gt; │   ├── sample1.isf.neoepitope.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.neo.neo_data.tsv</span></span>
-<span><span class="co">#&gt; │   └── sample1.neo.neoepitope.tsv</span></span>
+<span><span class="co">#&gt; │   ├── sample1.neo.neoepitope.tsv</span></span>
+<span><span class="co">#&gt; │   └── sample1.neo.peptide_scores.tsv</span></span>
 <span><span class="co">#&gt; ├── peach</span></span>
 <span><span class="co">#&gt; │   ├── sample1.peach.events.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.peach.gene.events.tsv</span></span>
@@ -213,20 +252,29 @@
 <span><span class="co">#&gt; │   └── sample1.peach.qc.tsv</span></span>
 <span><span class="co">#&gt; ├── purple</span></span>
 <span><span class="co">#&gt; │   ├── purple.version</span></span>
+<span><span class="co">#&gt; │   ├── sample1.purple.chromosome_arm.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.purple.cnv.gene.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.purple.cnv.somatic.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.purple.driver.catalog.germline.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.purple.driver.catalog.somatic.tsv</span></span>
-<span><span class="co">#&gt; │   ├── sample1.purple.germline.deletion.tsv</span></span>
+<span><span class="co">#&gt; │   ├── sample1.purple.germline_amp_del.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.purple.purity.range.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.purple.purity.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.purple.qc</span></span>
 <span><span class="co">#&gt; │   ├── sample1.purple.somatic.clonality.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.purple.somatic.hist.tsv</span></span>
-<span><span class="co">#&gt; │   └── v4.0</span></span>
-<span><span class="co">#&gt; │       ├── purple.version</span></span>
+<span><span class="co">#&gt; │   ├── v4.0</span></span>
+<span><span class="co">#&gt; │   │   ├── purple.version</span></span>
+<span><span class="co">#&gt; │   │   ├── sample1.purple.cnv.gene.tsv</span></span>
+<span><span class="co">#&gt; │   │   └── sample1.purple.qc</span></span>
+<span><span class="co">#&gt; │   └── v4.2</span></span>
 <span><span class="co">#&gt; │       ├── sample1.purple.cnv.gene.tsv</span></span>
-<span><span class="co">#&gt; │       └── sample1.purple.qc</span></span>
+<span><span class="co">#&gt; │       ├── sample1.purple.driver.catalog.germline.tsv</span></span>
+<span><span class="co">#&gt; │       ├── sample1.purple.driver.catalog.somatic.tsv</span></span>
+<span><span class="co">#&gt; │       └── sample1.purple.germline.deletion.tsv</span></span>
+<span><span class="co">#&gt; ├── qsee</span></span>
+<span><span class="co">#&gt; │   ├── sample1.qsee.status.tsv.gz</span></span>
+<span><span class="co">#&gt; │   └── sample1.qsee.vis.data.tsv.gz</span></span>
 <span><span class="co">#&gt; ├── sage</span></span>
 <span><span class="co">#&gt; │   ├── germline</span></span>
 <span><span class="co">#&gt; │   │   ├── sample1.sage.bqr.tsv</span></span>
@@ -264,21 +312,26 @@
 <span>  input_id <span class="op">=</span> <span class="st">"sample1_id"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">outdir</span>, pattern <span class="op">=</span> <span class="st">"\\.parquet$"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "metadata_purple.parquet"                      </span></span>
-<span><span class="co">#&gt;  [2] "sample1_2_purple_cnvgenetsv.parquet"          </span></span>
-<span><span class="co">#&gt;  [3] "sample1_2_purple_qc.parquet"                  </span></span>
-<span><span class="co">#&gt;  [4] "sample1_germline_purple_drivercatalog.parquet"</span></span>
-<span><span class="co">#&gt;  [5] "sample1_purple_cnvgenetsv.parquet"            </span></span>
-<span><span class="co">#&gt;  [6] "sample1_purple_cnvsomtsv.parquet"             </span></span>
-<span><span class="co">#&gt;  [7] "sample1_purple_germdeltsv.parquet"            </span></span>
-<span><span class="co">#&gt;  [8] "sample1_purple_purityrange.parquet"           </span></span>
-<span><span class="co">#&gt;  [9] "sample1_purple_puritytsv.parquet"             </span></span>
-<span><span class="co">#&gt; [10] "sample1_purple_qc.parquet"                    </span></span>
-<span><span class="co">#&gt; [11] "sample1_purple_somclonality.parquet"          </span></span>
-<span><span class="co">#&gt; [12] "sample1_purple_somhist.parquet"               </span></span>
-<span><span class="co">#&gt; [13] "sample1_somatic_purple_drivercatalog.parquet" </span></span>
-<span><span class="co">#&gt; [14] "version_2_purple_version.parquet"             </span></span>
-<span><span class="co">#&gt; [15] "version_purple_version.parquet"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "metadata_purple.parquet"                        </span></span>
+<span><span class="co">#&gt;  [2] "sample1_2_purple_cnvgenetsv.parquet"            </span></span>
+<span><span class="co">#&gt;  [3] "sample1_2_purple_qc.parquet"                    </span></span>
+<span><span class="co">#&gt;  [4] "sample1_3_purple_cnvgenetsv.parquet"            </span></span>
+<span><span class="co">#&gt;  [5] "sample1_germline_2_purple_drivercatalog.parquet"</span></span>
+<span><span class="co">#&gt;  [6] "sample1_germline_purple_drivercatalog.parquet"  </span></span>
+<span><span class="co">#&gt;  [7] "sample1_purple_chromarm.parquet"                </span></span>
+<span><span class="co">#&gt;  [8] "sample1_purple_cnvgenetsv.parquet"              </span></span>
+<span><span class="co">#&gt;  [9] "sample1_purple_cnvsomtsv.parquet"               </span></span>
+<span><span class="co">#&gt; [10] "sample1_purple_germampdel.parquet"              </span></span>
+<span><span class="co">#&gt; [11] "sample1_purple_germdeltsv.parquet"              </span></span>
+<span><span class="co">#&gt; [12] "sample1_purple_purityrange.parquet"             </span></span>
+<span><span class="co">#&gt; [13] "sample1_purple_puritytsv.parquet"               </span></span>
+<span><span class="co">#&gt; [14] "sample1_purple_qc.parquet"                      </span></span>
+<span><span class="co">#&gt; [15] "sample1_purple_somclonality.parquet"            </span></span>
+<span><span class="co">#&gt; [16] "sample1_purple_somhist.parquet"                 </span></span>
+<span><span class="co">#&gt; [17] "sample1_somatic_2_purple_drivercatalog.parquet" </span></span>
+<span><span class="co">#&gt; [18] "sample1_somatic_purple_drivercatalog.parquet"   </span></span>
+<span><span class="co">#&gt; [19] "version_2_purple_version.parquet"               </span></span>
+<span><span class="co">#&gt; [20] "version_purple_version.parquet"</span></span></code></pre></div>
 </div>
 <section class="level3"><h3 id="file-naming">File naming<a class="anchor" aria-label="anchor" href="#file-naming"></a>
 </h3>
@@ -319,7 +372,7 @@
 <span>  format <span class="op">=</span> <span class="st">"parquet"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">outdir_w</span>, pattern <span class="op">=</span> <span class="st">"\\.parquet$"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  chr [1:120] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...</span></span></code></pre></div>
+<span><span class="co">#&gt;  chr [1:161] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h2 id="id-columns">ID columns<a class="anchor" aria-label="anchor" href="#id-columns"></a>
 </h2>
@@ -385,7 +438,7 @@
 <span><span class="co">#&gt;  $ input_dirs  : list&lt;character&gt; [1:1] </span></span>
 <span><span class="co">#&gt;   ..$ : chr "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa"</span></span>
 <span><span class="co">#&gt;   ..@ ptype: chr(0) </span></span>
-<span><span class="co">#&gt;  $ output_dir  : chr "/tmp/RtmpYiChmL/qs_wigits"</span></span>
+<span><span class="co">#&gt;  $ output_dir  : chr "/tmp/RtmpaOfKj3/qs_wigits"</span></span>
 <span><span class="co">#&gt;  $ pkg_versions: list&lt;</span></span>
 <span><span class="co">#&gt;   tbl_df&lt;</span></span>
 <span><span class="co">#&gt;     name   : character</span></span>
@@ -394,7 +447,7 @@
 <span><span class="co">#&gt; &gt; [1:1] </span></span>
 <span><span class="co">#&gt;   ..$ : tibble [2 × 2] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;   .. ..$ name   : chr [1:2] "nemo" "tidywigits"</span></span>
-<span><span class="co">#&gt;   .. ..$ version: chr [1:2] "0.0.3.9025" "0.0.7.9008"</span></span>
+<span><span class="co">#&gt;   .. ..$ version: chr [1:2] "0.1.0.9004" "0.1.0.9000"</span></span>
 <span><span class="co">#&gt;   ..@ ptype: tibble [0 × 2] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;   .. ..$ name   : chr(0) </span></span>
 <span><span class="co">#&gt;   .. ..$ version: chr(0) </span></span>
@@ -406,11 +459,11 @@
 <span><span class="co">#&gt;     fin   : character</span></span>
 <span><span class="co">#&gt;   &gt;</span></span>
 <span><span class="co">#&gt; &gt; [1:1] </span></span>
-<span><span class="co">#&gt;   ..$ : tibble [119 × 4] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;   .. ..$ tbl   : chr [1:119] "alignments_dupfreq" "alignments_dupfreq" "alignments_markdup" "amber_bafpcf" ...</span></span>
-<span><span class="co">#&gt;   .. ..$ prefix: chr [1:119] "sample1" "sample1_2" "sample1" "sample1" ...</span></span>
-<span><span class="co">#&gt;   .. ..$ fout  : chr [1:119] "sample1_alignments_dupfreq.parquet" "sample1_2_alignments_dupfreq.parquet" "sample1_alignments_markdup.parquet" "sample1_amber_bafpcf.parquet" ...</span></span>
-<span><span class="co">#&gt;   .. ..$ fin   : chr [1:119] "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.redux.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.md.metrics" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/amber/sample1.amber.baf.pcf" ...</span></span>
+<span><span class="co">#&gt;   ..$ : tibble [160 × 4] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">#&gt;   .. ..$ tbl   : chr [1:160] "alignments_dupfreq" "alignments_dupfreq" "alignments_markdup" "amber_bafpcf" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ prefix: chr [1:160] "sample1" "sample1_2" "sample1" "sample1" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ fout  : chr [1:160] "sample1_alignments_dupfreq.parquet" "sample1_2_alignments_dupfreq.parquet" "sample1_alignments_markdup.parquet" "sample1_amber_bafpcf.parquet" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ fin   : chr [1:160] "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.redux.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.md.metrics" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/amber/sample1.amber.baf.pcf" ...</span></span>
 <span><span class="co">#&gt;   ..@ ptype: tibble [0 × 4] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;   .. ..$ tbl   : chr(0) </span></span>
 <span><span class="co">#&gt;   .. ..$ prefix: chr(0) </span></span>

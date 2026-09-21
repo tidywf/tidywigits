@@ -4,7 +4,7 @@ WiGiTS file parsing and manipulation.
 
 ## Super class
 
-[`nemo::Workflow`](https://umccr.github.io/nemo/reference/Workflow.html)
+[`nemo::Workflow`](https://tidywf.github.io/nemo/reference/Workflow.html)
 -\> `Wigits`
 
 ## Methods
@@ -15,17 +15,17 @@ WiGiTS file parsing and manipulation.
 
 Inherited methods
 
-- [`nemo::Workflow$filter_files()`](https://umccr.github.io/nemo/reference/Workflow.html#method-filter_files)
-- [`nemo::Workflow$get_metadata()`](https://umccr.github.io/nemo/reference/Workflow.html#method-get_metadata)
-- [`nemo::Workflow$get_schemas_raw()`](https://umccr.github.io/nemo/reference/Workflow.html#method-get_schemas_raw)
-- [`nemo::Workflow$get_schemas_tidy()`](https://umccr.github.io/nemo/reference/Workflow.html#method-get_schemas_tidy)
-- [`nemo::Workflow$get_tbls()`](https://umccr.github.io/nemo/reference/Workflow.html#method-get_tbls)
-- [`nemo::Workflow$get_tools()`](https://umccr.github.io/nemo/reference/Workflow.html#method-get_tools)
-- [`nemo::Workflow$list_files()`](https://umccr.github.io/nemo/reference/Workflow.html#method-list_files)
-- [`nemo::Workflow$print()`](https://umccr.github.io/nemo/reference/Workflow.html#method-print)
-- [`nemo::Workflow$run()`](https://umccr.github.io/nemo/reference/Workflow.html#method-run)
-- [`nemo::Workflow$tidy()`](https://umccr.github.io/nemo/reference/Workflow.html#method-tidy)
-- [`nemo::Workflow$write()`](https://umccr.github.io/nemo/reference/Workflow.html#method-write)
+- [`nemo::Workflow$filter_files()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-filter_files)
+- [`nemo::Workflow$get_metadata()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_metadata)
+- [`nemo::Workflow$get_schemas_raw()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_schemas_raw)
+- [`nemo::Workflow$get_schemas_tidy()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_schemas_tidy)
+- [`nemo::Workflow$get_tbls()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_tbls)
+- [`nemo::Workflow$get_tools()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_tools)
+- [`nemo::Workflow$list_files()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-list_files)
+- [`nemo::Workflow$print()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-print)
+- [`nemo::Workflow$run()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-run)
+- [`nemo::Workflow$tidy()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-tidy)
+- [`nemo::Workflow$write()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-write)
 
 ------------------------------------------------------------------------
 

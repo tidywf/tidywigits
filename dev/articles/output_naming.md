@@ -47,7 +47,7 @@ for (r in run_ids) {
 }
 
 dir_tree(dir_runs)
-#> /tmp/RtmpUxqLj5/naming-demo/runs
+#> /tmp/RtmpMJciMf/naming-demo/runs
 #> ├── run1
 #> │   ├── sampleA.tool1.table1.tsv
 #> │   └── sampleA.tool1.table2.tsv
@@ -95,7 +95,7 @@ tool$run(
 )
 
 dir_tree(dir_outA)
-#> /tmp/RtmpUxqLj5/naming-demo/outA
+#> /tmp/RtmpMJciMf/naming-demo/outA
 #> ├── metadata_tool1.parquet
 #> ├── sampleA_2_tool1_table1.parquet
 #> ├── sampleA_2_tool1_table2.parquet
@@ -153,7 +153,7 @@ for (r in run_ids) {
 }
 
 dir_tree(dir_outB)
-#> /tmp/RtmpUxqLj5/naming-demo/outB
+#> /tmp/RtmpMJciMf/naming-demo/outB
 #> ├── run1
 #> │   ├── metadata_tool1.parquet
 #> │   ├── sampleA_tool1_table1.parquet
@@ -257,7 +257,7 @@ for (r in c("run1", "run2", "run3")) {
   )
 }
 dir_tree(dir_inP)
-#> /tmp/RtmpUxqLj5/purple-runs
+#> /tmp/RtmpMJciMf/purple-runs
 #> ├── run1
 #> │   ├── sample1.purple.driver.catalog.germline.tsv
 #> │   ├── sample1.purple.driver.catalog.somatic.tsv
@@ -290,7 +290,7 @@ ppl$run(
   prefix_include = TRUE
 )
 dir_tree(dir_outP)
-#> /tmp/RtmpUxqLj5/purple-out
+#> /tmp/RtmpMJciMf/purple-out
 #> ├── metadata_purple.parquet
 #> ├── sample1_2_purple_qc.parquet
 #> ├── sample1_3_purple_qc.parquet
@@ -314,20 +314,20 @@ dir_ls(dir_outP, regexp = "purple_drivercatalog\\.parquet") |>
   purrr::list_rbind() |>
   dplyr::select(input_id, input_prefix, output_id, chrom, gene, cn_min)
 #> # A tibble: 12 × 6
-#>    input_id input_prefix       output_id chrom gene  cn_min
-#>    <chr>    <chr>              <chr>     <chr> <chr>  <dbl>
-#>  1 input1   sample1_germline_2 output1   chr1  FH      2.02
-#>  2 input1   sample1_germline_2 output1   chr1  MUTYH   2.00
-#>  3 input1   sample1_germline_3 output1   chr1  FH      2.02
-#>  4 input1   sample1_germline_3 output1   chr1  MUTYH   2.00
-#>  5 input1   sample1_germline   output1   chr1  FH      2.02
-#>  6 input1   sample1_germline   output1   chr1  MUTYH   2.00
-#>  7 input1   sample1_somatic_2  output1   chr16 TRAF7   3.74
-#>  8 input1   sample1_somatic_2  output1   chrX  USP9X   2.00
-#>  9 input1   sample1_somatic_3  output1   chr16 TRAF7   3.74
-#> 10 input1   sample1_somatic_3  output1   chrX  USP9X   2.00
-#> 11 input1   sample1_somatic    output1   chr16 TRAF7   3.74
-#> 12 input1   sample1_somatic    output1   chrX  USP9X   2.00
+#>    input_id input_prefix       output_id chrom gene   cn_min
+#>    <chr>    <chr>              <chr>     <chr> <chr>   <dbl>
+#>  1 input1   sample1_germline_2 output1   chr6  CRYBG1 0.0153
+#>  2 input1   sample1_germline_2 output1   chr1  CSF1   2.02  
+#>  3 input1   sample1_germline_3 output1   chr6  CRYBG1 0.0153
+#>  4 input1   sample1_germline_3 output1   chr1  CSF1   2.02  
+#>  5 input1   sample1_germline   output1   chr6  CRYBG1 0.0153
+#>  6 input1   sample1_germline   output1   chr1  CSF1   2.02  
+#>  7 input1   sample1_somatic_2  output1   chr8  TG     6.42  
+#>  8 input1   sample1_somatic_2  output1   chr20 PLCG1  3.47  
+#>  9 input1   sample1_somatic_3  output1   chr8  TG     6.42  
+#> 10 input1   sample1_somatic_3  output1   chr20 PLCG1  3.47  
+#> 11 input1   sample1_somatic    output1   chr8  TG     6.42  
+#> 12 input1   sample1_somatic    output1   chr20 PLCG1  3.47
 # and look at qc too
 dir_ls(dir_outP, regexp = "purple_qc\\.parquet") |>
   purrr::map(\(x) arrow::read_parquet(x)) |>
@@ -369,7 +369,7 @@ for (r in c("run1", "run2", "run3")) {
   file_copy(linx_files, dest, overwrite = TRUE)
 }
 dir_tree(dir_inL)
-#> /tmp/RtmpUxqLj5/linx-runs
+#> /tmp/RtmpMJciMf/linx-runs
 #> ├── run1
 #> │   ├── sample1.linx.breakend.tsv
 #> │   ├── sample1.linx.fusion.tsv
@@ -412,7 +412,7 @@ l$run(
   prefix_include = TRUE
 )
 dir_tree(dir_outL)
-#> /tmp/RtmpUxqLj5/linx-out
+#> /tmp/RtmpMJciMf/linx-out
 #> ├── metadata_linx.parquet
 #> ├── sample1_2_linx_fusions.parquet
 #> ├── sample1_3_linx_fusions.parquet
@@ -448,20 +448,20 @@ dir_ls(dir_outL, regexp = "linx_breakends\\.parquet") |>
   purrr::list_rbind() |>
   dplyr::select(input_id, input_prefix, output_id, gene, undisrupted_cn)
 #> # A tibble: 12 × 5
-#>    input_id input_prefix       output_id gene    undisrupted_cn
-#>    <chr>    <chr>              <chr>     <chr>            <dbl>
-#>  1 input1   sample1_germline_2 output1   CBL               0.56
-#>  2 input1   sample1_germline_2 output1   PTPRN2            1.95
-#>  3 input1   sample1_germline_3 output1   CBL               0.56
-#>  4 input1   sample1_germline_3 output1   PTPRN2            1.95
-#>  5 input1   sample1_germline   output1   CBL               0.56
-#>  6 input1   sample1_germline   output1   PTPRN2            1.95
-#>  7 input1   sample1_somatic_2  output1   FAM151A           3.85
-#>  8 input1   sample1_somatic_2  output1   MROH7             3.85
-#>  9 input1   sample1_somatic_3  output1   FAM151A           3.85
-#> 10 input1   sample1_somatic_3  output1   MROH7             3.85
-#> 11 input1   sample1_somatic    output1   FAM151A           3.85
-#> 12 input1   sample1_somatic    output1   MROH7             3.85
+#>    input_id input_prefix       output_id gene   undisrupted_cn
+#>    <chr>    <chr>              <chr>     <chr>           <dbl>
+#>  1 input1   sample1_germline_2 output1   PPP6C           0.286
+#>  2 input1   sample1_germline_2 output1   FOXP1           0.281
+#>  3 input1   sample1_germline_3 output1   PPP6C           0.286
+#>  4 input1   sample1_germline_3 output1   FOXP1           0.281
+#>  5 input1   sample1_germline   output1   PPP6C           0.286
+#>  6 input1   sample1_germline   output1   FOXP1           0.281
+#>  7 input1   sample1_somatic_2  output1   WRAP73          2.21 
+#>  8 input1   sample1_somatic_2  output1   TP73            2.21 
+#>  9 input1   sample1_somatic_3  output1   WRAP73          2.21 
+#> 10 input1   sample1_somatic_3  output1   TP73            2.21 
+#> 11 input1   sample1_somatic    output1   WRAP73          2.21 
+#> 12 input1   sample1_somatic    output1   TP73            2.21
 ```
 
 ### Sage: germline vs. somatic folders
@@ -494,7 +494,7 @@ for (r in c("run1", "run2", "run3")) {
   }
 }
 dir_tree(dir_inS)
-#> /tmp/RtmpUxqLj5/sage-runs
+#> /tmp/RtmpMJciMf/sage-runs
 #> ├── run1
 #> │   ├── germline
 #> │   │   ├── sample1.sage.bqr.tsv
@@ -540,7 +540,7 @@ s$run(
   prefix_include = TRUE
 )
 dir_tree(dir_outS)
-#> /tmp/RtmpUxqLj5/sage-out
+#> /tmp/RtmpMJciMf/sage-out
 #> ├── metadata_sage.parquet
 #> ├── sample1_germline_2_sage_bqrtsv.parquet
 #> ├── sample1_germline_3_sage_bqrtsv.parquet

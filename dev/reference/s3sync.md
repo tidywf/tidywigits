@@ -5,7 +5,7 @@ AWS S3 Sync Helper
 ## Usage
 
 ``` r
-s3sync(src, dest, pats = NULL)
+s3sync(src, dest, pats = NULL, dryrun = FALSE)
 ```
 
 ## Arguments
@@ -26,12 +26,23 @@ s3sync(src, dest, pats = NULL)
   Patterns tibble with `inex` ("in" or "ex") and `pat` (pattern)
   columns.
 
+- dryrun:
+
+  (`logical(1)`)  
+  If `TRUE`, passes `--dryrun` to `aws s3 sync` so operations are
+  displayed without being executed.
+
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
 src <- "s3://my-awesome-bucket/path/to/run1"
 dest <- sub("s3:/", "~/s3", src)
-s3sync(src, dest)
+pats <- tibble::tribble(
+  ~inex, ~pat,
+  "ex", "*",
+  "in", "*purple/*.purple.qc"
+)
+s3sync(src, dest, pats)
 } # }
 ```

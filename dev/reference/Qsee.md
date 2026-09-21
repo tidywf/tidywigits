@@ -1,19 +1,17 @@
-# Sigs Object
+# Qsee Object
 
-Sigs file parsing and manipulation.
+Qsee file parsing and manipulation.
 
 ## Super class
 
 [`nemo::Tool`](https://tidywf.github.io/nemo/reference/Tool.html) -\>
-`Sigs`
+`Qsee`
 
 ## Methods
 
 ### Public methods
 
-- [`Sigs$new()`](#method-Sigs-new)
-
-- [`Sigs$parse_snvcounts()`](#method-Sigs-parse_snvcounts)
+- [`Qsee$new()`](#method-Qsee-new)
 
 Inherited methods
 
@@ -30,11 +28,11 @@ Inherited methods
 
 ### Method `new()`
 
-Create a new Sigs object.
+Create a new Qsee object.
 
 #### Usage
 
-    Sigs$new(path = NULL, files_tbl = NULL)
+    Qsee$new(path = NULL, files_tbl = NULL)
 
 #### Arguments
 
@@ -49,32 +47,15 @@ Create a new Sigs object.
   Tibble of files from
   [`nemo::list_files_dir()`](https://tidywf.github.io/nemo/reference/list_files_dir.html).
 
-------------------------------------------------------------------------
-
-### Method `parse_snvcounts()`
-
-Read `snv_counts.csv` file.
-
-#### Usage
-
-    Sigs$parse_snvcounts(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)`)  
-  Path to file.
-
 ## Examples
 
 ``` r
-cls <- Sigs
-indir <- system.file("extdata/oa", package = "tidywigits")
+cls <- Qsee; tool <- "qsee"
+indir <- system.file("extdata/oa", tool, package = "tidywigits")
 odir <- tempdir()
-id <- "sigs_run1"
+id <- paste0(tool, "_run1")
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "sigs_.*parquet", full.names = FALSE))
-#> [1] "sample1_sigs_allocation.parquet" "sample1_sigs_snvcounts.parquet" 
+(lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
+#> [1] "sample1_qsee_status.parquet"  "sample1_qsee_visdata.parquet"
 ```

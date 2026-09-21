@@ -1,5 +1,34 @@
 # NEWS
 
+## v0.2.0 (2026-08-04)
+
+Oncoanalyser v3 (WiGiTS) support across every tool
+([pr212](https://github.com/tidywf/tidywigits/pull/212)-[pr222](https://github.com/tidywf/tidywigits/pull/222)).
+v3 outputs are folded in as the `latest` schema + test fixture, with
+breaking pre-v3 tables/columns demoted to per-tool older versions for
+regression coverage. The fixture is flattened to distinct sample ids
+(`tumor_dna`/`normal_dna`/`tumor_rna` =\>
+`sample1`/`sample2`/`sample3`), removing same-basename collisions.
+
+- New tool: Qsee (v3 QC summary)
+  ([pr222](https://github.com/tidywf/tidywigits/pull/222))
+- Breaking updates (old versions retained): Amber
+  ([pr212](https://github.com/tidywf/tidywigits/pull/212)), Bamtools
+  ([pr213](https://github.com/tidywf/tidywigits/pull/213)), Cider
+  ([pr214](https://github.com/tidywf/tidywigits/pull/214)), Cobalt
+  ([pr215](https://github.com/tidywf/tidywigits/pull/215)), Isofox
+  ([pr217](https://github.com/tidywf/tidywigits/pull/217)), Lilac
+  ([pr218](https://github.com/tidywf/tidywigits/pull/218)), Linx
+  ([pr219](https://github.com/tidywf/tidywigits/pull/219))
+- Additive updates: Esvee
+  ([pr216](https://github.com/tidywf/tidywigits/pull/216)), Neo
+  ([pr220](https://github.com/tidywf/tidywigits/pull/220)), Purple
+  ([pr221](https://github.com/tidywf/tidywigits/pull/221))
+- Isofox: most outputs moved `.csv` → `.tsv`, unified via a
+  delimiter-agnostic `dsv` ftype
+  ([pr217](https://github.com/tidywf/tidywigits/pull/217))
+- `orange`/`pave` ignored; `alignments`/`flagstats` kept as pre-v3 only
+
 ## v0.1.0 (2026-07-28)
 
 Major refactor. GitHub org migrated from `umccr` to `tidywf`. All 19
