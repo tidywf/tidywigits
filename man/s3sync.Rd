@@ -14,24 +14,41 @@ S3 source path.}
 Local destination path.}
 
 \item{pats}{(\code{tibble()})\cr
-Patterns tibble with \code{inex} ("in" or "ex") and \code{pat} (pattern) columns.}
+Patterns tibble with \code{inex} ("in" or "ex") and \code{pat} (pattern) columns.
+If \code{NULL} and \code{workflow} is given, the workflow's schema-derived patterns
+are used (see \code{\link[nemo:wf_sync_patterns]{wf_sync_patterns()}}); if both are \code{NULL}, everything is
+excluded.}
 
 \item{dryrun}{(\code{logical(1)})\cr
 If \code{TRUE}, passes \code{--dryrun} to \verb{aws s3 sync} so operations are displayed
 without being executed.}
 }
 \description{
-AWS S3 Sync Helper
+Syncs the parse-relevant WiGiTS outputs from \code{src} to \code{dest}. The default
+include patterns are generated from the tool schemas under
+\verb{inst/config/tools/*/schema.yaml} (see \code{\link[nemo:wf_sync_patterns]{nemo::wf_sync_patterns()}}), so adding
+a table to a schema automatically adds it here.
+}
+\details{
+A trailing exclude list (\link{WIGITS_SYNC_EXCLUDE}, wired through
+\code{Wigits$sync_exclude}) is applied after those includes; \verb{aws s3 sync} filters
+are ordered and last-match wins, so it carves files back out.
 }
 \examples{
 \dontrun{
 src <- "s3://my-awesome-bucket/path/to/run1"
 dest <- sub("s3:/", "~/s3", src)
+s3sync(src, dest, dryrun = TRUE)
+
+# inspect what would be pulled down
+nemo::wf_sync_patterns("wigits")
+
+# override with your own patterns
 pats <- tibble::tribble(
   ~inex, ~pat,
   "ex", "*",
   "in", "*purple/*.purple.qc"
 )
-s3sync(src, dest, pats)
+s3sync(src, dest, pats, dryrun = TRUE)
 }
 }

@@ -2,6 +2,7 @@ tables:
   bqrtsv:
     description: 'Base quality recalibration metrics.'
     pattern: "\\.sage\\.bqr\\.tsv$"
+    glob: ["*.sage.bqr.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'alt'
@@ -42,6 +43,7 @@ tables:
   exoncvg:
     description: 'Exon coverage metrics.'
     pattern: "\\.sage\\.exon\\.medians\\.tsv$"
+    glob: ["*.sage.exon.medians.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'gene'
@@ -77,6 +79,7 @@ tables:
   genecvg:
     description: 'Gene coverage depth ranges.'
     pattern: "\\.sage\\.gene\\.coverage\\.tsv$"
+    glob: ["*.sage.gene.coverage.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'gene'

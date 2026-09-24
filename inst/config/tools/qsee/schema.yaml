@@ -2,6 +2,7 @@ tables:
   status:
     description: 'QC status per feature.'
     pattern: "\\.qsee\\.status\\.tsv\\.gz$"
+    glob: ["*.qsee.status.tsv.gz"]
     ftype: 'tsv'
     columns:
       - raw: 'SampleId'
@@ -47,6 +48,7 @@ tables:
   visdata:
     description: 'QC visualisation data per feature.'
     pattern: "\\.qsee\\.vis\\.data\\.tsv\\.gz$"
+    glob: ["*.qsee.vis.data.tsv.gz"]
     ftype: 'tsv'
     columns:
       - raw: 'SampleId'

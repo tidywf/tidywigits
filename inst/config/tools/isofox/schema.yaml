@@ -2,6 +2,7 @@ tables:
   summary:
     description: 'QC summary.'
     pattern: "\\.isf\\.summary\\.(csv|tsv)$"
+    glob: ["*.isf.summary.csv", "*.isf.summary.tsv"]
     ftype: 'dsv'
     columns:
       - raw: 'SampleId'
@@ -87,6 +88,7 @@ tables:
   genedata:
     description: 'Gene level data.'
     pattern: "\\.isf\\.gene_data\\.(csv|tsv)$"
+    glob: ["*.isf.gene_data.csv", "*.isf.gene_data.tsv"]
     ftype: 'dsv'
     columns:
       - raw: 'GeneId'
@@ -182,6 +184,7 @@ tables:
   transdata:
     description: 'Transcript level data.'
     pattern: "\\.isf\\.transcript_data\\.(csv|tsv)$"
+    glob: ["*.isf.transcript_data.csv", "*.isf.transcript_data.tsv"]
     ftype: 'dsv'
     columns:
       - raw: 'GeneId'
@@ -277,6 +280,7 @@ tables:
   altsj:
     description: 'Alternate splice junctions.'
     pattern: "\\.isf\\.alt_splice_junc\\.(csv|tsv)$"
+    glob: ["*.isf.alt_splice_junc.csv", "*.isf.alt_splice_junc.tsv"]
     ftype: 'dsv'
     columns:
       - raw: 'GeneId'
@@ -457,6 +461,7 @@ tables:
   retintron:
     description: 'Retained introns.'
     pattern: "\\.isf\\.retained_intron\\.csv$"
+    glob: ["*.isf.retained_intron.csv"]
     ftype: 'dsv'
     columns:
       - raw: 'GeneId'
@@ -512,6 +517,7 @@ tables:
   fusionsall:
     description: 'All fusions.'
     pattern: "\\.isf\\.fusions\\.(csv|tsv)$"
+    glob: ["*.isf.fusions.csv", "*.isf.fusions.tsv"]
     ftype: 'dsv'
     columns:
       - raw: 'FusionId'
@@ -862,6 +868,7 @@ tables:
   fusionspass:
     description: 'Passed fusions.'
     pattern: "\\.isf\\.pass_fusions\\.(csv|tsv)$"
+    glob: ["*.isf.pass_fusions.csv", "*.isf.pass_fusions.tsv"]
     ftype: 'dsv'
     columns:
       - raw: 'FusionId'
@@ -1127,6 +1134,7 @@ tables:
   genecollection:
     description: 'Gene collection.'
     pattern: "\\.isf\\.gene_collection\\.(csv|tsv)$"
+    glob: ["*.isf.gene_collection.csv", "*.isf.gene_collection.tsv"]
     ftype: 'dsv'
     columns:
       - raw: 'GeneSetId'
@@ -1207,6 +1215,7 @@ tables:
   altsjunfilt:
     description: 'Unfiltered alternative splice junctions.'
     pattern: "\\.isf\\.alt_splice_junc_unfiltered\\.(csv|tsv)$"
+    glob: ["*.isf.alt_splice_junc_unfiltered.csv", "*.isf.alt_splice_junc_unfiltered.tsv"]
     ftype: 'dsv'
     columns:
       - raw: 'GeneId'

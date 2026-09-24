@@ -2,6 +2,7 @@ tables:
   prepfraglen:
     description: 'Fragment length stats.'
     pattern: "\\.esvee\\.prep\\.fragment_length\\.tsv$"
+    glob: ["*.esvee.prep.fragment_length.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'FragmentLength'
@@ -17,6 +18,7 @@ tables:
   prepdiscstats:
     description: 'Discordant read stats.'
     pattern: "\\.esvee\\.prep\\.disc_stats\\.tsv$"
+    glob: ["*.esvee.prep.disc_stats.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'TotalReads'
@@ -87,6 +89,7 @@ tables:
   prepjunction:
     description: 'Candidate junctions.'
     pattern: "\\.esvee\\.prep\\.junction\\.tsv$"
+    glob: ["*.esvee.prep.junction.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'Chromosome'
@@ -157,6 +160,7 @@ tables:
   assemblephased:
     description: 'Phased assemblies.'
     pattern: "\\.esvee\\.phased_assembly\\.tsv$"
+    glob: ["*.esvee.phased_assembly.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'AssemblyIds'
@@ -192,6 +196,7 @@ tables:
   assembleassembly:
     description: 'Breakend assemblies.'
     pattern: "\\.esvee\\.assembly\\.tsv$"
+    glob: ["*.esvee.assembly.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'Id'
@@ -352,6 +357,7 @@ tables:
   assemblebreakend:
     description: 'Breakends.'
     pattern: "\\.esvee\\.breakend\\.tsv$"
+    glob: ["*.esvee.breakend.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'Id'
@@ -577,6 +583,7 @@ tables:
   assemblealignment:
     description: 'Realigned assemblies.'
     pattern: "\\.esvee\\.alignment\\.tsv$"
+    glob: ["*.esvee.alignment.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'AssemblyIds'

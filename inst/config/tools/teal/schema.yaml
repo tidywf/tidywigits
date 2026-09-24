@@ -2,6 +2,7 @@ tables:
   breakend:
     description: 'Telomeric rearrangements.'
     pattern: "\\.teal\\.breakend\\.tsv\\.gz$"
+    glob: ["*.teal.breakend.tsv.gz"]
     ftype: 'tsv'
     columns:
       - raw: 'chromosome'
@@ -127,6 +128,7 @@ tables:
   tellength:
     description: 'Telomeric length and content.'
     pattern: "\\.teal\\.tellength\\.tsv$"
+    glob: ["*.teal.tellength.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'sampleId'

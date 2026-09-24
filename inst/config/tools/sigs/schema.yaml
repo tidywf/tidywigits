@@ -2,6 +2,7 @@ tables:
   allocation:
     description: 'Signature allocation.'
     pattern: "\\.sig\\.allocation\\.tsv$"
+    glob: ["*.sig.allocation.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'signature'
@@ -22,6 +23,7 @@ tables:
   snvcounts:
     description: 'SNV counts.'
     pattern: "\\.sig\\.snv_counts\\.csv$"
+    glob: ["*.sig.snv_counts.csv"]
     ftype: 'tsv-nohead'
     columns:
       - raw: 'X1'

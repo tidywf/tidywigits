@@ -2,6 +2,7 @@ tables:
   blastn:
     description: 'BLASTn hits (pre-v3).'
     pattern: "\\.cider\\.blastn_match\\.tsv\\.gz$"
+    glob: ["*.cider.blastn_match.tsv.gz"]
     ftype: 'tsv'
     columns:
       - raw: 'cdr3Seq'
@@ -92,6 +93,7 @@ tables:
   alignmatch:
     description: 'Alignment matches (v3+; replaces blastn).'
     pattern: "\\.cider\\.alignment_match\\.tsv\\.gz$"
+    glob: ["*.cider.alignment_match.tsv.gz"]
     ftype: 'tsv'
     columns:
       - raw: 'cdr3Seq'
@@ -187,6 +189,7 @@ tables:
   locusstats:
     description: 'Locus stats.'
     pattern: "\\.cider\\.locus_stats\\.tsv$"
+    glob: ["*.cider.locus_stats.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'locus'
@@ -222,6 +225,7 @@ tables:
   vdj:
     description: 'VDJ sequences.'
     pattern: "\\.cider\\.vdj\\.tsv\\.gz$"
+    glob: ["*.cider.vdj.tsv.gz"]
     ftype: 'tsv'
     columns:
       - raw: 'cdr3Seq'

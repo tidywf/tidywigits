@@ -44,8 +44,19 @@ Tools in scope: Purple, Amber, Cobalt, Isofox, Linx, Sage, Bamtools, and more.
 - `R/utils.R` --- `pkg_name`, `refine_by_variant_folder()` (germline/somatic
   disambiguation by parent folder, see gotchas above), `tidy_genecvg_split()`
   (shared Sage/Bamtools gene-coverage split logic).
-- `R/s3.R` --- `s3sync(src, dest, pats)` wraps `aws s3 sync` with
-  include/exclude patterns covering all tools.
+- `R/s3.R` --- `s3sync(src, dest, pats)` delegates to
+  `nemo::s3sync(workflow = "wigits")`. The include/exclude patterns are
+  **declared in the tool schemas** --- each table has a `glob` field next to
+  `pattern`, collected by `nemo::wf_sync_patterns()`. No hand-kept file list in
+  `R/s3.R`. `nemo::schema_glob_check("tidywigits")` (run in
+  `tests/testthat/test-schema-globs.R`) asserts every fixture file a `pattern`
+  matches is also covered by one of its globs. Inspect the assembled list with
+  `nemo::wf_sync_patterns("wigits")` or `nemo.R sync -w wigits --show_patterns`.
+  `WIGITS_SYNC_EXCLUDE` (in `R/Wigits.R`, wired via `Wigits$sync_exclude`) is a
+  trailing exclude list applied after those includes; it currently parks all
+  seven ESVEE tables (bulky, no downstream consumer yet). The schema still
+  declares their globs --- a workflow-level skip, so `schema_glob_check()` does
+  not flag it.
 
 ## Deployment (CLI, conda, Docker)
 

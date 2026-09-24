@@ -2,6 +2,7 @@ tables:
   bqrtsv:
     description: 'Base quality recalibration metrics.'
     pattern: "\\.redux\\.bqr\\.tsv$"
+    glob: ["*.redux.bqr.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'alt'
@@ -42,6 +43,7 @@ tables:
   dupfreq:
     description: 'Duplicate read count and frequency.'
     pattern: "(\\.redux)?\\.duplicate_freq\\.tsv$"
+    glob: ["*.redux.duplicate_freq.tsv", "*.duplicate_freq.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'DuplicateReadCount'
@@ -57,6 +59,7 @@ tables:
   markdup:
     description: 'Picard duplication metrics.'
     pattern: "\\.md\\.metrics$"
+    glob: ["*.md.metrics"]
     ftype: 'tsv'
     columns:
       - raw: 'LIBRARY'

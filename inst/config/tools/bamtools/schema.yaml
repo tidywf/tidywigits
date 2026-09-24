@@ -2,6 +2,7 @@ tables:
   wgsmetrics:
     description: 'WGS coverage metrics.'
     pattern: "\\.wgsmetrics$"
+    glob: ["*.wgsmetrics"]
     ftype: 'tsv'
     columns:
       - raw: 'GENOME_TERRITORY'
@@ -142,6 +143,7 @@ tables:
   coverage:
     description: 'Per-base coverage counts.'
     pattern: "\\.bam_metric\\.coverage\\.tsv$"
+    glob: ["*.bam_metric.coverage.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'Coverage'
@@ -157,6 +159,7 @@ tables:
   fraglength:
     description: 'Fragment length counts.'
     pattern: "\\.bam_metric\\.frag_length\\.tsv$"
+    glob: ["*.bam_metric.frag_length.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'FragmentLength'
@@ -172,6 +175,7 @@ tables:
   partitionstats:
     description: 'Per-partition alignment stats.'
     pattern: "\\.bam_metric\\.partition_stats\\.tsv$"
+    glob: ["*.bam_metric.partition_stats.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'Chromosome'
@@ -222,6 +226,7 @@ tables:
   flagstats:
     description: 'Counts of alignments for each FLAG type.'
     pattern: "\\.bam_metric\\.flag_counts\\.tsv$|\\.flagstat$"
+    glob: ["*.bam_metric.flag_counts.tsv", "*.flagstat"]
     ftype: 'tsv'
     columns:
       - raw: 'passed_or_failed'
@@ -332,6 +337,7 @@ tables:
   summary:
     description: 'Coverage summary.'
     pattern: "\\.bam_metric\\.summary\\.tsv$"
+    glob: ["*.bam_metric.summary.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'TotalRegionBases'
@@ -487,6 +493,7 @@ tables:
   exoncvg:
     description: 'Exon coverage depth.'
     pattern: "\\.bam_metric\\.exon_coverage\\.tsv$"
+    glob: ["*.bam_metric.exon_coverage.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'GeneName'
@@ -557,6 +564,7 @@ tables:
   exonmedians:
     description: 'Exon median depth.'
     pattern: "\\.bam_metric\\.exon_medians\\.tsv$"
+    glob: ["*.bam_metric.exon_medians.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'gene'
@@ -592,6 +600,7 @@ tables:
   genecvg:
     description: 'Gene coverage depth ranges.'
     pattern: "\\.bam_metric\\.gene_coverage\\.tsv$"
+    glob: ["*.bam_metric.gene_coverage.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'gene'

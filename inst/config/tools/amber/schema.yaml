@@ -2,6 +2,7 @@ tables:
   bafpcf:
     description: 'BAF segments using PCF algorithm.'
     pattern: "\\.amber\\.baf\\.pcf$"
+    glob: ["*.amber.baf.pcf"]
     ftype: 'tsv'
     columns:
       - raw: 'sampleID'
@@ -63,6 +64,7 @@ tables:
   contaminationtsv:
     description: 'Entry at each homozygous site in the reference and tumor.'
     pattern: "\\.amber\\.contamination\\.tsv$"
+    glob: ["*.amber.contamination.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'chromosome'
@@ -118,6 +120,7 @@ tables:
   homozygousregion:
     description: 'Regions of homozygosity found in the reference.'
     pattern: "\\.amber\\.homozygousregion\\.tsv$"
+    glob: ["*.amber.homozygousregion.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'chromosome'
@@ -158,6 +161,7 @@ tables:
   qc:
     description: 'QC metrics.'
     pattern: "\\.amber\\.qc$"
+    glob: ["*.amber.qc"]
     ftype: 'tsv-keyvalue'
     columns:
       - raw: 'QCStatus'
@@ -183,6 +187,7 @@ tables:
   version:
     description: 'Version of the tool.'
     pattern: "^amber\\.version$"
+    glob: ["*amber.version"]
     ftype: 'equal-keyvalue'
     columns:
       - raw: 'version'

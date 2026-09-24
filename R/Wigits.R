@@ -1,3 +1,20 @@
+#' WiGiTS S3 Sync Excludes
+#'
+#' Trailing `--exclude` globs applied after the schema-derived includes when
+#' syncing a WiGiTS run (see [s3sync()]). `aws s3 sync` filters are ordered and
+#' last-match wins, so these carve files back out of the includes.
+#'
+#' @export
+WIGITS_SYNC_EXCLUDE <- c(
+  "*.esvee.prep.fragment_length.tsv",
+  "*.esvee.prep.disc_stats.tsv",
+  "*.esvee.prep.junction.tsv",
+  "*.esvee.phased_assembly.tsv",
+  "*.esvee.assembly.tsv",
+  "*.esvee.breakend.tsv",
+  "*.esvee.alignment.tsv"
+)
+
 #' @title Wigits Object
 #'
 #' @description
@@ -30,6 +47,9 @@ Wigits <- R6::R6Class(
   cloneable = FALSE,
   inherit = Workflow,
   public = list(
+    #' @field sync_exclude (`character(n)`)\cr
+    #' Trailing `aws s3 sync` excludes, see [WIGITS_SYNC_EXCLUDE].
+    sync_exclude = WIGITS_SYNC_EXCLUDE,
     #' @description Create a new Wigits object.
     #' @param path (`character(n)`)\cr
     #' Path(s) to Wigits results.
