@@ -12,21 +12,21 @@
 #' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 18)
-#' ssf <- grep("_bamtools_summarystats", lf, value = TRUE)
+#' ssf <- grep("_bamtools_summarymain", lf, value = TRUE)
 #' ss <- arrow::read_parquet(file.path(odir, ssf[!grepl("_2_", ssf)][1]))
 #' expect_named(ss, c("input_id", "tot_region_bases", "tot_reads", "dup_reads", "dual_strand_reads",
 #'   "off_target_reads", "cov_mean", "cov_sd", "cov_median", "cov_mad", "lowmapq_pct", "dup_pct",
 #'   "unmapped_pct", "lowbaseq_pct", "overlap_read_pct", "cov_capped"))
 #' expect_equal(nrow(ss), 1L)
-#' ss_old <- nemo::read_parquet_grep(odir, lf, "_2_bamtools_summarystats")
+#' ss_old <- nemo::read_parquet_grep(odir, lf, "_2_bamtools_summarymain")
 #' expect_true("unpaired_pct" %in% names(ss_old))
 #' expect_false("off_target_reads" %in% names(ss_old))
 #' # latest exon_coverage splits into per-exon stats + long perc-above-depth
-#' exons <- nemo::read_parquet_grep(odir, lf, "_bamtools_exoncvgexons", first = TRUE)
+#' exons <- nemo::read_parquet_grep(odir, lf, "_bamtools_exoncvgmain", first = TRUE)
 #' expect_named(exons, c("input_id", "gene", "chrom", "start", "end", "exon", "dp_med", "dp_mean"))
 #' perc <- nemo::read_parquet_grep(odir, lf, "_bamtools_exoncvgperc", first = TRUE)
 #' expect_named(perc, c("input_id", "gene", "exon", "dp", "value"))
-#' genes <- nemo::read_parquet_grep(odir, lf, "genecvggenes", first = TRUE)
+#' genes <- nemo::read_parquet_grep(odir, lf, "genecvgmain", first = TRUE)
 #' expect_named(genes, c("input_id", "gene", "chrom", "pos_start", "pos_end", "missed_var_likelihood"))
 #' cvg <- nemo::read_parquet_grep(odir, lf, "genecvgcvg", first = TRUE)
 #' expect_named(cvg, c("input_id", "gene", "dr", "value"))
@@ -36,6 +36,12 @@ Bamtools <- R6::R6Class(
   cloneable = FALSE,
   inherit = Tool,
   public = list(
+    #' @field flat_tidy_names (`logical(1)`)\cr
+    #' `TRUE`: fan-out sub-tables are named `<tool>_<tidy_name>` (parser token
+    #' dropped). Needed for the `summarymain`/`summarydp`,
+    #' `wgsmetricsmain`/`wgsmetricsdp`/`wgsmetricshisto`,
+    #' `exoncvgmain`/`exoncvgperc` and `genecvgmain`/`genecvgcvg` splits.
+    flat_tidy_names = TRUE,
     #' @description Create a new Bamtools object.
     #' @param path (`character(1)`)\cr
     #' Output directory of tool. If `files_tbl` is supplied, this is ignored.
@@ -47,20 +53,20 @@ Bamtools <- R6::R6Class(
     #' @description Read `summary.tsv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    parse_summary = function(x) {
-      private$parse_file(x, "summary")
+    parse_summarymain = function(x) {
+      private$parse_file(x, "summarymain")
     },
     #' @description Tidy `summary.tsv` file. Generates 2 sub-tbls:
-    #' _stats_ with the main stats and _dp_ with the percentage of bases
-    #' covered by at least X reads.
+    #' `summarymain` with the main stats and `summarydp` with the percentage of
+    #' bases covered by at least X reads.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    tidy_summary = function(x) {
+    tidy_summarymain = function(x) {
       if (!tibble::is_tibble(x)) {
-        x <- self$parse_summary(x)
+        x <- self$parse_summarymain(x)
       }
       version <- nemo::get_tbl_version_attr(x)
-      schema <- self$config$get_schema_tidy("summary", version = version)
+      schema <- self$config$get_schema_tidy("summarymain", version = version)
       colnames(x) <- schema[["field"]]
       # d1 maintains file_version attr, d2 requires it
       d1 <- x |> dplyr::select(!dplyr::starts_with("depth_cov_"))
@@ -75,16 +81,18 @@ Bamtools <- R6::R6Class(
         dplyr::mutate(dp = as.numeric(.data$dp)) |>
         dplyr::select("dp", "pct") |>
         nemo::set_tbl_version_attr(version)
-      list(stats = d1[], dp = d2[]) |>
+      list(summarymain = d1[], summarydp = d2[]) |>
         nemo::nemo_enframe()
     },
-    #' @description Read `wgsmetrics` file.
+    #' @description Read `wgsmetrics` file. Generates 2 sub-tbls:
+    #' `wgsmetricsmain` with the main stats and `wgsmetricshisto` with the
+    #' base coverage distribution.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    parse_wgsmetrics = function(x) {
+    parse_wgsmetricsmain = function(x) {
       # handle two different sections
       # wgsmetrics dropped in oncoanalyser v3; only exists at v1.4.2
-      schema <- self$config$get_schema_raw("wgsmetrics", version = "v1.4.2") |>
+      schema <- self$config$get_schema_raw("wgsmetricsmain", version = "v1.4.2") |>
         dplyr::select("field", "type")
       hdr1 <- nemo::file_hdr(x, comment = "#")
       if (!identical(hdr1, schema[["field"]])) {
@@ -94,29 +102,29 @@ Bamtools <- R6::R6Class(
       if (!identical(hdr2, c("coverage", "high_quality_coverage_count"))) {
         nemo::nemo_stop("Bamtools wgsmetrics histogram header is unexpected.")
       }
-      d1 <- private$parse_file(x = x, table_name = "wgsmetrics", n_max = 1, comment = "#")
+      d1 <- private$parse_file(x = x, table_name = "wgsmetricsmain", n_max = 1, comment = "#")
       d2 <- readr::read_tsv(x, col_types = "ci", comment = "#", skip = 3) |>
         nemo::set_tbl_version_attr(nemo::get_tbl_version_attr(d1))
-      list(stats = d1[], histo = d2[]) |>
+      list(wgsmetricsmain = d1[], wgsmetricshisto = d2[]) |>
         nemo::nemo_enframe()
     },
     #' @description Tidy `wgsmetrics` file. Generates 3 sub-tbls:
-    #' _stats_ with the main stats, _dp_ with the percentage of bases
-    #' covered by at least X reads, and _histo_ with the distribution
-    #' of base coverage.
+    #' `wgsmetricsmain` with the main stats, `wgsmetricsdp` with the percentage
+    #' of bases covered by at least X reads, and `wgsmetricshisto` with the
+    #' distribution of base coverage.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    tidy_wgsmetrics = function(x) {
+    tidy_wgsmetricsmain = function(x) {
       if (!tibble::is_tibble(x)) {
-        x <- self$parse_wgsmetrics(x)
+        x <- self$parse_wgsmetricsmain(x)
       }
       d <- x |> tibble::deframe()
-      version <- nemo::get_tbl_version_attr(d[["stats"]])
-      schema <- self$config$get_schema_tidy("wgsmetrics", version = version)
-      colnames(d[["stats"]]) <- schema[["field"]]
+      version <- nemo::get_tbl_version_attr(d[["wgsmetricsmain"]])
+      schema <- self$config$get_schema_tidy("wgsmetricsmain", version = version)
+      colnames(d[["wgsmetricsmain"]]) <- schema[["field"]]
       # now split off the pct_x into new tbl
       pat1 <- "pct_\\d+x$"
-      d[["dp"]] <- d[["stats"]] |>
+      d[["wgsmetricsdp"]] <- d[["wgsmetricsmain"]] |>
         dplyr::select(dplyr::matches(pat1)) |>
         tidyr::pivot_longer(
           dplyr::everything(),
@@ -126,7 +134,7 @@ Bamtools <- R6::R6Class(
         ) |>
         dplyr::select("dp", "pct") |>
         nemo::set_tbl_version_attr(version)
-      d[["stats"]] <- d[["stats"]] |>
+      d[["wgsmetricsmain"]] <- d[["wgsmetricsmain"]] |>
         dplyr::select(!dplyr::matches(pat1))
       d |>
         nemo::nemo_enframe()
@@ -233,19 +241,21 @@ Bamtools <- R6::R6Class(
       list(flagstats = d) |>
         nemo::nemo_enframe()
     },
-    #' @description Tidy `gene_coverage.tsv` file.
+    #' @description Tidy `gene_coverage.tsv` file. Generates 2 sub-tbls:
+    #' `genecvgmain` with the per-gene metadata and `genecvgcvg` with the
+    #' long-form depth-range counts.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    tidy_genecvg = function(x) {
-      tidy_genecvg_split(private$tidy_file(x, "genecvg"))
+    tidy_genecvgmain = function(x) {
+      tidy_genecvg_split(private$tidy_file(x, "genecvgmain"))
     },
     #' @description Tidy `exon_coverage.tsv` file. Generates 2 sub-tbls:
-    #' _exons_ with per-exon depth stats and _perc_ with the long-format
-    #' percentage of bases above each depth threshold.
+    #' `exoncvgmain` with per-exon depth stats and `exoncvgperc` with the
+    #' long-format percentage of bases above each depth threshold.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    tidy_exoncvg = function(x) {
-      d <- private$tidy_file(x, "exoncvg") |>
+    tidy_exoncvgmain = function(x) {
+      d <- private$tidy_file(x, "exoncvgmain") |>
         dplyr::select("data")
       version <- nemo::get_tbl_version_attr(d[["data"]][[1]])
       d <- d |> tidyr::unnest("data")
@@ -262,7 +272,7 @@ Bamtools <- R6::R6Class(
         dplyr::mutate(dp = as.numeric(.data$dp)) |>
         dplyr::select("gene", "exon", "dp", "value") |>
         nemo::set_tbl_version_attr(version)
-      list(exons = exons, perc = perc) |>
+      list(exoncvgmain = exons, exoncvgperc = perc) |>
         nemo::nemo_enframe()
     }
   )

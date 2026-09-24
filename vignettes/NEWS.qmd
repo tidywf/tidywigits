@@ -41,6 +41,27 @@ removing same-basename collisions.
   `dsv` ftype (`r pr(217)`)
 - `orange`/`pave` ignored; `alignments`/`flagstats` kept as pre-v3 only
 
+### Fan-out table naming
+
+Tools that split one file into several tables (`Bamtools`, `Sage`, `Cobalt`)
+have been standardised according to the nemo convention: each sub-table is a
+real `schema.yaml` table, the file-matching one is named `<stem>main` and keeps
+`pattern` + `glob`, and each derived sibling is a sentinel
+(`pattern: "__no_file_match__<table>"`, no `glob`) whose columns document its
+tidy output shape. The classes set `flat_tidy_names = TRUE`, so an output table
+is `<tool>_<schema table>`.
+
+Breaking: output tables renamed (derived siblings keep their names):
+
+| Old                        | New                       |
+| -------------------------- | ------------------------- |
+| `bamtools_summarystats`    | `bamtools_summarymain`    |
+| `bamtools_wgsmetricsstats` | `bamtools_wgsmetricsmain` |
+| `bamtools_exoncvgexons`    | `bamtools_exoncvgmain`    |
+| `bamtools_genecvggenes`    | `bamtools_genecvgmain`    |
+| `sage_genecvggenes`        | `sage_genecvgmain`        |
+| `cobalt_gcmedsample`       | `cobalt_gcmedmain`        |
+
 ### AWS S3 sync
 
 `s3sync()`'s default include/exclude patterns now come from the tool schemas

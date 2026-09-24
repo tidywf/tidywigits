@@ -76,7 +76,7 @@ tables:
         type: 'float'
         description: 'median depth'
         versions: ['latest']
-  genecvg:
+  genecvgmain:
     description: 'Gene coverage depth ranges.'
     pattern: "\\.sage\\.gene\\.coverage\\.tsv$"
     glob: ["*.sage.gene.coverage.tsv"]
@@ -451,4 +451,24 @@ tables:
         tidy: 'dr_10000'
         type: 'float'
         description: 'depth range 10000+'
+        versions: ['latest']
+  genecvgcvg:
+    description: 'Per-gene base counts per depth range, long-form (derived from genecvgmain).'
+    pattern: "__no_file_match__genecvgcvg"
+    ftype: 'tsv'
+    columns:
+      - raw: 'gene'
+        tidy: 'gene'
+        type: 'char'
+        description: 'gene name'
+        versions: ['latest']
+      - raw: 'dr'
+        tidy: 'dr'
+        type: 'char'
+        description: 'depth range (e.g. 1000_1999)'
+        versions: ['latest']
+      - raw: 'value'
+        tidy: 'value'
+        type: 'float'
+        description: 'number of bases within the depth range'
         versions: ['latest']

@@ -37,7 +37,25 @@ Tools in scope: Purple, Amber, Cobalt, Isofox, Linx, Sage, Bamtools, and more.
   since Sage doesn't encode the variant in the basename.
 - **Shared `genecvg` parsing:** Sage and Bamtools both parse the same
   gene-coverage format via `tidy_genecvg_split()` (`R/utils.R`); each tool's
-  `tidy_genecvg()` is a thin wrapper.
+  `tidy_genecvgmain()` is a thin wrapper.
+- **1 file → N tables (fan-out):** `Bamtools`, `Sage` and `Cobalt` split one
+  file into several tables. Rules are shared with tidydragen and live in
+  `docs/r-pkg/schema.md` → *Fan-out*; in short: the file-matching table is
+  `<stem>main` and carries `pattern` + `glob`, each derived sibling is a
+  sentinel table (`pattern: "__no_file_match__<table>"`, no `glob`) whose
+  `columns:` describe its tidy output shape, the class sets
+  `flat_tidy_names = TRUE` (output `<tool>_<table>`), and every `nemo_enframe()`
+  list key --- in `parse_*` as well as `tidy_*` --- is the schema table name.
+  Current splits:
+
+  | Tool       | Primary                        | Sentinels                         |
+  | ---------- | ------------------------------ | --------------------------------- |
+  | `Bamtools` | `summarymain`                  | `summarydp`                       |
+  | `Bamtools` | `wgsmetricsmain` (v1.4.2 only) | `wgsmetricsdp`, `wgsmetricshisto` |
+  | `Bamtools` | `exoncvgmain`                  | `exoncvgperc`                     |
+  | `Bamtools` | `genecvgmain`                  | `genecvgcvg`                      |
+  | `Sage`     | `genecvgmain`                  | `genecvgcvg`                      |
+  | `Cobalt`   | `gcmedmain`                    | `gcmedbuckets`                    |
 
 ## Key files
 

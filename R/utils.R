@@ -61,11 +61,12 @@ refine_by_variant_folder <- function(files) {
     dplyr::select(-".variant")
 }
 
-# Split a tidied gene-coverage table into `genes` (one row per gene, without the
-# depth-range columns) and `cvg` (long form of the `dr_*` depth-range columns).
-# Shared by `Bamtools$tidy_genecvg()` and `Sage$tidy_genecvg()`, which parse the
-# same gene-coverage format from their own schemas. `x` is the result of a
-# tool's `private$tidy_file(., "genecvg")`.
+# Split a tidied gene-coverage table into `genecvgmain` (one row per gene,
+# without the depth-range columns) and `genecvgcvg` (long form of the `dr_*`
+# depth-range columns). Shared by `Bamtools$tidy_genecvgmain()` and
+# `Sage$tidy_genecvgmain()`, which parse the same gene-coverage format from
+# their own schemas. `x` is the result of a tool's
+# `private$tidy_file(., "genecvgmain")`.
 tidy_genecvg_split <- function(x) {
   d <- x |>
     dplyr::select("data")
@@ -86,6 +87,6 @@ tidy_genecvg_split <- function(x) {
     ) |>
     dplyr::select("gene", "dr", "value") |>
     nemo::set_tbl_version_attr(version)
-  list(genes = genes, cvg = cvg) |>
+  list(genecvgmain = genes, genecvgcvg = cvg) |>
     nemo::nemo_enframe()
 }

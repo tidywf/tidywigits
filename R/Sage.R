@@ -24,6 +24,10 @@ Sage <- R6::R6Class(
   cloneable = FALSE,
   inherit = Tool,
   public = list(
+    #' @field flat_tidy_names (`logical(1)`)\cr
+    #' `TRUE`: fan-out sub-tables are named `<tool>_<tidy_name>` (parser token
+    #' dropped). Needed for the `genecvgmain`/`genecvgcvg` split.
+    flat_tidy_names = TRUE,
     #' @description Create a new Sage object.
     #' @param path (`character(1)`)\cr
     #' Output directory of tool. If `files_tbl` is supplied, this is ignored.
@@ -33,12 +37,12 @@ Sage <- R6::R6Class(
       super$initialize(name = "sage", pkg = pkg_name, path = path, files_tbl = files_tbl)
     },
     #' @description Tidy `gene.coverage.tsv` file. Generates 2 sub-tbls:
-    #' _genes_ with the per-gene metadata and _cvg_ with the long-form
-    #' depth-range counts.
+    #' `genecvgmain` with the per-gene metadata and `genecvgcvg` with the
+    #' long-form depth-range counts.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    tidy_genecvg = function(x) {
-      tidy_genecvg_split(private$tidy_file(x, "genecvg"))
+    tidy_genecvgmain = function(x) {
+      tidy_genecvg_split(private$tidy_file(x, "genecvgmain"))
     }
   ),
   private = list(
