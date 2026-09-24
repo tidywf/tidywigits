@@ -29,6 +29,11 @@ include patterns are generated from the tool schemas under
 \verb{inst/config/tools/*/schema.yaml} (see \code{\link[nemo:wf_sync_patterns]{nemo::wf_sync_patterns()}}), so adding
 a table to a schema automatically adds it here.
 }
+\details{
+A trailing exclude list (\link{WIGITS_SYNC_EXCLUDE}, wired through
+\code{Wigits$sync_exclude}) is applied after those includes; \verb{aws s3 sync} filters
+are ordered and last-match wins, so it carves files back out.
+}
 \examples{
 \dontrun{
 src <- "s3://my-awesome-bucket/path/to/run1"

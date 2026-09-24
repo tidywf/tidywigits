@@ -5,6 +5,10 @@
 #' `inst/config/tools/*/schema.yaml` (see [nemo::wf_sync_patterns()]), so adding
 #' a table to a schema automatically adds it here.
 #'
+#' A trailing exclude list ([WIGITS_SYNC_EXCLUDE], wired through
+#' `Wigits$sync_exclude`) is applied after those includes; `aws s3 sync` filters
+#' are ordered and last-match wins, so it carves files back out.
+#'
 #' @inheritParams nemo::s3sync
 #'
 #' @examples

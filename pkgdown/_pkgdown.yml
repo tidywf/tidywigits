@@ -74,5 +74,6 @@ reference:
   - title: "Other"
     contents:
       - WIGITS_TOOLS
+      - WIGITS_SYNC_EXCLUDE
       - purple_plot_getter
       - s3sync

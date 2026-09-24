@@ -52,6 +52,11 @@ Tools in scope: Purple, Amber, Cobalt, Isofox, Linx, Sage, Bamtools, and more.
   `tests/testthat/test-schema-globs.R`) asserts every fixture file a `pattern`
   matches is also covered by one of its globs. Inspect the assembled list with
   `nemo::wf_sync_patterns("wigits")` or `nemo.R sync -w wigits --show_patterns`.
+  `WIGITS_SYNC_EXCLUDE` (in `R/Wigits.R`, wired via `Wigits$sync_exclude`) is a
+  trailing exclude list applied after those includes; it currently parks all
+  seven ESVEE tables (bulky, no downstream consumer yet). The schema still
+  declares their globs --- a workflow-level skip, so `schema_glob_check()` does
+  not flag it.
 
 ## Deployment (CLI, conda, Docker)
 

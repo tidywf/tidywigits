@@ -29,6 +29,14 @@ x <- w$run(output_dir = file.path(dir1, "out1"), format = "parquet", input_id = 
 \section{Super class}{
 \code{\link[nemo:Workflow]{nemo::Workflow}} -> \code{Wigits}
 }
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{sync_exclude}}{(\code{character(n)})\cr
+Trailing \verb{aws s3 sync} excludes, see \link{WIGITS_SYNC_EXCLUDE}.}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
