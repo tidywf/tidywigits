@@ -17,7 +17,7 @@ test_that("Function Cobalt() @ L29", {
   expect_equal(nrow(ver), 1L)
   rmed <- nemo::read_parquet_grep(odir, lf, "cobalt_ratiomed")
   expect_named(rmed, c("input_id", "chrom", "median_ratio", "count"))
-  gcmed_s <- nemo::read_parquet_grep(odir, lf, "gcmedsample")
+  gcmed_s <- nemo::read_parquet_grep(odir, lf, "gcmedmain")
   expect_named(gcmed_s, c("input_id", "mean", "median"))
   expect_equal(nrow(gcmed_s), 1L)
   pcfs <- lapply(grep("cobalt_ratiopcf", lf, value = TRUE),

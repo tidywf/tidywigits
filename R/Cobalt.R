@@ -17,7 +17,7 @@
 #' expect_equal(nrow(ver), 1L)
 #' rmed <- nemo::read_parquet_grep(odir, lf, "cobalt_ratiomed")
 #' expect_named(rmed, c("input_id", "chrom", "median_ratio", "count"))
-#' gcmed_s <- nemo::read_parquet_grep(odir, lf, "gcmedsample")
+#' gcmed_s <- nemo::read_parquet_grep(odir, lf, "gcmedmain")
 #' expect_named(gcmed_s, c("input_id", "mean", "median"))
 #' expect_equal(nrow(gcmed_s), 1L)
 #' pcfs <- lapply(grep("cobalt_ratiopcf", lf, value = TRUE),
@@ -31,6 +31,10 @@ Cobalt <- R6::R6Class(
   cloneable = FALSE,
   inherit = Tool,
   public = list(
+    #' @field flat_tidy_names (`logical(1)`)\cr
+    #' `TRUE`: fan-out sub-tables are named `<tool>_<tidy_name>` (parser token
+    #' dropped). Needed for the `gcmedmain`/`gcmedbuckets` split.
+    flat_tidy_names = TRUE,
     #' @description Create a new Cobalt object.
     #' @param path (`character(1)`)\cr
     #' Output directory of tool. If `files_tbl` is supplied, this is ignored.
@@ -39,32 +43,35 @@ Cobalt <- R6::R6Class(
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "cobalt", pkg = pkg_name, path = path, files_tbl = files_tbl)
     },
-    #' @description Read `gc.median.tsv` file.
+    #' @description Read `gc.median.tsv` file. Generates 2 sub-tbls:
+    #' `gcmedmain` with the sample mean/median read depth, and `gcmedbuckets`
+    #' with the median depth per GC bucket.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    parse_gcmed = function(x) {
+    parse_gcmedmain = function(x) {
       # first two rows are mean/median + their values
       d1 <- readr::read_tsv(x, col_names = TRUE, col_types = "dd", n_max = 1)
       # next rows are median per bucket
-      d2 <- private$parse_file(x, "gcmed", skip = 2)
-      list(sample_stats = d1[], bucket_stats = d2[]) |>
+      d2 <- private$parse_file(x, "gcmedbuckets", skip = 2)
+      list(gcmedmain = d1[], gcmedbuckets = d2[]) |>
         nemo::nemo_enframe()
     },
     #' @description Tidy `gc.median.tsv` file. Generates 2 sub-tbls:
-    #' _sample_ with the sample mean/median read depth, and _buckets_ with the
-    #' median depth per GC bucket.
+    #' `gcmedmain` with the sample mean/median read depth, and `gcmedbuckets`
+    #' with the median depth per GC bucket.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    tidy_gcmed = function(x) {
+    tidy_gcmedmain = function(x) {
       if (!tibble::is_tibble(x)) {
-        x <- self$parse_gcmed(x)
+        x <- self$parse_gcmedmain(x)
       }
       d <- x |> tibble::deframe()
-      version <- nemo::get_tbl_version_attr(d[["bucket_stats"]])
-      schema <- self$config$get_schema_tidy("gcmed", version = version)
-      colnames(d[["bucket_stats"]]) <- schema[["field"]]
-      colnames(d[["sample_stats"]]) <- c("mean", "median")
-      list(sample = d[["sample_stats"]], buckets = d[["bucket_stats"]]) |>
+      version <- nemo::get_tbl_version_attr(d[["gcmedbuckets"]])
+      buckets_schema <- self$config$get_schema_tidy("gcmedbuckets", version = version)
+      main_schema <- self$config$get_schema_tidy("gcmedmain", version = version)
+      colnames(d[["gcmedbuckets"]]) <- buckets_schema[["field"]]
+      colnames(d[["gcmedmain"]]) <- main_schema[["field"]]
+      d |>
         nemo::nemo_enframe()
     }
   ),

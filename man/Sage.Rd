@@ -18,11 +18,20 @@ obj$run(output_dir = odir, format = "parquet", input_id = id)
 \section{Super class}{
 \code{\link[nemo:Tool]{nemo::Tool}} -> \code{Sage}
 }
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{flat_tidy_names}}{(\code{logical(1)})\cr
+\code{TRUE}: fan-out sub-tables are named \verb{<tool>_<tidy_name>} (parser token
+dropped). Needed for the \code{genecvgmain}/\code{genecvgcvg} split.}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Sage-new}{\code{Sage$new()}}
-\item \href{#method-Sage-tidy_genecvg}{\code{Sage$tidy_genecvg()}}
+\item \href{#method-Sage-tidy_genecvgmain}{\code{Sage$tidy_genecvgmain()}}
 }
 }
 \if{html}{\out{
@@ -62,14 +71,14 @@ Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Sage-tidy_genecvg"></a>}}
-\if{latex}{\out{\hypertarget{method-Sage-tidy_genecvg}{}}}
-\subsection{Method \code{tidy_genecvg()}}{
+\if{html}{\out{<a id="method-Sage-tidy_genecvgmain"></a>}}
+\if{latex}{\out{\hypertarget{method-Sage-tidy_genecvgmain}{}}}
+\subsection{Method \code{tidy_genecvgmain()}}{
 Tidy \code{gene.coverage.tsv} file. Generates 2 sub-tbls:
-\emph{genes} with the per-gene metadata and \emph{cvg} with the long-form
-depth-range counts.
+\code{genecvgmain} with the per-gene metadata and \code{genecvgcvg} with the
+long-form depth-range counts.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Sage$tidy_genecvg(x)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Sage$tidy_genecvgmain(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

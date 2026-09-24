@@ -1,8 +1,23 @@
 tables:
-  gcmed:
-    description: 'GC median read depth per GC bucket.'
+  gcmedmain:
+    description: 'Sample mean/median read depth (first section of the GC median file).'
     pattern: "\\.cobalt\\.gc\\.median\\.tsv$"
     glob: ["*.cobalt.gc.median.tsv"]
+    ftype: 'tsv'
+    columns:
+      - raw: '#sampleMean'
+        tidy: 'mean'
+        type: 'float'
+        description: 'sample mean read depth'
+        versions: ['latest']
+      - raw: 'sampleMedian'
+        tidy: 'median'
+        type: 'float'
+        description: 'sample median read depth'
+        versions: ['latest']
+  gcmedbuckets:
+    description: 'GC median read depth per GC bucket (derived from gcmedmain).'
+    pattern: "__no_file_match__gcmedbuckets"
     ftype: 'tsv'
     columns:
       - raw: '#gcBucket'

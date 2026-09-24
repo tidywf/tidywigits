@@ -1,5 +1,5 @@
 tables:
-  wgsmetrics:
+  wgsmetricsmain:
     description: 'WGS coverage metrics.'
     pattern: "\\.wgsmetrics$"
     glob: ["*.wgsmetrics"]
@@ -139,6 +139,36 @@ tables:
         tidy: 'pct_100x'
         type: 'float'
         description: 'fraction of genome at 100x coverage'
+        versions: ['v1.4.2']
+  wgsmetricsdp:
+    description: 'Percentage of bases covered at each depth threshold, long-form (derived from wgsmetricsmain).'
+    pattern: "__no_file_match__wgsmetricsdp"
+    ftype: 'tsv'
+    columns:
+      - raw: 'dp'
+        tidy: 'dp'
+        type: 'char'
+        description: 'depth threshold (e.g. 10x)'
+        versions: ['v1.4.2']
+      - raw: 'pct'
+        tidy: 'pct'
+        type: 'float'
+        description: 'percentage of bases covered at or above the depth threshold'
+        versions: ['v1.4.2']
+  wgsmetricshisto:
+    description: 'Base coverage histogram (derived from wgsmetricsmain).'
+    pattern: "__no_file_match__wgsmetricshisto"
+    ftype: 'tsv'
+    columns:
+      - raw: 'coverage'
+        tidy: 'coverage'
+        type: 'char'
+        description: 'coverage bin'
+        versions: ['v1.4.2']
+      - raw: 'high_quality_coverage_count'
+        tidy: 'high_quality_coverage_count'
+        type: 'int'
+        description: 'number of high quality bases at this coverage'
         versions: ['v1.4.2']
   coverage:
     description: 'Per-base coverage counts.'
@@ -334,7 +364,7 @@ tables:
         type: 'float'
         description: 'percentage against total pairs'
         versions: ['latest']
-  summary:
+  summarymain:
     description: 'Coverage summary.'
     pattern: "\\.bam_metric\\.summary\\.tsv$"
     glob: ["*.bam_metric.summary.tsv"]
@@ -490,7 +520,22 @@ tables:
         type: 'float'
         description: 'fraction at 100x depth'
         versions: ['v1.4.2', 'latest']
-  exoncvg:
+  summarydp:
+    description: 'Percentage of bases covered at each depth threshold, long-form (derived from summarymain).'
+    pattern: "__no_file_match__summarydp"
+    ftype: 'tsv'
+    columns:
+      - raw: 'dp'
+        tidy: 'dp'
+        type: 'float'
+        description: 'depth threshold'
+        versions: ['v1.4.2', 'latest']
+      - raw: 'pct'
+        tidy: 'pct'
+        type: 'float'
+        description: 'percentage of bases covered at or above the depth threshold'
+        versions: ['v1.4.2', 'latest']
+  exoncvgmain:
     description: 'Exon coverage depth.'
     pattern: "\\.bam_metric\\.exon_coverage\\.tsv$"
     glob: ["*.bam_metric.exon_coverage.tsv"]
@@ -561,6 +606,31 @@ tables:
         type: 'float'
         description: 'percentage of bases above 250x depth'
         versions: ['latest']
+  exoncvgperc:
+    description: 'Percentage of exon bases above each depth threshold, long-form (derived from exoncvgmain).'
+    pattern: "__no_file_match__exoncvgperc"
+    ftype: 'tsv'
+    columns:
+      - raw: 'gene'
+        tidy: 'gene'
+        type: 'char'
+        description: 'gene name'
+        versions: ['latest']
+      - raw: 'exon'
+        tidy: 'exon'
+        type: 'float'
+        description: 'exon rank'
+        versions: ['latest']
+      - raw: 'dp'
+        tidy: 'dp'
+        type: 'float'
+        description: 'depth threshold'
+        versions: ['latest']
+      - raw: 'value'
+        tidy: 'value'
+        type: 'float'
+        description: 'percentage of exon bases above the depth threshold'
+        versions: ['latest']
   exonmedians:
     description: 'Exon median depth.'
     pattern: "\\.bam_metric\\.exon_medians\\.tsv$"
@@ -597,7 +667,7 @@ tables:
         type: 'float'
         description: 'median depth'
         versions: ['v1.4.2']
-  genecvg:
+  genecvgmain:
     description: 'Gene coverage depth ranges.'
     pattern: "\\.bam_metric\\.gene_coverage\\.tsv$"
     glob: ["*.bam_metric.gene_coverage.tsv"]
@@ -997,4 +1067,24 @@ tables:
         tidy: 'dr_10000'
         type: 'float'
         description: 'depth range 10000+'
+        versions: ['v1.4.2', 'latest']
+  genecvgcvg:
+    description: 'Per-gene base counts per depth range, long-form (derived from genecvgmain).'
+    pattern: "__no_file_match__genecvgcvg"
+    ftype: 'tsv'
+    columns:
+      - raw: 'gene'
+        tidy: 'gene'
+        type: 'char'
+        description: 'gene name'
+        versions: ['v1.4.2', 'latest']
+      - raw: 'dr'
+        tidy: 'dr'
+        type: 'char'
+        description: 'depth range (e.g. 1000_1999)'
+        versions: ['v1.4.2', 'latest']
+      - raw: 'value'
+        tidy: 'value'
+        type: 'float'
+        description: 'number of bases within the depth range'
         versions: ['v1.4.2', 'latest']
