@@ -2,6 +2,7 @@ tables:
   cnvgenetsv:
     description: 'Copy number alterations of each gene in the HMF gene panel.'
     pattern: "\\.purple\\.cnv\\.gene\\.tsv$"
+    glob: ["*.purple.cnv.gene.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'chromosome'
@@ -117,6 +118,7 @@ tables:
   cnvsomtsv:
     description: 'Copy number profile of all (contiguous) segments of the tumor sample.'
     pattern: "\\.purple\\.cnv\\.somatic\\.tsv$"
+    glob: ["*.purple.cnv.somatic.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'chromosome'
@@ -202,6 +204,7 @@ tables:
   drivercatalog:
     description: 'Significant amplifications and deletions that occur in the HMF gene panel.'
     pattern: "\\.purple\\.driver\\.catalog\\.(germline|somatic)\\.tsv$"
+    glob: ["*.purple.driver.catalog.germline.tsv", "*.purple.driver.catalog.somatic.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'chromosome'
@@ -297,6 +300,7 @@ tables:
   germdeltsv:
     description: 'Germline deletions.'
     pattern: "\\.purple\\.germline\\.deletion\\.tsv$"
+    glob: ["*.purple.germline.deletion.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'gene'
@@ -382,6 +386,7 @@ tables:
   germampdel:
     description: 'Germline amplifications and deletions.'
     pattern: "\\.purple\\.germline_amp_del\\.tsv$"
+    glob: ["*.purple.germline_amp_del.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'gene'
@@ -477,6 +482,7 @@ tables:
   chromarm:
     description: 'Copy number summary per chromosome arm.'
     pattern: "\\.purple\\.chromosome_arm\\.tsv$"
+    glob: ["*.purple.chromosome_arm.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'chromosome'
@@ -512,6 +518,7 @@ tables:
   purityrange:
     description: 'Best fit per purity sorted by score.'
     pattern: "\\.purple\\.purity\\.range\\.tsv$"
+    glob: ["*.purple.purity.range.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'purity'
@@ -547,6 +554,7 @@ tables:
   puritytsv:
     description: 'Purity/ploidy fit summary.'
     pattern: "\\.purple\\.purity\\.tsv$"
+    glob: ["*.purple.purity.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'purity'
@@ -677,6 +685,7 @@ tables:
   qc:
     description: 'QC metrics.'
     pattern: "\\.purple\\.qc$"
+    glob: ["*.purple.qc"]
     ftype: 'tsv-keyvalue'
     columns:
       - raw: 'QCStatus'
@@ -752,6 +761,7 @@ tables:
   somclonality:
     description: 'Clonality peak model data.'
     pattern: "\\.purple\\.somatic\\.clonality\\.tsv$"
+    glob: ["*.purple.somatic.clonality.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'peak'
@@ -787,6 +797,7 @@ tables:
   somhist:
     description: 'Somatic variant histogram data.'
     pattern: "\\.purple\\.somatic\\.hist\\.tsv$"
+    glob: ["*.purple.somatic.hist.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'variantCopyNumberBucket'
@@ -807,6 +818,7 @@ tables:
   version:
     description: 'Version of the tool.'
     pattern: "^purple\\.version$"
+    glob: ["*purple.version"]
     ftype: 'equal-keyvalue'
     columns:
       - raw: 'version'

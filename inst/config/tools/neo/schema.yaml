@@ -2,6 +2,7 @@ tables:
   candidates:
     description: 'Neoepitope candidates.'
     pattern: "\\.neo\\.neo_data\\.tsv$"
+    glob: ["*.neo.neo_data.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'NeId'
@@ -182,6 +183,7 @@ tables:
   predictions:
     description: 'Neoepitope predictions.'
     pattern: "\\.neo\\.neoepitope\\.tsv$"
+    glob: ["*.neo.neoepitope.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'NeId'
@@ -347,6 +349,7 @@ tables:
   scores:
     description: 'Neoepitope peptide binding scores.'
     pattern: "\\.neo\\.peptide_scores\\.tsv$"
+    glob: ["*.neo.peptide_scores.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'NeIds'
@@ -447,6 +450,7 @@ tables:
   isofusions:
     description: 'Isofox-annotated fusion neoepitopes.'
     pattern: "\\.isf\\.neoepitope\\.tsv$"
+    glob: ["*.isf.neoepitope.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'NeId'

@@ -2,6 +2,7 @@ tables:
   vcfsummary:
     description: 'VIRUSBreakend analysis summary.'
     pattern: "\\.virusbreakend\\.vcf\\.summary\\.tsv$"
+    glob: ["*.virusbreakend.vcf.summary.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'taxid_genus'

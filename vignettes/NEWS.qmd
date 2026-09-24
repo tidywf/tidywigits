@@ -21,7 +21,9 @@ child1 <- system.file(
 #| label: child-news
 ```
 
-## v0.2.0 (2026-08-04)
+## v0.1.0.9000 (current dev)
+
+### Oncoanalyser v3
 
 Oncoanalyser v3 (WiGiTS) support across every tool (`r pr(212)`-`r pr(222)`). v3
 outputs are folded in as the `latest` schema + test fixture, with breaking
@@ -38,6 +40,13 @@ removing same-basename collisions.
 - Isofox: most outputs moved `.csv` → `.tsv`, unified via a delimiter-agnostic
   `dsv` ftype (`r pr(217)`)
 - `orange`/`pave` ignored; `alignments`/`flagstats` kept as pre-v3 only
+
+### AWS S3 sync
+
+`s3sync()`'s default include/exclude patterns now come from the tool schemas
+(`nemo::wf_sync_patterns("wigits")`) instead of a hand-maintained list in
+`R/s3.R`. Each table declares its globs in a new `glob` field next to `pattern`.
+Also exposing functionality via CLI.
 
 ## v0.1.0 (2026-07-28)
 

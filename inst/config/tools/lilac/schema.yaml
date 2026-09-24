@@ -2,6 +2,7 @@ tables:
   summary:
     description: 'Lilac solution summary.'
     pattern: "\\.lilac\\.tsv$"
+    glob: ["*.lilac.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'Genes'
@@ -107,6 +108,7 @@ tables:
   qc:
     description: 'Lilac QC.'
     pattern: "\\.lilac\\.qc\\.tsv$"
+    glob: ["*.lilac.qc.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'Genes'
