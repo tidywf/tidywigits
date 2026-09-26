@@ -35,12 +35,6 @@ Amber <- R6::R6Class(
     #' Tibble of files from [nemo::list_files_dir()].
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "amber", pkg = pkg_name, path = path, files_tbl = files_tbl)
-    },
-    #' @description Tidy `qc` file.
-    #' @param x (`character(1)` or `tibble()`)\cr
-    #' Path to file or already parsed tibble.
-    tidy_qc = function(x) {
-      private$tidy_file(x, "qc", convert_types = TRUE)
     }
   ),
   private = list(
