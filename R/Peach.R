@@ -3,13 +3,13 @@
 #' @description
 #' Peach file parsing and manipulation.
 #' @examples
-#' cls <- Peach
-#' indir <- system.file("extdata/oa", package = "tidywigits")
+#' cls <- Peach; tool <- "peach"
+#' indir <- system.file("extdata/oa", tool, package = "tidywigits")
 #' odir <- tempdir()
-#' id <- "peach_run1"
+#' id <- paste0(tool, "_run1")
 #' obj <- cls$new(indir)
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "peach_.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 5)
 #' qc <- nemo::read_parquet_grep(odir, lf, "peach_qc")

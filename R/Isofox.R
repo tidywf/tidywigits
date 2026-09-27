@@ -9,7 +9,7 @@
 #' id <- paste0(tool, "_run1")
 #' obj <- cls$new(indir)
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "isofox_.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 16)
 #' rp <- function(pat) nemo::read_parquet_grep(odir, lf, pat, first = TRUE)
@@ -49,9 +49,7 @@ Isofox <- R6::R6Class(
     }
   ),
   private = list(
-    # `dsv` = delimiter-agnostic parser: isofox v3 moved most outputs csv -> tsv
-    # (retained_intron stays csv). Delimiter is picked by extension so one table
-    # can match both `.csv` and `.tsv`; column versioning handles any col diffs.
+    # `dsv`: delimiter by extension, since isofox v3 moved most outputs csv -> tsv
     extra_ftypes = function() {
       list(
         "dsv" = function(x, table_name) {

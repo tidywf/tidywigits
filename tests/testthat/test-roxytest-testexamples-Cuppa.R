@@ -4,13 +4,13 @@
 
 test_that("Function Cuppa() @ L19", {
   
-  cls <- Cuppa
-  indir <- system.file("extdata/oa", package = "tidywigits")
+  cls <- Cuppa; tool <- "cuppa"
+  indir <- system.file("extdata/oa", tool, package = "tidywigits")
   odir <- tempdir()
-  id <- "cuppa_run1"
+  id <- paste0(tool, "_run1")
   obj <- cls$new(indir)
   obj$run(output_dir = odir, format = "parquet", input_id = id)
-  (lf <- list.files(odir, pattern = "cuppa_.*parquet", full.names = FALSE))
+  (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
   expect_equal(length(lf), 4)
   ps <- nemo::read_parquet_grep(odir, lf, "cuppa_predsum")
   expect_named(ps, c("input_id", "sample_id", "clf_group", "clf_name", "rank", "class", "prob",

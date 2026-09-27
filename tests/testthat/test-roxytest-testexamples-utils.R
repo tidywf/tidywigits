@@ -2,7 +2,7 @@
 
 # File R/utils.R: @testexamples
 
-test_that("Function refine_by_variant_folder() @ L38", {
+test_that("Function refine_by_variant_folder() @ L30", {
   
   files <- tibble::tibble(
     path = c("run1/germline/s1.sage.bqr.tsv", "run1/somatic/s1.sage.bqr.tsv", "run1/s1.bam_metric.gene_coverage.tsv"),

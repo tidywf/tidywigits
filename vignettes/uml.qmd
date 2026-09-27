@@ -27,7 +27,7 @@ x <- sort(c(
   "Wigits",
   "Workflow"
 ))
-# hand it over directly to knitr for rendering, cat somehow doesn't work any more
+# cat() no longer renders here; hand to knitr directly
 asis_output(nemo_uml(
   classes = x,
   pkg = "tidywigits"

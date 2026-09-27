@@ -9,7 +9,7 @@
 #' id <- paste0(tool, "_run1")
 #' obj <- cls$new(indir)
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "linx_.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
 #' rpn <- function(pat) names(nemo::read_parquet_grep(odir, lf, pat, first = TRUE))
 #' expect_equal(length(lf), 39)
@@ -57,10 +57,8 @@ Linx <- R6::R6Class(
       )
     },
     refine_files = function(files) {
-      # Tables like breakend/links/svs come in germline and somatic flavours
-      # under one parser, so their prefixes collide. Tag both sides so they stay
-      # apart. Only touch parsers that actually have a germline file present;
-      # somatic-only tables (drivers, fusion, vis_*) are left untouched.
+      # tag germline/somatic only for parsers with a germline file present;
+      # somatic-only tables (drivers, fusion, vis_*) keep their prefix
       files |>
         dplyr::mutate(
           .is_germline = grepl("linx\\.germline", .data$bname),

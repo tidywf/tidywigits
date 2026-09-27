@@ -18,26 +18,18 @@ options(width = 90)
 
 tidywigits turns raw
 [WiGiTS/hmftools](https://github.com/hartwigmedical/hmftools) output directories
-into consistently structured, versioned, analysis-ready tables. This vignette
-walks through the core usage patterns.
+into versioned, analysis-ready tables.
 
 ## Test data
 
-Example input files are tracked in `inst/extdata/oa/` via
-[DVC](https://dvc.org/) and can be downloaded using either of the below options:
-
-- `dvc pull`: requires dvc installation and cloned tidywigits source repo.
-- `?nemo::dvc_download_all()`: no additional requirements, uses
-  `download.file()` internally.
+Example inputs live in `inst/extdata/oa/`, tracked via [DVC](https://dvc.org/)
+on a public Cloudflare R2 bucket (no credentials). Fetch them with `dvc pull`
+from a cloned repo, or from R with `nemo::dvc_download_all()`:
 
 ```r
-dir1 <- "extdata/oa/purple" # adjust for whichever tool you want
-input_dir <- system.file(dir1, package = "tidywigits")
-output_dir <- file.path(tempdir(), "dvc_test")
-result <- dvc_download_all(input_dir, output_dir)
+input_dir <- system.file("extdata/oa/purple", package = "tidywigits")
+nemo::dvc_download_all(input_dir, file.path(tempdir(), "dvc_test"))
 ```
-
-No credentials are required since the remote is a public Cloudflare R2 bucket.
 
 ## Input
 
@@ -54,8 +46,7 @@ dir_tree(indir, invert = TRUE, glob = "*.dvc")
 
 ## Output - Single Tool
 
-Each tool has its own R6 class. Construct it with the tool's output directory,
-then call `run()` to parse, tidy, and write in one step:
+Each tool has its own R6 class. `run()` parses, tidies and writes in one step:
 
 ```{r}
 #| label: single_tool
@@ -72,10 +63,9 @@ list.files(outdir, pattern = "\\.parquet$")
 
 ### File naming
 
-Output files follow the pattern `{prefix}_{tool}_{table}.parquet`, where
-`prefix` is derived from the input filenames (here `sample1`). The
-`metadata.parquet` file is always written alongside the data files and records
-input/output paths and package versions.
+Output files follow `{prefix}_{tool}_{table}.parquet`, where `prefix` comes from
+the input filenames (here `sample1`). See [Output Naming](output_naming.html)
+for collision handling.
 
 ### Reading a table back
 
@@ -88,8 +78,7 @@ qc |> str()
 
 ## Output - Full WiGiTS run
 
-`Wigits` processes all supported tools in one call. Point it at the parent
-directory that contains the per-tool subdirectories:
+`Wigits` runs all supported tools on a parent directory:
 
 ```{r}
 #| label: wigits_run
@@ -106,17 +95,14 @@ list.files(outdir_w, pattern = "\\.parquet$") |> sort() |> str()
 
 ## ID columns
 
-Three optional columns can be prepended to every written table. All are off by
-default:
+Optional columns prepended to every written table (all off by default), useful
+when combining samples into one table:
 
 | Argument                | Column added   | Contains                                   |
 | ----------------------- | -------------- | ------------------------------------------ |
 | `input_id = "x"`        | `input_id`     | sample or run identifier you supply        |
 | `output_id = "x"`       | `output_id`    | processing run identifier you supply       |
 | `prefix_include = TRUE` | `input_prefix` | filename prefix extracted from input files |
-
-These are useful when loading results from multiple samples into the same
-database table or combined data frame:
 
 ```{r}
 #| label: id_cols
@@ -135,8 +121,8 @@ read_parquet(file.path(outdir_id, "sample1_purple_qc.parquet"))
 
 ## Metadata
 
-Every `run()` writes a `metadata.parquet` alongside the data files. It records
-the input directory, output directory, IDs, and the versions of R packages used:
+Every `run()` also writes metadata (input/output dirs, IDs, R package versions):
+`metadata.parquet` for `Wigits`, `metadata_<tool>.parquet` for a single tool.
 
 ```{r}
 #| label: metadata
@@ -148,6 +134,6 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 
 - [Schema table](schema_table.html): browse every table and column for all
   supported WiGiTS tools
-- [Structure](structure.html): how schemas, versioning, and the Tool/Workflow
-  class hierarchy work
+- [Structure](structure.html): schemas, versioning, and the Tool/Workflow class
+  hierarchy (nemo)
 - [PostgreSQL](postgresql.html): writing results to a database

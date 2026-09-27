@@ -10,7 +10,7 @@ test_that("Function Linx() @ L37", {
   id <- paste0(tool, "_run1")
   obj <- cls$new(indir)
   obj$run(output_dir = odir, format = "parquet", input_id = id)
-  (lf <- list.files(odir, pattern = "linx_.*parquet", full.names = FALSE))
+  (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
   rpn <- function(pat) names(nemo::read_parquet_grep(odir, lf, pat, first = TRUE))
   expect_equal(length(lf), 39)
   # fusion top-level is now v3 (latest): five_prime_vcf_id in, gene_start dropped

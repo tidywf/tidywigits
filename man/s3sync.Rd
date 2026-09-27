@@ -24,15 +24,9 @@ If \code{TRUE}, passes \code{--dryrun} to \verb{aws s3 sync} so operations are d
 without being executed.}
 }
 \description{
-Syncs the parse-relevant WiGiTS outputs from \code{src} to \code{dest}. The default
-include patterns are generated from the tool schemas under
-\verb{inst/config/tools/*/schema.yaml} (see \code{\link[nemo:wf_sync_patterns]{nemo::wf_sync_patterns()}}), so adding
-a table to a schema automatically adds it here.
-}
-\details{
-A trailing exclude list (\link{WIGITS_SYNC_EXCLUDE}, wired through
-\code{Wigits$sync_exclude}) is applied after those includes; \verb{aws s3 sync} filters
-are ordered and last-match wins, so it carves files back out.
+Syncs parse-relevant WiGiTS outputs from \code{src} to \code{dest}. Include patterns
+come from the tool schema \code{glob}s (see \code{\link[nemo:wf_sync_patterns]{nemo::wf_sync_patterns()}}), followed
+by the \link{WIGITS_SYNC_EXCLUDE} list.
 }
 \examples{
 \dontrun{

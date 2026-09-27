@@ -147,7 +147,7 @@ tables:
     columns:
       - raw: 'dp'
         tidy: 'dp'
-        type: 'char'
+        type: 'float'
         description: 'depth threshold (e.g. 10x)'
         versions: ['v1.4.2']
       - raw: 'pct'

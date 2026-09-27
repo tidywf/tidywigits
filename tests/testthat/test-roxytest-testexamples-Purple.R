@@ -40,7 +40,7 @@ test_that("Function Purple() @ L41", {
 })
 
 
-test_that("Function purple_plot_getter() @ L104", {
+test_that("Function purple_plot_getter() @ L98", {
   
   x <- tempdir()
   cp_dir <- file.path(tempdir(), "cpdir")

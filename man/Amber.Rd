@@ -22,7 +22,6 @@ obj$run(output_dir = odir, format = "parquet", input_id = id)
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Amber-new}{\code{Amber$new()}}
-\item \href{#method-Amber-tidy_qc}{\code{Amber$tidy_qc()}}
 }
 }
 \if{html}{\out{
@@ -57,24 +56,6 @@ Output directory of tool. If \code{files_tbl} is supplied, this is ignored.}
 
 \item{\code{files_tbl}}{(\code{tibble(n)})\cr
 Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Amber-tidy_qc"></a>}}
-\if{latex}{\out{\hypertarget{method-Amber-tidy_qc}{}}}
-\subsection{Method \code{tidy_qc()}}{
-Tidy \code{qc} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Amber$tidy_qc(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)} or \code{tibble()})\cr
-Path to file or already parsed tibble.}
 }
 \if{html}{\out{</div>}}
 }

@@ -3,13 +3,13 @@
 #' @description
 #' Alignments file parsing and manipulation.
 #' @examples
-#' cls <- Alignments
-#' indir <- system.file("extdata/oa", package = "tidywigits")
+#' cls <- Alignments; tool <- "alignments"
+#' indir <- system.file("extdata/oa", tool, package = "tidywigits")
 #' odir <- tempdir()
-#' id <- "alignments_run1"
+#' id <- paste0(tool, "_run1")
 #' obj <- cls$new(indir)
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "alignments_.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 3)
 #' mdup <- nemo::read_parquet_grep(odir, lf, "markdup")

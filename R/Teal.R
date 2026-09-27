@@ -3,13 +3,13 @@
 #' @description
 #' Teal file parsing and manipulation.
 #' @examples
-#' cls <- Teal
-#' indir <- system.file("extdata/oa", package = "tidywigits")
+#' cls <- Teal; tool <- "teal"
+#' indir <- system.file("extdata/oa", tool, package = "tidywigits")
 #' odir <- tempdir()
-#' id <- "teal_run1"
+#' id <- paste0(tool, "_run1")
 #' obj <- cls$new(indir)
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "teal_.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 2)
 #' tel <- nemo::read_parquet_grep(odir, lf, "teal_tellength")

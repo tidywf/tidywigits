@@ -22,8 +22,7 @@ obj$run(output_dir = odir, format = "parquet", input_id = id)
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
 \item{\code{flat_tidy_names}}{(\code{logical(1)})\cr
-\code{TRUE}: fan-out sub-tables are named \verb{<tool>_<tidy_name>} (parser token
-dropped). Needed for the \code{gcmedmain}/\code{gcmedbuckets} split.}
+\code{TRUE}: fan-out sub-tables are named \verb{<tool>_<tidy_name>}.}
 }
 \if{html}{\out{</div>}}
 }

@@ -7,13 +7,13 @@
 Sage file parsing and manipulation.
 }
 \examples{
-cls <- Sage
-indir <- system.file("extdata/oa", package = "tidywigits")
+cls <- Sage; tool <- "sage"
+indir <- system.file("extdata/oa", tool, package = "tidywigits")
 odir <- tempdir()
-id <- "sage_run1"
+id <- paste0(tool, "_run1")
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "sage_.*parquet", full.names = FALSE))
+(lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 }
 \section{Super class}{
 \code{\link[nemo:Tool]{nemo::Tool}} -> \code{Sage}
@@ -22,8 +22,7 @@ obj$run(output_dir = odir, format = "parquet", input_id = id)
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
 \item{\code{flat_tidy_names}}{(\code{logical(1)})\cr
-\code{TRUE}: fan-out sub-tables are named \verb{<tool>_<tidy_name>} (parser token
-dropped). Needed for the \code{genecvgmain}/\code{genecvgcvg} split.}
+\code{TRUE}: fan-out sub-tables are named \verb{<tool>_<tidy_name>}.}
 }
 \if{html}{\out{</div>}}
 }

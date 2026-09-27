@@ -9,22 +9,7 @@ WiGiTS file parsing and manipulation.
 \examples{
 path <- system.file("extdata/oa", package = "tidywigits")
 w <- Wigits$new(path)
-dir1 <- tempdir()
-#w$tidy()
-#w$write(output_dir = dir1, format = "tsv", input_id = "input1", output_id = "out1")
-x <- w$run(output_dir = file.path(dir1, "out1"), format = "parquet", input_id = "run1")
-#dbconn <- DBI::dbConnect(
-#  drv = RPostgres::Postgres(),
-#  dbname = "nemo",
-#  user = "orcabus"
-#)
-#x <-
-#  w$run(
-#    format = "db",
-#    input_id = "runABC456",
-#    dbconn = dbconn
-#)
-#DBI::dbDisconnect(dbconn)
+x <- w$run(output_dir = file.path(tempdir(), "out1"), format = "parquet", input_id = "run1")
 }
 \section{Super class}{
 \code{\link[nemo:Workflow]{nemo::Workflow}} -> \code{Wigits}
