@@ -32,8 +32,7 @@ Cobalt <- R6::R6Class(
   inherit = Tool,
   public = list(
     #' @field flat_tidy_names (`logical(1)`)\cr
-    #' `TRUE`: fan-out sub-tables are named `<tool>_<tidy_name>` (parser token
-    #' dropped). Needed for the `gcmedmain`/`gcmedbuckets` split.
+    #' `TRUE`: fan-out sub-tables are named `<tool>_<tidy_name>`.
     flat_tidy_names = TRUE,
     #' @description Create a new Cobalt object.
     #' @param path (`character(1)`)\cr

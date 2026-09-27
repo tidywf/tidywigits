@@ -2,19 +2,11 @@ pkg_name <- "tidywigits"
 
 #' Tag germline/somatic outputs by parent folder
 #'
-#' Some WiGiTS tools (e.g. Sage) separate germline and somatic outputs into
-#' sibling `germline/` and `somatic/` subfolders rather than encoding the
-#' distinction in the basename. This helper, intended for use inside a `Tool`
-#' subclass' `refine_files()` hook, folds that folder name into `prefix` so the
-#' two variants stay apart with a meaningful `_germline` / `_somatic` label
-#' instead of a lossy positional `_2`.
-#'
-#' Because the two variants can share an identical basename, it also injects the
-#' variant into `bname` (right after the leading sample token) so nemo's
-#' per-`bname` disambiguation numbers repeat runs independently per variant
-#' rather than interleaving their suffixes. The source `path` is left untouched,
-#' so provenance back to the original file is preserved. Files whose immediate
-#' parent folder is not `germline`/`somatic` are returned unchanged.
+#' For tools (e.g. Sage) that write germline/somatic outputs into sibling
+#' `germline/` and `somatic/` folders with identical basenames. Used in a
+#' `refine_files()` hook: appends `_<variant>` to `prefix`, and injects the
+#' variant into `bname` after the sample token so nemo's `_2`/`_3` numbering
+#' runs per variant. `path` is untouched; other files are returned unchanged.
 #'
 #' @param files (`tibble()`)\cr
 #' The matched-files tibble passed to `refine_files()`, with at least `path`,
@@ -61,18 +53,14 @@ refine_by_variant_folder <- function(files) {
     dplyr::select(-".variant")
 }
 
-# Split a tidied gene-coverage table into `genecvgmain` (one row per gene,
-# without the depth-range columns) and `genecvgcvg` (long form of the `dr_*`
-# depth-range columns). Shared by `Bamtools$tidy_genecvgmain()` and
-# `Sage$tidy_genecvgmain()`, which parse the same gene-coverage format from
-# their own schemas. `x` is the result of a tool's
-# `private$tidy_file(., "genecvgmain")`.
+# Split tidied gene coverage into `genecvgmain` (per-gene) and `genecvgcvg`
+# (long `dr_*` depth ranges). Shared by Bamtools and Sage; `x` is the output
+# of `private$tidy_file(., "genecvgmain")`.
 tidy_genecvg_split <- function(x) {
   d <- x |>
     dplyr::select("data")
   version <- nemo::get_tbl_version_attr(d[["data"]][[1]])
   d <- d |> tidyr::unnest("data")
-  # make sure genes are unique
   if (nrow(d) != nrow(dplyr::distinct(d, .data$gene))) {
     nemo::nemo_stop("genecvg: duplicate gene names found.")
   }

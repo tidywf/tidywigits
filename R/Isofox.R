@@ -49,9 +49,7 @@ Isofox <- R6::R6Class(
     }
   ),
   private = list(
-    # `dsv` = delimiter-agnostic parser: isofox v3 moved most outputs csv -> tsv
-    # (retained_intron stays csv). Delimiter is picked by extension so one table
-    # can match both `.csv` and `.tsv`; column versioning handles any col diffs.
+    # `dsv`: delimiter by extension, since isofox v3 moved most outputs csv -> tsv
     extra_ftypes = function() {
       list(
         "dsv" = function(x, table_name) {

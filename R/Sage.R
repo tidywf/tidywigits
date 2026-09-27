@@ -25,8 +25,7 @@ Sage <- R6::R6Class(
   inherit = Tool,
   public = list(
     #' @field flat_tidy_names (`logical(1)`)\cr
-    #' `TRUE`: fan-out sub-tables are named `<tool>_<tidy_name>` (parser token
-    #' dropped). Needed for the `genecvgmain`/`genecvgcvg` split.
+    #' `TRUE`: fan-out sub-tables are named `<tool>_<tidy_name>`.
     flat_tidy_names = TRUE,
     #' @description Create a new Sage object.
     #' @param path (`character(1)`)\cr
@@ -46,11 +45,7 @@ Sage <- R6::R6Class(
     }
   ),
   private = list(
-    # Sage writes germline and somatic outputs into sibling `germline/` and
-    # `somatic/` subfolders rather than encoding the distinction in the
-    # basename, so the same sample (e.g. `sample1.sage.bqr.tsv`) collides across
-    # the two. Delegate to the shared helper to fold the folder name into the
-    # prefix (`_germline` / `_somatic`). See [refine_by_variant_folder()].
+    # germline/somatic live in sibling folders, not the basename
     refine_files = function(files) {
       refine_by_variant_folder(files)
     }

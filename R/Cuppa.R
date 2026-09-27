@@ -35,8 +35,7 @@ Cuppa <- R6::R6Class(
     parse_predsum = function(x) {
       cnames <- nemo::file_hdr(x, delim = "\t")
       extra_info_cols <- c("extra_info", "extra_info_format")
-      # Mess is caused due to cuppa not generating extra_info_cols for rna-only
-      # (see #issue169). Add those as empty cols as a workaround.
+      # rna-only runs lack extra_info cols (#169); add them back as NA
       is_rna <- !all(extra_info_cols %in% cnames)
       if (is_rna) {
         cnames <- c(cnames, extra_info_cols)
@@ -57,14 +56,12 @@ Cuppa <- R6::R6Class(
       if (is_rna) {
         d[extra_info_cols] <- NA_character_
       }
-      attr(d, "file_version") <- schema[["version"]]
-      d[]
+      nemo::set_tbl_version_attr(d, schema[["version"]])
     },
     #' @description Tidy `cuppa.pred_summ.tsv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_predsum = function(x) {
-      # hack to handle raw tibble input since other funcs use .tidy_file
       if (!tibble::is_tibble(x)) {
         x <- self$parse_predsum(x)
       }

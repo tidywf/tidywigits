@@ -60,7 +60,6 @@ Chord <- R6::R6Class(
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_signatures = function(x) {
-      # hack to handle raw tibble input since other funcs use .tidy_file
       if (!tibble::is_tibble(x)) {
         x <- self$parse_signatures(x)
       }
