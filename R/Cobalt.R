@@ -48,10 +48,11 @@ Cobalt <- R6::R6Class(
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_gcmedmain = function(x) {
-      # first two rows are mean/median + their values
-      d1 <- readr::read_tsv(x, col_names = TRUE, col_types = "dd", n_max = 1)
-      # next rows are median per bucket
+      # rows 3+: median per bucket (versioned via schema)
       d2 <- private$parse_file(x, "gcmedbuckets", skip = 2)
+      # rows 1-2: mean/median header + values; shares d2's version
+      d1 <- readr::read_tsv(x, col_names = TRUE, col_types = "dd", n_max = 1) |>
+        nemo::set_tbl_version_attr(nemo::get_tbl_version_attr(d2))
       list(gcmedmain = d1[], gcmedbuckets = d2[]) |>
         nemo::nemo_enframe()
     },

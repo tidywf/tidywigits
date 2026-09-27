@@ -2,7 +2,7 @@
 
 # File R/Bamtools.R: @testexamples
 
-test_that("Function Bamtools() @ L34", {
+test_that("Function Bamtools() @ L37", {
   
   cls <- Bamtools; tool <- "bamtools"
   indir <- system.file("extdata/oa", tool, package = "tidywigits")
@@ -30,5 +30,8 @@ test_that("Function Bamtools() @ L34", {
   expect_named(genes, c("input_id", "gene", "chrom", "pos_start", "pos_end", "missed_var_likelihood"))
   cvg <- nemo::read_parquet_grep(odir, lf, "genecvgcvg", first = TRUE)
   expect_named(cvg, c("input_id", "gene", "dr", "value"))
+  wdp <- nemo::read_parquet_grep(odir, lf, "_bamtools_wgsmetricsdp", first = TRUE)
+  expect_type(wdp$dp, "double")
+  expect_equal(wdp$dp[1:3], c(1, 5, 10))
 })
 

@@ -9,7 +9,7 @@
 #' id <- paste0(tool, "_run1")
 #' obj <- cls$new(indir)
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "isofox_.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 16)
 #' rp <- function(pat) nemo::read_parquet_grep(odir, lf, pat, first = TRUE)

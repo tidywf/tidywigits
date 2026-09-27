@@ -19,8 +19,7 @@
 #' expect_named(hom, c("input_id", "chrom", "pos_start", "pos_end", "n_snp", "n_hom", "n_het", "filter"))
 #' ver <- nemo::read_parquet_grep(odir, lf, "amber_version")
 #' expect_named(ver, c("input_id", "version", "date_build"))
-#' bpf <- grep("amber_bafpcf", lf, value = TRUE)
-#' bp <- arrow::read_parquet(file.path(odir, bpf[!grepl("_2_amber_bafpcf", bpf)]))
+#' bp <- nemo::read_parquet_grep(odir, lf, "^sample1_amber_bafpcf", first = TRUE)
 #' expect_named(bp, c("input_id", "chrom", "start", "end", "mean_ratio"))
 #' @export
 Amber <- R6::R6Class(

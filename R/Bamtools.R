@@ -30,6 +30,9 @@
 #' expect_named(genes, c("input_id", "gene", "chrom", "pos_start", "pos_end", "missed_var_likelihood"))
 #' cvg <- nemo::read_parquet_grep(odir, lf, "genecvgcvg", first = TRUE)
 #' expect_named(cvg, c("input_id", "gene", "dr", "value"))
+#' wdp <- nemo::read_parquet_grep(odir, lf, "_bamtools_wgsmetricsdp", first = TRUE)
+#' expect_type(wdp$dp, "double")
+#' expect_equal(wdp$dp[1:3], c(1, 5, 10))
 #' @export
 Bamtools <- R6::R6Class(
   "Bamtools",
@@ -126,8 +129,9 @@ Bamtools <- R6::R6Class(
           dplyr::everything(),
           names_to = "dp",
           values_to = "pct",
-          names_prefix = "pct_"
+          names_pattern = "pct_(\\d+)x"
         ) |>
+        dplyr::mutate(dp = as.numeric(.data$dp)) |>
         dplyr::select("dp", "pct") |>
         nemo::set_tbl_version_attr(version)
       d[["wgsmetricsmain"]] <- d[["wgsmetricsmain"]] |>
