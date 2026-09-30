@@ -25,33 +25,20 @@ child1 <- system.file(
 
 ### Oncoanalyser v3
 
-Oncoanalyser v3 (WiGiTS) support across every tool (`r pr(212)`-`r pr(222)`). v3
-outputs are folded in as the `latest` schema + test fixture, with breaking
-pre-v3 tables/columns demoted to per-tool older versions for regression
-coverage. The fixture is flattened to distinct sample ids
-(`tumor_dna`/`normal_dna`/`tumor_rna` => `sample1`/`sample2`/`sample3`),
-removing same-basename collisions.
+Oncoanalyser v3 (WiGiTS) outputs are supported across every tool
+(`r pr(212)`-`r pr(222)`, `r pr(225)`). Pre-v3 outputs are still parsed via
+older schema versions.
 
-- New tool: Qsee (v3 QC summary) (`r pr(222)`)
-- Breaking updates (old versions retained): Amber (`r pr(212)`), Bamtools
-  (`r pr(213)`), Cider (`r pr(214)`), Cobalt (`r pr(215)`), Isofox
-  (`r pr(217)`), Lilac (`r pr(218)`), Linx (`r pr(219)`)
-- Additive updates: Esvee (`r pr(216)`), Neo (`r pr(220)`), Purple (`r pr(221)`)
-- Isofox: most outputs moved `.csv` → `.tsv`, unified via a delimiter-agnostic
-  `dsv` ftype (`r pr(217)`)
-- `orange`/`pave` ignored; `alignments`/`flagstats` kept as pre-v3 only
+- New tool: Qsee (v3 QC summary) (`r pr(222)`).
+- Breaking schema changes (older versions retained): Amber, Bamtools, Cider,
+  Cobalt, Isofox, Lilac, Linx.
+- Additive schema changes: Esvee, Neo, Purple.
+- `orange`/`pave` outputs are ignored.
 
-### Fan-out table naming
+### Breaking changes
 
-Tools that split one file into several tables (`Bamtools`, `Sage`, `Cobalt`)
-have been standardised according to the nemo convention: each sub-table is a
-real `schema.yaml` table, the file-matching one is named `<stem>main` and keeps
-`pattern` + `glob`, and each derived sibling is a sentinel
-(`pattern: "__no_file_match__<table>"`, no `glob`) whose columns document its
-tidy output shape. The classes set `flat_tidy_names = TRUE`, so an output table
-is `<tool>_<schema table>`.
-
-Breaking: output tables renamed (derived siblings keep their names):
+- Output tables renamed for tools that split one file into several tables
+  (`r pr(229)`):
 
 | Old                        | New                       |
 | -------------------------- | ------------------------- |
@@ -62,12 +49,21 @@ Breaking: output tables renamed (derived siblings keep their names):
 | `sage_genecvggenes`        | `sage_genecvgmain`        |
 | `cobalt_gcmedsample`       | `cobalt_gcmedmain`        |
 
-### AWS S3 sync
+- `bamtools_wgsmetricsdp`: `dp` is now numeric (`10`) instead of a string
+  (`"10x"`) (`r pr(230)`).
+- Docker image entrypoint is now `tidywigits.R`, so run
+  `docker run <img> tidy ...` without repeating the executable (`r pr(227)`).
 
-`s3sync()`'s default include/exclude patterns now come from the tool schemas
-(`nemo::wf_sync_patterns("wigits")`) instead of a hand-maintained list in
-`R/s3.R`. Each table declares its globs in a new `glob` field next to `pattern`.
-Also exposing functionality via CLI.
+### New features
+
+- `s3sync()` patterns now come from the tool schemas, and a new
+  `tidywigits.R sync` CLI subcommand is available (`r pr(226)`, `r pr(228)`).
+- New `docker-compose.yaml` wrapper (`r pr(227)`).
+
+### Infrastructure
+
+- Release deploys (conda, Docker, pkgdown) trigger on `v*` tags only; conda
+  lockfiles are published as release assets (`r pr(224)`).
 
 ## v0.1.0 (2026-07-28)
 

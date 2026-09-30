@@ -9,7 +9,13 @@ read `tidywf/docs/r-pkg/schema.md` (schema.yaml/ftype/Config) and
 schema or tool work. This file covers the tidywigits-specific architecture and
 conventions.
 
-Tools in scope: Purple, Amber, Cobalt, Isofox, Linx, Sage, Bamtools, and more.
+Tools in scope (20, registered in `WIGITS_TOOLS`, `R/Wigits.R`): Alignments,
+Amber, Bamtools, Chord, Cider, Cobalt, Cuppa, Esvee, Isofox, Lilac, Linx, Neo,
+Peach, Purple, Qsee, Sage, Sigs, Teal, Virusbreakend, Virusinterpreter. samtools
+flagstats has no tool of its own --- `Bamtools` parses it (`flagstats` table).
+
+Fixtures cover oncoanalyser v3 (`latest`); older tool versions are kept as
+`inst/extdata/oa/<tool>/<version>/` subdirs with version-tagged schema columns.
 
 ## Architecture
 
@@ -89,12 +95,15 @@ build, docker/pkgdown publish) is documented in the parent routing table's
   `deploy/conda/env/yaml/` (`tidywigits`/`condabuild`/`bump`/`pkgdown`).
 - **Docker:** 2-stage build (ubuntu 24.04 builder installing miniforge →
   `quay.io/bioconda/base-glibc-debian-bash` slim base), multi-arch (amd64 +
-  arm64), lockfiles under `deploy/conda/env/lock/`. **No `ENTRYPOINT`** (unlike
-  tidydragen) --- `CMD` is `tidywigits.R`, so `docker run <img> tidy -d …`
-  overrides the command entirely (repeat the executable:
-  `docker run <img> tidywigits.R tidy -d …`). No `docker-compose.yaml` here.
-- **Versioning:** `.bumpversion.toml` bumps DESCRIPTION + conda recipe/env yamls
-  together (`make bump VERSION=…`).
+  arm64). **`ENTRYPOINT` is `tidywigits.R`**, `CMD` is `--help`, so
+  `docker run <img> tidy -d …` appends to the binary (use `--entrypoint` for a
+  raw shell). Build needs `conda-linux-64.lock` + `conda-linux-aarch64.lock` at
+  repo root --- not committed, fetched from release assets at build time.
+- **`docker-compose.yaml`:** mounts `./in`(ro)+`./out`, runs `tidy` to parquet
+  by default; `IMAGE_TAG`/`IN_DIR`/`OUT_DIR`/`FORMAT` overridable via
+  env/`.env`.
+- **Versioning:** `.bumpversion.toml` bumps DESCRIPTION, conda recipe+env yamls,
+  and compose image tag together (`make bump VERSION=…`).
 
 ## Testing
 
@@ -104,7 +113,8 @@ location (`inst/extdata/oa/`, DVC-tracked).
 ## Dev commands
 
 Full Makefile target list (shared with nemo/tidydragen):
-`tidywf/docs/r-pkg/dev-commands.md`.
+`tidywf/docs/r-pkg/dev-commands.md`. Its *Build loop* section covers
+`make build` after schema edits and rebuilding `../nemo` after editing it.
 
 `devtools::load_all()` (no make equivalent) to load package interactively:
 
