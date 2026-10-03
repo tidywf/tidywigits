@@ -47,13 +47,6 @@ RUN conda clean --all --force-pkgs-dirs --yes
 # Now copy env to smaller image
 FROM quay.io/bioconda/base-glibc-debian-bash:3.1
 
-LABEL org.opencontainers.image.authors="peterdiakumis@gmail.com" \
-      org.opencontainers.image.description="WiGiTS workflow tidying" \
-      org.opencontainers.image.source="https://github.com/tidywf/tidywigits" \
-      org.opencontainers.image.url="https://github.com/tidywf/tidywigits" \
-      org.opencontainers.image.documentation="https://tidywf.github.io/tidywigits" \
-      org.opencontainers.image.licenses="MIT"
-
 COPY --from=builder "/opt/miniforge/envs/" "/opt/miniforge/envs/"
 
 # env is activated by default

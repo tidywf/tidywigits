@@ -39,10 +39,16 @@ jobs:
     needs: [prep, condarise]
     uses: tidywf/actions/.github/workflows/dockerise.yaml@main
     permissions:
-      contents: read # gh release download (fresh lockfiles)
+      contents: read # release assets API (fresh lockfiles)
       packages: write
     with:
       pkg_version: ${{ needs.prep.outputs.pkg_version }}
+      # OCI labels + annotations (shown on ghcr.io); override the GitHub repo defaults
+      labels: |
+        org.opencontainers.image.authors=peterdiakumis@gmail.com
+        org.opencontainers.image.description=WiGiTS workflow tidying
+        org.opencontainers.image.documentation=https://tidywf.github.io/tidywigits
+        org.opencontainers.image.licenses=MIT
 
   pkgdownise:
     name: 🌐 Pkgdownise
