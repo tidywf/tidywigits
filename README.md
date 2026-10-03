@@ -421,7 +421,7 @@ Using {remotes} directly from GitHub:
 ``` r
 install.packages("remotes")
 remotes::install_github("tidywf/tidywigits") # latest main commit
-remotes::install_github("tidywf/tidywigits@v0.1.0.9000") # specific version
+remotes::install_github("tidywf/tidywigits@v0.1.0.9001") # specific version
 ```
 
 Alternatively:
@@ -449,22 +449,23 @@ export PATH="${tw_cli}:${PATH}"
 ```
 
     $ tidywigits.R --version
-    tidywigits 0.1.0.9000
+    tidywigits 0.1.0.9001
 
     #-----------------------------------#
     $ tidywigits.R --help
-    usage: tidywigits.R [-h] [-v] {tidy,list} ...
+    usage: tidywigits.R [-h] [-v] {tidy,list,sync} ...
 
     ✨ WiGiTS Output Tidying ✨
 
     positional arguments:
-      {tidy,list}    sub-command help
-        tidy         Tidy Workflow Outputs
-        list         List Parsable Workflow Outputs
+      {tidy,list,sync}  sub-command help
+        tidy            Tidy Workflow Outputs
+        list            List Parsable Workflow Outputs
+        sync            Sync Parsable Workflow Outputs From AWS S3
 
     options:
-      -h, --help     show this help message and exit
-      -v, --version  show program's version number and exit
+      -h, --help        show this help message and exit
+      -v, --version     show program's version number and exit
     '
     #-----------------------------------#
     #------- Tidy ----------------------#
@@ -472,6 +473,7 @@ export PATH="${tw_cli}:${PATH}"
     usage: tidywigits.R tidy [-h] -d IN_DIR [-o OUTPUT_DIR] [-f FORMAT]
                              [--input_id INPUT_ID] [--output_id OUTPUT_ID |
                              --ulid] [--dbname DBNAME] [--dbuser DBUSER]
+                             [--dbhost DBHOST] [--dbport DBPORT]
                              [--include INCLUDE] [--exclude EXCLUDE]
                              [--prefix_include] [-q]
 
@@ -488,6 +490,10 @@ export PATH="${tw_cli}:${PATH}"
       --ulid                Generate a ULID as output ID.
       --dbname DBNAME       Database name.
       --dbuser DBUSER       Database user.
+      --dbhost DBHOST       Database host (default: driver/env default, e.g.
+                            PGHOST).
+      --dbport DBPORT       Database port (default: driver/env default, e.g.
+                            PGPORT).
       --include INCLUDE     Include only these files (comma sep tool_parsers).
       --exclude EXCLUDE     Exclude only these files (comma sep tool_parsers).
       --prefix_include      Include input prefix column in output tables.
