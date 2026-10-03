@@ -1,33 +1,57 @@
 # NEWS
 
-## v0.2.0 (2026-08-04)
+## v0.1.0.9000 (current dev)
 
-Oncoanalyser v3 (WiGiTS) support across every tool
-([pr212](https://github.com/tidywf/tidywigits/pull/212)-[pr222](https://github.com/tidywf/tidywigits/pull/222)).
-v3 outputs are folded in as the `latest` schema + test fixture, with
-breaking pre-v3 tables/columns demoted to per-tool older versions for
-regression coverage. The fixture is flattened to distinct sample ids
-(`tumor_dna`/`normal_dna`/`tumor_rna` =\>
-`sample1`/`sample2`/`sample3`), removing same-basename collisions.
+### Oncoanalyser v3
+
+Oncoanalyser v3 (WiGiTS) outputs are supported across every tool
+([pr212](https://github.com/tidywf/tidywigits/pull/212)-[pr222](https://github.com/tidywf/tidywigits/pull/222),
+[pr225](https://github.com/tidywf/tidywigits/pull/225)). Pre-v3 outputs
+are still parsed via older schema versions.
 
 - New tool: Qsee (v3 QC summary)
-  ([pr222](https://github.com/tidywf/tidywigits/pull/222))
-- Breaking updates (old versions retained): Amber
-  ([pr212](https://github.com/tidywf/tidywigits/pull/212)), Bamtools
-  ([pr213](https://github.com/tidywf/tidywigits/pull/213)), Cider
-  ([pr214](https://github.com/tidywf/tidywigits/pull/214)), Cobalt
-  ([pr215](https://github.com/tidywf/tidywigits/pull/215)), Isofox
-  ([pr217](https://github.com/tidywf/tidywigits/pull/217)), Lilac
-  ([pr218](https://github.com/tidywf/tidywigits/pull/218)), Linx
-  ([pr219](https://github.com/tidywf/tidywigits/pull/219))
-- Additive updates: Esvee
-  ([pr216](https://github.com/tidywf/tidywigits/pull/216)), Neo
-  ([pr220](https://github.com/tidywf/tidywigits/pull/220)), Purple
-  ([pr221](https://github.com/tidywf/tidywigits/pull/221))
-- Isofox: most outputs moved `.csv` → `.tsv`, unified via a
-  delimiter-agnostic `dsv` ftype
-  ([pr217](https://github.com/tidywf/tidywigits/pull/217))
-- `orange`/`pave` ignored; `alignments`/`flagstats` kept as pre-v3 only
+  ([pr222](https://github.com/tidywf/tidywigits/pull/222)).
+- Breaking schema changes (older versions retained): Amber, Bamtools,
+  Cider, Cobalt, Isofox, Lilac, Linx.
+- Additive schema changes: Esvee, Neo, Purple.
+- `orange`/`pave` outputs are ignored.
+
+### Breaking changes
+
+- Output tables renamed for tools that split one file into several
+  tables ([pr229](https://github.com/tidywf/tidywigits/pull/229)):
+
+| Old                        | New                       |
+|----------------------------|---------------------------|
+| `bamtools_summarystats`    | `bamtools_summarymain`    |
+| `bamtools_wgsmetricsstats` | `bamtools_wgsmetricsmain` |
+| `bamtools_exoncvgexons`    | `bamtools_exoncvgmain`    |
+| `bamtools_genecvggenes`    | `bamtools_genecvgmain`    |
+| `sage_genecvggenes`        | `sage_genecvgmain`        |
+| `cobalt_gcmedsample`       | `cobalt_gcmedmain`        |
+
+- `bamtools_wgsmetricsdp`: `dp` is now numeric (`10`) instead of a
+  string (`"10x"`)
+  ([pr230](https://github.com/tidywf/tidywigits/pull/230)).
+- Docker image entrypoint is now `tidywigits.R`, so run
+  `docker run <img> tidy ...` without repeating the executable
+  ([pr227](https://github.com/tidywf/tidywigits/pull/227)).
+
+### New features
+
+- [`s3sync()`](https://tidywf.github.io/tidywigits/dev/reference/s3sync.md)
+  patterns now come from the tool schemas, and a new `tidywigits.R sync`
+  CLI subcommand is available
+  ([pr226](https://github.com/tidywf/tidywigits/pull/226),
+  [pr228](https://github.com/tidywf/tidywigits/pull/228)).
+- New `docker-compose.yaml` wrapper
+  ([pr227](https://github.com/tidywf/tidywigits/pull/227)).
+
+### Infrastructure
+
+- Release deploys (conda, Docker, pkgdown) trigger on `v*` tags only;
+  conda lockfiles are published as release assets
+  ([pr224](https://github.com/tidywf/tidywigits/pull/224)).
 
 ## v0.1.0 (2026-07-28)
 

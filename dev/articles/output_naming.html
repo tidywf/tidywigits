@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +73,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9000/vignettes/output_naming.qmd" class="external-link"><code>vignettes/output_naming.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9001/vignettes/output_naming.qmd" class="external-link"><code>vignettes/output_naming.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -118,7 +118,7 @@
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_runs</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/RtmpMJciMf/naming-demo/runs</span></span>
+<span><span class="co">#&gt; /tmp/RtmpglmrMr/naming-demo/runs</span></span>
 <span><span class="co">#&gt; ├── run1</span></span>
 <span><span class="co">#&gt; │   ├── sampleA.tool1.table1.tsv</span></span>
 <span><span class="co">#&gt; │   └── sampleA.tool1.table2.tsv</span></span>
@@ -141,10 +141,10 @@
 <span><span class="co">#&gt;   bname                    parser prefix   </span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;                    &lt;chr&gt;  &lt;chr&gt;    </span></span>
 <span><span class="co">#&gt; 1 sampleA.tool1.table1.tsv table1 sampleA  </span></span>
-<span><span class="co">#&gt; 2 sampleA.tool1.table1.tsv table1 sampleA_2</span></span>
-<span><span class="co">#&gt; 3 sampleA.tool1.table1.tsv table1 sampleA_3</span></span>
-<span><span class="co">#&gt; 4 sampleA.tool1.table2.tsv table2 sampleA  </span></span>
-<span><span class="co">#&gt; 5 sampleA.tool1.table2.tsv table2 sampleA_2</span></span>
+<span><span class="co">#&gt; 2 sampleA.tool1.table2.tsv table2 sampleA  </span></span>
+<span><span class="co">#&gt; 3 sampleA.tool1.table1.tsv table1 sampleA_2</span></span>
+<span><span class="co">#&gt; 4 sampleA.tool1.table2.tsv table2 sampleA_2</span></span>
+<span><span class="co">#&gt; 5 sampleA.tool1.table1.tsv table1 sampleA_3</span></span>
 <span><span class="co">#&gt; 6 sampleA.tool1.table2.tsv table2 sampleA_3</span></span></code></pre></div>
 </div>
 <p>As you can see, the files share a basename but get prefixes <code>sampleA</code>, <code>sampleA_2</code>, <code>sampleA_3</code>. Writing them out, nothing gets overwritten:</p>
@@ -159,7 +159,7 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_outA</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/RtmpMJciMf/naming-demo/outA</span></span>
+<span><span class="co">#&gt; /tmp/RtmpglmrMr/naming-demo/outA</span></span>
 <span><span class="co">#&gt; ├── metadata_tool1.parquet</span></span>
 <span><span class="co">#&gt; ├── sampleA_2_tool1_table1.parquet</span></span>
 <span><span class="co">#&gt; ├── sampleA_2_tool1_table2.parquet</span></span>
@@ -204,7 +204,7 @@
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_outB</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/RtmpMJciMf/naming-demo/outB</span></span>
+<span><span class="co">#&gt; /tmp/RtmpglmrMr/naming-demo/outB</span></span>
 <span><span class="co">#&gt; ├── run1</span></span>
 <span><span class="co">#&gt; │   ├── metadata_tool1.parquet</span></span>
 <span><span class="co">#&gt; │   ├── sampleA_tool1_table1.parquet</span></span>
@@ -247,15 +247,15 @@
 <li>Use <code>input_id</code> / <code>output_id</code> when each run is better described by an explicitly specified name you can control.</li>
 </ul></section><section class="level2"><h2 id="special-cases-semantic-prefixes">Special cases: semantic prefixes<a class="anchor" aria-label="anchor" href="#special-cases-semantic-prefixes"></a>
 </h2>
-<p>The disambiguation above (<code>_2</code>, <code>_3</code>) keeps files from overwriting each other but tells you nothing about why two inputs collided. Some tools emit germline and somatic variants of the same table that, after the schema <code>pattern</code> is stripped, reduce to the same prefix and the same <code>tool_parser</code>. Left alone they would collapse to <code>sample1</code> / <code>sample1_2</code>, which is lossy since you can no longer tell which file was germline.</p>
-<p>A <code>Tool</code> subclass (e.g. <code>Purple</code>) fixes this by overriding the private <code>refine_files</code> hook. It runs on the base prefix <em>before</em> the disambiguation passes, so a subclass can fold the germline/somatic distinction into the prefix itself. Once germline and somatic carry different prefixes they no longer collide, so the generic pipeline never has to invent a <code>_2</code>, and any remaining <code>_2</code>/<code>_3</code> is a genuine repeat-run marker within a variant.</p>
+<p>The <code>_2</code>/<code>_3</code> suffixes above avoid overwrites but don’t say <em>why</em> two inputs collided. Some tools emit germline and somatic variants of a table that reduce to the same prefix, so they’d end up as a lossy <code>sample1</code> / <code>sample1_2</code>.</p>
+<p><code>Linx</code>, <code>Purple</code> and <code>Sage</code> override the private <code>refine_files()</code> hook, which runs <em>before</em> disambiguation, to fold <code>_germline</code>/<code>_somatic</code> into the prefix. Any remaining <code>_2</code>/<code>_3</code> is then a genuine repeat-run marker within a variant.</p>
 <section class="level3"><h3 id="purple-driver-catalog-germline-vs--somatic">Purple: <code>driver.catalog</code> germline vs. somatic<a class="anchor" aria-label="anchor" href="#purple-driver-catalog-germline-vs--somatic"></a>
 </h3>
 <ul>
-<li>Problem: both <code>sample1.purple.driver.catalog.germline.tsv</code> and <code>sample1.purple.driver.catalog.somatic.tsv</code> are parsed by the <code>drivercatalog</code> parser, and strip to the prefix <code>sample1</code>. There should be a <code>germline</code>/<code>somatic</code> distinguisher string</li>
-<li>Fix: the Purple hook rewrites them by basename into <code>sample1_germline</code>/<code>sample1_somatic</code> <em>before</em> the collision check, so they never collapse to a lossy <code>sample1_2</code> for a single run.</li>
+<li>Problem: <code>sample1.purple.driver.catalog.{germline,somatic}.tsv</code> both go through the <code>drivercatalog</code> parser and strip to prefix <code>sample1</code>.</li>
+<li>Fix: the hook rewrites them by basename to <code>sample1_germline</code> / <code>sample1_somatic</code>.</li>
 </ul>
-<p>Let us simulate three runs by copying both drivercatalogs (and qc for comparison) into separate run folders, then initialise one <code>Purple</code> object on the parent:</p>
+<p>Simulate three runs with both driver catalogs (plus qc for comparison):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dir_inP</span> <span class="op">&lt;-</span> <span class="fu">path</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"purple-runs"</span><span class="op">)</span></span>
@@ -271,7 +271,7 @@
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_inP</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/RtmpMJciMf/purple-runs</span></span>
+<span><span class="co">#&gt; /tmp/RtmpglmrMr/purple-runs</span></span>
 <span><span class="co">#&gt; ├── run1</span></span>
 <span><span class="co">#&gt; │   ├── sample1.purple.driver.catalog.germline.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.purple.driver.catalog.somatic.tsv</span></span>
@@ -286,7 +286,7 @@
 <span><span class="co">#&gt;     └── sample1.purple.qc</span></span>
 <span><span class="va">ppl</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Purple.html">Purple</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>path <span class="op">=</span> <span class="va">dir_inP</span><span class="op">)</span></span></code></pre></div>
 </div>
-<p>Now we tidy the same object. The semantic tag lands first, so any trailing <code>_2</code>/<code>_3</code> is a genuine repeat-run marker within <code>germline</code> or <code>somatic</code>, not a collision between them. The <code>prefix_include</code> option records the prefix as an <code>input_prefix</code> column, and each run/variant lands in its own file:</p>
+<p><code>prefix_include = TRUE</code> records the prefix as an <code>input_prefix</code> column:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dir_outP</span> <span class="op">&lt;-</span> <span class="fu">dir_create</span><span class="op">(</span><span class="fu">path</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"purple-out"</span><span class="op">)</span><span class="op">)</span></span>
@@ -298,7 +298,7 @@
 <span>  prefix_include <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_outP</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/RtmpMJciMf/purple-out</span></span>
+<span><span class="co">#&gt; /tmp/RtmpglmrMr/purple-out</span></span>
 <span><span class="co">#&gt; ├── metadata_purple.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_2_purple_qc.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_3_purple_qc.parquet</span></span>
@@ -310,7 +310,7 @@
 <span><span class="co">#&gt; ├── sample1_somatic_3_purple_drivercatalog.parquet</span></span>
 <span><span class="co">#&gt; └── sample1_somatic_purple_drivercatalog.parquet</span></span></code></pre></div>
 </div>
-<p>Stacking the six tidy <code>drivercatalog</code> files (top 2 rows) shows that <code>input_prefix</code> distinguishes germline from somatic and one run from the other after the merge:</p>
+<p>Stacking the six <code>drivercatalog</code> outputs (top 2 rows each), <code>input_prefix</code> still tells variant and run apart:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dir_ls</span><span class="op">(</span><span class="va">dir_outP</span>, regexp <span class="op">=</span> <span class="st">"purple_drivercatalog\\.parquet"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -347,10 +347,10 @@
 </section><section class="level3"><h3 id="linx-germline-vs--somatic-annotations">Linx: germline vs. somatic annotations<a class="anchor" aria-label="anchor" href="#linx-germline-vs--somatic-annotations"></a>
 </h3>
 <ul>
-<li>Problem: several Linx tables have an optional <code>germline</code> string in their basename (e.g. <code>linx.germline.breakend.tsv</code> vs. <code>linx.breakend.tsv</code>), so <code>sample1.linx.breakend.tsv</code> and <code>sample1.linx.germline.breakend.tsv</code> both reduce to <code>sample1</code>.</li>
-<li>Fix: the Linx hook tags both germline and non-germline files but only for parsers that actually have a germline file present, so somatic-only tables (e.g. <code>drivers</code>, <code>fusion</code>, <code>vis_*</code>) are left untouched.</li>
+<li>Problem: <code>sample1.linx.breakend.tsv</code> and <code>sample1.linx.germline.breakend.tsv</code> both reduce to <code>sample1</code>.</li>
+<li>Fix: the hook tags both sides, but only for parsers with a germline file present; somatic-only tables (<code>drivers</code>, <code>fusion</code>, <code>vis_*</code>) are untouched.</li>
 </ul>
-<p>Let us simulate three runs by copying the paired germline and somatic tables (and fusions for comparison) into separate run folders, then initialise one <code>Linx</code> object on the parent:</p>
+<p>Simulate three runs with the paired tables (plus fusions for comparison):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dir_inL</span> <span class="op">&lt;-</span> <span class="fu">path</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"linx-runs"</span><span class="op">)</span></span>
@@ -364,7 +364,7 @@
 <span>  <span class="fu">file_copy</span><span class="op">(</span><span class="va">linx_files</span>, <span class="va">dest</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_inL</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/RtmpMJciMf/linx-runs</span></span>
+<span><span class="co">#&gt; /tmp/RtmpglmrMr/linx-runs</span></span>
 <span><span class="co">#&gt; ├── run1</span></span>
 <span><span class="co">#&gt; │   ├── sample1.linx.breakend.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.linx.fusion.tsv</span></span>
@@ -391,7 +391,7 @@
 <span><span class="co">#&gt;     └── sample1.linx.svs.tsv</span></span>
 <span><span class="va">l</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Linx.html">Linx</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>path <span class="op">=</span> <span class="va">dir_inL</span><span class="op">)</span></span></code></pre></div>
 </div>
-<p>Now we tidy the same object. The paired tables (<code>breakends</code>, <code>links</code>, <code>svs</code>) split cleanly into <code>sample1_germline</code> and <code>sample1_somatic</code>, and the somatic-only fusions only need to use <code>_2</code>/<code>_3</code>:</p>
+<p>Paired tables (<code>breakends</code>, <code>links</code>, <code>svs</code>) split into <code>sample1_germline</code> / <code>sample1_somatic</code>; somatic-only fusions just get <code>_2</code>/<code>_3</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dir_outL</span> <span class="op">&lt;-</span> <span class="fu">dir_create</span><span class="op">(</span><span class="fu">path</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"linx-out"</span><span class="op">)</span><span class="op">)</span></span>
@@ -403,7 +403,7 @@
 <span>  prefix_include <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_outL</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/RtmpMJciMf/linx-out</span></span>
+<span><span class="co">#&gt; /tmp/RtmpglmrMr/linx-out</span></span>
 <span><span class="co">#&gt; ├── metadata_linx.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_2_linx_fusions.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_3_linx_fusions.parquet</span></span>
@@ -427,7 +427,7 @@
 <span><span class="co">#&gt; ├── sample1_somatic_linx_links.parquet</span></span>
 <span><span class="co">#&gt; └── sample1_somatic_linx_svs.parquet</span></span></code></pre></div>
 </div>
-<p>Stacking the six tidy <code>breakends</code> files (top 2 rows) shows that <code>input_prefix</code> distinguishes germline from somatic and one run from the other after the merge:</p>
+<p>Stacked <code>breakends</code> outputs (top 2 rows each):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dir_ls</span><span class="op">(</span><span class="va">dir_outL</span>, regexp <span class="op">=</span> <span class="st">"linx_breakends\\.parquet"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -453,10 +453,10 @@
 </section><section class="level3"><h3 id="sage-germline-vs--somatic-folders">Sage: germline vs. somatic folders<a class="anchor" aria-label="anchor" href="#sage-germline-vs--somatic-folders"></a>
 </h3>
 <ul>
-<li>Problem: Linx and Purple carry the germline/somatic distinction in the basename. Older versions of Sage write the same basenames (e.g. <code>sample1.sage.bqr.tsv</code>) into sibling <code>germline/</code> and <code>somatic/</code> subfolders, so the distinction lives in the parent folder, not the filename.</li>
-<li>Fix: the Sage hook takes into account the parent folder and tags the tidy files accordingly.</li>
+<li>Problem: older Sage versions write identical basenames (e.g. <code>sample1.sage.bqr.tsv</code>) into sibling <code>germline/</code> and <code>somatic/</code> folders.</li>
+<li>Fix: the hook tags by parent folder (<code>refine_by_variant_folder()</code>).</li>
 </ul>
-<p>Let us simulate three runs by copying bqrtsv and genecvg into separate run folders, then initialise one <code>Sage</code> object on the parent:</p>
+<p>Simulate three runs with <code>bqr</code> and <code>gene.coverage</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dir_inS</span> <span class="op">&lt;-</span> <span class="fu">path</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"sage-runs"</span><span class="op">)</span></span>
@@ -474,7 +474,7 @@
 <span>  <span class="op">}</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_inS</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/RtmpMJciMf/sage-runs</span></span>
+<span><span class="co">#&gt; /tmp/RtmpglmrMr/sage-runs</span></span>
 <span><span class="co">#&gt; ├── run1</span></span>
 <span><span class="co">#&gt; │   ├── germline</span></span>
 <span><span class="co">#&gt; │   │   ├── sample1.sage.bqr.tsv</span></span>
@@ -504,7 +504,6 @@
 <span><span class="co">#&gt;         └── sample2.sage.bqr.tsv</span></span>
 <span><span class="va">s</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Sage.html">Sage</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>path <span class="op">=</span> <span class="va">dir_inS</span><span class="op">)</span></span></code></pre></div>
 </div>
-<p>Now we tidy the same object. Note how the output files are distinguished by including <code>germline</code>/<code>somatic</code> into the prefix itself, and the trailing <code>_2</code>/<code>_3</code> is a genuine repeat-run marker:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dir_outS</span> <span class="op">&lt;-</span> <span class="fu">dir_create</span><span class="op">(</span><span class="fu">path</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"sage-out"</span><span class="op">)</span><span class="op">)</span></span>
@@ -516,34 +515,34 @@
 <span>  prefix_include <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_outS</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/RtmpMJciMf/sage-out</span></span>
+<span><span class="co">#&gt; /tmp/RtmpglmrMr/sage-out</span></span>
 <span><span class="co">#&gt; ├── metadata_sage.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_germline_2_sage_bqrtsv.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_germline_3_sage_bqrtsv.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_germline_sage_bqrtsv.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_somatic_2_sage_bqrtsv.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_somatic_2_sage_genecvgcvg.parquet</span></span>
-<span><span class="co">#&gt; ├── sample1_somatic_2_sage_genecvggenes.parquet</span></span>
+<span><span class="co">#&gt; ├── sample1_somatic_2_sage_genecvgmain.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_somatic_3_sage_bqrtsv.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_somatic_3_sage_genecvgcvg.parquet</span></span>
-<span><span class="co">#&gt; ├── sample1_somatic_3_sage_genecvggenes.parquet</span></span>
+<span><span class="co">#&gt; ├── sample1_somatic_3_sage_genecvgmain.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_somatic_sage_bqrtsv.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_somatic_sage_genecvgcvg.parquet</span></span>
-<span><span class="co">#&gt; ├── sample1_somatic_sage_genecvggenes.parquet</span></span>
+<span><span class="co">#&gt; ├── sample1_somatic_sage_genecvgmain.parquet</span></span>
 <span><span class="co">#&gt; ├── sample2_germline_2_sage_bqrtsv.parquet</span></span>
 <span><span class="co">#&gt; ├── sample2_germline_2_sage_genecvgcvg.parquet</span></span>
-<span><span class="co">#&gt; ├── sample2_germline_2_sage_genecvggenes.parquet</span></span>
+<span><span class="co">#&gt; ├── sample2_germline_2_sage_genecvgmain.parquet</span></span>
 <span><span class="co">#&gt; ├── sample2_germline_3_sage_bqrtsv.parquet</span></span>
 <span><span class="co">#&gt; ├── sample2_germline_3_sage_genecvgcvg.parquet</span></span>
-<span><span class="co">#&gt; ├── sample2_germline_3_sage_genecvggenes.parquet</span></span>
+<span><span class="co">#&gt; ├── sample2_germline_3_sage_genecvgmain.parquet</span></span>
 <span><span class="co">#&gt; ├── sample2_germline_sage_bqrtsv.parquet</span></span>
 <span><span class="co">#&gt; ├── sample2_germline_sage_genecvgcvg.parquet</span></span>
-<span><span class="co">#&gt; ├── sample2_germline_sage_genecvggenes.parquet</span></span>
+<span><span class="co">#&gt; ├── sample2_germline_sage_genecvgmain.parquet</span></span>
 <span><span class="co">#&gt; ├── sample2_somatic_2_sage_bqrtsv.parquet</span></span>
 <span><span class="co">#&gt; ├── sample2_somatic_3_sage_bqrtsv.parquet</span></span>
 <span><span class="co">#&gt; └── sample2_somatic_sage_bqrtsv.parquet</span></span></code></pre></div>
 </div>
-<p>Stacking the <code>bqrtsv</code> files (one random row) shows that <code>input_prefix</code> distinguishes germline from somatic across the runs:</p>
+<p>Stacked <code>bqrtsv</code> outputs (one random row each):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">dir_ls</span><span class="op">(</span><span class="va">dir_outS</span>, regexp <span class="op">=</span> <span class="st">"sage_bqrtsv\\.parquet"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -570,9 +569,9 @@
 </section><section class="level3"><h3 id="when-to-reach-for-the-hook">When to reach for the hook<a class="anchor" aria-label="anchor" href="#when-to-reach-for-the-hook"></a>
 </h3>
 <ul>
-<li>Prefer schema <code>pattern</code>s that already separate variants where you can; the generic pipeline then needs no help.</li>
-<li>Use <code>refine_files()</code> when a single parser matches multiple input files that must stay apart with a meaningful label rather than a positional <code>_2</code>.</li>
-<li>The hook can touch any <code>list_files()</code> column, but rewriting <code>prefix</code> is the common case since that is what drives the output filename.</li>
+<li>Prefer schema <code>pattern</code>s that already separate variants.</li>
+<li>Use <code>refine_files()</code> when one parser matches several files that need a meaningful label rather than a positional <code>_2</code>.</li>
+<li>The hook can edit any <code>list_files()</code> column; <code>prefix</code> is the usual target since it drives the output filename.</li>
 </ul></section></section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);

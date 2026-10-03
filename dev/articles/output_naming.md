@@ -47,7 +47,7 @@ for (r in run_ids) {
 }
 
 dir_tree(dir_runs)
-#> /tmp/RtmpMJciMf/naming-demo/runs
+#> /tmp/RtmpglmrMr/naming-demo/runs
 #> ├── run1
 #> │   ├── sampleA.tool1.table1.tsv
 #> │   └── sampleA.tool1.table2.tsv
@@ -74,10 +74,10 @@ tool$list_files() |>
 #>   bname                    parser prefix   
 #>   <chr>                    <chr>  <chr>    
 #> 1 sampleA.tool1.table1.tsv table1 sampleA  
-#> 2 sampleA.tool1.table1.tsv table1 sampleA_2
-#> 3 sampleA.tool1.table1.tsv table1 sampleA_3
-#> 4 sampleA.tool1.table2.tsv table2 sampleA  
-#> 5 sampleA.tool1.table2.tsv table2 sampleA_2
+#> 2 sampleA.tool1.table2.tsv table2 sampleA  
+#> 3 sampleA.tool1.table1.tsv table1 sampleA_2
+#> 4 sampleA.tool1.table2.tsv table2 sampleA_2
+#> 5 sampleA.tool1.table1.tsv table1 sampleA_3
 #> 6 sampleA.tool1.table2.tsv table2 sampleA_3
 ```
 
@@ -95,7 +95,7 @@ tool$run(
 )
 
 dir_tree(dir_outA)
-#> /tmp/RtmpMJciMf/naming-demo/outA
+#> /tmp/RtmpglmrMr/naming-demo/outA
 #> ├── metadata_tool1.parquet
 #> ├── sampleA_2_tool1_table1.parquet
 #> ├── sampleA_2_tool1_table2.parquet
@@ -153,7 +153,7 @@ for (r in run_ids) {
 }
 
 dir_tree(dir_outB)
-#> /tmp/RtmpMJciMf/naming-demo/outB
+#> /tmp/RtmpglmrMr/naming-demo/outB
 #> ├── run1
 #> │   ├── metadata_tool1.parquet
 #> │   ├── sampleA_tool1_table1.parquet
@@ -212,35 +212,24 @@ which would generate an `output_id` column alongside `input_id`.
 
 ## Special cases: semantic prefixes
 
-The disambiguation above (`_2`, `_3`) keeps files from overwriting each
-other but tells you nothing about why two inputs collided. Some tools
-emit germline and somatic variants of the same table that, after the
-schema `pattern` is stripped, reduce to the same prefix and the same
-`tool_parser`. Left alone they would collapse to `sample1` /
-`sample1_2`, which is lossy since you can no longer tell which file was
-germline.
+The `_2`/`_3` suffixes above avoid overwrites but don’t say *why* two
+inputs collided. Some tools emit germline and somatic variants of a
+table that reduce to the same prefix, so they’d end up as a lossy
+`sample1` / `sample1_2`.
 
-A `Tool` subclass (e.g. `Purple`) fixes this by overriding the private
-`refine_files` hook. It runs on the base prefix *before* the
-disambiguation passes, so a subclass can fold the germline/somatic
-distinction into the prefix itself. Once germline and somatic carry
-different prefixes they no longer collide, so the generic pipeline never
-has to invent a `_2`, and any remaining `_2`/`_3` is a genuine
-repeat-run marker within a variant.
+`Linx`, `Purple` and `Sage` override the private `refine_files()` hook,
+which runs *before* disambiguation, to fold `_germline`/`_somatic` into
+the prefix. Any remaining `_2`/`_3` is then a genuine repeat-run marker
+within a variant.
 
 ### Purple: `driver.catalog` germline vs. somatic
 
-- Problem: both `sample1.purple.driver.catalog.germline.tsv` and
-  `sample1.purple.driver.catalog.somatic.tsv` are parsed by the
-  `drivercatalog` parser, and strip to the prefix `sample1`. There
-  should be a `germline`/`somatic` distinguisher string
-- Fix: the Purple hook rewrites them by basename into
-  `sample1_germline`/`sample1_somatic` *before* the collision check, so
-  they never collapse to a lossy `sample1_2` for a single run.
+- Problem: `sample1.purple.driver.catalog.{germline,somatic}.tsv` both
+  go through the `drivercatalog` parser and strip to prefix `sample1`.
+- Fix: the hook rewrites them by basename to `sample1_germline` /
+  `sample1_somatic`.
 
-Let us simulate three runs by copying both drivercatalogs (and qc for
-comparison) into separate run folders, then initialise one `Purple`
-object on the parent:
+Simulate three runs with both driver catalogs (plus qc for comparison):
 
 ``` r
 
@@ -257,7 +246,7 @@ for (r in c("run1", "run2", "run3")) {
   )
 }
 dir_tree(dir_inP)
-#> /tmp/RtmpMJciMf/purple-runs
+#> /tmp/RtmpglmrMr/purple-runs
 #> ├── run1
 #> │   ├── sample1.purple.driver.catalog.germline.tsv
 #> │   ├── sample1.purple.driver.catalog.somatic.tsv
@@ -273,11 +262,7 @@ dir_tree(dir_inP)
 ppl <- Purple$new(path = dir_inP)
 ```
 
-Now we tidy the same object. The semantic tag lands first, so any
-trailing `_2`/`_3` is a genuine repeat-run marker within `germline` or
-`somatic`, not a collision between them. The `prefix_include` option
-records the prefix as an `input_prefix` column, and each run/variant
-lands in its own file:
+`prefix_include = TRUE` records the prefix as an `input_prefix` column:
 
 ``` r
 
@@ -290,7 +275,7 @@ ppl$run(
   prefix_include = TRUE
 )
 dir_tree(dir_outP)
-#> /tmp/RtmpMJciMf/purple-out
+#> /tmp/RtmpglmrMr/purple-out
 #> ├── metadata_purple.parquet
 #> ├── sample1_2_purple_qc.parquet
 #> ├── sample1_3_purple_qc.parquet
@@ -303,9 +288,8 @@ dir_tree(dir_outP)
 #> └── sample1_somatic_purple_drivercatalog.parquet
 ```
 
-Stacking the six tidy `drivercatalog` files (top 2 rows) shows that
-`input_prefix` distinguishes germline from somatic and one run from the
-other after the merge:
+Stacking the six `drivercatalog` outputs (top 2 rows each),
+`input_prefix` still tells variant and run apart:
 
 ``` r
 
@@ -343,18 +327,14 @@ dir_ls(dir_outP, regexp = "purple_qc\\.parquet") |>
 
 ### Linx: germline vs. somatic annotations
 
-- Problem: several Linx tables have an optional `germline` string in
-  their basename (e.g. `linx.germline.breakend.tsv`
-  vs. `linx.breakend.tsv`), so `sample1.linx.breakend.tsv` and
+- Problem: `sample1.linx.breakend.tsv` and
   `sample1.linx.germline.breakend.tsv` both reduce to `sample1`.
-- Fix: the Linx hook tags both germline and non-germline files but only
-  for parsers that actually have a germline file present, so
-  somatic-only tables (e.g. `drivers`, `fusion`, `vis_*`) are left
+- Fix: the hook tags both sides, but only for parsers with a germline
+  file present; somatic-only tables (`drivers`, `fusion`, `vis_*`) are
   untouched.
 
-Let us simulate three runs by copying the paired germline and somatic
-tables (and fusions for comparison) into separate run folders, then
-initialise one `Linx` object on the parent:
+Simulate three runs with the paired tables (plus fusions for
+comparison):
 
 ``` r
 
@@ -369,7 +349,7 @@ for (r in c("run1", "run2", "run3")) {
   file_copy(linx_files, dest, overwrite = TRUE)
 }
 dir_tree(dir_inL)
-#> /tmp/RtmpMJciMf/linx-runs
+#> /tmp/RtmpglmrMr/linx-runs
 #> ├── run1
 #> │   ├── sample1.linx.breakend.tsv
 #> │   ├── sample1.linx.fusion.tsv
@@ -397,9 +377,9 @@ dir_tree(dir_inL)
 l <- Linx$new(path = dir_inL)
 ```
 
-Now we tidy the same object. The paired tables (`breakends`, `links`,
-`svs`) split cleanly into `sample1_germline` and `sample1_somatic`, and
-the somatic-only fusions only need to use `_2`/`_3`:
+Paired tables (`breakends`, `links`, `svs`) split into
+`sample1_germline` / `sample1_somatic`; somatic-only fusions just get
+`_2`/`_3`:
 
 ``` r
 
@@ -412,7 +392,7 @@ l$run(
   prefix_include = TRUE
 )
 dir_tree(dir_outL)
-#> /tmp/RtmpMJciMf/linx-out
+#> /tmp/RtmpglmrMr/linx-out
 #> ├── metadata_linx.parquet
 #> ├── sample1_2_linx_fusions.parquet
 #> ├── sample1_3_linx_fusions.parquet
@@ -437,9 +417,7 @@ dir_tree(dir_outL)
 #> └── sample1_somatic_linx_svs.parquet
 ```
 
-Stacking the six tidy `breakends` files (top 2 rows) shows that
-`input_prefix` distinguishes germline from somatic and one run from the
-other after the merge:
+Stacked `breakends` outputs (top 2 rows each):
 
 ``` r
 
@@ -466,16 +444,12 @@ dir_ls(dir_outL, regexp = "linx_breakends\\.parquet") |>
 
 ### Sage: germline vs. somatic folders
 
-- Problem: Linx and Purple carry the germline/somatic distinction in the
-  basename. Older versions of Sage write the same basenames (e.g.
+- Problem: older Sage versions write identical basenames (e.g.
   `sample1.sage.bqr.tsv`) into sibling `germline/` and `somatic/`
-  subfolders, so the distinction lives in the parent folder, not the
-  filename.
-- Fix: the Sage hook takes into account the parent folder and tags the
-  tidy files accordingly.
+  folders.
+- Fix: the hook tags by parent folder (`refine_by_variant_folder()`).
 
-Let us simulate three runs by copying bqrtsv and genecvg into separate
-run folders, then initialise one `Sage` object on the parent:
+Simulate three runs with `bqr` and `gene.coverage`:
 
 ``` r
 
@@ -494,7 +468,7 @@ for (r in c("run1", "run2", "run3")) {
   }
 }
 dir_tree(dir_inS)
-#> /tmp/RtmpMJciMf/sage-runs
+#> /tmp/RtmpglmrMr/sage-runs
 #> ├── run1
 #> │   ├── germline
 #> │   │   ├── sample1.sage.bqr.tsv
@@ -525,10 +499,6 @@ dir_tree(dir_inS)
 s <- Sage$new(path = dir_inS)
 ```
 
-Now we tidy the same object. Note how the output files are distinguished
-by including `germline`/`somatic` into the prefix itself, and the
-trailing `_2`/`_3` is a genuine repeat-run marker:
-
 ``` r
 
 dir_outS <- dir_create(path(tempdir(), "sage-out"))
@@ -540,36 +510,35 @@ s$run(
   prefix_include = TRUE
 )
 dir_tree(dir_outS)
-#> /tmp/RtmpMJciMf/sage-out
+#> /tmp/RtmpglmrMr/sage-out
 #> ├── metadata_sage.parquet
 #> ├── sample1_germline_2_sage_bqrtsv.parquet
 #> ├── sample1_germline_3_sage_bqrtsv.parquet
 #> ├── sample1_germline_sage_bqrtsv.parquet
 #> ├── sample1_somatic_2_sage_bqrtsv.parquet
 #> ├── sample1_somatic_2_sage_genecvgcvg.parquet
-#> ├── sample1_somatic_2_sage_genecvggenes.parquet
+#> ├── sample1_somatic_2_sage_genecvgmain.parquet
 #> ├── sample1_somatic_3_sage_bqrtsv.parquet
 #> ├── sample1_somatic_3_sage_genecvgcvg.parquet
-#> ├── sample1_somatic_3_sage_genecvggenes.parquet
+#> ├── sample1_somatic_3_sage_genecvgmain.parquet
 #> ├── sample1_somatic_sage_bqrtsv.parquet
 #> ├── sample1_somatic_sage_genecvgcvg.parquet
-#> ├── sample1_somatic_sage_genecvggenes.parquet
+#> ├── sample1_somatic_sage_genecvgmain.parquet
 #> ├── sample2_germline_2_sage_bqrtsv.parquet
 #> ├── sample2_germline_2_sage_genecvgcvg.parquet
-#> ├── sample2_germline_2_sage_genecvggenes.parquet
+#> ├── sample2_germline_2_sage_genecvgmain.parquet
 #> ├── sample2_germline_3_sage_bqrtsv.parquet
 #> ├── sample2_germline_3_sage_genecvgcvg.parquet
-#> ├── sample2_germline_3_sage_genecvggenes.parquet
+#> ├── sample2_germline_3_sage_genecvgmain.parquet
 #> ├── sample2_germline_sage_bqrtsv.parquet
 #> ├── sample2_germline_sage_genecvgcvg.parquet
-#> ├── sample2_germline_sage_genecvggenes.parquet
+#> ├── sample2_germline_sage_genecvgmain.parquet
 #> ├── sample2_somatic_2_sage_bqrtsv.parquet
 #> ├── sample2_somatic_3_sage_bqrtsv.parquet
 #> └── sample2_somatic_sage_bqrtsv.parquet
 ```
 
-Stacking the `bqrtsv` files (one random row) shows that `input_prefix`
-distinguishes germline from somatic across the runs:
+Stacked `bqrtsv` outputs (one random row each):
 
 ``` r
 
@@ -597,10 +566,8 @@ dir_ls(dir_outS, regexp = "sage_bqrtsv\\.parquet") |>
 
 ### When to reach for the hook
 
-- Prefer schema `pattern`s that already separate variants where you can;
-  the generic pipeline then needs no help.
-- Use `refine_files()` when a single parser matches multiple input files
-  that must stay apart with a meaningful label rather than a positional
-  `_2`.
-- The hook can touch any `list_files()` column, but rewriting `prefix`
-  is the common case since that is what drives the output filename.
+- Prefer schema `pattern`s that already separate variants.
+- Use `refine_files()` when one parser matches several files that need a
+  meaningful label rather than a positional `_2`.
+- The hook can edit any `list_files()` column; `prefix` is the usual
+  target since it drives the output filename.

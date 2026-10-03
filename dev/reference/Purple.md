@@ -13,11 +13,10 @@ Purple file parsing and manipulation.
 
 - [`Purple$new()`](#method-Purple-new)
 
-- [`Purple$tidy_qc()`](#method-Purple-tidy_qc)
-
 Inherited methods
 
 - [`nemo::Tool$filter_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-filter_files)
+- [`nemo::Tool$get_globs()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_globs)
 - [`nemo::Tool$get_metadata()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_metadata)
 - [`nemo::Tool$get_tbls()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_tbls)
 - [`nemo::Tool$list_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-list_files)
@@ -48,23 +47,6 @@ Create a new Purple object.
   (`tibble(n)`)  
   Tibble of files from
   [`nemo::list_files_dir()`](https://tidywf.github.io/nemo/reference/list_files_dir.html).
-
-------------------------------------------------------------------------
-
-### Method `tidy_qc()`
-
-Tidy `purple.qc` file.
-
-#### Usage
-
-    Purple$tidy_qc(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)` or `tibble()`)  
-  Path to file or already parsed tibble.
 
 ## Examples
 

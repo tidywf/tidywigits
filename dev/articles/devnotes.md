@@ -38,9 +38,9 @@ tests, and when rendering the vignettes. A simple `dvc pull` will pull
 the data from the remote storage and allow these processes to take
 place.
 
-The default remote (`cloudflare_r2_nemo`) is a public Cloudflare R2
-bucket - no credentials needed to pull. Pushing requires the private S3
-remote (`cloudflare_r2_nemo_push`), configured locally in
+The default remote (`cloudflare_r2_tidywigits`) is a public Cloudflare
+R2 bucket - no credentials needed to pull. Pushing requires the private
+S3 remote (`cloudflare_r2_tidywigits_push`), configured locally in
 `.dvc/config.local` (gitignored), with R2 credentials passed via env
 vars.
 
@@ -56,4 +56,4 @@ vars.
 | `dvc add path/to/folder` | adds `folder` (and its contents) to dvc |
 | `dvc add path/to/file.txt` | adds `file.txt` to dvc |
 | `dvc pull` | pulls dvc data from public remote (no auth) |
-| `AWS_ACCESS_KEY_ID=... AWS_SECRET_ACCESS_KEY=... dvc push -r cloudflare_r2_nemo_push` | pushes dvc data to private R2 remote (needs auth) |
+| `AWS_ACCESS_KEY_ID=... AWS_SECRET_ACCESS_KEY=... dvc push -r cloudflare_r2_tidywigits_push` | pushes dvc data to private R2 remote (needs auth) |

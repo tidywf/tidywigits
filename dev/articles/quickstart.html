@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +73,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9000/vignettes/quickstart.qmd" class="external-link"><code>vignettes/quickstart.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9001/vignettes/quickstart.qmd" class="external-link"><code>vignettes/quickstart.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -82,22 +82,13 @@
 
 
 
-    <p>tidywigits turns raw <a href="https://github.com/hartwigmedical/hmftools" class="external-link">WiGiTS/hmftools</a> output directories into consistently structured, versioned, analysis-ready tables. This vignette walks through the core usage patterns.</p>
+    <p>tidywigits turns raw <a href="https://github.com/hartwigmedical/hmftools" class="external-link">WiGiTS/hmftools</a> output directories into versioned, analysis-ready tables.</p>
 <section class="level2"><h2 id="test-data">Test data<a class="anchor" aria-label="anchor" href="#test-data"></a>
 </h2>
-<p>Example input files are tracked in <code>inst/extdata/oa/</code> via <a href="https://dvc.org/" class="external-link">DVC</a> and can be downloaded using either of the below options:</p>
-<ul>
-<li>
-<code>dvc pull</code>: requires dvc installation and cloned tidywigits source repo.</li>
-<li>
-<code>?nemo::dvc_download_all()</code>: no additional requirements, uses <code><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file()</a></code> internally.</li>
-</ul>
+<p>Example inputs live in <code>inst/extdata/oa/</code>, tracked via <a href="https://dvc.org/" class="external-link">DVC</a> on a public Cloudflare R2 bucket (no credentials). Fetch them with <code>dvc pull</code> from a cloned repo, or from R with <code><a href="https://tidywf.github.io/nemo/reference/dvc_download_all.html" class="external-link">nemo::dvc_download_all()</a></code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dir1</span> <span class="op">&lt;-</span> <span class="st">"extdata/oa/purple"</span> <span class="co"># adjust for whichever tool you want</span></span>
-<span><span class="va">input_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="va">dir1</span>, package <span class="op">=</span> <span class="st">"tidywigits"</span><span class="op">)</span></span>
-<span><span class="va">output_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"dvc_test"</span><span class="op">)</span></span>
-<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">dvc_download_all</span><span class="op">(</span><span class="va">input_dir</span>, <span class="va">output_dir</span><span class="op">)</span></span></code></pre></div>
-<p>No credentials are required since the remote is a public Cloudflare R2 bucket.</p>
+<code class="sourceCode R"><span><span class="va">input_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/oa/purple"</span>, package <span class="op">=</span> <span class="st">"tidywigits"</span><span class="op">)</span></span>
+<span><span class="fu">nemo</span><span class="fu">::</span><span class="fu"><a href="https://tidywf.github.io/nemo/reference/dvc_download_all.html" class="external-link">dvc_download_all</a></span><span class="op">(</span><span class="va">input_dir</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"dvc_test"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </section><section class="level2"><h2 id="input">Input<a class="anchor" aria-label="anchor" href="#input"></a>
 </h2>
 <p>Example WiGiTS results:</p>
@@ -302,7 +293,7 @@
 </div>
 </section><section class="level2"><h2 id="output---single-tool">Output - Single Tool<a class="anchor" aria-label="anchor" href="#output---single-tool"></a>
 </h2>
-<p>Each tool has its own R6 class. Construct it with the tool’s output directory, then call <code>run()</code> to parse, tidy, and write in one step:</p>
+<p>Each tool has its own R6 class. <code>run()</code> parses, tidies and writes in one step:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">outdir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"qs_ppl"</span><span class="op">)</span></span>
@@ -335,7 +326,7 @@
 </div>
 <section class="level3"><h3 id="file-naming">File naming<a class="anchor" aria-label="anchor" href="#file-naming"></a>
 </h3>
-<p>Output files follow the pattern <code>{prefix}_{tool}_{table}.parquet</code>, where <code>prefix</code> is derived from the input filenames (here <code>sample1</code>). The <code>metadata.parquet</code> file is always written alongside the data files and records input/output paths and package versions.</p>
+<p>Output files follow <code>{prefix}_{tool}_{table}.parquet</code>, where <code>prefix</code> comes from the input filenames (here <code>sample1</code>). See <a href="output_naming.html">Output Naming</a> for collision handling.</p>
 </section><section class="level3"><h3 id="reading-a-table-back">Reading a table back<a class="anchor" aria-label="anchor" href="#reading-a-table-back"></a>
 </h3>
 <div class="cell">
@@ -362,7 +353,7 @@
 </div>
 </section></section><section class="level2"><h2 id="output---full-wigits-run">Output - Full WiGiTS run<a class="anchor" aria-label="anchor" href="#output---full-wigits-run"></a>
 </h2>
-<p><code>Wigits</code> processes all supported tools in one call. Point it at the parent directory that contains the per-tool subdirectories:</p>
+<p><code>Wigits</code> runs all supported tools on a parent directory:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">outdir_w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"qs_wigits"</span><span class="op">)</span></span>
@@ -376,7 +367,7 @@
 </div>
 </section><section class="level2"><h2 id="id-columns">ID columns<a class="anchor" aria-label="anchor" href="#id-columns"></a>
 </h2>
-<p>Three optional columns can be prepended to every written table. All are off by default:</p>
+<p>Optional columns prepended to every written table (all off by default), useful when combining samples into one table:</p>
 <table class="table caption-top">
 <colgroup>
 <col style="width: 29%">
@@ -406,7 +397,6 @@
 </tr>
 </tbody>
 </table>
-<p>These are useful when loading results from multiple samples into the same database table or combined data frame:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">outdir_id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"qs_ppl_id"</span><span class="op">)</span></span>
@@ -428,7 +418,7 @@
 </div>
 </section><section class="level2"><h2 id="metadata">Metadata<a class="anchor" aria-label="anchor" href="#metadata"></a>
 </h2>
-<p>Every <code>run()</code> writes a <code>metadata.parquet</code> alongside the data files. It records the input directory, output directory, IDs, and the versions of R packages used:</p>
+<p>Every <code>run()</code> also writes metadata (input/output dirs, IDs, R package versions): <code>metadata.parquet</code> for <code>Wigits</code>, <code>metadata_&lt;tool&gt;.parquet</code> for a single tool.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">read_parquet</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">outdir_w</span>, <span class="st">"metadata.parquet"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -438,7 +428,7 @@
 <span><span class="co">#&gt;  $ input_dirs  : list&lt;character&gt; [1:1] </span></span>
 <span><span class="co">#&gt;   ..$ : chr "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa"</span></span>
 <span><span class="co">#&gt;   ..@ ptype: chr(0) </span></span>
-<span><span class="co">#&gt;  $ output_dir  : chr "/tmp/RtmpaOfKj3/qs_wigits"</span></span>
+<span><span class="co">#&gt;  $ output_dir  : chr "/tmp/Rtmp3Mogxe/qs_wigits"</span></span>
 <span><span class="co">#&gt;  $ pkg_versions: list&lt;</span></span>
 <span><span class="co">#&gt;   tbl_df&lt;</span></span>
 <span><span class="co">#&gt;     name   : character</span></span>
@@ -447,7 +437,7 @@
 <span><span class="co">#&gt; &gt; [1:1] </span></span>
 <span><span class="co">#&gt;   ..$ : tibble [2 × 2] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;   .. ..$ name   : chr [1:2] "nemo" "tidywigits"</span></span>
-<span><span class="co">#&gt;   .. ..$ version: chr [1:2] "0.1.0.9004" "0.1.0.9000"</span></span>
+<span><span class="co">#&gt;   .. ..$ version: chr [1:2] "0.1.0.9005" "0.1.0.9001"</span></span>
 <span><span class="co">#&gt;   ..@ ptype: tibble [0 × 2] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;   .. ..$ name   : chr(0) </span></span>
 <span><span class="co">#&gt;   .. ..$ version: chr(0) </span></span>
@@ -460,10 +450,10 @@
 <span><span class="co">#&gt;   &gt;</span></span>
 <span><span class="co">#&gt; &gt; [1:1] </span></span>
 <span><span class="co">#&gt;   ..$ : tibble [160 × 4] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;   .. ..$ tbl   : chr [1:160] "alignments_dupfreq" "alignments_dupfreq" "alignments_markdup" "amber_bafpcf" ...</span></span>
-<span><span class="co">#&gt;   .. ..$ prefix: chr [1:160] "sample1" "sample1_2" "sample1" "sample1" ...</span></span>
-<span><span class="co">#&gt;   .. ..$ fout  : chr [1:160] "sample1_alignments_dupfreq.parquet" "sample1_2_alignments_dupfreq.parquet" "sample1_alignments_markdup.parquet" "sample1_amber_bafpcf.parquet" ...</span></span>
-<span><span class="co">#&gt;   .. ..$ fin   : chr [1:160] "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.redux.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.md.metrics" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/amber/sample1.amber.baf.pcf" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ tbl   : chr [1:160] "alignments_dupfreq" "alignments_markdup" "alignments_dupfreq" "amber_version" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ prefix: chr [1:160] "sample1" "sample1" "sample1_2" "version" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ fout  : chr [1:160] "sample1_alignments_dupfreq.parquet" "sample1_alignments_markdup.parquet" "sample1_2_alignments_dupfreq.parquet" "version_amber_version.parquet" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ fin   : chr [1:160] "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.md.metrics" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.redux.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/amber/amber.version" ...</span></span>
 <span><span class="co">#&gt;   ..@ ptype: tibble [0 × 4] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;   .. ..$ tbl   : chr(0) </span></span>
 <span><span class="co">#&gt;   .. ..$ prefix: chr(0) </span></span>
@@ -476,7 +466,7 @@
 <li>
 <a href="schema_table.html">Schema table</a>: browse every table and column for all supported WiGiTS tools</li>
 <li>
-<a href="structure.html">Structure</a>: how schemas, versioning, and the Tool/Workflow class hierarchy work</li>
+<a href="structure.html">Structure</a>: schemas, versioning, and the Tool/Workflow class hierarchy (nemo)</li>
 <li>
 <a href="postgresql.html">PostgreSQL</a>: writing results to a database</li>
 </ul></section><script id="quarto-html-after-body" type="application/javascript">

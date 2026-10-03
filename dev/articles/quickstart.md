@@ -2,31 +2,21 @@
 
 tidywigits turns raw
 [WiGiTS/hmftools](https://github.com/hartwigmedical/hmftools) output
-directories into consistently structured, versioned, analysis-ready
-tables. This vignette walks through the core usage patterns.
+directories into versioned, analysis-ready tables.
 
 ## Test data
 
-Example input files are tracked in `inst/extdata/oa/` via
-[DVC](https://dvc.org/) and can be downloaded using either of the below
-options:
-
-- `dvc pull`: requires dvc installation and cloned tidywigits source
-  repo.
-- `?nemo::dvc_download_all()`: no additional requirements, uses
-  [`download.file()`](https://rdrr.io/r/utils/download.file.html)
-  internally.
+Example inputs live in `inst/extdata/oa/`, tracked via
+[DVC](https://dvc.org/) on a public Cloudflare R2 bucket (no
+credentials). Fetch them with `dvc pull` from a cloned repo, or from R
+with
+[`nemo::dvc_download_all()`](https://tidywf.github.io/nemo/reference/dvc_download_all.html):
 
 ``` r
 
-dir1 <- "extdata/oa/purple" # adjust for whichever tool you want
-input_dir <- system.file(dir1, package = "tidywigits")
-output_dir <- file.path(tempdir(), "dvc_test")
-result <- dvc_download_all(input_dir, output_dir)
+input_dir <- system.file("extdata/oa/purple", package = "tidywigits")
+nemo::dvc_download_all(input_dir, file.path(tempdir(), "dvc_test"))
 ```
-
-No credentials are required since the remote is a public Cloudflare R2
-bucket.
 
 ## Input
 
@@ -235,8 +225,8 @@ dir_tree(indir, invert = TRUE, glob = "*.dvc")
 
 ## Output - Single Tool
 
-Each tool has its own R6 class. Construct it with the tool’s output
-directory, then call `run()` to parse, tidy, and write in one step:
+Each tool has its own R6 class. `run()` parses, tidies and writes in one
+step:
 
 ``` r
 
@@ -271,10 +261,10 @@ list.files(outdir, pattern = "\\.parquet$")
 
 ### File naming
 
-Output files follow the pattern `{prefix}_{tool}_{table}.parquet`, where
-`prefix` is derived from the input filenames (here `sample1`). The
-`metadata.parquet` file is always written alongside the data files and
-records input/output paths and package versions.
+Output files follow `{prefix}_{tool}_{table}.parquet`, where `prefix`
+comes from the input filenames (here `sample1`). See [Output
+Naming](https://tidywf.github.io/tidywigits/dev/articles/output_naming.md)
+for collision handling.
 
 ### Reading a table back
 
@@ -303,8 +293,7 @@ qc |> str()
 
 ## Output - Full WiGiTS run
 
-`Wigits` processes all supported tools in one call. Point it at the
-parent directory that contains the per-tool subdirectories:
+`Wigits` runs all supported tools on a parent directory:
 
 ``` r
 
@@ -320,17 +309,14 @@ list.files(outdir_w, pattern = "\\.parquet$") |> sort() |> str()
 
 ## ID columns
 
-Three optional columns can be prepended to every written table. All are
-off by default:
+Optional columns prepended to every written table (all off by default),
+useful when combining samples into one table:
 
 | Argument | Column added | Contains |
 |----|----|----|
 | `input_id = "x"` | `input_id` | sample or run identifier you supply |
 | `output_id = "x"` | `output_id` | processing run identifier you supply |
 | `prefix_include = TRUE` | `input_prefix` | filename prefix extracted from input files |
-
-These are useful when loading results from multiple samples into the
-same database table or combined data frame:
 
 ``` r
 
@@ -354,9 +340,9 @@ read_parquet(file.path(outdir_id, "sample1_purple_qc.parquet"))
 
 ## Metadata
 
-Every `run()` writes a `metadata.parquet` alongside the data files. It
-records the input directory, output directory, IDs, and the versions of
-R packages used:
+Every `run()` also writes metadata (input/output dirs, IDs, R package
+versions): `metadata.parquet` for `Wigits`, `metadata_<tool>.parquet`
+for a single tool.
 
 ``` r
 
@@ -367,7 +353,7 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 #>  $ input_dirs  : list<character> [1:1] 
 #>   ..$ : chr "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa"
 #>   ..@ ptype: chr(0) 
-#>  $ output_dir  : chr "/tmp/RtmpaOfKj3/qs_wigits"
+#>  $ output_dir  : chr "/tmp/Rtmp3Mogxe/qs_wigits"
 #>  $ pkg_versions: list<
 #>   tbl_df<
 #>     name   : character
@@ -376,7 +362,7 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 #> > [1:1] 
 #>   ..$ : tibble [2 × 2] (S3: tbl_df/tbl/data.frame)
 #>   .. ..$ name   : chr [1:2] "nemo" "tidywigits"
-#>   .. ..$ version: chr [1:2] "0.1.0.9004" "0.1.0.9000"
+#>   .. ..$ version: chr [1:2] "0.1.0.9005" "0.1.0.9001"
 #>   ..@ ptype: tibble [0 × 2] (S3: tbl_df/tbl/data.frame)
 #>   .. ..$ name   : chr(0) 
 #>   .. ..$ version: chr(0) 
@@ -389,10 +375,10 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 #>   >
 #> > [1:1] 
 #>   ..$ : tibble [160 × 4] (S3: tbl_df/tbl/data.frame)
-#>   .. ..$ tbl   : chr [1:160] "alignments_dupfreq" "alignments_dupfreq" "alignments_markdup" "amber_bafpcf" ...
-#>   .. ..$ prefix: chr [1:160] "sample1" "sample1_2" "sample1" "sample1" ...
-#>   .. ..$ fout  : chr [1:160] "sample1_alignments_dupfreq.parquet" "sample1_2_alignments_dupfreq.parquet" "sample1_alignments_markdup.parquet" "sample1_amber_bafpcf.parquet" ...
-#>   .. ..$ fin   : chr [1:160] "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.redux.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.md.metrics" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/amber/sample1.amber.baf.pcf" ...
+#>   .. ..$ tbl   : chr [1:160] "alignments_dupfreq" "alignments_markdup" "alignments_dupfreq" "amber_version" ...
+#>   .. ..$ prefix: chr [1:160] "sample1" "sample1" "sample1_2" "version" ...
+#>   .. ..$ fout  : chr [1:160] "sample1_alignments_dupfreq.parquet" "sample1_alignments_markdup.parquet" "sample1_2_alignments_dupfreq.parquet" "version_amber_version.parquet" ...
+#>   .. ..$ fin   : chr [1:160] "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.md.metrics" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.redux.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/amber/amber.version" ...
 #>   ..@ ptype: tibble [0 × 4] (S3: tbl_df/tbl/data.frame)
 #>   .. ..$ tbl   : chr(0) 
 #>   .. ..$ prefix: chr(0) 
@@ -406,6 +392,6 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
   table](https://tidywf.github.io/tidywigits/dev/articles/schema_table.md):
   browse every table and column for all supported WiGiTS tools
 - [Structure](https://tidywf.github.io/tidywigits/dev/articles/structure.md):
-  how schemas, versioning, and the Tool/Workflow class hierarchy work
+  schemas, versioning, and the Tool/Workflow class hierarchy (nemo)
 - [PostgreSQL](https://tidywf.github.io/tidywigits/dev/articles/postgresql.md):
   writing results to a database

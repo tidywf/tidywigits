@@ -7,19 +7,27 @@ Cobalt file parsing and manipulation.
 [`nemo::Tool`](https://tidywf.github.io/nemo/reference/Tool.html) -\>
 `Cobalt`
 
+## Public fields
+
+- `flat_tidy_names`:
+
+  (`logical(1)`)  
+  `TRUE`: fan-out sub-tables are named `<tool>_<tidy_name>`.
+
 ## Methods
 
 ### Public methods
 
 - [`Cobalt$new()`](#method-Cobalt-new)
 
-- [`Cobalt$parse_gcmed()`](#method-Cobalt-parse_gcmed)
+- [`Cobalt$parse_gcmedmain()`](#method-Cobalt-parse_gcmedmain)
 
-- [`Cobalt$tidy_gcmed()`](#method-Cobalt-tidy_gcmed)
+- [`Cobalt$tidy_gcmedmain()`](#method-Cobalt-tidy_gcmedmain)
 
 Inherited methods
 
 - [`nemo::Tool$filter_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-filter_files)
+- [`nemo::Tool$get_globs()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_globs)
 - [`nemo::Tool$get_metadata()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_metadata)
 - [`nemo::Tool$get_tbls()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_tbls)
 - [`nemo::Tool$list_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-list_files)
@@ -53,13 +61,15 @@ Create a new Cobalt object.
 
 ------------------------------------------------------------------------
 
-### Method `parse_gcmed()`
+### Method `parse_gcmedmain()`
 
-Read `gc.median.tsv` file.
+Read `gc.median.tsv` file. Generates 2 sub-tbls: `gcmedmain` with the
+sample mean/median read depth, and `gcmedbuckets` with the median depth
+per GC bucket.
 
 #### Usage
 
-    Cobalt$parse_gcmed(x)
+    Cobalt$parse_gcmedmain(x)
 
 #### Arguments
 
@@ -70,15 +80,15 @@ Read `gc.median.tsv` file.
 
 ------------------------------------------------------------------------
 
-### Method `tidy_gcmed()`
+### Method `tidy_gcmedmain()`
 
-Tidy `gc.median.tsv` file. Generates 2 sub-tbls: *sample* with the
-sample mean/median read depth, and *buckets* with the median depth per
-GC bucket.
+Tidy `gc.median.tsv` file. Generates 2 sub-tbls: `gcmedmain` with the
+sample mean/median read depth, and `gcmedbuckets` with the median depth
+per GC bucket.
 
 #### Usage
 
-    Cobalt$tidy_gcmed(x)
+    Cobalt$tidy_gcmedmain(x)
 
 #### Arguments
 
@@ -98,6 +108,6 @@ obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #> [1] "sample1_2_cobalt_ratiopcf.parquet"   "sample1_cobalt_gcmedbuckets.parquet"
-#> [3] "sample1_cobalt_gcmedsample.parquet"  "sample1_cobalt_ratiomed.parquet"    
+#> [3] "sample1_cobalt_gcmedmain.parquet"    "sample1_cobalt_ratiomed.parquet"    
 #> [5] "sample1_cobalt_ratiopcf.parquet"     "version_cobalt_version.parquet"     
 ```

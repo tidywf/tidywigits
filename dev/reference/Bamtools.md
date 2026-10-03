@@ -7,31 +7,39 @@ Bamtools file parsing and manipulation.
 [`nemo::Tool`](https://tidywf.github.io/nemo/reference/Tool.html) -\>
 `Bamtools`
 
+## Public fields
+
+- `flat_tidy_names`:
+
+  (`logical(1)`)  
+  `TRUE`: fan-out sub-tables are named `<tool>_<tidy_name>`.
+
 ## Methods
 
 ### Public methods
 
 - [`Bamtools$new()`](#method-Bamtools-new)
 
-- [`Bamtools$parse_summary()`](#method-Bamtools-parse_summary)
+- [`Bamtools$parse_summarymain()`](#method-Bamtools-parse_summarymain)
 
-- [`Bamtools$tidy_summary()`](#method-Bamtools-tidy_summary)
+- [`Bamtools$tidy_summarymain()`](#method-Bamtools-tidy_summarymain)
 
-- [`Bamtools$parse_wgsmetrics()`](#method-Bamtools-parse_wgsmetrics)
+- [`Bamtools$parse_wgsmetricsmain()`](#method-Bamtools-parse_wgsmetricsmain)
 
-- [`Bamtools$tidy_wgsmetrics()`](#method-Bamtools-tidy_wgsmetrics)
+- [`Bamtools$tidy_wgsmetricsmain()`](#method-Bamtools-tidy_wgsmetricsmain)
 
 - [`Bamtools$parse_flagstats()`](#method-Bamtools-parse_flagstats)
 
 - [`Bamtools$tidy_flagstats()`](#method-Bamtools-tidy_flagstats)
 
-- [`Bamtools$tidy_genecvg()`](#method-Bamtools-tidy_genecvg)
+- [`Bamtools$tidy_genecvgmain()`](#method-Bamtools-tidy_genecvgmain)
 
-- [`Bamtools$tidy_exoncvg()`](#method-Bamtools-tidy_exoncvg)
+- [`Bamtools$tidy_exoncvgmain()`](#method-Bamtools-tidy_exoncvgmain)
 
 Inherited methods
 
 - [`nemo::Tool$filter_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-filter_files)
+- [`nemo::Tool$get_globs()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_globs)
 - [`nemo::Tool$get_metadata()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_metadata)
 - [`nemo::Tool$get_tbls()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_tbls)
 - [`nemo::Tool$list_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-list_files)
@@ -65,13 +73,13 @@ Create a new Bamtools object.
 
 ------------------------------------------------------------------------
 
-### Method `parse_summary()`
+### Method `parse_summarymain()`
 
 Read `summary.tsv` file.
 
 #### Usage
 
-    Bamtools$parse_summary(x)
+    Bamtools$parse_summarymain(x)
 
 #### Arguments
 
@@ -82,14 +90,15 @@ Read `summary.tsv` file.
 
 ------------------------------------------------------------------------
 
-### Method `tidy_summary()`
+### Method `tidy_summarymain()`
 
-Tidy `summary.tsv` file. Generates 2 sub-tbls: *stats* with the main
-stats and *dp* with the percentage of bases covered by at least X reads.
+Tidy `summary.tsv` file. Generates 2 sub-tbls: `summarymain` with the
+main stats and `summarydp` with the percentage of bases covered by at
+least X reads.
 
 #### Usage
 
-    Bamtools$tidy_summary(x)
+    Bamtools$tidy_summarymain(x)
 
 #### Arguments
 
@@ -100,13 +109,14 @@ stats and *dp* with the percentage of bases covered by at least X reads.
 
 ------------------------------------------------------------------------
 
-### Method `parse_wgsmetrics()`
+### Method `parse_wgsmetricsmain()`
 
-Read `wgsmetrics` file.
+Read `wgsmetrics` file. Generates 2 sub-tbls: `wgsmetricsmain` with the
+main stats and `wgsmetricshisto` with the base coverage distribution.
 
 #### Usage
 
-    Bamtools$parse_wgsmetrics(x)
+    Bamtools$parse_wgsmetricsmain(x)
 
 #### Arguments
 
@@ -117,15 +127,16 @@ Read `wgsmetrics` file.
 
 ------------------------------------------------------------------------
 
-### Method `tidy_wgsmetrics()`
+### Method `tidy_wgsmetricsmain()`
 
-Tidy `wgsmetrics` file. Generates 3 sub-tbls: *stats* with the main
-stats, *dp* with the percentage of bases covered by at least X reads,
-and *histo* with the distribution of base coverage.
+Tidy `wgsmetrics` file. Generates 3 sub-tbls: `wgsmetricsmain` with the
+main stats, `wgsmetricsdp` with the percentage of bases covered by at
+least X reads, and `wgsmetricshisto` with the distribution of base
+coverage.
 
 #### Usage
 
-    Bamtools$tidy_wgsmetrics(x)
+    Bamtools$tidy_wgsmetricsmain(x)
 
 #### Arguments
 
@@ -170,13 +181,15 @@ Tidy `flag_counts.tsv` file.
 
 ------------------------------------------------------------------------
 
-### Method `tidy_genecvg()`
+### Method `tidy_genecvgmain()`
 
-Tidy `gene_coverage.tsv` file.
+Tidy `gene_coverage.tsv` file. Generates 2 sub-tbls: `genecvgmain` with
+the per-gene metadata and `genecvgcvg` with the long-form depth-range
+counts.
 
 #### Usage
 
-    Bamtools$tidy_genecvg(x)
+    Bamtools$tidy_genecvgmain(x)
 
 #### Arguments
 
@@ -187,15 +200,15 @@ Tidy `gene_coverage.tsv` file.
 
 ------------------------------------------------------------------------
 
-### Method `tidy_exoncvg()`
+### Method `tidy_exoncvgmain()`
 
-Tidy `exon_coverage.tsv` file. Generates 2 sub-tbls: *exons* with
-per-exon depth stats and *perc* with the long-format percentage of bases
-above each depth threshold.
+Tidy `exon_coverage.tsv` file. Generates 2 sub-tbls: `exoncvgmain` with
+per-exon depth stats and `exoncvgperc` with the long-format percentage
+of bases above each depth threshold.
 
 #### Usage
 
-    Bamtools$tidy_exoncvg(x)
+    Bamtools$tidy_exoncvgmain(x)
 
 #### Arguments
 
@@ -215,21 +228,21 @@ obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #>  [1] "sample1_2_bamtools_genecvgcvg.parquet"   
-#>  [2] "sample1_2_bamtools_genecvggenes.parquet" 
+#>  [2] "sample1_2_bamtools_genecvgmain.parquet"  
 #>  [3] "sample1_2_bamtools_summarydp.parquet"    
-#>  [4] "sample1_2_bamtools_summarystats.parquet" 
+#>  [4] "sample1_2_bamtools_summarymain.parquet"  
 #>  [5] "sample1_bamtools_coverage.parquet"       
-#>  [6] "sample1_bamtools_exoncvgexons.parquet"   
+#>  [6] "sample1_bamtools_exoncvgmain.parquet"    
 #>  [7] "sample1_bamtools_exoncvgperc.parquet"    
 #>  [8] "sample1_bamtools_exonmedians.parquet"    
 #>  [9] "sample1_bamtools_flagstats.parquet"      
 #> [10] "sample1_bamtools_fraglength.parquet"     
 #> [11] "sample1_bamtools_genecvgcvg.parquet"     
-#> [12] "sample1_bamtools_genecvggenes.parquet"   
+#> [12] "sample1_bamtools_genecvgmain.parquet"    
 #> [13] "sample1_bamtools_partitionstats.parquet" 
 #> [14] "sample1_bamtools_summarydp.parquet"      
-#> [15] "sample1_bamtools_summarystats.parquet"   
+#> [15] "sample1_bamtools_summarymain.parquet"    
 #> [16] "sample1_bamtools_wgsmetricsdp.parquet"   
 #> [17] "sample1_bamtools_wgsmetricshisto.parquet"
-#> [18] "sample1_bamtools_wgsmetricsstats.parquet"
+#> [18] "sample1_bamtools_wgsmetricsmain.parquet" 
 ```

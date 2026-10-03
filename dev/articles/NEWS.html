@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +73,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9000/vignettes/NEWS.qmd" class="external-link"><code>vignettes/NEWS.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9001/vignettes/NEWS.qmd" class="external-link"><code>vignettes/NEWS.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -94,17 +94,69 @@ See any child package's NEWS.qmd for the exact wiring.
 The parent MUST define `repo` (the package's GitHub URL) before the child
 runs; the helpers below close over it. They build links to compares, PRs,
 issues, and users: pr(48), iss(11), vdiff("0.1.0", "0.0.3"), user("reisingerf").
---><section class="level2"><h2 id="v0-2-0-2026-08-04">v0.2.0 (2026-08-04)<a class="anchor" aria-label="anchor" href="#v0-2-0-2026-08-04"></a>
+--><section class="level2"><h2 id="v0-1-0-9000-current-dev">v0.1.0.9000 (current dev)<a class="anchor" aria-label="anchor" href="#v0-1-0-9000-current-dev"></a>
 </h2>
-<p>Oncoanalyser v3 (WiGiTS) support across every tool (<a href="https://github.com/tidywf/tidywigits/pull/212" class="external-link">pr212</a>-<a href="https://github.com/tidywf/tidywigits/pull/222" class="external-link">pr222</a>). v3 outputs are folded in as the <code>latest</code> schema + test fixture, with breaking pre-v3 tables/columns demoted to per-tool older versions for regression coverage. The fixture is flattened to distinct sample ids (<code>tumor_dna</code>/<code>normal_dna</code>/<code>tumor_rna</code> =&gt; <code>sample1</code>/<code>sample2</code>/<code>sample3</code>), removing same-basename collisions.</p>
+<section class="level3"><h3 id="oncoanalyser-v3">Oncoanalyser v3<a class="anchor" aria-label="anchor" href="#oncoanalyser-v3"></a>
+</h3>
+<p>Oncoanalyser v3 (WiGiTS) outputs are supported across every tool (<a href="https://github.com/tidywf/tidywigits/pull/212" class="external-link">pr212</a>-<a href="https://github.com/tidywf/tidywigits/pull/222" class="external-link">pr222</a>, <a href="https://github.com/tidywf/tidywigits/pull/225" class="external-link">pr225</a>). Pre-v3 outputs are still parsed via older schema versions.</p>
 <ul>
-<li>New tool: Qsee (v3 QC summary) (<a href="https://github.com/tidywf/tidywigits/pull/222" class="external-link">pr222</a>)</li>
-<li>Breaking updates (old versions retained): Amber (<a href="https://github.com/tidywf/tidywigits/pull/212" class="external-link">pr212</a>), Bamtools (<a href="https://github.com/tidywf/tidywigits/pull/213" class="external-link">pr213</a>), Cider (<a href="https://github.com/tidywf/tidywigits/pull/214" class="external-link">pr214</a>), Cobalt (<a href="https://github.com/tidywf/tidywigits/pull/215" class="external-link">pr215</a>), Isofox (<a href="https://github.com/tidywf/tidywigits/pull/217" class="external-link">pr217</a>), Lilac (<a href="https://github.com/tidywf/tidywigits/pull/218" class="external-link">pr218</a>), Linx (<a href="https://github.com/tidywf/tidywigits/pull/219" class="external-link">pr219</a>)</li>
-<li>Additive updates: Esvee (<a href="https://github.com/tidywf/tidywigits/pull/216" class="external-link">pr216</a>), Neo (<a href="https://github.com/tidywf/tidywigits/pull/220" class="external-link">pr220</a>), Purple (<a href="https://github.com/tidywf/tidywigits/pull/221" class="external-link">pr221</a>)</li>
-<li>Isofox: most outputs moved <code>.csv</code> → <code>.tsv</code>, unified via a delimiter-agnostic <code>dsv</code> ftype (<a href="https://github.com/tidywf/tidywigits/pull/217" class="external-link">pr217</a>)</li>
+<li>New tool: Qsee (v3 QC summary) (<a href="https://github.com/tidywf/tidywigits/pull/222" class="external-link">pr222</a>).</li>
+<li>Breaking schema changes (older versions retained): Amber, Bamtools, Cider, Cobalt, Isofox, Lilac, Linx.</li>
+<li>Additive schema changes: Esvee, Neo, Purple.</li>
 <li>
-<code>orange</code>/<code>pave</code> ignored; <code>alignments</code>/<code>flagstats</code> kept as pre-v3 only</li>
-</ul></section><section class="level2"><h2 id="v0-1-0-2026-07-28">v0.1.0 (2026-07-28)<a class="anchor" aria-label="anchor" href="#v0-1-0-2026-07-28"></a>
+<code>orange</code>/<code>pave</code> outputs are ignored.</li>
+</ul></section><section class="level3"><h3 id="breaking-changes">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes"></a>
+</h3>
+<ul>
+<li>Output tables renamed for tools that split one file into several tables (<a href="https://github.com/tidywf/tidywigits/pull/229" class="external-link">pr229</a>):</li>
+</ul>
+<table class="table caption-top">
+<thead><tr class="header">
+<th>Old</th>
+<th>New</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>bamtools_summarystats</code></td>
+<td><code>bamtools_summarymain</code></td>
+</tr>
+<tr class="even">
+<td><code>bamtools_wgsmetricsstats</code></td>
+<td><code>bamtools_wgsmetricsmain</code></td>
+</tr>
+<tr class="odd">
+<td><code>bamtools_exoncvgexons</code></td>
+<td><code>bamtools_exoncvgmain</code></td>
+</tr>
+<tr class="even">
+<td><code>bamtools_genecvggenes</code></td>
+<td><code>bamtools_genecvgmain</code></td>
+</tr>
+<tr class="odd">
+<td><code>sage_genecvggenes</code></td>
+<td><code>sage_genecvgmain</code></td>
+</tr>
+<tr class="even">
+<td><code>cobalt_gcmedsample</code></td>
+<td><code>cobalt_gcmedmain</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<code>bamtools_wgsmetricsdp</code>: <code>dp</code> is now numeric (<code>10</code>) instead of a string (<code>"10x"</code>) (<a href="https://github.com/tidywf/tidywigits/pull/230" class="external-link">pr230</a>).</li>
+<li>Docker image entrypoint is now <code>tidywigits.R</code>, so run <code>docker run &lt;img&gt; tidy ...</code> without repeating the executable (<a href="https://github.com/tidywf/tidywigits/pull/227" class="external-link">pr227</a>).</li>
+</ul></section><section class="level3"><h3 id="new-features">New features<a class="anchor" aria-label="anchor" href="#new-features"></a>
+</h3>
+<ul>
+<li>
+<code><a href="../reference/s3sync.html">s3sync()</a></code> patterns now come from the tool schemas, and a new <code>tidywigits.R sync</code> CLI subcommand is available (<a href="https://github.com/tidywf/tidywigits/pull/226" class="external-link">pr226</a>, <a href="https://github.com/tidywf/tidywigits/pull/228" class="external-link">pr228</a>).</li>
+<li>New <code>docker-compose.yaml</code> wrapper (<a href="https://github.com/tidywf/tidywigits/pull/227" class="external-link">pr227</a>).</li>
+</ul></section><section class="level3"><h3 id="infrastructure">Infrastructure<a class="anchor" aria-label="anchor" href="#infrastructure"></a>
+</h3>
+<ul>
+<li>Release deploys (conda, Docker, pkgdown) trigger on <code>v*</code> tags only; conda lockfiles are published as release assets (<a href="https://github.com/tidywf/tidywigits/pull/224" class="external-link">pr224</a>).</li>
+</ul></section></section><section class="level2"><h2 id="v0-1-0-2026-07-28">v0.1.0 (2026-07-28)<a class="anchor" aria-label="anchor" href="#v0-1-0-2026-07-28"></a>
 </h2>
 <p>Major refactor. GitHub org migrated from <code>umccr</code> to <code>tidywf</code>. All 19 tool configs consolidated from dual <code>raw.yaml</code> + <code>tidy.yaml</code> files into a single <code>schema.yaml</code> per tool, with parsing simplified across the board (<a href="https://github.com/tidywf/tidywigits/pull/189" class="external-link">pr189</a>). The nemo API was updated (<code>nemofy</code>/<code>diro</code> → <code>run</code>/<code>output_dir</code>, <a href="https://github.com/tidywf/tidywigits/pull/200" class="external-link">pr200</a>). DVC switched to per-file tracking backed by a public Cloudflare R2 remote (<a href="https://github.com/tidywf/tidywigits/pull/190" class="external-link">pr190</a>, <a href="https://github.com/tidywf/tidywigits/pull/203" class="external-link">pr203</a>). Docker images now build for both <code>linux/amd64</code> and <code>linux/arm64</code> (<a href="https://github.com/tidywf/tidywigits/pull/198" class="external-link">pr198</a>). GHA refactored to use reusable workflows from <code>tidywf/actions</code> (<a href="https://github.com/tidywf/tidywigits/pull/181" class="external-link">pr181</a>).</p>
 <section class="level3"><h3 id="changes">Changes<a class="anchor" aria-label="anchor" href="#changes"></a>

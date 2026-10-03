@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Sage Object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9000/R/Sage.R" class="external-link"><code>R/Sage.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9001/R/Sage.R" class="external-link"><code>R/Sage.R</code></a></small>
       <div class="d-none name"><code>Sage.Rd</code></div>
     </div>
 
@@ -55,14 +55,23 @@
     <p><code><a href="https://tidywf.github.io/nemo/reference/Tool.html" class="external-link">nemo::Tool</a></code> -&gt; <code>Sage</code></p>
     </div>
     <div class="section level2">
+    <h2 id="public-fields">Public fields<a class="anchor" aria-label="anchor" href="#public-fields"></a></h2>
+    <p></p><div class="r6-fields"><dl><dt><code>flat_tidy_names</code></dt>
+<dd><p>(<code>logical(1)</code>)<br><code>TRUE</code>: fan-out sub-tables are named <code>&lt;tool&gt;_&lt;tidy_name&gt;</code>.</p></dd>
+
+
+</dl><p></p></div>
+    </div>
+    <div class="section level2">
     <h2 id="methods">Methods<a class="anchor" aria-label="anchor" href="#methods"></a></h2>
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
 <ul><li><p><a href="#method-Sage-new"><code>Sage$new()</code></a></p></li>
-<li><p><a href="#method-Sage-tidy_genecvg"><code>Sage$tidy_genecvg()</code></a></p></li>
+<li><p><a href="#method-Sage-tidy_genecvgmain"><code>Sage$tidy_genecvgmain()</code></a></p></li>
 </ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="filter_files"><a href="https://tidywf.github.io/nemo/reference/Tool.html#method-filter_files"><code>nemo::Tool$filter_files()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_globs"><a href="https://tidywf.github.io/nemo/reference/Tool.html#method-get_globs"><code>nemo::Tool$get_globs()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_metadata"><a href="https://tidywf.github.io/nemo/reference/Tool.html#method-get_metadata"><code>nemo::Tool$get_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_tbls"><a href="https://tidywf.github.io/nemo/reference/Tool.html#method-get_tbls"><code>nemo::Tool$get_tbls()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="list_files"><a href="https://tidywf.github.io/nemo/reference/Tool.html#method-list_files"><code>nemo::Tool$list_files()</code></a></span></li>
@@ -92,13 +101,13 @@ Tibble of files from <code><a href="https://tidywf.github.io/nemo/reference/list
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-Sage-tidy_genecvg"></a><div class="section">
-<h3 id="method-tidy-genecvg-">Method <code>tidy_genecvg()</code><a class="anchor" aria-label="anchor" href="#method-tidy-genecvg-"></a></h3>
+</div><p></p><hr><a id="method-Sage-tidy_genecvgmain"></a><div class="section">
+<h3 id="method-tidy-genecvgmain-">Method <code>tidy_genecvgmain()</code><a class="anchor" aria-label="anchor" href="#method-tidy-genecvgmain-"></a></h3>
 <p>Tidy <code>gene.coverage.tsv</code> file. Generates 2 sub-tbls:
-<em>genes</em> with the per-gene metadata and <em>cvg</em> with the long-form
-depth-range counts.</p><div class="section">
+<code>genecvgmain</code> with the per-gene metadata and <code>genecvgcvg</code> with the
+long-form depth-range counts.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Sage</span><span class="op">$</span><span class="fu">tidy_genecvg</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Sage</span><span class="op">$</span><span class="fu">tidy_genecvgmain</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -117,24 +126,24 @@ Path to file.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">cls</span> <span class="op">&lt;-</span> <span class="va">Sage</span></span></span>
-<span class="r-in"><span><span class="va">indir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/oa"</span>, package <span class="op">=</span> <span class="st">"tidywigits"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">cls</span> <span class="op">&lt;-</span> <span class="va">Sage</span>; <span class="va">tool</span> <span class="op">&lt;-</span> <span class="st">"sage"</span></span></span>
+<span class="r-in"><span><span class="va">indir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/oa"</span>, <span class="va">tool</span>, package <span class="op">=</span> <span class="st">"tidywigits"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">odir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">id</span> <span class="op">&lt;-</span> <span class="st">"sage_run1"</span></span></span>
+<span class="r-in"><span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">tool</span>, <span class="st">"_run1"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="va">cls</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">indir</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obj</span><span class="op">$</span><span class="fu">run</span><span class="op">(</span>output_dir <span class="op">=</span> <span class="va">odir</span>, format <span class="op">=</span> <span class="st">"parquet"</span>, input_id <span class="op">=</span> <span class="va">id</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">(</span><span class="va">lf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">odir</span>, pattern <span class="op">=</span> <span class="st">"sage_.*parquet"</span>, full.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "sample1_germline_sage_bqrtsv.parquet"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "sample1_sage_bqrtsv.parquet"               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "sample1_somatic_sage_bqrtsv.parquet"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "sample1_somatic_sage_exoncvg.parquet"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "sample1_somatic_sage_genecvgcvg.parquet"   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "sample1_somatic_sage_genecvggenes.parquet" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "sample2_germline_sage_bqrtsv.parquet"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "sample2_germline_sage_exoncvg.parquet"     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "sample2_germline_sage_genecvgcvg.parquet"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "sample2_germline_sage_genecvggenes.parquet"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "sample2_somatic_sage_bqrtsv.parquet"       </span>
+<span class="r-in"><span><span class="op">(</span><span class="va">lf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">odir</span>, pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">tool</span>, <span class="st">"_.*parquet"</span><span class="op">)</span>, full.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "sample1_germline_sage_bqrtsv.parquet"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "sample1_sage_bqrtsv.parquet"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "sample1_somatic_sage_bqrtsv.parquet"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "sample1_somatic_sage_exoncvg.parquet"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "sample1_somatic_sage_genecvgcvg.parquet"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "sample1_somatic_sage_genecvgmain.parquet" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "sample2_germline_sage_bqrtsv.parquet"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "sample2_germline_sage_exoncvg.parquet"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "sample2_germline_sage_genecvgcvg.parquet" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "sample2_germline_sage_genecvgmain.parquet"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "sample2_somatic_sage_bqrtsv.parquet"      </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

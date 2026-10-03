@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Purple Object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9000/R/Purple.R" class="external-link"><code>R/Purple.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9001/R/Purple.R" class="external-link"><code>R/Purple.R</code></a></small>
       <div class="d-none name"><code>Purple.Rd</code></div>
     </div>
 
@@ -61,8 +61,8 @@
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
 <ul><li><p><a href="#method-Purple-new"><code>Purple$new()</code></a></p></li>
-<li><p><a href="#method-Purple-tidy_qc"><code>Purple$tidy_qc()</code></a></p></li>
 </ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="filter_files"><a href="https://tidywf.github.io/nemo/reference/Tool.html#method-filter_files"><code>nemo::Tool$filter_files()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_globs"><a href="https://tidywf.github.io/nemo/reference/Tool.html#method-get_globs"><code>nemo::Tool$get_globs()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_metadata"><a href="https://tidywf.github.io/nemo/reference/Tool.html#method-get_metadata"><code>nemo::Tool$get_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_tbls"><a href="https://tidywf.github.io/nemo/reference/Tool.html#method-get_tbls"><code>nemo::Tool$get_tbls()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="list_files"><a href="https://tidywf.github.io/nemo/reference/Tool.html#method-list_files"><code>nemo::Tool$list_files()</code></a></span></li>
@@ -87,23 +87,6 @@ Output directory of tool. If <code>files_tbl</code> is supplied, this is ignored
 <dt><code>files_tbl</code></dt>
 <dd><p>(<code>tibble(n)</code>)<br>
 Tibble of files from <code><a href="https://tidywf.github.io/nemo/reference/list_files_dir.html" class="external-link">nemo::list_files_dir()</a></code>.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-Purple-tidy_qc"></a><div class="section">
-<h3 id="method-tidy-qc-">Method <code>tidy_qc()</code><a class="anchor" aria-label="anchor" href="#method-tidy-qc-"></a></h3>
-<p>Tidy <code>purple.qc</code> file.</p><div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Purple</span><span class="op">$</span><span class="fu">tidy_qc</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p>(<code>character(1)</code> or <code>tibble()</code>)<br>
-Path to file or already parsed tibble.</p></dd>
 
 
 </dl><p></p></div>

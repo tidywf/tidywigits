@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Wigits Object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9000/R/Wigits.R" class="external-link"><code>R/Wigits.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9001/R/Wigits.R" class="external-link"><code>R/Wigits.R</code></a></small>
       <div class="d-none name"><code>Wigits.Rd</code></div>
     </div>
 
@@ -55,6 +55,15 @@
     <p><code><a href="https://tidywf.github.io/nemo/reference/Workflow.html" class="external-link">nemo::Workflow</a></code> -&gt; <code>Wigits</code></p>
     </div>
     <div class="section level2">
+    <h2 id="public-fields">Public fields<a class="anchor" aria-label="anchor" href="#public-fields"></a></h2>
+    <p></p><div class="r6-fields"><dl><dt><code>sync_exclude</code></dt>
+<dd><p>(<code>character(n)</code>)<br>
+Trailing <code>aws s3 sync</code> excludes, see <a href="WIGITS_SYNC_EXCLUDE.html">WIGITS_SYNC_EXCLUDE</a>.</p></dd>
+
+
+</dl><p></p></div>
+    </div>
+    <div class="section level2">
     <h2 id="methods">Methods<a class="anchor" aria-label="anchor" href="#methods"></a></h2>
 
 <div class="section">
@@ -62,9 +71,11 @@
 
 <ul><li><p><a href="#method-Wigits-new"><code>Wigits$new()</code></a></p></li>
 </ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="filter_files"><a href="https://tidywf.github.io/nemo/reference/Workflow.html#method-filter_files"><code>nemo::Workflow$filter_files()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_globs"><a href="https://tidywf.github.io/nemo/reference/Workflow.html#method-get_globs"><code>nemo::Workflow$get_globs()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_metadata"><a href="https://tidywf.github.io/nemo/reference/Workflow.html#method-get_metadata"><code>nemo::Workflow$get_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_schemas_raw"><a href="https://tidywf.github.io/nemo/reference/Workflow.html#method-get_schemas_raw"><code>nemo::Workflow$get_schemas_raw()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_schemas_tidy"><a href="https://tidywf.github.io/nemo/reference/Workflow.html#method-get_schemas_tidy"><code>nemo::Workflow$get_schemas_tidy()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_sync_patterns"><a href="https://tidywf.github.io/nemo/reference/Workflow.html#method-get_sync_patterns"><code>nemo::Workflow$get_sync_patterns()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_tbls"><a href="https://tidywf.github.io/nemo/reference/Workflow.html#method-get_tbls"><code>nemo::Workflow$get_tbls()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="get_tools"><a href="https://tidywf.github.io/nemo/reference/Workflow.html#method-get_tools"><code>nemo::Workflow$get_tools()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Workflow" data-id="list_files"><a href="https://tidywf.github.io/nemo/reference/Workflow.html#method-list_files"><code>nemo::Workflow$list_files()</code></a></span></li>
@@ -97,22 +108,7 @@ Path(s) to Wigits results.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/oa"</span>, package <span class="op">=</span> <span class="st">"tidywigits"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">w</span> <span class="op">&lt;-</span> <span class="va">Wigits</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dir1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">#w$tidy()</span></span></span>
-<span class="r-in"><span><span class="co">#w$write(output_dir = dir1, format = "tsv", input_id = "input1", output_id = "out1")</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">w</span><span class="op">$</span><span class="fu">run</span><span class="op">(</span>output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">dir1</span>, <span class="st">"out1"</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"parquet"</span>, input_id <span class="op">=</span> <span class="st">"run1"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">#dbconn &lt;- DBI::dbConnect(</span></span></span>
-<span class="r-in"><span><span class="co">#  drv = RPostgres::Postgres(),</span></span></span>
-<span class="r-in"><span><span class="co">#  dbname = "nemo",</span></span></span>
-<span class="r-in"><span><span class="co">#  user = "orcabus"</span></span></span>
-<span class="r-in"><span><span class="co">#)</span></span></span>
-<span class="r-in"><span><span class="co">#x &lt;-</span></span></span>
-<span class="r-in"><span><span class="co">#  w$run(</span></span></span>
-<span class="r-in"><span><span class="co">#    format = "db",</span></span></span>
-<span class="r-in"><span><span class="co">#    input_id = "runABC456",</span></span></span>
-<span class="r-in"><span><span class="co">#    dbconn = dbconn</span></span></span>
-<span class="r-in"><span><span class="co">#)</span></span></span>
-<span class="r-in"><span><span class="co">#DBI::dbDisconnect(dbconn)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">w</span><span class="op">$</span><span class="fu">run</span><span class="op">(</span>output_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"out1"</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"parquet"</span>, input_id <span class="op">=</span> <span class="st">"run1"</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
