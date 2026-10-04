@@ -353,7 +353,7 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 #>  $ input_dirs  : list<character> [1:1] 
 #>   ..$ : chr "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa"
 #>   ..@ ptype: chr(0) 
-#>  $ output_dir  : chr "/tmp/Rtmp3Mogxe/qs_wigits"
+#>  $ output_dir  : chr "/tmp/RtmppBODmE/qs_wigits"
 #>  $ pkg_versions: list<
 #>   tbl_df<
 #>     name   : character
@@ -362,7 +362,7 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 #> > [1:1] 
 #>   ..$ : tibble [2 × 2] (S3: tbl_df/tbl/data.frame)
 #>   .. ..$ name   : chr [1:2] "nemo" "tidywigits"
-#>   .. ..$ version: chr [1:2] "0.1.0.9005" "0.1.0.9001"
+#>   .. ..$ version: chr [1:2] "0.1.0.9006" "0.1.0.9002"
 #>   ..@ ptype: tibble [0 × 2] (S3: tbl_df/tbl/data.frame)
 #>   .. ..$ name   : chr(0) 
 #>   .. ..$ version: chr(0) 

@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9001</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,7 +74,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9001/vignettes/cicd.qmd" class="external-link"><code>vignettes/cicd.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9002/vignettes/cicd.qmd" class="external-link"><code>vignettes/cicd.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -105,7 +105,7 @@
         W2T(["▶️ tag push"]):::trigger
         W2J1["&lt;b&gt;📋 Version&lt;/b&gt;"]
         W2J2["&lt;b&gt;🐍 Condarise&lt;/b&gt;&lt;br&gt;🏷️ Set dev flags&lt;br&gt;🐍 Conda pkg build&lt;br&gt;🐍 Conda pkg upload&lt;br&gt;🔒 Conda lock&lt;br&gt;📦 Publish lockfiles to release"]
-        W2J3["&lt;b&gt;🐳 Dockerise&lt;/b&gt;&lt;br&gt;⬇️ Fetch lockfiles&lt;br&gt;🏷️ Image metadata&lt;br&gt;🐳 Docker img build and push"]
+        W2J3["&lt;b&gt;🐳 Dockerise&lt;/b&gt;&lt;br&gt;⬇️ Fetch lockfiles&lt;br&gt;🏷️ Image metadata&lt;br&gt;📛 Image name&lt;br&gt;🐳 Docker img build and push (by digest)&lt;br&gt;🧾 Export digest&lt;br&gt;⬆️ Upload digest&lt;br&gt;⬇️ Download digests&lt;br&gt;🏷️ Image metadata&lt;br&gt;🐳 Docker manifest list create and push"]
         W2J4["&lt;b&gt;🌐 Pkgdownise&lt;/b&gt;&lt;br&gt;🗄️ DVC pull&lt;br&gt;📦 Install from source&lt;br&gt;🌐 Website build&lt;br&gt;🚀 Website publish"]
         W2T --&gt; W2J1
         W2J1 --&gt; W2J2

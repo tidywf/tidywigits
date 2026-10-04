@@ -418,7 +418,7 @@ Using {remotes} directly from GitHub:
 
 install.packages("remotes")
 remotes::install_github("tidywf/tidywigits") # latest main commit
-remotes::install_github("tidywf/tidywigits@v0.1.0.9001") # specific version
+remotes::install_github("tidywf/tidywigits@v0.1.0.9002") # specific version
 ```
 
 Alternatively:
@@ -447,7 +447,7 @@ export PATH="${tw_cli}:${PATH}"
 
 ``` R
 $ tidywigits.R --version
-tidywigits 0.1.0.9001
+tidywigits 0.1.0.9002
 
 #-----------------------------------#
 $ tidywigits.R --help
@@ -564,6 +564,8 @@ options:
 
 - [`WIGITS_TOOLS`](https://tidywf.github.io/tidywigits/dev/reference/WIGITS_TOOLS.md)
   : WiGiTS Tools Supported
+- [`WIGITS_TOOL_COLOURS`](https://tidywf.github.io/tidywigits/dev/reference/WIGITS_TOOL_COLOURS.md)
+  : WiGiTS Tool Colours
 - [`WIGITS_SYNC_EXCLUDE`](https://tidywf.github.io/tidywigits/dev/reference/WIGITS_SYNC_EXCLUDE.md)
   : WiGiTS S3 Sync Excludes
 - [`purple_plot_getter()`](https://tidywf.github.io/tidywigits/dev/reference/purple_plot_getter.md)

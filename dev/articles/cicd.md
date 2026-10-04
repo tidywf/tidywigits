@@ -17,7 +17,7 @@ flowchart TD
         W2T(["▶️ tag push"]):::trigger
         W2J1["<b>📋 Version</b>"]
         W2J2["<b>🐍 Condarise</b><br>🏷️ Set dev flags<br>🐍 Conda pkg build<br>🐍 Conda pkg upload<br>🔒 Conda lock<br>📦 Publish lockfiles to release"]
-        W2J3["<b>🐳 Dockerise</b><br>⬇️ Fetch lockfiles<br>🏷️ Image metadata<br>🐳 Docker img build and push"]
+        W2J3["<b>🐳 Dockerise</b><br>⬇️ Fetch lockfiles<br>🏷️ Image metadata<br>📛 Image name<br>🐳 Docker img build and push (by digest)<br>🧾 Export digest<br>⬆️ Upload digest<br>⬇️ Download digests<br>🏷️ Image metadata<br>🐳 Docker manifest list create and push"]
         W2J4["<b>🌐 Pkgdownise</b><br>🗄️ DVC pull<br>📦 Install from source<br>🌐 Website build<br>🚀 Website publish"]
         W2T --> W2J1
         W2J1 --> W2J2
