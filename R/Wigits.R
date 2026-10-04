@@ -76,3 +76,32 @@ WIGITS_TOOLS <- list(
   virusbreakend = Virusbreakend,
   virusinterpreter = Virusinterpreter
 )
+
+#' WiGiTS Tool Colours
+#'
+#' CSS colours for WiGiTS tools, used for the tool pills in
+#' [nemo::nemo_schema_reactable()]. Other tools fall back to grey.
+#'
+#' @export
+WIGITS_TOOL_COLOURS <- c(
+  alignments = "#6366f1", # indigo
+  amber = "#ffbf00",
+  bamtools = "#0ea5e9", # sky
+  chord = "#dc143c", # crimson
+  cider = "#b5651d",
+  cobalt = "#0047ab",
+  cuppa = "#10b981", # emerald (green tea)
+  esvee = "#ec4899", # hot pink
+  isofox = "#f97316", # fox orange
+  lilac = "#c8a2c8",
+  linx = "#eab308", # gold (lynx eyes)
+  neo = "#84cc16", # neon lime
+  peach = "#ffb07c",
+  purple = "#8e44ad",
+  qsee = "#06b6d4", # cyan
+  sage = "#87a96b",
+  sigs = "#f43f5e", # rose
+  teal = "#008080",
+  virusbreakend = "#7c3aed", # violet
+  virusinterpreter = "#22c55e" # toxic green
+)
