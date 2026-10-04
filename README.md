@@ -421,7 +421,7 @@ Using {remotes} directly from GitHub:
 ``` r
 install.packages("remotes")
 remotes::install_github("tidywf/tidywigits") # latest main commit
-remotes::install_github("tidywf/tidywigits@v0.1.0.9001") # specific version
+remotes::install_github("tidywf/tidywigits@v0.1.0.9002") # specific version
 ```
 
 Alternatively:
@@ -449,7 +449,7 @@ export PATH="${tw_cli}:${PATH}"
 ```
 
     $ tidywigits.R --version
-    tidywigits 0.1.0.9001
+    tidywigits 0.1.0.9002
 
     #-----------------------------------#
     $ tidywigits.R --help
