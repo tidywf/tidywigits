@@ -29,20 +29,12 @@
 
 ### Data Version Control
 
-Instead of committing big data files into `git`, we can store the files
-remotely (e.g. Google Drive, AWS S3, Cloudflare R2) and just keep track
-of the data updates in `git` using [DVC](https://dvc.org/).
+[DVC](https://dvc.org/) keeps test/example data in remote storage,
+tracked in `git`. Run `dvc pull` before tests, examples or vignettes.
 
-The R package uses the data files when running the code examples and
-tests, and when rendering the vignettes. A simple `dvc pull` will pull
-the data from the remote storage and allow these processes to take
-place.
-
-The default remote (`cloudflare_r2_tidywigits`) is a public Cloudflare
-R2 bucket - no credentials needed to pull. Pushing requires the private
-S3 remote (`cloudflare_r2_tidywigits_push`), configured locally in
-`.dvc/config.local` (gitignored), with R2 credentials passed via env
-vars.
+- pull: `cloudflare_r2_tidywigits` (public R2, no auth)
+- push: `cloudflare_r2_tidywigits_push` (private, set in gitignored
+  `.dvc/config.local`, R2 creds via env vars)
 
 | Command | Comments |
 |----|----|

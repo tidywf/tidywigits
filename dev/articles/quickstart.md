@@ -1,16 +1,9 @@
 # Quickstart
 
-tidywigits turns raw
-[WiGiTS/hmftools](https://github.com/hartwigmedical/hmftools) output
-directories into versioned, analysis-ready tables.
-
 ## Test data
 
-Example inputs live in `inst/extdata/oa/`, tracked via
-[DVC](https://dvc.org/) on a public Cloudflare R2 bucket (no
-credentials). Fetch them with `dvc pull` from a cloned repo, or from R
-with
-[`nemo::dvc_download_all()`](https://tidywf.github.io/nemo/reference/dvc_download_all.html):
+`inst/extdata/oa/`, tracked with [DVC](https://dvc.org/) on a public R2
+bucket. `dvc pull` in a clone, or from R:
 
 ``` r
 
@@ -19,8 +12,6 @@ nemo::dvc_download_all(input_dir, file.path(tempdir(), "dvc_test"))
 ```
 
 ## Input
-
-Example WiGiTS results:
 
 View input files
 
@@ -261,10 +252,9 @@ list.files(outdir, pattern = "\\.parquet$")
 
 ### File naming
 
-Output files follow `{prefix}_{tool}_{table}.parquet`, where `prefix`
-comes from the input filenames (here `sample1`). See [Output
-Naming](https://tidywf.github.io/tidywigits/dev/articles/output_naming.md)
-for collision handling.
+`{prefix}_{tool}_{table}.parquet`, prefix from input filename
+(`sample1`). See [Output
+Naming](https://tidywf.github.io/tidywigits/dev/articles/output_naming.md).
 
 ### Reading a table back
 
@@ -309,8 +299,7 @@ list.files(outdir_w, pattern = "\\.parquet$") |> sort() |> str()
 
 ## ID columns
 
-Optional columns prepended to every written table (all off by default),
-useful when combining samples into one table:
+Optional, off by default:
 
 | Argument | Column added | Contains |
 |----|----|----|
@@ -353,7 +342,7 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 #>  $ input_dirs  : list<character> [1:1] 
 #>   ..$ : chr "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa"
 #>   ..@ ptype: chr(0) 
-#>  $ output_dir  : chr "/tmp/RtmppBODmE/qs_wigits"
+#>  $ output_dir  : chr "/tmp/Rtmpfl6Tjh/qs_wigits"
 #>  $ pkg_versions: list<
 #>   tbl_df<
 #>     name   : character
@@ -362,7 +351,7 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 #> > [1:1] 
 #>   ..$ : tibble [2 × 2] (S3: tbl_df/tbl/data.frame)
 #>   .. ..$ name   : chr [1:2] "nemo" "tidywigits"
-#>   .. ..$ version: chr [1:2] "0.1.0.9006" "0.1.0.9002"
+#>   .. ..$ version: chr [1:2] "0.1.0.9007" "0.1.0.9003"
 #>   ..@ ptype: tibble [0 × 2] (S3: tbl_df/tbl/data.frame)
 #>   .. ..$ name   : chr(0) 
 #>   .. ..$ version: chr(0) 
@@ -386,12 +375,11 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 #>   .. ..$ fin   : chr(0)
 ```
 
-## Other useful articles
+## See also
 
 - [Schema
   table](https://tidywf.github.io/tidywigits/dev/articles/schema_table.md):
-  browse every table and column for all supported WiGiTS tools
+  all tables and columns
 - [Structure](https://tidywf.github.io/tidywigits/dev/articles/structure.md):
-  schemas, versioning, and the Tool/Workflow class hierarchy (nemo)
-- [PostgreSQL](https://tidywf.github.io/tidywigits/dev/articles/postgresql.md):
-  writing results to a database
+  schemas, versioning, class hierarchy
+- [PostgreSQL](https://tidywf.github.io/tidywigits/dev/articles/postgresql.md)

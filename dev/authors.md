@@ -8,16 +8,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/tidywf/tidywigits/blob/v0.1.0.9002/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/tidywf/tidywigits/blob/v0.1.0.9003/DESCRIPTION)
 
 Diakumis P (2026). *tidywigits: Tidy WiGiTS Outputs*. R package version
-0.1.0.9002, https://tidywf.github.io/tidywigits/,
+0.1.0.9003, https://tidywf.github.io/tidywigits/,
 <https://github.com/tidywf/tidywigits>.
 
     @Manual{,
       title = {tidywigits: Tidy WiGiTS Outputs},
       author = {Peter Diakumis},
       year = {2026},
-      note = {R package version 0.1.0.9002, https://tidywf.github.io/tidywigits/},
+      note = {R package version 0.1.0.9003, https://tidywf.github.io/tidywigits/},
       url = {https://github.com/tidywf/tidywigits},
     }

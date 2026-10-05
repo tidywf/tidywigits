@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,9 +96,7 @@
 <div class="section level2">
 <h2 id="tidywigits">tidywigits<a class="anchor" aria-label="anchor" href="#tidywigits"></a>
 </h2>
-<p>tidywigits is an R package for parsing and tidying output from the <a href="https://github.com/hartwigmedical/hmftools" title="WiGiTS suite" class="external-link">WiGiTS/hmftools</a> suite of genome and transcriptome analysis tools.</p>
-<p>The WiGiTS pipeline produces hundreds of files per sample across dozens of tools, but consuming them downstream is fragile: formats are inconsistent, column names span a mix of conventions (e.g. <code>snake_case</code>, <code>camelCase</code>, <code>dot.separated</code>), some sub-tables are embedded in wide files, and column layouts change between tool versions.</p>
-<p>tidywigits addresses this with a schema-driven parsing layer built on the <a href="https://github.com/tidywf/nemo" title="nemo" class="external-link">nemo</a> base R6 classes, supplying WiGiTS-specific schemas and parsers that turn raw outputs into consistently structured, versioned, analysis-ready tables that can be written to a variety of formats such as Apache Parquet, PostgreSQL, TSV, or RDS. Each run also produces a <code>metadata.parquet</code> file alongside the tidy tables, capturing IDs, paths, and R package versions.</p>
+<p>Parses and tidies <a href="https://github.com/hartwigmedical/hmftools" title="WiGiTS suite" class="external-link">WiGiTS/hmftools</a> outputs into versioned, tidy tables, written to Parquet, PostgreSQL, TSV, CSV or RDS (plus a <code>metadata.parquet</code> per run). Built on <a href="https://github.com/tidywf/nemo" title="nemo" class="external-link">nemo</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
@@ -126,7 +124,7 @@
 <div class="section level3">
 <h3 id="single-tool">Single tool<a class="anchor" aria-label="anchor" href="#single-tool"></a>
 </h3>
-<p>Some WiGiTS output files have non-standard layouts. For a very simple example, let’s look at PURPLE’s <code>purple.qc</code> file that stores QC metrics as key-value rows rather than columns:</p>
+<p>Raw PURPLE <code>purple.qc</code> (key-value rows):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">indir_ppl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/oa/purple"</span>, package <span class="op">=</span> <span class="st">"tidywigits"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">indir_ppl</span>, <span class="st">"sample1.purple.qc"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -144,7 +142,7 @@
 <span><span class="co">#&gt; LohPercent   0.0270</span></span>
 <span><span class="co">#&gt; TincLevel    0.0000</span></span>
 <span><span class="co">#&gt; ChimerismPercentage  0.0000</span></span></code></pre></div>
-<p>We can utilise the <code>Purple</code> class to parse, tidy and write PURPLE files in one call via its <code>run()</code> method:</p>
+<p>Parse, tidy and write with <code>Purple$run()</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">outdir_ppl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"ppl_out"</span><span class="op">)</span></span>
 <span><span class="co"># fmt: skip</span></span>
@@ -175,7 +173,7 @@
 <span><span class="co">#&gt; [18] "sample1_somatic_purple_drivercatalog.parquet"   </span></span>
 <span><span class="co">#&gt; [19] "version_2_purple_version.parquet"               </span></span>
 <span><span class="co">#&gt; [20] "version_purple_version.parquet"</span></span></code></pre></div>
-<p>Now read back the tidied table:</p>
+<p>Tidy output:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">qc_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span></span>
 <span>  <span class="va">outdir_ppl</span>,</span>
@@ -204,7 +202,7 @@
 <div class="section level3">
 <h3 id="full-wigits">Full WiGiTS<a class="anchor" aria-label="anchor" href="#full-wigits"></a>
 </h3>
-<p>Files from the full WiGiTS suite can be processed with the convenient <code>Wigits</code> class. The starting point is a parent directory with WiGiTS results, and we can again utilise the <code>run()</code> method:</p>
+<p><code>Wigits</code> runs all tools over a parent results directory:</p>
 <details class="code-fold"><summary>
 View input files
 </summary><div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>indir_w <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/oa"</span>, <span class="at">package =</span> <span class="st">"tidywigits"</span>)</span>
@@ -402,10 +400,7 @@ View input files
 <span id="cb4-193"><a href="#cb4-193" tabindex="-1"></a>│   └── sample1.virusbreakend.vcf.summary.tsv</span>
 <span id="cb4-194"><a href="#cb4-194" tabindex="-1"></a>└── virusinterpreter</span>
 <span id="cb4-195"><a href="#cb4-195" tabindex="-1"></a>    └── sample1.virus.annotated.tsv</span></code></pre></div>
-</details><p>We can parse, tidy up, and write the WiGiTS results into e.g. Parquet format or a PostgreSQL database as follows:</p>
-<ul>
-<li>Parquet:</li>
-</ul>
+</details><p>Parquet:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">outdir_w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"wigits_out_parquet"</span><span class="op">)</span></span>
 <span><span class="va">w</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Wigits.html">Wigits</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">indir_w</span><span class="op">)</span></span>
@@ -430,9 +425,7 @@ View input files
 <span><span class="co">#&gt; |written       |true                                                                      |</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">outdir_w</span>, pattern <span class="op">=</span> <span class="st">"\\.parquet$"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  chr [1:161] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...</span></span></code></pre></div>
-<ul>
-<li>PostgreSQL (adjust dbname/user for your purposes):</li>
-</ul>
+<p>PostgreSQL:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">w2</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Wigits.html">Wigits</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">indir_w</span><span class="op">)</span></span>
 <span><span class="va">dbconn</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">dbConnect</a></span><span class="op">(</span></span>
@@ -448,9 +441,9 @@ View input files
 <span>  dbconn <span class="op">=</span> <span class="va">dbconn</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <blockquote>
-<p><strong>Note:</strong> Support for VCFs is a work in progress.</p>
+<p><strong>Note:</strong> VCF support is WIP.</p>
 </blockquote>
-<p>Three optional columns can be prepended to every written table to support downstream tracing and joining. All are opt-in and off by default, but highly recommended for any multi-sample or multi-run pipeline:</p>
+<p>Optional provenance columns (recommended for multi-sample/multi-run use):</p>
 <table class="table">
 <colgroup>
 <col width="33%">
@@ -485,32 +478,28 @@ View input files
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>Using {remotes} directly from GitHub:</p>
+<p>From GitHub:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits"</span><span class="op">)</span> <span class="co"># latest main commit</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits@v0.1.0.9002"</span><span class="op">)</span> <span class="co"># specific version</span></span></code></pre></div>
-<p>Alternatively:</p>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits@v0.1.0.9003"</span><span class="op">)</span> <span class="co"># specific version</span></span></code></pre></div>
 <ul>
-<li>conda package: <a href="https://anaconda.org/tidywf/r-tidywigits" class="external-link uri">https://anaconda.org/tidywf/r-tidywigits</a>
+<li>conda: <a href="https://anaconda.org/tidywf/r-tidywigits" class="external-link uri">https://anaconda.org/tidywf/r-tidywigits</a>
 </li>
-<li>Docker image: <a href="https://github.com/tidywf/tidywigits/pkgs/container/tidywigits" class="external-link uri">https://github.com/tidywf/tidywigits/pkgs/container/tidywigits</a>
+<li>Docker: <a href="https://github.com/tidywf/tidywigits/pkgs/container/tidywigits" class="external-link uri">https://github.com/tidywf/tidywigits/pkgs/container/tidywigits</a>
+</li>
+<li>more: <a href="https://tidywf.github.io/tidywigits/articles/installation" class="uri">https://tidywf.github.io/tidywigits/articles/installation</a>
 </li>
 </ul>
-<p>For more details see: <a href="https://tidywf.github.io/tidywigits/articles/installation" class="uri">https://tidywf.github.io/tidywigits/articles/installation</a></p>
 </div>
 <div class="section level2">
 <h2 id="cli">CLI<a class="anchor" aria-label="anchor" href="#cli"></a>
 </h2>
-<p>A <code>tidywigits.R</code> command line interface is available for convenience.</p>
-<ul>
-<li>If you’re using the conda package, the <code>tidywigits.R</code> command will already be available inside the activated conda environment.</li>
-<li>If you’re <em>not</em> using the conda package, you need to export the <code>tidywigits/inst/cli/</code> directory to your <code>PATH</code> in order to use <code>tidywigits.R</code>.</li>
-</ul>
+<p><code>tidywigits.R</code> is on <code>PATH</code> in the conda env. Otherwise:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="va">tw_cli</span><span class="op">=</span><span class="va">$(</span><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'x = system.file("cli", package = "tidywigits"); cat(x, "\n")'</span> <span class="kw">|</span> <span class="fu">xargs</span><span class="va">)</span></span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">"</span><span class="va">${tw_cli}</span><span class="st">:</span><span class="va">${PATH}</span><span class="st">"</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="sc">$</span> tidywigits.R <span class="sc">--</span>version</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>tidywigits <span class="dv">0</span>.<span class="dv">1</span>.<span class="fl">0.9002</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>tidywigits <span class="dv">0</span>.<span class="dv">1</span>.<span class="fl">0.9003</span></span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#-----------------------------------#</span></span>
 <span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="sc">$</span> tidywigits.R <span class="sc">--</span>help</span>
@@ -527,50 +516,50 @@ View input files
 <span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>options<span class="sc">:</span></span>
 <span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a>  <span class="sc">-</span>h, <span class="sc">--</span>help        show this help message and exit</span>
 <span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a>  <span class="sc">-</span>v, <span class="sc">--</span>version     show program<span class="st">'s version number and exit</span></span>
-<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="st">'</span></span>
-<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co">#-----------------------------------#</span></span>
-<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="co">#------- Tidy ----------------------#</span></span>
-<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="sc">$</span> tidywigits.R tidy <span class="sc">--</span>help</span>
-<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a>usage<span class="sc">:</span> tidywigits.R tidy [<span class="sc">-</span>h] <span class="sc">-</span>d IN_DIR [<span class="sc">-</span>o OUTPUT_DIR] [<span class="sc">-</span>f FORMAT]</span>
-<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a>                         [<span class="sc">--</span>input_id INPUT_ID] [<span class="sc">--</span>output_id OUTPUT_ID <span class="sc">|</span></span>
-<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a>                         <span class="sc">--</span>ulid] [<span class="sc">--</span>dbname DBNAME] [<span class="sc">--</span>dbuser DBUSER]</span>
-<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a>                         [<span class="sc">--</span>dbhost DBHOST] [<span class="sc">--</span>dbport DBPORT]</span>
-<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a>                         [<span class="sc">--</span>include INCLUDE] [<span class="sc">--</span>exclude EXCLUDE]</span>
-<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a>                         [<span class="sc">--</span>prefix_include] [<span class="sc">-</span>q]</span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="st">#-----------------------------------#</span></span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="st">#------- Tidy ----------------------#</span></span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="st">$ tidywigits.R tidy --help</span></span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="st">usage: tidywigits.R tidy [-h] -d IN_DIR [-o OUTPUT_DIR] [-f FORMAT]</span></span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a><span class="st">                         [--input_id INPUT_ID] [--output_id OUTPUT_ID |</span></span>
+<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a><span class="st">                         --ulid] [--dbname DBNAME] [--dbuser DBUSER]</span></span>
+<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a><span class="st">                         [--dbhost DBHOST] [--dbport DBPORT]</span></span>
+<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a><span class="st">                         [--include INCLUDE] [--exclude EXCLUDE]</span></span>
+<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a><span class="st">                         [--prefix_include] [-q]</span></span>
 <span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a></span>
-<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a>options<span class="sc">:</span></span>
-<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a>  <span class="sc">-</span>h, <span class="sc">--</span>help            show this help message and exit</span>
-<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a>  <span class="sc">-</span>d, <span class="sc">--</span>in_dir IN_DIR   Input directory.</span>
-<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a>  <span class="sc">-</span>o, <span class="sc">--</span>output_dir OUTPUT_DIR</span>
-<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a>                        Output directory.</span>
-<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a>  <span class="sc">-</span>f, <span class="sc">--</span>format FORMAT   Format of output [def<span class="sc">:</span> parquet] (parquet, db, tsv,</span>
-<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a>                        csv, rds)</span>
-<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a>  <span class="sc">--</span>input_id INPUT_ID   Input ID <span class="cf">for</span> this run.</span>
-<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a>  <span class="sc">--</span>output_id OUTPUT_ID</span>
-<span id="cb9-39"><a href="#cb9-39" tabindex="-1"></a>                        Output ID <span class="cf">for</span> this run.</span>
-<span id="cb9-40"><a href="#cb9-40" tabindex="-1"></a>  <span class="sc">--</span>ulid                Generate a ULID as output ID.</span>
-<span id="cb9-41"><a href="#cb9-41" tabindex="-1"></a>  <span class="sc">--</span>dbname DBNAME       Database name.</span>
-<span id="cb9-42"><a href="#cb9-42" tabindex="-1"></a>  <span class="sc">--</span>dbuser DBUSER       Database user.</span>
-<span id="cb9-43"><a href="#cb9-43" tabindex="-1"></a>  <span class="sc">--</span>dbhost DBHOST       Database <span class="fu">host</span> (default<span class="sc">:</span> driver<span class="sc">/</span>env default, e.g.</span>
-<span id="cb9-44"><a href="#cb9-44" tabindex="-1"></a>                        PGHOST).</span>
-<span id="cb9-45"><a href="#cb9-45" tabindex="-1"></a>  <span class="sc">--</span>dbport DBPORT       Database <span class="fu">port</span> (default<span class="sc">:</span> driver<span class="sc">/</span>env default, e.g.</span>
-<span id="cb9-46"><a href="#cb9-46" tabindex="-1"></a>                        PGPORT).</span>
-<span id="cb9-47"><a href="#cb9-47" tabindex="-1"></a>  <span class="sc">--</span>include INCLUDE     Include only these <span class="fu">files</span> (comma sep tool_parsers).</span>
-<span id="cb9-48"><a href="#cb9-48" tabindex="-1"></a>  <span class="sc">--</span>exclude EXCLUDE     Exclude only these <span class="fu">files</span> (comma sep tool_parsers).</span>
-<span id="cb9-49"><a href="#cb9-49" tabindex="-1"></a>  <span class="sc">--</span>prefix_include      Include input prefix column <span class="cf">in</span> output tables.</span>
-<span id="cb9-50"><a href="#cb9-50" tabindex="-1"></a>  <span class="sc">-</span>q, <span class="sc">--</span>quiet           Shush all the logs.</span>
+<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a><span class="st">options:</span></span>
+<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a><span class="st">  -h, --help            show this help message and exit</span></span>
+<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a><span class="st">  -d, --in_dir IN_DIR   Input directory.</span></span>
+<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a><span class="st">  -o, --output_dir OUTPUT_DIR</span></span>
+<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="st">                        Output directory.</span></span>
+<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a><span class="st">  -f, --format FORMAT   Format of output [def: parquet] (parquet, db, tsv,</span></span>
+<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a><span class="st">                        csv, rds)</span></span>
+<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a><span class="st">  --input_id INPUT_ID   Input ID for this run.</span></span>
+<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a><span class="st">  --output_id OUTPUT_ID</span></span>
+<span id="cb9-39"><a href="#cb9-39" tabindex="-1"></a><span class="st">                        Output ID for this run.</span></span>
+<span id="cb9-40"><a href="#cb9-40" tabindex="-1"></a><span class="st">  --ulid                Generate a ULID as output ID.</span></span>
+<span id="cb9-41"><a href="#cb9-41" tabindex="-1"></a><span class="st">  --dbname DBNAME       Database name.</span></span>
+<span id="cb9-42"><a href="#cb9-42" tabindex="-1"></a><span class="st">  --dbuser DBUSER       Database user.</span></span>
+<span id="cb9-43"><a href="#cb9-43" tabindex="-1"></a><span class="st">  --dbhost DBHOST       Database host (default: driver/env default, e.g.</span></span>
+<span id="cb9-44"><a href="#cb9-44" tabindex="-1"></a><span class="st">                        PGHOST).</span></span>
+<span id="cb9-45"><a href="#cb9-45" tabindex="-1"></a><span class="st">  --dbport DBPORT       Database port (default: driver/env default, e.g.</span></span>
+<span id="cb9-46"><a href="#cb9-46" tabindex="-1"></a><span class="st">                        PGPORT).</span></span>
+<span id="cb9-47"><a href="#cb9-47" tabindex="-1"></a><span class="st">  --include INCLUDE     Include only these files (comma sep tool_parsers).</span></span>
+<span id="cb9-48"><a href="#cb9-48" tabindex="-1"></a><span class="st">  --exclude EXCLUDE     Exclude only these files (comma sep tool_parsers).</span></span>
+<span id="cb9-49"><a href="#cb9-49" tabindex="-1"></a><span class="st">  --prefix_include      Include input prefix column in output tables.</span></span>
+<span id="cb9-50"><a href="#cb9-50" tabindex="-1"></a><span class="st">  -q, --quiet           Shush all the logs.</span></span>
 <span id="cb9-51"><a href="#cb9-51" tabindex="-1"></a></span>
-<span id="cb9-52"><a href="#cb9-52" tabindex="-1"></a><span class="co">#-----------------------------------#</span></span>
-<span id="cb9-53"><a href="#cb9-53" tabindex="-1"></a><span class="co">#------- List ----------------------#</span></span>
-<span id="cb9-54"><a href="#cb9-54" tabindex="-1"></a><span class="sc">$</span> tidywigits.R list <span class="sc">--</span>help</span>
-<span id="cb9-55"><a href="#cb9-55" tabindex="-1"></a>usage<span class="sc">:</span> tidywigits.R list [<span class="sc">-</span>h] <span class="sc">-</span>d IN_DIR [<span class="sc">-</span>f FORMAT] [<span class="sc">-</span>m MAX] [<span class="sc">-</span>q]</span>
+<span id="cb9-52"><a href="#cb9-52" tabindex="-1"></a><span class="st">#-----------------------------------#</span></span>
+<span id="cb9-53"><a href="#cb9-53" tabindex="-1"></a><span class="st">#------- List ----------------------#</span></span>
+<span id="cb9-54"><a href="#cb9-54" tabindex="-1"></a><span class="st">$ tidywigits.R list --help</span></span>
+<span id="cb9-55"><a href="#cb9-55" tabindex="-1"></a><span class="st">usage: tidywigits.R list [-h] -d IN_DIR [-f FORMAT] [-m MAX] [-q]</span></span>
 <span id="cb9-56"><a href="#cb9-56" tabindex="-1"></a></span>
-<span id="cb9-57"><a href="#cb9-57" tabindex="-1"></a>options<span class="sc">:</span></span>
-<span id="cb9-58"><a href="#cb9-58" tabindex="-1"></a>  <span class="sc">-</span>h, <span class="sc">--</span>help           show this help message and exit</span>
-<span id="cb9-59"><a href="#cb9-59" tabindex="-1"></a>  <span class="sc">-</span>d, <span class="sc">--</span>in_dir IN_DIR  Input directory.</span>
-<span id="cb9-60"><a href="#cb9-60" tabindex="-1"></a>  <span class="sc">-</span>f, <span class="sc">--</span>format FORMAT  Format of list output [def<span class="sc">:</span> pretty] (tsv, pretty)</span>
-<span id="cb9-61"><a href="#cb9-61" tabindex="-1"></a>  <span class="sc">-</span>m, <span class="sc">--</span>max MAX        Max rows to show.</span>
-<span id="cb9-62"><a href="#cb9-62" tabindex="-1"></a>  <span class="sc">-</span>q, <span class="sc">--</span>quiet          Shush all the logs.</span></code></pre></div>
+<span id="cb9-57"><a href="#cb9-57" tabindex="-1"></a><span class="st">options:</span></span>
+<span id="cb9-58"><a href="#cb9-58" tabindex="-1"></a><span class="st">  -h, --help           show this help message and exit</span></span>
+<span id="cb9-59"><a href="#cb9-59" tabindex="-1"></a><span class="st">  -d, --in_dir IN_DIR  Input directory.</span></span>
+<span id="cb9-60"><a href="#cb9-60" tabindex="-1"></a><span class="st">  -f, --format FORMAT  Format of list output [def: pretty] (tsv, pretty)</span></span>
+<span id="cb9-61"><a href="#cb9-61" tabindex="-1"></a><span class="st">  -m, --max MAX        Max rows to show.</span></span>
+<span id="cb9-62"><a href="#cb9-62" tabindex="-1"></a><span class="st">  -q, --quiet          Shush all the logs.</span></span></code></pre></div>
 </div>
 </div>
 

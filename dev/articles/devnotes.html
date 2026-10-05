@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9002</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +73,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9002/vignettes/devnotes.qmd" class="external-link"><code>vignettes/devnotes.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9003/vignettes/devnotes.qmd" class="external-link"><code>vignettes/devnotes.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -179,9 +179,11 @@
 </tbody>
 </table></section><section class="level3"><h3 id="data-version-control">Data Version Control<a class="anchor" aria-label="anchor" href="#data-version-control"></a>
 </h3>
-<p>Instead of committing big data files into <code>git</code>, we can store the files remotely (e.g. Google Drive, AWS S3, Cloudflare R2) and just keep track of the data updates in <code>git</code> using <a href="https://dvc.org/" class="external-link">DVC</a>.</p>
-<p>The R package uses the data files when running the code examples and tests, and when rendering the vignettes. A simple <code>dvc pull</code> will pull the data from the remote storage and allow these processes to take place.</p>
-<p>The default remote (<code>cloudflare_r2_tidywigits</code>) is a public Cloudflare R2 bucket - no credentials needed to pull. Pushing requires the private S3 remote (<code>cloudflare_r2_tidywigits_push</code>), configured locally in <code>.dvc/config.local</code> (gitignored), with R2 credentials passed via env vars.</p>
+<p><a href="https://dvc.org/" class="external-link">DVC</a> keeps test/example data in remote storage, tracked in <code>git</code>. Run <code>dvc pull</code> before tests, examples or vignettes.</p>
+<ul>
+<li>pull: <code>cloudflare_r2_tidywigits</code> (public R2, no auth)</li>
+<li>push: <code>cloudflare_r2_tidywigits_push</code> (private, set in gitignored <code>.dvc/config.local</code>, R2 creds via env vars)</li>
+</ul>
 <table class="table caption-top">
 <colgroup>
 <col style="width: 65%">
