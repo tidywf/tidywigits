@@ -1,6 +1,6 @@
 tables:
   wgsmetricsmain:
-    description: 'WGS coverage metrics.'
+    description: 'WGS coverage metrics. Fan-out primary; derived: wgsmetricsdp, wgsmetricshisto.'
     pattern: "\\.wgsmetrics$"
     glob: ["*.wgsmetrics"]
     ftype: 'tsv'
@@ -141,7 +141,7 @@ tables:
         description: 'fraction of genome at 100x coverage'
         versions: ['v1.4.2']
   wgsmetricsdp:
-    description: 'Percentage of bases covered at each depth threshold, long-form (derived from wgsmetricsmain).'
+    description: 'Percentage of bases covered at each depth threshold, long-form. Fan-out of wgsmetricsmain.'
     pattern: "__no_file_match__wgsmetricsdp"
     ftype: 'tsv'
     columns:
@@ -156,7 +156,7 @@ tables:
         description: 'percentage of bases covered at or above the depth threshold'
         versions: ['v1.4.2']
   wgsmetricshisto:
-    description: 'Base coverage histogram (derived from wgsmetricsmain).'
+    description: 'Base coverage histogram. Fan-out of wgsmetricsmain.'
     pattern: "__no_file_match__wgsmetricshisto"
     ftype: 'tsv'
     columns:
@@ -365,7 +365,7 @@ tables:
         description: 'percentage against total pairs'
         versions: ['latest']
   summarymain:
-    description: 'Coverage summary.'
+    description: 'Coverage summary. Fan-out primary; derived: summarydp.'
     pattern: "\\.bam_metric\\.summary\\.tsv$"
     glob: ["*.bam_metric.summary.tsv"]
     ftype: 'tsv'
@@ -521,7 +521,7 @@ tables:
         description: 'fraction at 100x depth'
         versions: ['v1.4.2', 'latest']
   summarydp:
-    description: 'Percentage of bases covered at each depth threshold, long-form (derived from summarymain).'
+    description: 'Percentage of bases covered at each depth threshold, long-form. Fan-out of summarymain.'
     pattern: "__no_file_match__summarydp"
     ftype: 'tsv'
     columns:
@@ -536,7 +536,7 @@ tables:
         description: 'percentage of bases covered at or above the depth threshold'
         versions: ['v1.4.2', 'latest']
   exoncvgmain:
-    description: 'Exon coverage depth.'
+    description: 'Exon coverage depth. Fan-out primary; derived: exoncvgperc.'
     pattern: "\\.bam_metric\\.exon_coverage\\.tsv$"
     glob: ["*.bam_metric.exon_coverage.tsv"]
     ftype: 'tsv'
@@ -607,7 +607,7 @@ tables:
         description: 'percentage of bases above 250x depth'
         versions: ['latest']
   exoncvgperc:
-    description: 'Percentage of exon bases above each depth threshold, long-form (derived from exoncvgmain).'
+    description: 'Percentage of exon bases above each depth threshold, long-form. Fan-out of exoncvgmain.'
     pattern: "__no_file_match__exoncvgperc"
     ftype: 'tsv'
     columns:
@@ -668,7 +668,7 @@ tables:
         description: 'median depth'
         versions: ['v1.4.2']
   genecvgmain:
-    description: 'Gene coverage depth ranges.'
+    description: 'Gene coverage depth ranges. Fan-out primary; derived: genecvgcvg.'
     pattern: "\\.bam_metric\\.gene_coverage\\.tsv$"
     glob: ["*.bam_metric.gene_coverage.tsv"]
     ftype: 'tsv'
@@ -1069,7 +1069,7 @@ tables:
         description: 'depth range 10000+'
         versions: ['v1.4.2', 'latest']
   genecvgcvg:
-    description: 'Per-gene base counts per depth range, long-form (derived from genecvgmain).'
+    description: 'Per-gene base counts per depth range, long-form. Fan-out of genecvgmain.'
     pattern: "__no_file_match__genecvgcvg"
     ftype: 'tsv'
     columns:

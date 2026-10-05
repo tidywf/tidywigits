@@ -1,6 +1,6 @@
 tables:
   gcmedmain:
-    description: 'Sample mean/median read depth (first section of the GC median file).'
+    description: 'Sample mean/median read depth. Fan-out primary; derived: gcmedbuckets.'
     pattern: "\\.cobalt\\.gc\\.median\\.tsv$"
     glob: ["*.cobalt.gc.median.tsv"]
     ftype: 'tsv'
@@ -16,7 +16,7 @@ tables:
         description: 'sample median read depth'
         versions: ['latest']
   gcmedbuckets:
-    description: 'GC median read depth per GC bucket (derived from gcmedmain).'
+    description: 'GC median read depth per GC bucket. Fan-out of gcmedmain.'
     pattern: "__no_file_match__gcmedbuckets"
     ftype: 'tsv'
     columns:
@@ -52,7 +52,7 @@ tables:
         description: 'count'
         versions: ['latest']
   ratiopcf:
-    description: 'Segmented regions determined from the ratios (piecewise constant fit).'
+    description: 'Segmented regions determined from the ratios.'
     pattern: "\\.cobalt\\.ratio\\.pcf$"
     glob: ["*.cobalt.ratio.pcf"]
     ftype: 'tsv'

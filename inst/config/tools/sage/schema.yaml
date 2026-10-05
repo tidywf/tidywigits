@@ -77,7 +77,7 @@ tables:
         description: 'median depth'
         versions: ['latest']
   genecvgmain:
-    description: 'Gene coverage depth ranges.'
+    description: 'Gene coverage depth ranges. Fan-out primary; derived: genecvgcvg.'
     pattern: "\\.sage\\.gene\\.coverage\\.tsv$"
     glob: ["*.sage.gene.coverage.tsv"]
     ftype: 'tsv'
@@ -453,7 +453,7 @@ tables:
         description: 'depth range 10000+'
         versions: ['latest']
   genecvgcvg:
-    description: 'Per-gene base counts per depth range, long-form (derived from genecvgmain).'
+    description: 'Per-gene base counts per depth range, long-form. Fan-out of genecvgmain.'
     pattern: "__no_file_match__genecvgcvg"
     ftype: 'tsv'
     columns:
