@@ -33,13 +33,10 @@ oa <- system.file("extdata/oa", package = "tidywigits")
 
 ## Special cases: semantic prefixes
 
-The `_2`/`_3` suffixes above avoid overwrites but don't say *why* two inputs
-collided. Some tools emit germline and somatic variants of a table that reduce
-to the same prefix, so they'd end up as a lossy `sample1` / `sample1_2`.
-
-`Linx`, `Purple` and `Sage` override the private `refine_files()` hook, which
-runs *before* disambiguation, to fold `_germline`/`_somatic` into the prefix.
-Any remaining `_2`/`_3` is then a genuine repeat-run marker within a variant.
+Germline/somatic variants of a table can strip to the same prefix (`sample1` /
+`sample1_2`). `Linx`, `Purple` and `Sage` override the private `refine_files()`
+hook (runs *before* disambiguation) to add `_germline`/`_somatic` to the prefix.
+Remaining `_2`/`_3` = repeat runs.
 
 ### Purple: `driver.catalog` germline vs. somatic
 
@@ -48,7 +45,7 @@ Any remaining `_2`/`_3` is then a genuine repeat-run marker within a variant.
 - Fix: the hook rewrites them by basename to `sample1_germline` /
   `sample1_somatic`.
 
-Simulate three runs with both driver catalogs (plus qc for comparison):
+Three runs, both driver catalogs + qc:
 
 ```{r}
 #| label: purple-init
@@ -69,8 +66,6 @@ dir_tree(dir_inP)
 ppl <- Purple$new(path = dir_inP)
 ```
 
-`prefix_include = TRUE` records the prefix as an `input_prefix` column:
-
 ```{r}
 #| label: purple-run
 
@@ -85,8 +80,7 @@ ppl$run(
 dir_tree(dir_outP)
 ```
 
-Stacking the six `drivercatalog` outputs (top 2 rows each), `input_prefix` still
-tells variant and run apart:
+Stacked (top 2 rows each):
 
 ```{r}
 #| label: purple-merge
@@ -109,7 +103,7 @@ dir_ls(dir_outP, regexp = "purple_qc\\.parquet") |>
 - Fix: the hook tags both sides, but only for parsers with a germline file
   present; somatic-only tables (`drivers`, `fusion`, `vis_*`) are untouched.
 
-Simulate three runs with the paired tables (plus fusions for comparison):
+Three runs, paired tables + fusions:
 
 ```{r}
 #| label: linx-init
@@ -128,8 +122,8 @@ dir_tree(dir_inL)
 l <- Linx$new(path = dir_inL)
 ```
 
-Paired tables (`breakends`, `links`, `svs`) split into `sample1_germline` /
-`sample1_somatic`; somatic-only fusions just get `_2`/`_3`:
+Paired tables split into `sample1_germline`/`sample1_somatic`; fusions get
+`_2`/`_3`:
 
 ```{r}
 #| label: linx-run
@@ -145,7 +139,7 @@ l$run(
 dir_tree(dir_outL)
 ```
 
-Stacked `breakends` outputs (top 2 rows each):
+Stacked `breakends` (top 2 rows each):
 
 ```{r}
 #| label: linx-merge
@@ -162,7 +156,7 @@ dir_ls(dir_outL, regexp = "linx_breakends\\.parquet") |>
   `sample1.sage.bqr.tsv`) into sibling `germline/` and `somatic/` folders.
 - Fix: the hook tags by parent folder (`refine_by_variant_folder()`).
 
-Simulate three runs with `bqr` and `gene.coverage`:
+Three runs, `bqr` + `gene.coverage`:
 
 ```{r}
 #| label: sage-init
@@ -199,7 +193,7 @@ s$run(
 dir_tree(dir_outS)
 ```
 
-Stacked `bqrtsv` outputs (one random row each):
+Stacked `bqrtsv` (one random row each):
 
 ```{r}
 #| label: sage-merge
@@ -212,8 +206,7 @@ dir_ls(dir_outS, regexp = "sage_bqrtsv\\.parquet") |>
 
 ### When to reach for the hook
 
-- Prefer schema `pattern`s that already separate variants.
-- Use `refine_files()` when one parser matches several files that need a
-  meaningful label rather than a positional `_2`.
-- The hook can edit any `list_files()` column; `prefix` is the usual target
-  since it drives the output filename.
+- Prefer schema `pattern`s that already separate variants
+- Use `refine_files()` when one parser matches files needing a real label, not
+  `_2`
+- Hook can edit any `list_files()` column; usually `prefix`

@@ -16,15 +16,10 @@ use("fs", "dir_tree")
 options(width = 90)
 ```
 
-tidywigits turns raw
-[WiGiTS/hmftools](https://github.com/hartwigmedical/hmftools) output directories
-into versioned, analysis-ready tables.
-
 ## Test data
 
-Example inputs live in `inst/extdata/oa/`, tracked via [DVC](https://dvc.org/)
-on a public Cloudflare R2 bucket (no credentials). Fetch them with `dvc pull`
-from a cloned repo, or from R with `nemo::dvc_download_all()`:
+`inst/extdata/oa/`, tracked with [DVC](https://dvc.org/) on a public R2 bucket.
+`dvc pull` in a clone, or from R:
 
 ```r
 input_dir <- system.file("extdata/oa/purple", package = "tidywigits")
@@ -32,8 +27,6 @@ nemo::dvc_download_all(input_dir, file.path(tempdir(), "dvc_test"))
 ```
 
 ## Input
-
-Example WiGiTS results:
 
 ```{r}
 #| label: input_tree
@@ -63,9 +56,8 @@ list.files(outdir, pattern = "\\.parquet$")
 
 ### File naming
 
-Output files follow `{prefix}_{tool}_{table}.parquet`, where `prefix` comes from
-the input filenames (here `sample1`). See [Output Naming](output_naming.html)
-for collision handling.
+`{prefix}_{tool}_{table}.parquet`, prefix from input filename (`sample1`). See
+[Output Naming](output_naming.html).
 
 ### Reading a table back
 
@@ -95,8 +87,7 @@ list.files(outdir_w, pattern = "\\.parquet$") |> sort() |> str()
 
 ## ID columns
 
-Optional columns prepended to every written table (all off by default), useful
-when combining samples into one table:
+Optional, off by default:
 
 | Argument                | Column added   | Contains                                   |
 | ----------------------- | -------------- | ------------------------------------------ |
@@ -130,10 +121,8 @@ Every `run()` also writes metadata (input/output dirs, IDs, R package versions):
 read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 ```
 
-## Other useful articles
+## See also
 
-- [Schema table](schema_table.html): browse every table and column for all
-  supported WiGiTS tools
-- [Structure](structure.html): schemas, versioning, and the Tool/Workflow class
-  hierarchy (nemo)
-- [PostgreSQL](postgresql.html): writing results to a database
+- [Schema table](schema_table.html): all tables and columns
+- [Structure](structure.html): schemas, versioning, class hierarchy
+- [PostgreSQL](postgresql.html)

@@ -64,21 +64,9 @@ options(width = 100)
 
 ## tidywigits
 
-tidywigits is an R package for parsing and tidying output from the
-[WiGiTS/hmftools] suite of genome and transcriptome analysis tools.
-
-The WiGiTS pipeline produces hundreds of files per sample across dozens of
-tools, but consuming them downstream is fragile: formats are inconsistent,
-column names span a mix of conventions (e.g. `snake_case`, `camelCase`,
-`dot.separated`), some sub-tables are embedded in wide files, and column layouts
-change between tool versions.
-
-tidywigits addresses this with a schema-driven parsing layer built on the [nemo]
-base R6 classes, supplying WiGiTS-specific schemas and parsers that turn raw
-outputs into consistently structured, versioned, analysis-ready tables that can
-be written to a variety of formats such as Apache Parquet, PostgreSQL, TSV, or
-RDS. Each run also produces a `metadata.parquet` file alongside the tidy tables,
-capturing IDs, paths, and R package versions.
+Parses and tidies [WiGiTS/hmftools] outputs into versioned, tidy tables, written
+to Parquet, PostgreSQL, TSV, CSV or RDS (plus a `metadata.parquet` per run).
+Built on [nemo].
 
 [WiGiTS/hmftools]: <https://github.com/hartwigmedical/hmftools> "WiGiTS suite"
 [nemo]: <https://github.com/tidywf/nemo> "nemo"
@@ -106,9 +94,7 @@ glue(
 
 ### Single tool
 
-Some WiGiTS output files have non-standard layouts. For a very simple example,
-let's look at PURPLE's `purple.qc` file that stores QC metrics as key-value rows
-rather than columns:
+Raw PURPLE `purple.qc` (key-value rows):
 
 ```{r}
 #| label: quickstart_raw
@@ -118,8 +104,7 @@ indir_ppl <- system.file("extdata/oa/purple", package = "tidywigits")
 writeLines(readLines(file.path(indir_ppl, "sample1.purple.qc")))
 ```
 
-We can utilise the `Purple` class to parse, tidy and write PURPLE files in one
-call via its `run()` method:
+Parse, tidy and write with `Purple$run()`:
 
 ```{r}
 #| label: quickstart_wrangle
@@ -136,7 +121,7 @@ ppl$run(
 list.files(outdir_ppl, pattern = "\\.parquet$")
 ```
 
-Now read back the tidied table:
+Tidy output:
 
 ```{r}
 #| label: quickstart_read
@@ -151,9 +136,7 @@ arrow::read_parquet(qc_file) |> str()
 
 ### Full WiGiTS
 
-Files from the full WiGiTS suite can be processed with the convenient `Wigits`
-class. The starting point is a parent directory with WiGiTS results, and we can
-again utilise the `run()` method:
+`Wigits` runs all tools over a parent results directory:
 
 ```{r}
 #| label: example_input_tree
@@ -165,10 +148,7 @@ indir_w <- system.file("extdata/oa", package = "tidywigits")
 dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
 ```
 
-We can parse, tidy up, and write the WiGiTS results into e.g. Parquet format or
-a PostgreSQL database as follows:
-
-- Parquet:
+Parquet:
 
 ```{r}
 #| label: wigits_parquet_example
@@ -187,7 +167,7 @@ res # shows summary of Wigits object
 list.files(outdir_w, pattern = "\\.parquet$") |> str()
 ```
 
-- PostgreSQL (adjust dbname/user for your purposes):
+PostgreSQL:
 
 ```{r}
 #| label: postgresql_example
@@ -208,11 +188,9 @@ res <- w2$run(
 )
 ```
 
-> **Note:** Support for VCFs is a work in progress.
+> **Note:** VCF support is WIP.
 
-Three optional columns can be prepended to every written table to support
-downstream tracing and joining. All are opt-in and off by default, but highly
-recommended for any multi-sample or multi-run pipeline:
+Optional provenance columns (recommended for multi-sample/multi-run use):
 
 | Column         | Purpose                                  | User-supplied or auto-generated? |
 | -------------- | ---------------------------------------- | -------------------------------- |
@@ -226,23 +204,13 @@ recommended for any multi-sample or multi-run pipeline:
 #| label: child-r
 ```
 
-Alternatively:
-
-- conda package: <https://anaconda.org/tidywf/r-tidywigits>
-- Docker image: <https://github.com/tidywf/tidywigits/pkgs/container/tidywigits>
-
-For more details see:
-<https://tidywf.github.io/tidywigits/articles/installation>
+- conda: <https://anaconda.org/tidywf/r-tidywigits>
+- Docker: <https://github.com/tidywf/tidywigits/pkgs/container/tidywigits>
+- more: <https://tidywf.github.io/tidywigits/articles/installation>
 
 ## CLI
 
-A `tidywigits.R` command line interface is available for convenience.
-
-- If you're using the conda package, the `tidywigits.R` command will already be
-  available inside the activated conda environment.
-- If you're *not* using the conda package, you need to export the
-  `tidywigits/inst/cli/` directory to your `PATH` in order to use
-  `tidywigits.R`.
+`tidywigits.R` is on `PATH` in the conda env. Otherwise:
 
 ```{bash}
 #| label: cli1
@@ -265,7 +233,7 @@ echo "$ tidywigits.R --version" & tidywigits.R --version
 echo ""
 echo "#-----------------------------------#"
 echo "$ tidywigits.R --help" & tidywigits.R --help
-echo "'"
+echo ""
 echo "#-----------------------------------#"
 echo "#------- Tidy ----------------------#"
 echo "$ tidywigits.R tidy --help" & tidywigits.R tidy --help
