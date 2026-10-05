@@ -113,8 +113,8 @@ location (`inst/extdata/oa/`, DVC-tracked).
 ## Dev commands
 
 Full Makefile target list (shared with nemo/tidydragen):
-`tidywf/docs/r-pkg/dev-commands.md`. Its *Build loop* section covers
-`make build` after schema edits and rebuilding `../nemo` after editing it.
+`tidywf/docs/r-pkg/dev-commands.md`. Its *Dev loop* section covers
+`make install` after schema edits and reinstalling `../nemo` after editing it.
 
 `devtools::load_all()` (no make equivalent) to load package interactively:
 
