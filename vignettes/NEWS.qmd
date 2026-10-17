@@ -63,6 +63,9 @@ older schema versions.
 | `sage_genecvgmain`        | `sage_genecvg`        |
 | `cobalt_gcmedmain`        | `cobalt_gcmed`        |
 
+File-table descriptions now describe the file instead of repeating their main
+output's.
+
 - `bamtools_wgsmetricsdp`: `dp` is now numeric (`10`) instead of a string
   (`"10x"`) (`r pr(230)`).
 - Docker image entrypoint is now `tidywigits.R`, so run

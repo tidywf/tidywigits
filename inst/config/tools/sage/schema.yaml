@@ -77,7 +77,7 @@ tables:
         description: 'median depth'
         versions: ['latest']
   genecvg:
-    description: 'Gene coverage depth ranges.'
+    description: 'SAGE gene coverage TSV: per-gene info plus depth-range base counts.'
     pattern: "\\.sage\\.gene\\.coverage\\.tsv$"
     glob: ["*.sage.gene.coverage.tsv"]
     ftype: 'tsv'

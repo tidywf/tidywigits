@@ -1,6 +1,6 @@
 tables:
   wgsmetrics:
-    description: 'WGS coverage metrics.'
+    description: 'BamTools WGS metrics TSV (v1.4.2): summary metrics plus a coverage histogram section.'
     pattern: "\\.wgsmetrics$"
     glob: ["*.wgsmetrics"]
     ftype: 'tsv'
@@ -413,7 +413,7 @@ tables:
         description: 'percentage against total pairs'
         versions: ['latest']
   summary:
-    description: 'Coverage summary.'
+    description: 'BamTools coverage summary TSV: summary stats plus depth-coverage fractions.'
     pattern: "\\.bam_metric\\.summary\\.tsv$"
     glob: ["*.bam_metric.summary.tsv"]
     ftype: 'tsv'
@@ -648,7 +648,7 @@ tables:
             description: 'percentage of bases covered at or above the depth threshold'
             versions: ['v1.4.2', 'latest']
   exoncvg:
-    description: 'Exon coverage depth.'
+    description: 'BamTools exon coverage TSV: per-exon depth stats plus percent of bases above depth thresholds.'
     pattern: "\\.bam_metric\\.exon_coverage\\.tsv$"
     glob: ["*.bam_metric.exon_coverage.tsv"]
     ftype: 'tsv'
@@ -806,7 +806,7 @@ tables:
         description: 'median depth'
         versions: ['v1.4.2']
   genecvg:
-    description: 'Gene coverage depth ranges.'
+    description: 'BamTools gene coverage TSV: per-gene info plus depth-range base counts.'
     pattern: "\\.bam_metric\\.gene_coverage\\.tsv$"
     glob: ["*.bam_metric.gene_coverage.tsv"]
     ftype: 'tsv'
