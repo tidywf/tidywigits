@@ -1,6 +1,6 @@
 tables:
-  gcmedmain:
-    description: 'Sample mean/median read depth. Fan-out primary; derived: gcmedbuckets.'
+  gcmed:
+    description: 'GC median depth: sample mean/median plus per-GC-bucket medians.'
     pattern: "\\.cobalt\\.gc\\.median\\.tsv$"
     glob: ["*.cobalt.gc.median.tsv"]
     ftype: 'tsv'
@@ -15,21 +15,31 @@ tables:
         type: 'float'
         description: 'sample median read depth'
         versions: ['latest']
-  gcmedbuckets:
-    description: 'GC median read depth per GC bucket. Fan-out of gcmedmain.'
-    pattern: "__no_file_match__gcmedbuckets"
-    ftype: 'tsv'
-    columns:
-      - raw: '#gcBucket'
-        tidy: 'gc_bucket'
-        type: 'char'
-        description: 'GC bucket number'
-        versions: ['latest']
-      - raw: 'median'
-        tidy: 'median'
-        type: 'float'
-        description: 'median read depth in bucket'
-        versions: ['latest']
+    outputs:
+      gcmedmain:
+        description: 'Sample mean/median read depth.'
+        columns:
+          - tidy: 'mean'
+            type: 'float'
+            description: 'sample mean read depth'
+            versions: ['latest']
+          - tidy: 'median'
+            type: 'float'
+            description: 'sample median read depth'
+            versions: ['latest']
+      gcmedbuckets:
+        description: 'GC median read depth per GC bucket.'
+        columns:
+          - raw: '#gcBucket'
+            tidy: 'gc_bucket'
+            type: 'char'
+            description: 'GC bucket number'
+            versions: ['latest']
+          - raw: 'median'
+            tidy: 'median'
+            type: 'float'
+            description: 'median read depth in bucket'
+            versions: ['latest']
   ratiomed:
     description: 'Chromosome median ratios.'
     pattern: "\\.cobalt\\.ratio\\.median\\.tsv$"

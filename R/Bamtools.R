@@ -39,9 +39,6 @@ Bamtools <- R6::R6Class(
   cloneable = FALSE,
   inherit = Tool,
   public = list(
-    #' @field flat_tidy_names (`logical(1)`)\cr
-    #' `TRUE`: fan-out sub-tables are named `<tool>_<tidy_name>`.
-    flat_tidy_names = TRUE,
     #' @description Create a new Bamtools object.
     #' @param path (`character(1)`)\cr
     #' Output directory of tool. If `files_tbl` is supplied, this is ignored.
@@ -53,20 +50,20 @@ Bamtools <- R6::R6Class(
     #' @description Read `summary.tsv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    parse_summarymain = function(x) {
-      private$parse_file(x, "summarymain")
+    parse_summary = function(x) {
+      private$parse_file(x, "summary")
     },
     #' @description Tidy `summary.tsv` file. Generates 2 sub-tbls:
     #' `summarymain` with the main stats and `summarydp` with the percentage of
     #' bases covered by at least X reads.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    tidy_summarymain = function(x) {
+    tidy_summary = function(x) {
       if (!tibble::is_tibble(x)) {
-        x <- self$parse_summarymain(x)
+        x <- self$parse_summary(x)
       }
       version <- nemo::get_tbl_version_attr(x)
-      schema <- self$config$get_schema_tidy("summarymain", version = version)
+      schema <- self$config$get_schema_tidy("summary", version = version)
       colnames(x) <- schema[["field"]]
       # d1 maintains file_version attr, d2 requires it
       d1 <- x |> dplyr::select(!dplyr::starts_with("depth_cov_"))
@@ -89,9 +86,9 @@ Bamtools <- R6::R6Class(
     #' base coverage distribution.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    parse_wgsmetricsmain = function(x) {
+    parse_wgsmetrics = function(x) {
       # two sections: main stats + histogram. Only exists at v1.4.2 (dropped in oa v3).
-      schema <- self$config$get_schema_raw("wgsmetricsmain", version = "v1.4.2") |>
+      schema <- self$config$get_schema_raw("wgsmetrics", version = "v1.4.2") |>
         dplyr::select("field", "type")
       hdr1 <- nemo::file_hdr(x, comment = "#")
       if (!identical(hdr1, schema[["field"]])) {
@@ -101,7 +98,7 @@ Bamtools <- R6::R6Class(
       if (!identical(hdr2, c("coverage", "high_quality_coverage_count"))) {
         nemo::nemo_stop("Bamtools wgsmetrics histogram header is unexpected.")
       }
-      d1 <- private$parse_file(x = x, table_name = "wgsmetricsmain", n_max = 1, comment = "#")
+      d1 <- private$parse_file(x = x, table_name = "wgsmetrics", n_max = 1, comment = "#")
       d2 <- readr::read_tsv(x, col_types = "ci", comment = "#", skip = 3) |>
         nemo::set_tbl_version_attr(nemo::get_tbl_version_attr(d1))
       list(wgsmetricsmain = d1[], wgsmetricshisto = d2[]) |>
@@ -113,13 +110,13 @@ Bamtools <- R6::R6Class(
     #' distribution of base coverage.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    tidy_wgsmetricsmain = function(x) {
+    tidy_wgsmetrics = function(x) {
       if (!tibble::is_tibble(x)) {
-        x <- self$parse_wgsmetricsmain(x)
+        x <- self$parse_wgsmetrics(x)
       }
       d <- x |> tibble::deframe()
       version <- nemo::get_tbl_version_attr(d[["wgsmetricsmain"]])
-      schema <- self$config$get_schema_tidy("wgsmetricsmain", version = version)
+      schema <- self$config$get_schema_tidy("wgsmetrics", version = version)
       colnames(d[["wgsmetricsmain"]]) <- schema[["field"]]
       # split pct_<N>x cols into wgsmetricsdp
       pat1 <- "pct_\\d+x$"
@@ -245,16 +242,16 @@ Bamtools <- R6::R6Class(
     #' long-form depth-range counts.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    tidy_genecvgmain = function(x) {
-      tidy_genecvg_split(private$tidy_file(x, "genecvgmain"))
+    tidy_genecvg = function(x) {
+      tidy_genecvg_split(private$tidy_file(x, "genecvg"))
     },
     #' @description Tidy `exon_coverage.tsv` file. Generates 2 sub-tbls:
     #' `exoncvgmain` with per-exon depth stats and `exoncvgperc` with the
     #' long-format percentage of bases above each depth threshold.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    tidy_exoncvgmain = function(x) {
-      d <- private$tidy_file(x, "exoncvgmain") |>
+    tidy_exoncvg = function(x) {
+      d <- private$tidy_file(x, "exoncvg") |>
         dplyr::select("data")
       version <- nemo::get_tbl_version_attr(d[["data"]][[1]])
       d <- d |> tidyr::unnest("data")

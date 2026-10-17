@@ -55,7 +55,7 @@ refine_by_variant_folder <- function(files) {
 
 # Split tidied gene coverage into `genecvgmain` (per-gene) and `genecvgcvg`
 # (long `dr_*` depth ranges). Shared by Bamtools and Sage; `x` is the output
-# of `private$tidy_file(., "genecvgmain")`.
+# of `private$tidy_file(., "genecvg")`.
 tidy_genecvg_split <- function(x) {
   d <- x |>
     dplyr::select("data")

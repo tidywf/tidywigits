@@ -18,20 +18,12 @@ obj$run(output_dir = odir, format = "parquet", input_id = id)
 \section{Super class}{
 \code{\link[nemo:Tool]{nemo::Tool}} -> \code{Cobalt}
 }
-\section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{flat_tidy_names}}{(\code{logical(1)})\cr
-\code{TRUE}: fan-out sub-tables are named \verb{<tool>_<tidy_name>}.}
-}
-\if{html}{\out{</div>}}
-}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Cobalt-new}{\code{Cobalt$new()}}
-\item \href{#method-Cobalt-parse_gcmedmain}{\code{Cobalt$parse_gcmedmain()}}
-\item \href{#method-Cobalt-tidy_gcmedmain}{\code{Cobalt$tidy_gcmedmain()}}
+\item \href{#method-Cobalt-parse_gcmed}{\code{Cobalt$parse_gcmed()}}
+\item \href{#method-Cobalt-tidy_gcmed}{\code{Cobalt$tidy_gcmed()}}
 }
 }
 \if{html}{\out{
@@ -71,14 +63,14 @@ Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cobalt-parse_gcmedmain"></a>}}
-\if{latex}{\out{\hypertarget{method-Cobalt-parse_gcmedmain}{}}}
-\subsection{Method \code{parse_gcmedmain()}}{
+\if{html}{\out{<a id="method-Cobalt-parse_gcmed"></a>}}
+\if{latex}{\out{\hypertarget{method-Cobalt-parse_gcmed}{}}}
+\subsection{Method \code{parse_gcmed()}}{
 Read \code{gc.median.tsv} file. Generates 2 sub-tbls:
 \code{gcmedmain} with the sample mean/median read depth, and \code{gcmedbuckets}
 with the median depth per GC bucket.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cobalt$parse_gcmedmain(x)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cobalt$parse_gcmed(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -91,14 +83,14 @@ Path to file.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cobalt-tidy_gcmedmain"></a>}}
-\if{latex}{\out{\hypertarget{method-Cobalt-tidy_gcmedmain}{}}}
-\subsection{Method \code{tidy_gcmedmain()}}{
+\if{html}{\out{<a id="method-Cobalt-tidy_gcmed"></a>}}
+\if{latex}{\out{\hypertarget{method-Cobalt-tidy_gcmed}{}}}
+\subsection{Method \code{tidy_gcmed()}}{
 Tidy \code{gc.median.tsv} file. Generates 2 sub-tbls:
 \code{gcmedmain} with the sample mean/median read depth, and \code{gcmedbuckets}
 with the median depth per GC bucket.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cobalt$tidy_gcmedmain(x)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cobalt$tidy_gcmed(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
