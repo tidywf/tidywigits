@@ -114,6 +114,8 @@ location (`inst/extdata/oa/`, DVC-tracked).
 Full Makefile target list (shared with nemo/tidydragen):
 `tidywf/docs/r-pkg/dev-commands.md`. Its *Dev loop* section covers
 `make install` after schema edits and reinstalling `../nemo` after editing it.
+Run `make fmt` (also run by `make test`) before committing, so the pre-commit
+air/panache hooks have nothing left to reformat.
 
 `devtools::load_all()` (no make equivalent) to load package interactively:
 
