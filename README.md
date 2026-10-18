@@ -1,5 +1,3 @@
-
-
 <!-- README.md is generated from README.qmd. Please edit that file -->
 
 <a href="https://tidywf.github.io/tidywigits"><img src="man/figures/logo.png" alt="logo" align="left" height="100" /></a>
@@ -24,19 +22,16 @@
 
 Parses and tidies
 [WiGiTS/hmftools](https://github.com/hartwigmedical/hmftools "WiGiTS suite")
-outputs into versioned, tidy tables, written to Parquet, PostgreSQL,
-TSV, CSV or RDS (plus a `metadata.parquet` per run). Built on
+outputs into versioned, tidy tables, written to Parquet, PostgreSQL, TSV, CSV or
+RDS (plus a `metadata.parquet` per run). Built on
 [nemo](https://github.com/tidywf/nemo "nemo").
 
 ## Documentation
 
-- Installation:
-  <https://tidywf.github.io/tidywigits/articles/installation>
+- Installation: <https://tidywf.github.io/tidywigits/articles/installation>
 - Quickstart: <https://tidywf.github.io/tidywigits/articles/quickstart>
-- Files supported:
-  <https://tidywf.github.io/tidywigits/articles/schema_table>
-- Output naming:
-  <https://tidywf.github.io/tidywigits/articles/output_naming>
+- Files supported: <https://tidywf.github.io/tidywigits/articles/schema_table>
+- Output naming: <https://tidywf.github.io/tidywigits/articles/output_naming>
 - Structure: <https://tidywf.github.io/tidywigits/articles/structure>
 - Changelog: <https://tidywf.github.io/tidywigits/articles/NEWS>
 - R6: <https://tidywf.github.io/nemo/articles/structure>
@@ -47,7 +42,7 @@ TSV, CSV or RDS (plus a `metadata.parquet` per run). Built on
 
 Raw PURPLE `purple.qc` (key-value rows):
 
-``` r
+```r
 indir_ppl <- system.file("extdata/oa/purple", package = "tidywigits")
 writeLines(readLines(file.path(indir_ppl, "sample1.purple.qc")))
 #> QCStatus PASS
@@ -68,7 +63,7 @@ writeLines(readLines(file.path(indir_ppl, "sample1.purple.qc")))
 
 Parse, tidy and write with `Purple$run()`:
 
-``` r
+```r
 outdir_ppl <- file.path(tempdir(), "ppl_out")
 # fmt: skip
 ppl <- Purple$new(indir_ppl)
@@ -78,31 +73,31 @@ ppl$run(
   input_id = "run1"
 )
 list.files(outdir_ppl, pattern = "\\.parquet$")
-#>  [1] "metadata_purple.parquet"                        
-#>  [2] "sample1_2_purple_cnvgenetsv.parquet"            
-#>  [3] "sample1_2_purple_qc.parquet"                    
-#>  [4] "sample1_3_purple_cnvgenetsv.parquet"            
+#>  [1] "metadata_purple.parquet"
+#>  [2] "sample1_2_purple_cnvgenetsv.parquet"
+#>  [3] "sample1_2_purple_qc.parquet"
+#>  [4] "sample1_3_purple_cnvgenetsv.parquet"
 #>  [5] "sample1_germline_2_purple_drivercatalog.parquet"
-#>  [6] "sample1_germline_purple_drivercatalog.parquet"  
-#>  [7] "sample1_purple_chromarm.parquet"                
-#>  [8] "sample1_purple_cnvgenetsv.parquet"              
-#>  [9] "sample1_purple_cnvsomtsv.parquet"               
-#> [10] "sample1_purple_germampdel.parquet"              
-#> [11] "sample1_purple_germdeltsv.parquet"              
-#> [12] "sample1_purple_purityrange.parquet"             
-#> [13] "sample1_purple_puritytsv.parquet"               
-#> [14] "sample1_purple_qc.parquet"                      
-#> [15] "sample1_purple_somclonality.parquet"            
-#> [16] "sample1_purple_somhist.parquet"                 
-#> [17] "sample1_somatic_2_purple_drivercatalog.parquet" 
-#> [18] "sample1_somatic_purple_drivercatalog.parquet"   
-#> [19] "version_2_purple_version.parquet"               
+#>  [6] "sample1_germline_purple_drivercatalog.parquet"
+#>  [7] "sample1_purple_chromarm.parquet"
+#>  [8] "sample1_purple_cnvgenetsv.parquet"
+#>  [9] "sample1_purple_cnvsomtsv.parquet"
+#> [10] "sample1_purple_germampdel.parquet"
+#> [11] "sample1_purple_germdeltsv.parquet"
+#> [12] "sample1_purple_purityrange.parquet"
+#> [13] "sample1_purple_puritytsv.parquet"
+#> [14] "sample1_purple_qc.parquet"
+#> [15] "sample1_purple_somclonality.parquet"
+#> [16] "sample1_purple_somhist.parquet"
+#> [17] "sample1_somatic_2_purple_drivercatalog.parquet"
+#> [18] "sample1_somatic_purple_drivercatalog.parquet"
+#> [19] "version_2_purple_version.parquet"
 #> [20] "version_purple_version.parquet"
 ```
 
 Tidy output:
 
-``` r
+```r
 qc_file <- list.files(
   outdir_ppl,
   pattern = "sample1_purple_qc.parquet",
@@ -138,7 +133,7 @@ arrow::read_parquet(qc_file) |> str()
 ``` r
 indir_w <- system.file("extdata/oa", package = "tidywigits")
 dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
-/home/runner/miniconda3/envs/bump_env/lib/R/library/tidywigits/extdata/oa
+/Users/pdiakumis/Library/R/arm64/4.6/library/tidywigits/extdata/oa
 ├── alignments
 │   ├── sample1.duplicate_freq.tsv
 │   ├── sample1.md.metrics
@@ -337,7 +332,7 @@ dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
 
 Parquet:
 
-``` r
+```r
 outdir_w <- file.path(tempdir(), "wigits_out_parquet")
 w <- Wigits$new(indir_w)
 res <- w$run(
@@ -349,23 +344,23 @@ res <- w$run(
 )
 res # shows summary of Wigits object
 #> #--- Workflow Wigits ---#
-#> 
-#> |var           |value                                                                     |
-#> |:-------------|:-------------------------------------------------------------------------|
-#> |name          |Wigits                                                                    |
-#> |path          |/home/runner/miniconda3/envs/bump_env/lib/R/library/tidywigits/extdata/oa |
-#> |ntools        |20                                                                        |
-#> |files_total   |302                                                                       |
-#> |files_matched |150                                                                       |
-#> |tidied        |true                                                                      |
-#> |written       |true                                                                      |
+#>
+#> |var           |value                                                              |
+#> |:-------------|:------------------------------------------------------------------|
+#> |name          |Wigits                                                             |
+#> |path          |/Users/pdiakumis/Library/R/arm64/4.6/library/tidywigits/extdata/oa |
+#> |ntools        |20                                                                 |
+#> |files_total   |302                                                                |
+#> |files_matched |150                                                                |
+#> |tidied        |true                                                               |
+#> |written       |true                                                               |
 list.files(outdir_w, pattern = "\\.parquet$") |> str()
 #>  chr [1:161] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...
 ```
 
 PostgreSQL:
 
-``` r
+```r
 w2 <- Wigits$new(indir_w)
 dbconn <- DBI::dbConnect(
   drv = RPostgres::Postgres(),
@@ -383,98 +378,102 @@ res <- w2$run(
 
 > **Note:** VCF support is WIP.
 
-Optional provenance columns (recommended for multi-sample/multi-run
-use):
+Optional provenance columns (recommended for multi-sample/multi-run use):
 
-| Column | Purpose | User-supplied or auto-generated? |
-|----|----|----|
-| `input_id` | identifies the sample or input run | user |
-| `output_id` | identifies the tidywigits processing run | user or auto (ULID) |
-| `input_prefix` | filename prefix (e.g. sample name) | auto |
+| Column         | Purpose                                  | User-supplied or auto-generated? |
+| ----           | ----                                     | ----                             |
+| `input_id`     | identifies the sample or input run       | user                             |
+| `output_id`    | identifies the tidywigits processing run | user or auto (ULID)              |
+| `input_prefix` | filename prefix (e.g. sample name)       | auto                             |
 
 ## Installation
 
 From GitHub:
 
-``` r
+```r
 install.packages("remotes")
 remotes::install_github("tidywf/tidywigits") # latest main commit
 remotes::install_github("tidywf/tidywigits@v0.1.0.9003") # specific version
 ```
 
 - conda: <https://anaconda.org/tidywf/r-tidywigits>
-- Docker:
-  <https://github.com/tidywf/tidywigits/pkgs/container/tidywigits>
+- Docker: <https://github.com/tidywf/tidywigits/pkgs/container/tidywigits>
 - more: <https://tidywf.github.io/tidywigits/articles/installation>
 
 ## CLI
 
 `tidywigits.R` is on `PATH` in the conda env. Otherwise:
 
-``` bash
+```bash
 tw_cli=$(Rscript -e 'x = system.file("cli", package = "tidywigits"); cat(x, "\n")' | xargs)
 export PATH="${tw_cli}:${PATH}"
 ```
 
-    $ tidywigits.R --version
-    tidywigits 0.1.0.9003
+```
+$ tidywigits.R --version
+tidywigits 0.1.0.9003
 
-    #-----------------------------------#
-    $ tidywigits.R --help
-    usage: tidywigits.R [-h] [-v] {tidy,list,sync} ...
+#-----------------------------------#
+$ tidywigits.R --help
+usage: tidywigits.R [-h] [-v] {tidy,list,sync} ...
 
-    ✨ WiGiTS Output Tidying ✨
+✨ WiGiTS Output Tidying ✨
 
-    positional arguments:
-      {tidy,list,sync}  sub-command help
-        tidy            Tidy Workflow Outputs
-        list            List Parsable Workflow Outputs
-        sync            Sync Parsable Workflow Outputs From AWS S3
+positional arguments:
+  {tidy,list,sync}  sub-command help
+    tidy            Tidy Workflow Outputs
+    list            List Parsable Workflow Outputs
+    sync            Sync Parsable Workflow Outputs From AWS S3
 
-    options:
-      -h, --help        show this help message and exit
-      -v, --version     show program's version number and exit
+options:
+  -h, --help        show this help message and exit
+  -v, --version     show program's version number and exit
+'
+#-----------------------------------#
+#------- Tidy ----------------------#
+$ tidywigits.R tidy --help
+usage: tidywigits.R tidy [-h] -d IN_DIR [-o OUTPUT_DIR] [-f FORMAT]
+                         [--input_id INPUT_ID]
+                         [--output_id OUTPUT_ID | --ulid] [--dbname DBNAME]
+                         [--dbuser DBUSER] [--dbhost DBHOST] [--dbport DBPORT]
+                         [--include INCLUDE] [--exclude EXCLUDE]
+                         [--prefix_include] [-q]
 
-    #-----------------------------------#
-    #------- Tidy ----------------------#
-    $ tidywigits.R tidy --help
-    usage: tidywigits.R tidy [-h] -d IN_DIR [-o OUTPUT_DIR] [-f FORMAT]
-                             [--input_id INPUT_ID] [--output_id OUTPUT_ID |
-                             --ulid] [--dbname DBNAME] [--dbuser DBUSER]
-                             [--dbhost DBHOST] [--dbport DBPORT]
-                             [--include INCLUDE] [--exclude EXCLUDE]
-                             [--prefix_include] [-q]
+options:
+  -h, --help            show this help message and exit
+  -d IN_DIR, --in_dir IN_DIR
+                        Input directory.
+  -o OUTPUT_DIR, --output_dir OUTPUT_DIR
+                        Output directory.
+  -f FORMAT, --format FORMAT
+                        Format of output [def: parquet] (parquet, db, tsv,
+                        csv, rds)
+  --input_id INPUT_ID   Input ID for this run.
+  --output_id OUTPUT_ID
+                        Output ID for this run.
+  --ulid                Generate a ULID as output ID.
+  --dbname DBNAME       Database name.
+  --dbuser DBUSER       Database user.
+  --dbhost DBHOST       Database host (default: driver/env default, e.g.
+                        PGHOST).
+  --dbport DBPORT       Database port (default: driver/env default, e.g.
+                        PGPORT).
+  --include INCLUDE     Include only these files (comma sep tool_parsers).
+  --exclude EXCLUDE     Exclude only these files (comma sep tool_parsers).
+  --prefix_include      Include input prefix column in output tables.
+  -q, --quiet           Shush all the logs.
 
-    options:
-      -h, --help            show this help message and exit
-      -d, --in_dir IN_DIR   Input directory.
-      -o, --output_dir OUTPUT_DIR
-                            Output directory.
-      -f, --format FORMAT   Format of output [def: parquet] (parquet, db, tsv,
-                            csv, rds)
-      --input_id INPUT_ID   Input ID for this run.
-      --output_id OUTPUT_ID
-                            Output ID for this run.
-      --ulid                Generate a ULID as output ID.
-      --dbname DBNAME       Database name.
-      --dbuser DBUSER       Database user.
-      --dbhost DBHOST       Database host (default: driver/env default, e.g.
-                            PGHOST).
-      --dbport DBPORT       Database port (default: driver/env default, e.g.
-                            PGPORT).
-      --include INCLUDE     Include only these files (comma sep tool_parsers).
-      --exclude EXCLUDE     Exclude only these files (comma sep tool_parsers).
-      --prefix_include      Include input prefix column in output tables.
-      -q, --quiet           Shush all the logs.
+#-----------------------------------#
+#------- List ----------------------#
+$ tidywigits.R list --help
+usage: tidywigits.R list [-h] -d IN_DIR [-f FORMAT] [-m MAX] [-q]
 
-    #-----------------------------------#
-    #------- List ----------------------#
-    $ tidywigits.R list --help
-    usage: tidywigits.R list [-h] -d IN_DIR [-f FORMAT] [-m MAX] [-q]
-
-    options:
-      -h, --help           show this help message and exit
-      -d, --in_dir IN_DIR  Input directory.
-      -f, --format FORMAT  Format of list output [def: pretty] (tsv, pretty)
-      -m, --max MAX        Max rows to show.
-      -q, --quiet          Shush all the logs.
+options:
+  -h, --help            show this help message and exit
+  -d IN_DIR, --in_dir IN_DIR
+                        Input directory.
+  -f FORMAT, --format FORMAT
+                        Format of list output [def: pretty] (tsv, pretty)
+  -m MAX, --max MAX     Max rows to show.
+  -q, --quiet           Shush all the logs.
+```

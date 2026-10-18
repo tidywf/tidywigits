@@ -24,9 +24,6 @@ Sage <- R6::R6Class(
   cloneable = FALSE,
   inherit = Tool,
   public = list(
-    #' @field flat_tidy_names (`logical(1)`)\cr
-    #' `TRUE`: fan-out sub-tables are named `<tool>_<tidy_name>`.
-    flat_tidy_names = TRUE,
     #' @description Create a new Sage object.
     #' @param path (`character(1)`)\cr
     #' Output directory of tool. If `files_tbl` is supplied, this is ignored.
@@ -40,8 +37,8 @@ Sage <- R6::R6Class(
     #' long-form depth-range counts.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    tidy_genecvgmain = function(x) {
-      tidy_genecvg_split(private$tidy_file(x, "genecvgmain"))
+    tidy_genecvg = function(x) {
+      tidy_genecvg_split(private$tidy_file(x, "genecvg"))
     }
   ),
   private = list(

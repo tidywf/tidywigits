@@ -18,26 +18,18 @@ obj$run(output_dir = odir, format = "parquet", input_id = id)
 \section{Super class}{
 \code{\link[nemo:Tool]{nemo::Tool}} -> \code{Bamtools}
 }
-\section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{flat_tidy_names}}{(\code{logical(1)})\cr
-\code{TRUE}: fan-out sub-tables are named \verb{<tool>_<tidy_name>}.}
-}
-\if{html}{\out{</div>}}
-}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Bamtools-new}{\code{Bamtools$new()}}
-\item \href{#method-Bamtools-parse_summarymain}{\code{Bamtools$parse_summarymain()}}
-\item \href{#method-Bamtools-tidy_summarymain}{\code{Bamtools$tidy_summarymain()}}
-\item \href{#method-Bamtools-parse_wgsmetricsmain}{\code{Bamtools$parse_wgsmetricsmain()}}
-\item \href{#method-Bamtools-tidy_wgsmetricsmain}{\code{Bamtools$tidy_wgsmetricsmain()}}
+\item \href{#method-Bamtools-parse_summary}{\code{Bamtools$parse_summary()}}
+\item \href{#method-Bamtools-tidy_summary}{\code{Bamtools$tidy_summary()}}
+\item \href{#method-Bamtools-parse_wgsmetrics}{\code{Bamtools$parse_wgsmetrics()}}
+\item \href{#method-Bamtools-tidy_wgsmetrics}{\code{Bamtools$tidy_wgsmetrics()}}
 \item \href{#method-Bamtools-parse_flagstats}{\code{Bamtools$parse_flagstats()}}
 \item \href{#method-Bamtools-tidy_flagstats}{\code{Bamtools$tidy_flagstats()}}
-\item \href{#method-Bamtools-tidy_genecvgmain}{\code{Bamtools$tidy_genecvgmain()}}
-\item \href{#method-Bamtools-tidy_exoncvgmain}{\code{Bamtools$tidy_exoncvgmain()}}
+\item \href{#method-Bamtools-tidy_genecvg}{\code{Bamtools$tidy_genecvg()}}
+\item \href{#method-Bamtools-tidy_exoncvg}{\code{Bamtools$tidy_exoncvg()}}
 }
 }
 \if{html}{\out{
@@ -77,12 +69,12 @@ Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bamtools-parse_summarymain"></a>}}
-\if{latex}{\out{\hypertarget{method-Bamtools-parse_summarymain}{}}}
-\subsection{Method \code{parse_summarymain()}}{
+\if{html}{\out{<a id="method-Bamtools-parse_summary"></a>}}
+\if{latex}{\out{\hypertarget{method-Bamtools-parse_summary}{}}}
+\subsection{Method \code{parse_summary()}}{
 Read \code{summary.tsv} file.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bamtools$parse_summarymain(x)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Bamtools$parse_summary(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -95,14 +87,14 @@ Path to file.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bamtools-tidy_summarymain"></a>}}
-\if{latex}{\out{\hypertarget{method-Bamtools-tidy_summarymain}{}}}
-\subsection{Method \code{tidy_summarymain()}}{
+\if{html}{\out{<a id="method-Bamtools-tidy_summary"></a>}}
+\if{latex}{\out{\hypertarget{method-Bamtools-tidy_summary}{}}}
+\subsection{Method \code{tidy_summary()}}{
 Tidy \code{summary.tsv} file. Generates 2 sub-tbls:
 \code{summarymain} with the main stats and \code{summarydp} with the percentage of
 bases covered by at least X reads.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_summarymain(x)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_summary(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -115,14 +107,14 @@ Path to file.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bamtools-parse_wgsmetricsmain"></a>}}
-\if{latex}{\out{\hypertarget{method-Bamtools-parse_wgsmetricsmain}{}}}
-\subsection{Method \code{parse_wgsmetricsmain()}}{
+\if{html}{\out{<a id="method-Bamtools-parse_wgsmetrics"></a>}}
+\if{latex}{\out{\hypertarget{method-Bamtools-parse_wgsmetrics}{}}}
+\subsection{Method \code{parse_wgsmetrics()}}{
 Read \code{wgsmetrics} file. Generates 2 sub-tbls:
 \code{wgsmetricsmain} with the main stats and \code{wgsmetricshisto} with the
 base coverage distribution.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bamtools$parse_wgsmetricsmain(x)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Bamtools$parse_wgsmetrics(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -135,15 +127,15 @@ Path to file.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bamtools-tidy_wgsmetricsmain"></a>}}
-\if{latex}{\out{\hypertarget{method-Bamtools-tidy_wgsmetricsmain}{}}}
-\subsection{Method \code{tidy_wgsmetricsmain()}}{
+\if{html}{\out{<a id="method-Bamtools-tidy_wgsmetrics"></a>}}
+\if{latex}{\out{\hypertarget{method-Bamtools-tidy_wgsmetrics}{}}}
+\subsection{Method \code{tidy_wgsmetrics()}}{
 Tidy \code{wgsmetrics} file. Generates 3 sub-tbls:
 \code{wgsmetricsmain} with the main stats, \code{wgsmetricsdp} with the percentage
 of bases covered by at least X reads, and \code{wgsmetricshisto} with the
 distribution of base coverage.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_wgsmetricsmain(x)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_wgsmetrics(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -192,14 +184,14 @@ Path to file.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bamtools-tidy_genecvgmain"></a>}}
-\if{latex}{\out{\hypertarget{method-Bamtools-tidy_genecvgmain}{}}}
-\subsection{Method \code{tidy_genecvgmain()}}{
+\if{html}{\out{<a id="method-Bamtools-tidy_genecvg"></a>}}
+\if{latex}{\out{\hypertarget{method-Bamtools-tidy_genecvg}{}}}
+\subsection{Method \code{tidy_genecvg()}}{
 Tidy \code{gene_coverage.tsv} file. Generates 2 sub-tbls:
 \code{genecvgmain} with the per-gene metadata and \code{genecvgcvg} with the
 long-form depth-range counts.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_genecvgmain(x)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_genecvg(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -212,14 +204,14 @@ Path to file.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Bamtools-tidy_exoncvgmain"></a>}}
-\if{latex}{\out{\hypertarget{method-Bamtools-tidy_exoncvgmain}{}}}
-\subsection{Method \code{tidy_exoncvgmain()}}{
+\if{html}{\out{<a id="method-Bamtools-tidy_exoncvg"></a>}}
+\if{latex}{\out{\hypertarget{method-Bamtools-tidy_exoncvg}{}}}
+\subsection{Method \code{tidy_exoncvg()}}{
 Tidy \code{exon_coverage.tsv} file. Generates 2 sub-tbls:
 \code{exoncvgmain} with per-exon depth stats and \code{exoncvgperc} with the
 long-format percentage of bases above each depth threshold.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_exoncvgmain(x)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Bamtools$tidy_exoncvg(x)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

@@ -233,7 +233,7 @@ echo "$ tidywigits.R --version" & tidywigits.R --version
 echo ""
 echo "#-----------------------------------#"
 echo "$ tidywigits.R --help" & tidywigits.R --help
-echo ""
+echo "'" # balance out highlighting
 echo "#-----------------------------------#"
 echo "#------- Tidy ----------------------#"
 echo "$ tidywigits.R tidy --help" & tidywigits.R tidy --help

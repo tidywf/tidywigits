@@ -43,25 +43,24 @@ Fixtures cover oncoanalyser v3 (`latest`); older tool versions are kept as
   since Sage doesn't encode the variant in the basename.
 - **Shared `genecvg` parsing:** Sage and Bamtools both parse the same
   gene-coverage format via `tidy_genecvg_split()` (`R/utils.R`); each tool's
-  `tidy_genecvgmain()` is a thin wrapper.
+  `tidy_genecvg()` is a thin wrapper.
 - **1 file → N tables (fan-out):** `Bamtools`, `Sage` and `Cobalt` split one
   file into several tables. Rules are shared with tidydragen and live in
-  `docs/r-pkg/schema.md` → *Fan-out*; in short: the file-matching table is
-  `<stem>main` and carries `pattern` + `glob`, each derived sibling is a
-  sentinel table (`pattern: "__no_file_match__<table>"`, no `glob`) whose
-  `columns:` describe its tidy output shape, the class sets
-  `flat_tidy_names = TRUE` (output `<tool>_<table>`), and every `nemo_enframe()`
-  list key --- in `parse_*` as well as `tidy_*` --- is the schema table name.
-  Current splits:
+  `docs/r-pkg/schema.md` → *Fan-out*; in short: the file table keeps `pattern` +
+  `glob` + raw `columns:` and declares its sub-tables under `outputs:` (tidy
+  columns only, except Cobalt `gcmedbuckets`, parsed straight from its file
+  section, which keeps `raw:`); `tidy_<file table>()` returns them via
+  `nemo_enframe()` keyed by output name, written as `<tool>_<output>`, and nemo
+  checks the result against the schema. Current splits:
 
-  | Tool       | Primary                        | Sentinels                         |
-  | ---------- | ------------------------------ | --------------------------------- |
-  | `Bamtools` | `summarymain`                  | `summarydp`                       |
-  | `Bamtools` | `wgsmetricsmain` (v1.4.2 only) | `wgsmetricsdp`, `wgsmetricshisto` |
-  | `Bamtools` | `exoncvgmain`                  | `exoncvgperc`                     |
-  | `Bamtools` | `genecvgmain`                  | `genecvgcvg`                      |
-  | `Sage`     | `genecvgmain`                  | `genecvgcvg`                      |
-  | `Cobalt`   | `gcmedmain`                    | `gcmedbuckets`                    |
+  | Tool       | File table                   | Outputs                                             |
+  | ---------- | ---------------------------- | --------------------------------------------------- |
+  | `Bamtools` | `summary`                    | `summarymain`, `summarydp`                          |
+  | `Bamtools` | `wgsmetrics` (v1.4.2 only)   | `wgsmetricsmain`, `wgsmetricsdp`, `wgsmetricshisto` |
+  | `Bamtools` | `exoncvg`                    | `exoncvgmain`, `exoncvgperc`                        |
+  | `Bamtools` | `genecvg`                    | `genecvgmain`, `genecvgcvg`                         |
+  | `Sage`     | `genecvg`                    | `genecvgmain`, `genecvgcvg`                         |
+  | `Cobalt`   | `gcmed`                      | `gcmedmain`, `gcmedbuckets`                         |
 
 ## Key files
 
@@ -115,6 +114,8 @@ location (`inst/extdata/oa/`, DVC-tracked).
 Full Makefile target list (shared with nemo/tidydragen):
 `tidywf/docs/r-pkg/dev-commands.md`. Its *Dev loop* section covers
 `make install` after schema edits and reinstalling `../nemo` after editing it.
+Run `make fmt` (also run by `make test`) before committing, so the pre-commit
+air/panache hooks have nothing left to reformat.
 
 `devtools::load_all()` (no make equivalent) to load package interactively:
 

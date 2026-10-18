@@ -49,6 +49,23 @@ older schema versions.
 | `sage_genecvggenes`        | `sage_genecvgmain`        |
 | `cobalt_gcmedsample`       | `cobalt_gcmedmain`        |
 
+- Fan-out files declare their outputs under `outputs:` in `schema.yaml`,
+  replacing the `__no_file_match__` sentinel tables. Output table names are
+  unchanged, but the file tables, and so the `tool_parser` names used by
+  `include`/`exclude`, are renamed:
+
+| Old                       | New                   |
+| ------------------------- | --------------------- |
+| `bamtools_summarymain`    | `bamtools_summary`    |
+| `bamtools_wgsmetricsmain` | `bamtools_wgsmetrics` |
+| `bamtools_exoncvgmain`    | `bamtools_exoncvg`    |
+| `bamtools_genecvgmain`    | `bamtools_genecvg`    |
+| `sage_genecvgmain`        | `sage_genecvg`        |
+| `cobalt_gcmedmain`        | `cobalt_gcmed`        |
+
+File-table descriptions now describe the file instead of repeating their main
+output's.
+
 - `bamtools_wgsmetricsdp`: `dp` is now numeric (`10`) instead of a string
   (`"10x"`) (`r pr(230)`).
 - Docker image entrypoint is now `tidywigits.R`, so run

@@ -31,9 +31,6 @@ Cobalt <- R6::R6Class(
   cloneable = FALSE,
   inherit = Tool,
   public = list(
-    #' @field flat_tidy_names (`logical(1)`)\cr
-    #' `TRUE`: fan-out sub-tables are named `<tool>_<tidy_name>`.
-    flat_tidy_names = TRUE,
     #' @description Create a new Cobalt object.
     #' @param path (`character(1)`)\cr
     #' Output directory of tool. If `files_tbl` is supplied, this is ignored.
@@ -47,7 +44,7 @@ Cobalt <- R6::R6Class(
     #' with the median depth per GC bucket.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    parse_gcmedmain = function(x) {
+    parse_gcmed = function(x) {
       # rows 3+: median per bucket (versioned via schema)
       d2 <- private$parse_file(x, "gcmedbuckets", skip = 2)
       # rows 1-2: mean/median header + values; shares d2's version
@@ -61,14 +58,14 @@ Cobalt <- R6::R6Class(
     #' with the median depth per GC bucket.
     #' @param x (`character(1)`)\cr
     #' Path to file.
-    tidy_gcmedmain = function(x) {
+    tidy_gcmed = function(x) {
       if (!tibble::is_tibble(x)) {
-        x <- self$parse_gcmedmain(x)
+        x <- self$parse_gcmed(x)
       }
       d <- x |> tibble::deframe()
       version <- nemo::get_tbl_version_attr(d[["gcmedbuckets"]])
       buckets_schema <- self$config$get_schema_tidy("gcmedbuckets", version = version)
-      main_schema <- self$config$get_schema_tidy("gcmedmain", version = version)
+      main_schema <- self$config$get_schema_tidy("gcmed", version = version)
       colnames(d[["gcmedbuckets"]]) <- buckets_schema[["field"]]
       colnames(d[["gcmedmain"]]) <- main_schema[["field"]]
       d |>
