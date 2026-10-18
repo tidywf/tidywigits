@@ -66,9 +66,7 @@ Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
 \if{html}{\out{<a id="method-Cobalt-parse_gcmed"></a>}}
 \if{latex}{\out{\hypertarget{method-Cobalt-parse_gcmed}{}}}
 \subsection{Method \code{parse_gcmed()}}{
-Read \code{gc.median.tsv} file. Generates 2 sub-tbls:
-\code{gcmedmain} with the sample mean/median read depth, and \code{gcmedbuckets}
-with the median depth per GC bucket.
+Read \code{gc.median.tsv} file.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cobalt$parse_gcmed(x)}\if{html}{\out{</div>}}
 }
@@ -86,9 +84,7 @@ Path to file.}
 \if{html}{\out{<a id="method-Cobalt-tidy_gcmed"></a>}}
 \if{latex}{\out{\hypertarget{method-Cobalt-tidy_gcmed}{}}}
 \subsection{Method \code{tidy_gcmed()}}{
-Tidy \code{gc.median.tsv} file. Generates 2 sub-tbls:
-\code{gcmedmain} with the sample mean/median read depth, and \code{gcmedbuckets}
-with the median depth per GC bucket.
+Tidy \code{gc.median.tsv} file.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cobalt$tidy_gcmed(x)}\if{html}{\out{</div>}}
 }

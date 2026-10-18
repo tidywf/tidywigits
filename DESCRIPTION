@@ -66,6 +66,6 @@ Collate:
     'Virusbreakend.R'
     'Virusinterpreter.R'
     'Wigits.R'
-    's3.R'
+    'aws_s3.R'
     'tidywigits-package.R'
     'utils.R'

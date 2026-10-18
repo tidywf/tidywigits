@@ -53,9 +53,7 @@ Bamtools <- R6::R6Class(
     parse_summary = function(x) {
       private$parse_file(x, "summary")
     },
-    #' @description Tidy `summary.tsv` file. Generates 2 sub-tbls:
-    #' `summarymain` with the main stats and `summarydp` with the percentage of
-    #' bases covered by at least X reads.
+    #' @description Tidy `summary.tsv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_summary = function(x) {
@@ -81,9 +79,7 @@ Bamtools <- R6::R6Class(
       list(summarymain = d1[], summarydp = d2[]) |>
         nemo::nemo_enframe()
     },
-    #' @description Read `wgsmetrics` file. Generates 2 sub-tbls:
-    #' `wgsmetricsmain` with the main stats and `wgsmetricshisto` with the
-    #' base coverage distribution.
+    #' @description Read `wgsmetrics` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_wgsmetrics = function(x) {
@@ -104,10 +100,7 @@ Bamtools <- R6::R6Class(
       list(wgsmetricsmain = d1[], wgsmetricshisto = d2[]) |>
         nemo::nemo_enframe()
     },
-    #' @description Tidy `wgsmetrics` file. Generates 3 sub-tbls:
-    #' `wgsmetricsmain` with the main stats, `wgsmetricsdp` with the percentage
-    #' of bases covered by at least X reads, and `wgsmetricshisto` with the
-    #' distribution of base coverage.
+    #' @description Tidy `wgsmetrics` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_wgsmetrics = function(x) {
@@ -237,17 +230,13 @@ Bamtools <- R6::R6Class(
       list(flagstats = d) |>
         nemo::nemo_enframe()
     },
-    #' @description Tidy `gene_coverage.tsv` file. Generates 2 sub-tbls:
-    #' `genecvgmain` with the per-gene metadata and `genecvgcvg` with the
-    #' long-form depth-range counts.
+    #' @description Tidy `gene_coverage.tsv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_genecvg = function(x) {
       tidy_genecvg_split(private$tidy_file(x, "genecvg"))
     },
-    #' @description Tidy `exon_coverage.tsv` file. Generates 2 sub-tbls:
-    #' `exoncvgmain` with per-exon depth stats and `exoncvgperc` with the
-    #' long-format percentage of bases above each depth threshold.
+    #' @description Tidy `exon_coverage.tsv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_exoncvg = function(x) {

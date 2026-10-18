@@ -32,9 +32,7 @@ Sage <- R6::R6Class(
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "sage", pkg = pkg_name, path = path, files_tbl = files_tbl)
     },
-    #' @description Tidy `gene.coverage.tsv` file. Generates 2 sub-tbls:
-    #' `genecvgmain` with the per-gene metadata and `genecvgcvg` with the
-    #' long-form depth-range counts.
+    #' @description Tidy `gene.coverage.tsv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_genecvg = function(x) {

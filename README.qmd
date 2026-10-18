@@ -242,4 +242,8 @@ echo "#-----------------------------------#"
 echo "#------- List ----------------------#"
 echo "$ tidywigits.R list --help" & tidywigits.R list --help
 echo ""
+echo "#-----------------------------------#"
+echo "#------- Sync ----------------------#"
+echo "$ tidywigits.R sync --help" & tidywigits.R sync --help
+echo ""
 ```

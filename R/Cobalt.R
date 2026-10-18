@@ -39,9 +39,7 @@ Cobalt <- R6::R6Class(
     initialize = function(path = NULL, files_tbl = NULL) {
       super$initialize(name = "cobalt", pkg = pkg_name, path = path, files_tbl = files_tbl)
     },
-    #' @description Read `gc.median.tsv` file. Generates 2 sub-tbls:
-    #' `gcmedmain` with the sample mean/median read depth, and `gcmedbuckets`
-    #' with the median depth per GC bucket.
+    #' @description Read `gc.median.tsv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_gcmed = function(x) {
@@ -53,9 +51,7 @@ Cobalt <- R6::R6Class(
       list(gcmedmain = d1[], gcmedbuckets = d2[]) |>
         nemo::nemo_enframe()
     },
-    #' @description Tidy `gc.median.tsv` file. Generates 2 sub-tbls:
-    #' `gcmedmain` with the sample mean/median read depth, and `gcmedbuckets`
-    #' with the median depth per GC bucket.
+    #' @description Tidy `gc.median.tsv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_gcmed = function(x) {

@@ -21,7 +21,7 @@ child1 <- system.file(
 #| label: child-news
 ```
 
-## v0.1.0.9000 (current dev)
+## v0.1.0.9003 (current dev)
 
 ### Oncoanalyser v3
 
@@ -30,6 +30,7 @@ Oncoanalyser v3 (WiGiTS) outputs are supported across every tool
 older schema versions.
 
 - New tool: Qsee (v3 QC summary) (`r pr(222)`).
+- Alignments: new `bqrtsv` table for `*.redux.bqr.tsv` (`r pr(225)`).
 - Breaking schema changes (older versions retained): Amber, Bamtools, Cider,
   Cobalt, Isofox, Lilac, Linx.
 - Additive schema changes: Esvee, Neo, Purple.
@@ -37,8 +38,9 @@ older schema versions.
 
 ### Breaking changes
 
-- Output tables renamed for tools that split one file into several tables
-  (`r pr(229)`):
+- Output tables renamed for tools that split one file into several tables: the
+  main part of each file is now `<file>main` (`r pr(229)`). The `tool_parser`
+  names used by `include`/`exclude` are unchanged.
 
 | Old                        | New                       |
 | -------------------------- | ------------------------- |
@@ -49,23 +51,6 @@ older schema versions.
 | `sage_genecvggenes`        | `sage_genecvgmain`        |
 | `cobalt_gcmedsample`       | `cobalt_gcmedmain`        |
 
-- Fan-out files declare their outputs under `outputs:` in `schema.yaml`,
-  replacing the `__no_file_match__` sentinel tables. Output table names are
-  unchanged, but the file tables, and so the `tool_parser` names used by
-  `include`/`exclude`, are renamed:
-
-| Old                       | New                   |
-| ------------------------- | --------------------- |
-| `bamtools_summarymain`    | `bamtools_summary`    |
-| `bamtools_wgsmetricsmain` | `bamtools_wgsmetrics` |
-| `bamtools_exoncvgmain`    | `bamtools_exoncvg`    |
-| `bamtools_genecvgmain`    | `bamtools_genecvg`    |
-| `sage_genecvgmain`        | `sage_genecvg`        |
-| `cobalt_gcmedmain`        | `cobalt_gcmed`        |
-
-File-table descriptions now describe the file instead of repeating their main
-output's.
-
 - `bamtools_wgsmetricsdp`: `dp` is now numeric (`10`) instead of a string
   (`"10x"`) (`r pr(230)`).
 - Docker image entrypoint is now `tidywigits.R`, so run
@@ -73,8 +58,9 @@ output's.
 
 ### New features
 
-- `s3sync()` patterns now come from the tool schemas, and a new
-  `tidywigits.R sync` CLI subcommand is available (`r pr(226)`, `r pr(228)`).
+- `s3sync()` pulls only the files the tool schemas need (Esvee's are excluded),
+  and a new `tidywigits.R sync` CLI subcommand is available (`r pr(226)`,
+  `r pr(228)`).
 - New `docker-compose.yaml` wrapper (`r pr(227)`).
 
 ### Infrastructure
