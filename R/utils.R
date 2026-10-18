@@ -2,11 +2,10 @@ pkg_name <- "tidywigits"
 
 #' Tag germline/somatic outputs by parent folder
 #'
-#' For tools (e.g. Sage) that write germline/somatic outputs into sibling
-#' `germline/` and `somatic/` folders with identical basenames. Used in a
-#' `refine_files()` hook: appends `_<variant>` to `prefix`, and injects the
-#' variant into `bname` after the sample token so nemo's `_2`/`_3` numbering
-#' runs per variant. `path` is untouched; other files are returned unchanged.
+#' `refine_files()` hook for tools (e.g. Sage) writing same-basename outputs
+#' into sibling `germline/` and `somatic/` folders: appends `_<variant>` to
+#' `prefix` and injects it into `bname`, so nemo's `_2`/`_3` numbering runs per
+#' variant. Other files are returned unchanged.
 #'
 #' @param files (`tibble()`)\cr
 #' The matched-files tibble passed to `refine_files()`, with at least `path`,
@@ -53,9 +52,8 @@ refine_by_variant_folder <- function(files) {
     dplyr::select(-".variant")
 }
 
-# Split tidied gene coverage into `genecvgmain` (per-gene) and `genecvgcvg`
-# (long `dr_*` depth ranges). Shared by Bamtools and Sage; `x` is the output
-# of `private$tidy_file(., "genecvg")`.
+# Split tidied gene coverage (long `dr_*` depth ranges). Shared by Bamtools and
+# Sage; `x` is the output of `private$tidy_file(., "genecvg")`.
 tidy_genecvg_split <- function(x) {
   d <- x |>
     dplyr::select("data")

@@ -39,8 +39,6 @@ navbar:
           href: articles/cicd.html
         - text: PostgreSQL
           href: articles/postgresql.html
-        - text: Devnotes
-          href: articles/devnotes.html
 
     news:
       text: NEWS

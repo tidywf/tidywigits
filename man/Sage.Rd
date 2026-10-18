@@ -65,9 +65,7 @@ Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
 \if{html}{\out{<a id="method-Sage-tidy_genecvg"></a>}}
 \if{latex}{\out{\hypertarget{method-Sage-tidy_genecvg}{}}}
 \subsection{Method \code{tidy_genecvg()}}{
-Tidy \code{gene.coverage.tsv} file. Generates 2 sub-tbls:
-\code{genecvgmain} with the per-gene metadata and \code{genecvgcvg} with the
-long-form depth-range counts.
+Tidy \code{gene.coverage.tsv} file.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Sage$tidy_genecvg(x)}\if{html}{\out{</div>}}
 }

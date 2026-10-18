@@ -67,11 +67,11 @@ Fixtures cover oncoanalyser v3 (`latest`); older tool versions are kept as
 - `R/utils.R` --- `pkg_name`, `refine_by_variant_folder()` (germline/somatic
   disambiguation by parent folder, see gotchas above), `tidy_genecvg_split()`
   (shared Sage/Bamtools gene-coverage split logic).
-- `R/s3.R` --- `s3sync(src, dest, pats)` delegates to
+- `R/aws_s3.R` --- `s3sync(src, dest, pats)` delegates to
   `nemo::s3sync(workflow = "wigits")`. The include/exclude patterns are
   **declared in the tool schemas** --- each table has a `glob` field next to
   `pattern`, collected by `nemo::wf_sync_patterns()`. No hand-kept file list in
-  `R/s3.R`. `nemo::schema_glob_check("tidywigits")` (run in
+  `R/aws_s3.R`. `nemo::schema_glob_check("tidywigits")` (run in
   `tests/testthat/test-schema-globs.R`) asserts every fixture file a `pattern`
   matches is also covered by one of its globs. Inspect the assembled list with
   `nemo::wf_sync_patterns("wigits")` or `nemo.R sync -w wigits --show_patterns`.
