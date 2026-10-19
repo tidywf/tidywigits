@@ -396,7 +396,7 @@ From GitHub:
 
 install.packages("remotes")
 remotes::install_github("tidywf/tidywigits") # latest main commit
-remotes::install_github("tidywf/tidywigits@v0.1.0.9003") # specific version
+remotes::install_github("tidywf/tidywigits@v0.1.0.9004") # specific version
 ```
 
 - conda: <https://anaconda.org/tidywf/r-tidywigits>
@@ -415,7 +415,7 @@ export PATH="${tw_cli}:${PATH}"
 
 ``` R
 $ tidywigits.R --version
-tidywigits 0.1.0.9003
+tidywigits 0.1.0.9004
 
 #-----------------------------------#
 $ tidywigits.R --help
@@ -432,7 +432,7 @@ positional arguments:
 options:
   -h, --help        show this help message and exit
   -v, --version     show program's version number and exit
-
+'
 #-----------------------------------#
 #------- Tidy ----------------------#
 $ tidywigits.R tidy --help
@@ -476,4 +476,17 @@ options:
   -f, --format FORMAT  Format of list output [def: pretty] (tsv, pretty)
   -m, --max MAX        Max rows to show.
   -q, --quiet          Shush all the logs.
+
+#-----------------------------------#
+#------- Sync ----------------------#
+$ tidywigits.R sync --help
+usage: tidywigits.R sync [-h] -s SRC -d DEST [--dryrun] [--show_patterns] [-q]
+
+options:
+  -h, --help       show this help message and exit
+  -s, --src SRC    S3 source path.
+  -d, --dest DEST  Local destination directory.
+  --dryrun         Show what would be synced, without syncing.
+  --show_patterns  Print the include/exclude patterns and exit.
+  -q, --quiet      Shush all the logs.
 ```

@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9004</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +51,6 @@
     <li><a class="dropdown-item" href="articles/uml.html">UML</a></li>
     <li><a class="dropdown-item" href="articles/cicd.html">CI/CD Workflow</a></li>
     <li><a class="dropdown-item" href="articles/postgresql.html">PostgreSQL</a></li>
-    <li><a class="dropdown-item" href="articles/devnotes.html">Devnotes</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="articles/NEWS.html">NEWS</a></li>
@@ -482,7 +481,7 @@ View input files
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits"</span><span class="op">)</span> <span class="co"># latest main commit</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits@v0.1.0.9003"</span><span class="op">)</span> <span class="co"># specific version</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"tidywf/tidywigits@v0.1.0.9004"</span><span class="op">)</span> <span class="co"># specific version</span></span></code></pre></div>
 <ul>
 <li>conda: <a href="https://anaconda.org/tidywf/r-tidywigits" class="external-link uri">https://anaconda.org/tidywf/r-tidywigits</a>
 </li>
@@ -499,7 +498,7 @@ View input files
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="va">tw_cli</span><span class="op">=</span><span class="va">$(</span><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">'x = system.file("cli", package = "tidywigits"); cat(x, "\n")'</span> <span class="kw">|</span> <span class="fu">xargs</span><span class="va">)</span></span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="st">"</span><span class="va">${tw_cli}</span><span class="st">:</span><span class="va">${PATH}</span><span class="st">"</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="sc">$</span> tidywigits.R <span class="sc">--</span>version</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>tidywigits <span class="dv">0</span>.<span class="dv">1</span>.<span class="fl">0.9003</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>tidywigits <span class="dv">0</span>.<span class="dv">1</span>.<span class="fl">0.9004</span></span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#-----------------------------------#</span></span>
 <span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="sc">$</span> tidywigits.R <span class="sc">--</span>help</span>
@@ -516,50 +515,63 @@ View input files
 <span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>options<span class="sc">:</span></span>
 <span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a>  <span class="sc">-</span>h, <span class="sc">--</span>help        show this help message and exit</span>
 <span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a>  <span class="sc">-</span>v, <span class="sc">--</span>version     show program<span class="st">'s version number and exit</span></span>
-<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a></span>
-<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="st">#-----------------------------------#</span></span>
-<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="st">#------- Tidy ----------------------#</span></span>
-<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="st">$ tidywigits.R tidy --help</span></span>
-<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="st">usage: tidywigits.R tidy [-h] -d IN_DIR [-o OUTPUT_DIR] [-f FORMAT]</span></span>
-<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a><span class="st">                         [--input_id INPUT_ID] [--output_id OUTPUT_ID |</span></span>
-<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a><span class="st">                         --ulid] [--dbname DBNAME] [--dbuser DBUSER]</span></span>
-<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a><span class="st">                         [--dbhost DBHOST] [--dbport DBPORT]</span></span>
-<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a><span class="st">                         [--include INCLUDE] [--exclude EXCLUDE]</span></span>
-<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a><span class="st">                         [--prefix_include] [-q]</span></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co">#-----------------------------------#</span></span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="co">#------- Tidy ----------------------#</span></span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="sc">$</span> tidywigits.R tidy <span class="sc">--</span>help</span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a>usage<span class="sc">:</span> tidywigits.R tidy [<span class="sc">-</span>h] <span class="sc">-</span>d IN_DIR [<span class="sc">-</span>o OUTPUT_DIR] [<span class="sc">-</span>f FORMAT]</span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a>                         [<span class="sc">--</span>input_id INPUT_ID] [<span class="sc">--</span>output_id OUTPUT_ID <span class="sc">|</span></span>
+<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a>                         <span class="sc">--</span>ulid] [<span class="sc">--</span>dbname DBNAME] [<span class="sc">--</span>dbuser DBUSER]</span>
+<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a>                         [<span class="sc">--</span>dbhost DBHOST] [<span class="sc">--</span>dbport DBPORT]</span>
+<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a>                         [<span class="sc">--</span>include INCLUDE] [<span class="sc">--</span>exclude EXCLUDE]</span>
+<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a>                         [<span class="sc">--</span>prefix_include] [<span class="sc">-</span>q]</span>
 <span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a></span>
-<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a><span class="st">options:</span></span>
-<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a><span class="st">  -h, --help            show this help message and exit</span></span>
-<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a><span class="st">  -d, --in_dir IN_DIR   Input directory.</span></span>
-<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a><span class="st">  -o, --output_dir OUTPUT_DIR</span></span>
-<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="st">                        Output directory.</span></span>
-<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a><span class="st">  -f, --format FORMAT   Format of output [def: parquet] (parquet, db, tsv,</span></span>
-<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a><span class="st">                        csv, rds)</span></span>
-<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a><span class="st">  --input_id INPUT_ID   Input ID for this run.</span></span>
-<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a><span class="st">  --output_id OUTPUT_ID</span></span>
-<span id="cb9-39"><a href="#cb9-39" tabindex="-1"></a><span class="st">                        Output ID for this run.</span></span>
-<span id="cb9-40"><a href="#cb9-40" tabindex="-1"></a><span class="st">  --ulid                Generate a ULID as output ID.</span></span>
-<span id="cb9-41"><a href="#cb9-41" tabindex="-1"></a><span class="st">  --dbname DBNAME       Database name.</span></span>
-<span id="cb9-42"><a href="#cb9-42" tabindex="-1"></a><span class="st">  --dbuser DBUSER       Database user.</span></span>
-<span id="cb9-43"><a href="#cb9-43" tabindex="-1"></a><span class="st">  --dbhost DBHOST       Database host (default: driver/env default, e.g.</span></span>
-<span id="cb9-44"><a href="#cb9-44" tabindex="-1"></a><span class="st">                        PGHOST).</span></span>
-<span id="cb9-45"><a href="#cb9-45" tabindex="-1"></a><span class="st">  --dbport DBPORT       Database port (default: driver/env default, e.g.</span></span>
-<span id="cb9-46"><a href="#cb9-46" tabindex="-1"></a><span class="st">                        PGPORT).</span></span>
-<span id="cb9-47"><a href="#cb9-47" tabindex="-1"></a><span class="st">  --include INCLUDE     Include only these files (comma sep tool_parsers).</span></span>
-<span id="cb9-48"><a href="#cb9-48" tabindex="-1"></a><span class="st">  --exclude EXCLUDE     Exclude only these files (comma sep tool_parsers).</span></span>
-<span id="cb9-49"><a href="#cb9-49" tabindex="-1"></a><span class="st">  --prefix_include      Include input prefix column in output tables.</span></span>
-<span id="cb9-50"><a href="#cb9-50" tabindex="-1"></a><span class="st">  -q, --quiet           Shush all the logs.</span></span>
+<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a>options<span class="sc">:</span></span>
+<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a>  <span class="sc">-</span>h, <span class="sc">--</span>help            show this help message and exit</span>
+<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a>  <span class="sc">-</span>d, <span class="sc">--</span>in_dir IN_DIR   Input directory.</span>
+<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a>  <span class="sc">-</span>o, <span class="sc">--</span>output_dir OUTPUT_DIR</span>
+<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a>                        Output directory.</span>
+<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a>  <span class="sc">-</span>f, <span class="sc">--</span>format FORMAT   Format of output [def<span class="sc">:</span> parquet] (parquet, db, tsv,</span>
+<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a>                        csv, rds)</span>
+<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a>  <span class="sc">--</span>input_id INPUT_ID   Input ID <span class="cf">for</span> this run.</span>
+<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a>  <span class="sc">--</span>output_id OUTPUT_ID</span>
+<span id="cb9-39"><a href="#cb9-39" tabindex="-1"></a>                        Output ID <span class="cf">for</span> this run.</span>
+<span id="cb9-40"><a href="#cb9-40" tabindex="-1"></a>  <span class="sc">--</span>ulid                Generate a ULID as output ID.</span>
+<span id="cb9-41"><a href="#cb9-41" tabindex="-1"></a>  <span class="sc">--</span>dbname DBNAME       Database name.</span>
+<span id="cb9-42"><a href="#cb9-42" tabindex="-1"></a>  <span class="sc">--</span>dbuser DBUSER       Database user.</span>
+<span id="cb9-43"><a href="#cb9-43" tabindex="-1"></a>  <span class="sc">--</span>dbhost DBHOST       Database <span class="fu">host</span> (default<span class="sc">:</span> driver<span class="sc">/</span>env default, e.g.</span>
+<span id="cb9-44"><a href="#cb9-44" tabindex="-1"></a>                        PGHOST).</span>
+<span id="cb9-45"><a href="#cb9-45" tabindex="-1"></a>  <span class="sc">--</span>dbport DBPORT       Database <span class="fu">port</span> (default<span class="sc">:</span> driver<span class="sc">/</span>env default, e.g.</span>
+<span id="cb9-46"><a href="#cb9-46" tabindex="-1"></a>                        PGPORT).</span>
+<span id="cb9-47"><a href="#cb9-47" tabindex="-1"></a>  <span class="sc">--</span>include INCLUDE     Include only these <span class="fu">files</span> (comma sep tool_parsers).</span>
+<span id="cb9-48"><a href="#cb9-48" tabindex="-1"></a>  <span class="sc">--</span>exclude EXCLUDE     Exclude only these <span class="fu">files</span> (comma sep tool_parsers).</span>
+<span id="cb9-49"><a href="#cb9-49" tabindex="-1"></a>  <span class="sc">--</span>prefix_include      Include input prefix column <span class="cf">in</span> output tables.</span>
+<span id="cb9-50"><a href="#cb9-50" tabindex="-1"></a>  <span class="sc">-</span>q, <span class="sc">--</span>quiet           Shush all the logs.</span>
 <span id="cb9-51"><a href="#cb9-51" tabindex="-1"></a></span>
-<span id="cb9-52"><a href="#cb9-52" tabindex="-1"></a><span class="st">#-----------------------------------#</span></span>
-<span id="cb9-53"><a href="#cb9-53" tabindex="-1"></a><span class="st">#------- List ----------------------#</span></span>
-<span id="cb9-54"><a href="#cb9-54" tabindex="-1"></a><span class="st">$ tidywigits.R list --help</span></span>
-<span id="cb9-55"><a href="#cb9-55" tabindex="-1"></a><span class="st">usage: tidywigits.R list [-h] -d IN_DIR [-f FORMAT] [-m MAX] [-q]</span></span>
+<span id="cb9-52"><a href="#cb9-52" tabindex="-1"></a><span class="co">#-----------------------------------#</span></span>
+<span id="cb9-53"><a href="#cb9-53" tabindex="-1"></a><span class="co">#------- List ----------------------#</span></span>
+<span id="cb9-54"><a href="#cb9-54" tabindex="-1"></a><span class="sc">$</span> tidywigits.R list <span class="sc">--</span>help</span>
+<span id="cb9-55"><a href="#cb9-55" tabindex="-1"></a>usage<span class="sc">:</span> tidywigits.R list [<span class="sc">-</span>h] <span class="sc">-</span>d IN_DIR [<span class="sc">-</span>f FORMAT] [<span class="sc">-</span>m MAX] [<span class="sc">-</span>q]</span>
 <span id="cb9-56"><a href="#cb9-56" tabindex="-1"></a></span>
-<span id="cb9-57"><a href="#cb9-57" tabindex="-1"></a><span class="st">options:</span></span>
-<span id="cb9-58"><a href="#cb9-58" tabindex="-1"></a><span class="st">  -h, --help           show this help message and exit</span></span>
-<span id="cb9-59"><a href="#cb9-59" tabindex="-1"></a><span class="st">  -d, --in_dir IN_DIR  Input directory.</span></span>
-<span id="cb9-60"><a href="#cb9-60" tabindex="-1"></a><span class="st">  -f, --format FORMAT  Format of list output [def: pretty] (tsv, pretty)</span></span>
-<span id="cb9-61"><a href="#cb9-61" tabindex="-1"></a><span class="st">  -m, --max MAX        Max rows to show.</span></span>
-<span id="cb9-62"><a href="#cb9-62" tabindex="-1"></a><span class="st">  -q, --quiet          Shush all the logs.</span></span></code></pre></div>
+<span id="cb9-57"><a href="#cb9-57" tabindex="-1"></a>options<span class="sc">:</span></span>
+<span id="cb9-58"><a href="#cb9-58" tabindex="-1"></a>  <span class="sc">-</span>h, <span class="sc">--</span>help           show this help message and exit</span>
+<span id="cb9-59"><a href="#cb9-59" tabindex="-1"></a>  <span class="sc">-</span>d, <span class="sc">--</span>in_dir IN_DIR  Input directory.</span>
+<span id="cb9-60"><a href="#cb9-60" tabindex="-1"></a>  <span class="sc">-</span>f, <span class="sc">--</span>format FORMAT  Format of list output [def<span class="sc">:</span> pretty] (tsv, pretty)</span>
+<span id="cb9-61"><a href="#cb9-61" tabindex="-1"></a>  <span class="sc">-</span>m, <span class="sc">--</span>max MAX        Max rows to show.</span>
+<span id="cb9-62"><a href="#cb9-62" tabindex="-1"></a>  <span class="sc">-</span>q, <span class="sc">--</span>quiet          Shush all the logs.</span>
+<span id="cb9-63"><a href="#cb9-63" tabindex="-1"></a></span>
+<span id="cb9-64"><a href="#cb9-64" tabindex="-1"></a><span class="co">#-----------------------------------#</span></span>
+<span id="cb9-65"><a href="#cb9-65" tabindex="-1"></a><span class="co">#------- Sync ----------------------#</span></span>
+<span id="cb9-66"><a href="#cb9-66" tabindex="-1"></a><span class="sc">$</span> tidywigits.R sync <span class="sc">--</span>help</span>
+<span id="cb9-67"><a href="#cb9-67" tabindex="-1"></a>usage<span class="sc">:</span> tidywigits.R sync [<span class="sc">-</span>h] <span class="sc">-</span>s SRC <span class="sc">-</span>d DEST [<span class="sc">--</span>dryrun] [<span class="sc">--</span>show_patterns] [<span class="sc">-</span>q]</span>
+<span id="cb9-68"><a href="#cb9-68" tabindex="-1"></a></span>
+<span id="cb9-69"><a href="#cb9-69" tabindex="-1"></a>options<span class="sc">:</span></span>
+<span id="cb9-70"><a href="#cb9-70" tabindex="-1"></a>  <span class="sc">-</span>h, <span class="sc">--</span>help       show this help message and exit</span>
+<span id="cb9-71"><a href="#cb9-71" tabindex="-1"></a>  <span class="sc">-</span>s, <span class="sc">--</span>src SRC    S3 source path.</span>
+<span id="cb9-72"><a href="#cb9-72" tabindex="-1"></a>  <span class="sc">-</span>d, <span class="sc">--</span>dest DEST  Local destination directory.</span>
+<span id="cb9-73"><a href="#cb9-73" tabindex="-1"></a>  <span class="sc">--</span>dryrun         Show what would be synced, without syncing.</span>
+<span id="cb9-74"><a href="#cb9-74" tabindex="-1"></a>  <span class="sc">--</span>show_patterns  Print the include<span class="sc">/</span>exclude patterns and exit.</span>
+<span id="cb9-75"><a href="#cb9-75" tabindex="-1"></a>  <span class="sc">-</span>q, <span class="sc">--</span>quiet      Shush all the logs.</span></code></pre></div>
 </div>
 </div>
 

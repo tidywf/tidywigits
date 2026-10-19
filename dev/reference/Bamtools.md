@@ -7,34 +7,27 @@ Bamtools file parsing and manipulation.
 [`nemo::Tool`](https://tidywf.github.io/nemo/reference/Tool.html) -\>
 `Bamtools`
 
-## Public fields
-
-- `flat_tidy_names`:
-
-  (`logical(1)`)  
-  `TRUE`: fan-out sub-tables are named `<tool>_<tidy_name>`.
-
 ## Methods
 
 ### Public methods
 
 - [`Bamtools$new()`](#method-Bamtools-new)
 
-- [`Bamtools$parse_summarymain()`](#method-Bamtools-parse_summarymain)
+- [`Bamtools$parse_summary()`](#method-Bamtools-parse_summary)
 
-- [`Bamtools$tidy_summarymain()`](#method-Bamtools-tidy_summarymain)
+- [`Bamtools$tidy_summary()`](#method-Bamtools-tidy_summary)
 
-- [`Bamtools$parse_wgsmetricsmain()`](#method-Bamtools-parse_wgsmetricsmain)
+- [`Bamtools$parse_wgsmetrics()`](#method-Bamtools-parse_wgsmetrics)
 
-- [`Bamtools$tidy_wgsmetricsmain()`](#method-Bamtools-tidy_wgsmetricsmain)
+- [`Bamtools$tidy_wgsmetrics()`](#method-Bamtools-tidy_wgsmetrics)
 
 - [`Bamtools$parse_flagstats()`](#method-Bamtools-parse_flagstats)
 
 - [`Bamtools$tidy_flagstats()`](#method-Bamtools-tidy_flagstats)
 
-- [`Bamtools$tidy_genecvgmain()`](#method-Bamtools-tidy_genecvgmain)
+- [`Bamtools$tidy_genecvg()`](#method-Bamtools-tidy_genecvg)
 
-- [`Bamtools$tidy_exoncvgmain()`](#method-Bamtools-tidy_exoncvgmain)
+- [`Bamtools$tidy_exoncvg()`](#method-Bamtools-tidy_exoncvg)
 
 Inherited methods
 
@@ -73,13 +66,13 @@ Create a new Bamtools object.
 
 ------------------------------------------------------------------------
 
-### Method `parse_summarymain()`
+### Method `parse_summary()`
 
 Read `summary.tsv` file.
 
 #### Usage
 
-    Bamtools$parse_summarymain(x)
+    Bamtools$parse_summary(x)
 
 #### Arguments
 
@@ -90,15 +83,13 @@ Read `summary.tsv` file.
 
 ------------------------------------------------------------------------
 
-### Method `tidy_summarymain()`
+### Method `tidy_summary()`
 
-Tidy `summary.tsv` file. Generates 2 sub-tbls: `summarymain` with the
-main stats and `summarydp` with the percentage of bases covered by at
-least X reads.
+Tidy `summary.tsv` file.
 
 #### Usage
 
-    Bamtools$tidy_summarymain(x)
+    Bamtools$tidy_summary(x)
 
 #### Arguments
 
@@ -109,14 +100,13 @@ least X reads.
 
 ------------------------------------------------------------------------
 
-### Method `parse_wgsmetricsmain()`
+### Method `parse_wgsmetrics()`
 
-Read `wgsmetrics` file. Generates 2 sub-tbls: `wgsmetricsmain` with the
-main stats and `wgsmetricshisto` with the base coverage distribution.
+Read `wgsmetrics` file.
 
 #### Usage
 
-    Bamtools$parse_wgsmetricsmain(x)
+    Bamtools$parse_wgsmetrics(x)
 
 #### Arguments
 
@@ -127,16 +117,13 @@ main stats and `wgsmetricshisto` with the base coverage distribution.
 
 ------------------------------------------------------------------------
 
-### Method `tidy_wgsmetricsmain()`
+### Method `tidy_wgsmetrics()`
 
-Tidy `wgsmetrics` file. Generates 3 sub-tbls: `wgsmetricsmain` with the
-main stats, `wgsmetricsdp` with the percentage of bases covered by at
-least X reads, and `wgsmetricshisto` with the distribution of base
-coverage.
+Tidy `wgsmetrics` file.
 
 #### Usage
 
-    Bamtools$tidy_wgsmetricsmain(x)
+    Bamtools$tidy_wgsmetrics(x)
 
 #### Arguments
 
@@ -181,15 +168,13 @@ Tidy `flag_counts.tsv` file.
 
 ------------------------------------------------------------------------
 
-### Method `tidy_genecvgmain()`
+### Method `tidy_genecvg()`
 
-Tidy `gene_coverage.tsv` file. Generates 2 sub-tbls: `genecvgmain` with
-the per-gene metadata and `genecvgcvg` with the long-form depth-range
-counts.
+Tidy `gene_coverage.tsv` file.
 
 #### Usage
 
-    Bamtools$tidy_genecvgmain(x)
+    Bamtools$tidy_genecvg(x)
 
 #### Arguments
 
@@ -200,15 +185,13 @@ counts.
 
 ------------------------------------------------------------------------
 
-### Method `tidy_exoncvgmain()`
+### Method `tidy_exoncvg()`
 
-Tidy `exon_coverage.tsv` file. Generates 2 sub-tbls: `exoncvgmain` with
-per-exon depth stats and `exoncvgperc` with the long-format percentage
-of bases above each depth threshold.
+Tidy `exon_coverage.tsv` file.
 
 #### Usage
 
-    Bamtools$tidy_exoncvgmain(x)
+    Bamtools$tidy_exoncvg(x)
 
 #### Arguments
 

@@ -7,20 +7,13 @@ Sage file parsing and manipulation.
 [`nemo::Tool`](https://tidywf.github.io/nemo/reference/Tool.html) -\>
 `Sage`
 
-## Public fields
-
-- `flat_tidy_names`:
-
-  (`logical(1)`)  
-  `TRUE`: fan-out sub-tables are named `<tool>_<tidy_name>`.
-
 ## Methods
 
 ### Public methods
 
 - [`Sage$new()`](#method-Sage-new)
 
-- [`Sage$tidy_genecvgmain()`](#method-Sage-tidy_genecvgmain)
+- [`Sage$tidy_genecvg()`](#method-Sage-tidy_genecvg)
 
 Inherited methods
 
@@ -59,15 +52,13 @@ Create a new Sage object.
 
 ------------------------------------------------------------------------
 
-### Method `tidy_genecvgmain()`
+### Method `tidy_genecvg()`
 
-Tidy `gene.coverage.tsv` file. Generates 2 sub-tbls: `genecvgmain` with
-the per-gene metadata and `genecvgcvg` with the long-form depth-range
-counts.
+Tidy `gene.coverage.tsv` file.
 
 #### Usage
 
-    Sage$tidy_genecvgmain(x)
+    Sage$tidy_genecvg(x)
 
 #### Arguments
 

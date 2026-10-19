@@ -6,15 +6,39 @@ to keep runs distinguishable after merging.
 
 ## Anatomy of a tidy filename
 
-    {output_dir}/{prefix}_{tool}_{parser}.{ext}
+    {output_dir}/{prefix}_{tool}_{table}.{ext}
 
 - `{output_dir}`: flat output directory
 - `{prefix}`: input basename minus the schema `pattern`
   (`sampleA.tool1.table1.tsv` =\> `sampleA`)
-- `{tool}_{parser}`: e.g. `tool1_table1`
+- `{tool}_{table}`: the schema table that matched the file,
+  e.g. `tool1_table1`; for a file that fans out, one file per declared
+  output instead (see below)
 - `{ext}`: from `format` (parquet, db, tsv, csv or rds)
 
 `sampleA.tool1.table1.tsv` =\> `sampleA_tool1_table1.parquet`.
+
+## One file, several tables
+
+A file can fan out into several tables, declared under its schema
+table’s `outputs:`. Each output is written as
+`{prefix}_{tool}_{output}`: `table7` splits into `table7main` (read
+counts) and `table7dp` (long-form depth coverage):
+
+``` r
+
+dir_fan <- path(tempdir(), "naming-fanout")
+fan <- Tool1$new(path = system.file("extdata/tool1_outputs", package = "nemo"))
+fan$config$get_table_outputs("table7")
+#> [1] "table7main" "table7dp"
+fan$run(output_dir = dir_fan, format = "parquet", input_id = "input1")
+sort(basename(fan$written_files$outpath))
+#> [1] "sampleA_2_tool1_table7dp.parquet"   "sampleA_2_tool1_table7main.parquet"
+#> [3] "sampleA_tool1_table7dp.parquet"     "sampleA_tool1_table7main.parquet"
+```
+
+The two `table7` files (`latest`, `v1.0.0`) share basename `sampleA`,
+hence `sampleA` and `sampleA_2`, as in the repeated-sample case below.
 
 ## A repeated sample
 
@@ -33,7 +57,7 @@ for (r in run_ids) {
 }
 
 dir_tree(dir_runs)
-#> /tmp/RtmpkLdRDJ/naming-demo/runs
+#> /tmp/Rtmp6d0fKh/naming-demo/runs
 #> ├── run1
 #> │   ├── sampleA.tool1.table1.tsv
 #> │   └── sampleA.tool1.table2.tsv
@@ -58,12 +82,12 @@ tool$list_files() |>
 #> # A tibble: 6 × 3
 #>   path                                                           prefix   parser
 #>   <chr>                                                          <chr>    <chr> 
-#> 1 /tmp/RtmpkLdRDJ/naming-demo/runs/run1/sampleA.tool1.table1.tsv sampleA  table1
-#> 2 /tmp/RtmpkLdRDJ/naming-demo/runs/run2/sampleA.tool1.table1.tsv sampleA… table1
-#> 3 /tmp/RtmpkLdRDJ/naming-demo/runs/run3/sampleA.tool1.table1.tsv sampleA… table1
-#> 4 /tmp/RtmpkLdRDJ/naming-demo/runs/run1/sampleA.tool1.table2.tsv sampleA  table2
-#> 5 /tmp/RtmpkLdRDJ/naming-demo/runs/run2/sampleA.tool1.table2.tsv sampleA… table2
-#> 6 /tmp/RtmpkLdRDJ/naming-demo/runs/run3/sampleA.tool1.table2.tsv sampleA… table2
+#> 1 /tmp/Rtmp6d0fKh/naming-demo/runs/run1/sampleA.tool1.table1.tsv sampleA  table1
+#> 2 /tmp/Rtmp6d0fKh/naming-demo/runs/run2/sampleA.tool1.table1.tsv sampleA… table1
+#> 3 /tmp/Rtmp6d0fKh/naming-demo/runs/run3/sampleA.tool1.table1.tsv sampleA… table1
+#> 4 /tmp/Rtmp6d0fKh/naming-demo/runs/run1/sampleA.tool1.table2.tsv sampleA  table2
+#> 5 /tmp/Rtmp6d0fKh/naming-demo/runs/run2/sampleA.tool1.table2.tsv sampleA… table2
+#> 6 /tmp/Rtmp6d0fKh/naming-demo/runs/run3/sampleA.tool1.table2.tsv sampleA… table2
 ```
 
 No overwrites:
@@ -79,7 +103,7 @@ tool$run(
 )
 
 dir_tree(dir_outA)
-#> /tmp/RtmpkLdRDJ/naming-demo/outA
+#> /tmp/Rtmp6d0fKh/naming-demo/outA
 #> ├── metadata_tool1.parquet
 #> ├── sampleA_2_tool1_table1.parquet
 #> ├── sampleA_2_tool1_table2.parquet
@@ -130,7 +154,7 @@ for (r in run_ids) {
 }
 
 dir_tree(dir_outB)
-#> /tmp/RtmpkLdRDJ/naming-demo/outB
+#> /tmp/Rtmp6d0fKh/naming-demo/outB
 #> ├── run1
 #> │   ├── metadata_tool1.parquet
 #> │   ├── sampleA_tool1_table1.parquet
@@ -209,7 +233,7 @@ for (r in c("run1", "run2", "run3")) {
   )
 }
 dir_tree(dir_inP)
-#> /tmp/RtmpkLdRDJ/purple-runs
+#> /tmp/Rtmp6d0fKh/purple-runs
 #> ├── run1
 #> │   ├── sample1.purple.driver.catalog.germline.tsv
 #> │   ├── sample1.purple.driver.catalog.somatic.tsv
@@ -236,7 +260,7 @@ ppl$run(
   prefix_include = TRUE
 )
 dir_tree(dir_outP)
-#> /tmp/RtmpkLdRDJ/purple-out
+#> /tmp/Rtmp6d0fKh/purple-out
 #> ├── metadata_purple.parquet
 #> ├── sample1_2_purple_qc.parquet
 #> ├── sample1_3_purple_qc.parquet
@@ -308,7 +332,7 @@ for (r in c("run1", "run2", "run3")) {
   file_copy(linx_files, dest, overwrite = TRUE)
 }
 dir_tree(dir_inL)
-#> /tmp/RtmpkLdRDJ/linx-runs
+#> /tmp/Rtmp6d0fKh/linx-runs
 #> ├── run1
 #> │   ├── sample1.linx.breakend.tsv
 #> │   ├── sample1.linx.fusion.tsv
@@ -350,7 +374,7 @@ l$run(
   prefix_include = TRUE
 )
 dir_tree(dir_outL)
-#> /tmp/RtmpkLdRDJ/linx-out
+#> /tmp/Rtmp6d0fKh/linx-out
 #> ├── metadata_linx.parquet
 #> ├── sample1_2_linx_fusions.parquet
 #> ├── sample1_3_linx_fusions.parquet
@@ -426,7 +450,7 @@ for (r in c("run1", "run2", "run3")) {
   }
 }
 dir_tree(dir_inS)
-#> /tmp/RtmpkLdRDJ/sage-runs
+#> /tmp/Rtmp6d0fKh/sage-runs
 #> ├── run1
 #> │   ├── germline
 #> │   │   ├── sample1.sage.bqr.tsv
@@ -468,7 +492,7 @@ s$run(
   prefix_include = TRUE
 )
 dir_tree(dir_outS)
-#> /tmp/RtmpkLdRDJ/sage-out
+#> /tmp/Rtmp6d0fKh/sage-out
 #> ├── metadata_sage.parquet
 #> ├── sample1_germline_2_sage_bqrtsv.parquet
 #> ├── sample1_germline_3_sage_bqrtsv.parquet

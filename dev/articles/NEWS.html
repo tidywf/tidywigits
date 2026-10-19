@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9003</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9004</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,6 @@
     <li><a class="dropdown-item" href="../articles/uml.html">UML</a></li>
     <li><a class="dropdown-item" href="../articles/cicd.html">CI/CD Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/postgresql.html">PostgreSQL</a></li>
-    <li><a class="dropdown-item" href="../articles/devnotes.html">Devnotes</a></li>
   </ul>
 </li>
 <li class="active nav-item"><a class="nav-link" href="../articles/NEWS.html">NEWS</a></li>
@@ -73,7 +72,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9003/vignettes/NEWS.qmd" class="external-link"><code>vignettes/NEWS.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9004/vignettes/NEWS.qmd" class="external-link"><code>vignettes/NEWS.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -94,13 +93,14 @@ See any child package's NEWS.qmd for the exact wiring.
 The parent MUST define `repo` (the package's GitHub URL) before the child
 runs; the helpers below close over it. They build links to compares, PRs,
 issues, and users: pr(48), iss(11), vdiff("0.1.0", "0.0.3"), user("reisingerf").
---><section class="level2"><h2 id="v0-1-0-9000-current-dev">v0.1.0.9000 (current dev)<a class="anchor" aria-label="anchor" href="#v0-1-0-9000-current-dev"></a>
+--><section class="level2"><h2 id="v0-1-0-9003-current-dev">v0.1.0.9003 (current dev)<a class="anchor" aria-label="anchor" href="#v0-1-0-9003-current-dev"></a>
 </h2>
 <section class="level3"><h3 id="oncoanalyser-v3">Oncoanalyser v3<a class="anchor" aria-label="anchor" href="#oncoanalyser-v3"></a>
 </h3>
 <p>Oncoanalyser v3 (WiGiTS) outputs are supported across every tool (<a href="https://github.com/tidywf/tidywigits/pull/212" class="external-link">pr212</a>-<a href="https://github.com/tidywf/tidywigits/pull/222" class="external-link">pr222</a>, <a href="https://github.com/tidywf/tidywigits/pull/225" class="external-link">pr225</a>). Pre-v3 outputs are still parsed via older schema versions.</p>
 <ul>
 <li>New tool: Qsee (v3 QC summary) (<a href="https://github.com/tidywf/tidywigits/pull/222" class="external-link">pr222</a>).</li>
+<li>Alignments: new <code>bqrtsv</code> table for <code>*.redux.bqr.tsv</code> (<a href="https://github.com/tidywf/tidywigits/pull/225" class="external-link">pr225</a>).</li>
 <li>Breaking schema changes (older versions retained): Amber, Bamtools, Cider, Cobalt, Isofox, Lilac, Linx.</li>
 <li>Additive schema changes: Esvee, Neo, Purple.</li>
 <li>
@@ -108,7 +108,7 @@ issues, and users: pr(48), iss(11), vdiff("0.1.0", "0.0.3"), user("reisingerf").
 </ul></section><section class="level3"><h3 id="breaking-changes">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes"></a>
 </h3>
 <ul>
-<li>Output tables renamed for tools that split one file into several tables (<a href="https://github.com/tidywf/tidywigits/pull/229" class="external-link">pr229</a>):</li>
+<li>Output tables renamed for tools that split one file into several tables: the main part of each file is now <code>&lt;file&gt;main</code> (<a href="https://github.com/tidywf/tidywigits/pull/229" class="external-link">pr229</a>). The <code>tool_parser</code> names used by <code>include</code>/<code>exclude</code> are unchanged.</li>
 </ul>
 <table class="table caption-top">
 <thead><tr class="header">
@@ -150,7 +150,7 @@ issues, and users: pr(48), iss(11), vdiff("0.1.0", "0.0.3"), user("reisingerf").
 </h3>
 <ul>
 <li>
-<code><a href="../reference/s3sync.html">s3sync()</a></code> patterns now come from the tool schemas, and a new <code>tidywigits.R sync</code> CLI subcommand is available (<a href="https://github.com/tidywf/tidywigits/pull/226" class="external-link">pr226</a>, <a href="https://github.com/tidywf/tidywigits/pull/228" class="external-link">pr228</a>).</li>
+<code><a href="../reference/s3sync.html">s3sync()</a></code> pulls only the files the tool schemas need (Esvee’s are excluded), and a new <code>tidywigits.R sync</code> CLI subcommand is available (<a href="https://github.com/tidywf/tidywigits/pull/226" class="external-link">pr226</a>, <a href="https://github.com/tidywf/tidywigits/pull/228" class="external-link">pr228</a>).</li>
 <li>New <code>docker-compose.yaml</code> wrapper (<a href="https://github.com/tidywf/tidywigits/pull/227" class="external-link">pr227</a>).</li>
 </ul></section><section class="level3"><h3 id="infrastructure">Infrastructure<a class="anchor" aria-label="anchor" href="#infrastructure"></a>
 </h3>

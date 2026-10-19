@@ -4,7 +4,6 @@
 
 - [CI/CD
   Workflow](https://tidywf.github.io/tidywigits/dev/articles/cicd.md):
-- [Devnotes](https://tidywf.github.io/tidywigits/dev/articles/devnotes.md):
 - [Installation](https://tidywf.github.io/tidywigits/dev/articles/installation.md):
 - [NEWS](https://tidywf.github.io/tidywigits/dev/articles/NEWS.md):
 - [Output

@@ -1,6 +1,6 @@
 # NEWS
 
-## v0.1.0.9000 (current dev)
+## v0.1.0.9003 (current dev)
 
 ### Oncoanalyser v3
 
@@ -11,6 +11,8 @@ are still parsed via older schema versions.
 
 - New tool: Qsee (v3 QC summary)
   ([pr222](https://github.com/tidywf/tidywigits/pull/222)).
+- Alignments: new `bqrtsv` table for `*.redux.bqr.tsv`
+  ([pr225](https://github.com/tidywf/tidywigits/pull/225)).
 - Breaking schema changes (older versions retained): Amber, Bamtools,
   Cider, Cobalt, Isofox, Lilac, Linx.
 - Additive schema changes: Esvee, Neo, Purple.
@@ -19,7 +21,9 @@ are still parsed via older schema versions.
 ### Breaking changes
 
 - Output tables renamed for tools that split one file into several
-  tables ([pr229](https://github.com/tidywf/tidywigits/pull/229)):
+  tables: the main part of each file is now `<file>main`
+  ([pr229](https://github.com/tidywf/tidywigits/pull/229)). The
+  `tool_parser` names used by `include`/`exclude` are unchanged.
 
 | Old                        | New                       |
 |----------------------------|---------------------------|
@@ -40,8 +44,8 @@ are still parsed via older schema versions.
 ### New features
 
 - [`s3sync()`](https://tidywf.github.io/tidywigits/dev/reference/s3sync.md)
-  patterns now come from the tool schemas, and a new `tidywigits.R sync`
-  CLI subcommand is available
+  pulls only the files the tool schemas need (Esvee’s are excluded), and
+  a new `tidywigits.R sync` CLI subcommand is available
   ([pr226](https://github.com/tidywf/tidywigits/pull/226),
   [pr228](https://github.com/tidywf/tidywigits/pull/228)).
 - New `docker-compose.yaml` wrapper

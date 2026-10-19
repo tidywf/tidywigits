@@ -7,22 +7,15 @@ Cobalt file parsing and manipulation.
 [`nemo::Tool`](https://tidywf.github.io/nemo/reference/Tool.html) -\>
 `Cobalt`
 
-## Public fields
-
-- `flat_tidy_names`:
-
-  (`logical(1)`)  
-  `TRUE`: fan-out sub-tables are named `<tool>_<tidy_name>`.
-
 ## Methods
 
 ### Public methods
 
 - [`Cobalt$new()`](#method-Cobalt-new)
 
-- [`Cobalt$parse_gcmedmain()`](#method-Cobalt-parse_gcmedmain)
+- [`Cobalt$parse_gcmed()`](#method-Cobalt-parse_gcmed)
 
-- [`Cobalt$tidy_gcmedmain()`](#method-Cobalt-tidy_gcmedmain)
+- [`Cobalt$tidy_gcmed()`](#method-Cobalt-tidy_gcmed)
 
 Inherited methods
 
@@ -61,15 +54,13 @@ Create a new Cobalt object.
 
 ------------------------------------------------------------------------
 
-### Method `parse_gcmedmain()`
+### Method `parse_gcmed()`
 
-Read `gc.median.tsv` file. Generates 2 sub-tbls: `gcmedmain` with the
-sample mean/median read depth, and `gcmedbuckets` with the median depth
-per GC bucket.
+Read `gc.median.tsv` file.
 
 #### Usage
 
-    Cobalt$parse_gcmedmain(x)
+    Cobalt$parse_gcmed(x)
 
 #### Arguments
 
@@ -80,15 +71,13 @@ per GC bucket.
 
 ------------------------------------------------------------------------
 
-### Method `tidy_gcmedmain()`
+### Method `tidy_gcmed()`
 
-Tidy `gc.median.tsv` file. Generates 2 sub-tbls: `gcmedmain` with the
-sample mean/median read depth, and `gcmedbuckets` with the median depth
-per GC bucket.
+Tidy `gc.median.tsv` file.
 
 #### Usage
 
-    Cobalt$tidy_gcmedmain(x)
+    Cobalt$tidy_gcmed(x)
 
 #### Arguments
 
