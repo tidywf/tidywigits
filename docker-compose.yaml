@@ -22,7 +22,7 @@
 
 services:
   tidywigits:
-    image: ghcr.io/tidywf/tidywigits:${IMAGE_TAG:-0.1.0.9004}
+    image: ghcr.io/tidywf/tidywigits:${IMAGE_TAG:-0.2.0}
     build:
       context: .
     volumes:
