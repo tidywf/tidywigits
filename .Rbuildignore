@@ -23,6 +23,7 @@
 ^config$
 ^data-raw$
 ^deploy$
+^docker-compose\.yaml$
 ^docs$
 ^nogit$
 ^pkgdown$

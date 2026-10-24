@@ -2,6 +2,7 @@ tables:
   prediction:
     description: 'Predictions from the CHORD random forest.'
     pattern: "_chord_prediction\\.txt$|\\.chord\\.prediction\\.tsv$"
+    glob: ["*_chord_prediction.txt", "*.chord.prediction.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'sample'
@@ -47,6 +48,7 @@ tables:
   signatures:
     description: 'Counts of SNV, INDEL and SV contexts.'
     pattern: "_chord_signatures\\.txt$|\\.chord\\.mutation_contexts\\.tsv$"
+    glob: ["*_chord_signatures.txt", "*.chord.mutation_contexts.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'sample_id'

@@ -3,16 +3,16 @@
 #' @description
 #' Teal file parsing and manipulation.
 #' @examples
-#' cls <- Teal
-#' indir <- system.file("extdata/oa", package = "tidywigits")
+#' cls <- Teal; tool <- "teal"
+#' indir <- system.file("extdata/oa", tool, package = "tidywigits")
 #' odir <- tempdir()
-#' id <- "teal_run1"
+#' id <- paste0(tool, "_run1")
 #' obj <- cls$new(indir)
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "teal_.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 2)
-#' tel <- arrow::read_parquet(file.path(odir, grep("teal_tellength", lf, value = TRUE)))
+#' tel <- nemo::read_parquet_grep(odir, lf, "teal_tellength")
 #' expect_named(tel, c("input_id", "sample_id", "type", "tel_length_raw", "tel_length_final",
 #'   "fragments_full", "fragments_c_rich_partial", "fragments_g_rich_partial",
 #'   "reads_telomeric_total", "purity", "ploidy", "dup_prop", "dp_read_mean", "dp_read_gc50"))

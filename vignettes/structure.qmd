@@ -9,3 +9,28 @@ knitr:
 Each WiGiTS tool has a single `schema.yaml` under `inst/config/tools/<tool>/`.
 See <https://tidywf.github.io/nemo/articles/structure.html> for a walkthrough of
 the `Tool`/`Workflow`/`Config` class structure and schema contents.
+
+## Fan-out
+
+Some files split into several output tables, declared under `outputs` in their
+tool's `schema.yaml` and written as `<prefix>_<tool>_<output>`:
+
+```{r}
+#| label: fanout
+#| echo: false
+
+use("tidywigits", "WIGITS_TOOLS")
+names(WIGITS_TOOLS) |>
+  purrr::map(\(tool) {
+    nemo::Config$new(tool, pkg = "tidywigits")$get_outputs() |>
+      dplyr::mutate(tool = tool, .before = 1)
+  }) |>
+  purrr::list_rbind() |>
+  dplyr::filter(.data$name != .data$table) |>
+  dplyr::summarise(
+    outputs = paste0("`", .data$name, "`", collapse = ", "),
+    .by = c("tool", "table")
+  ) |>
+  dplyr::mutate(table = paste0("`", .data$table, "`")) |>
+  knitr::kable(col.names = c("Tool", "File table", "Outputs"))
+```

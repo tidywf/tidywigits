@@ -1,0 +1,5 @@
+outs:
+- md5: 851fd79e96d1ced5f67202df1e5bea3b
+  size: 2374
+  hash: md5
+  path: sample1.isf.alt_splice_junc_unfiltered.tsv

@@ -16,7 +16,6 @@ use("glue", "glue")
 
 ```{r}
 #| label: setup
-#| echo: false
 
 pkg_nm <- "tidywigits"
 org_nm <- "tidywf"

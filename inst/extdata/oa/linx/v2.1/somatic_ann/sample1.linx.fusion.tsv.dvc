@@ -1,0 +1,5 @@
+outs:
+- md5: d3c335bdf4f31920ba5da05a0d0bfe0c
+  size: 1763
+  hash: md5
+  path: sample1.linx.fusion.tsv

@@ -3,16 +3,16 @@
 #' @description
 #' Virusinterpreter file parsing and manipulation.
 #' @examples
-#' cls <- Virusinterpreter
-#' indir <- system.file("extdata/oa", package = "tidywigits")
+#' cls <- Virusinterpreter; tool <- "virusinterpreter"
+#' indir <- system.file("extdata/oa", tool, package = "tidywigits")
 #' odir <- tempdir()
-#' id <- "virusinterpreter_run1"
+#' id <- paste0(tool, "_run1")
 #' obj <- cls$new(indir)
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "virusinterpreter_.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 1)
-#' vi <- arrow::read_parquet(file.path(odir, grep("virusinterpreter_annotated", lf, value = TRUE)))
+#' vi <- nemo::read_parquet_grep(odir, lf, "virusinterpreter_annotated")
 #' expect_named(vi, c("input_id", "taxid", "name", "qc_status", "integrations", "interpretation",
 #'   "percentage_covered", "mean_coverage", "expected_clonal_coverage", "reported",
 #'   "blacklisted", "driver_likelihood"))

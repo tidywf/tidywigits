@@ -3,23 +3,28 @@
 #' @description
 #' Cobalt file parsing and manipulation.
 #' @examples
-#' cls <- Cobalt
-#' indir <- system.file("extdata/oa", package = "tidywigits")
+#' cls <- Cobalt; tool <- "cobalt"
+#' indir <- system.file("extdata/oa", tool, package = "tidywigits")
 #' odir <- tempdir()
-#' id <- "cobalt_run1"
+#' id <- paste0(tool, "_run1")
 #' obj <- cls$new(indir)
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "cobalt_.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
-#' expect_equal(length(lf), 5)
-#' ver <- arrow::read_parquet(file.path(odir, grep("cobalt_version", lf, value = TRUE)))
+#' expect_equal(length(lf), 6)
+#' ver <- nemo::read_parquet_grep(odir, lf, "cobalt_version")
 #' expect_named(ver, c("input_id", "version", "date_build"))
 #' expect_equal(nrow(ver), 1L)
-#' rmed <- arrow::read_parquet(file.path(odir, grep("cobalt_ratiomed", lf, value = TRUE)))
+#' rmed <- nemo::read_parquet_grep(odir, lf, "cobalt_ratiomed")
 #' expect_named(rmed, c("input_id", "chrom", "median_ratio", "count"))
-#' gcmed_s <- arrow::read_parquet(file.path(odir, grep("gcmedsample", lf, value = TRUE)))
+#' gcmed_s <- nemo::read_parquet_grep(odir, lf, "gcmedmain")
 #' expect_named(gcmed_s, c("input_id", "mean", "median"))
 #' expect_equal(nrow(gcmed_s), 1L)
+#' pcfs <- lapply(grep("cobalt_ratiopcf", lf, value = TRUE),
+#'   function(f) names(arrow::read_parquet(file.path(odir, f))))
+#' pcf_old <- Filter(function(n) "n_probes" %in% n, pcfs)[[1]]
+#' expect_equal(pcf_old, c("input_id", "sample_id", "chrom", "arm", "start", "end",
+#'   "n_probes", "mean"))
 #' @export
 Cobalt <- R6::R6Class(
   "Cobalt",
@@ -38,16 +43,15 @@ Cobalt <- R6::R6Class(
     #' @param x (`character(1)`)\cr
     #' Path to file.
     parse_gcmed = function(x) {
-      # first two rows are mean/median + their values
-      d1 <- readr::read_tsv(x, col_names = TRUE, col_types = "dd", n_max = 1)
-      # next rows are median per bucket
-      d2 <- private$parse_file(x, "gcmed", skip = 2)
-      list(sample_stats = d1[], bucket_stats = d2[]) |>
+      # rows 3+: median per bucket (versioned via schema)
+      d2 <- private$parse_file(x, "gcmedbuckets", skip = 2)
+      # rows 1-2: mean/median header + values; shares d2's version
+      d1 <- readr::read_tsv(x, col_names = TRUE, col_types = "dd", n_max = 1) |>
+        nemo::set_tbl_version_attr(nemo::get_tbl_version_attr(d2))
+      list(gcmedmain = d1[], gcmedbuckets = d2[]) |>
         nemo::nemo_enframe()
     },
-    #' @description Tidy `gc.median.tsv` file. Generates 2 sub-tbls:
-    #' _sample_ with the sample mean/median read depth, and _buckets_ with the
-    #' median depth per GC bucket.
+    #' @description Tidy `gc.median.tsv` file.
     #' @param x (`character(1)`)\cr
     #' Path to file.
     tidy_gcmed = function(x) {
@@ -55,11 +59,12 @@ Cobalt <- R6::R6Class(
         x <- self$parse_gcmed(x)
       }
       d <- x |> tibble::deframe()
-      version <- nemo::get_tbl_version_attr(d[["bucket_stats"]])
-      schema <- self$config$get_schema_tidy("gcmed", version = version)
-      colnames(d[["bucket_stats"]]) <- schema[["field"]]
-      colnames(d[["sample_stats"]]) <- c("mean", "median")
-      list(sample = d[["sample_stats"]], buckets = d[["bucket_stats"]]) |>
+      version <- nemo::get_tbl_version_attr(d[["gcmedbuckets"]])
+      buckets_schema <- self$config$get_schema_tidy("gcmedbuckets", version = version)
+      main_schema <- self$config$get_schema_tidy("gcmed", version = version)
+      colnames(d[["gcmedbuckets"]]) <- buckets_schema[["field"]]
+      colnames(d[["gcmedmain"]]) <- main_schema[["field"]]
+      d |>
         nemo::nemo_enframe()
     }
   ),

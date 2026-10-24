@@ -2,6 +2,7 @@ tables:
   datacsv:
     description: 'Visualisation data (CUPPA v1).'
     pattern: "\\.cup\\.data\\.csv$"
+    glob: ["*.cup.data.csv"]
     ftype: 'csv'
     columns:
       - raw: 'SampleId'
@@ -42,6 +43,7 @@ tables:
   predsum:
     description: 'Prediction summary.'
     pattern: "\\.cuppa\\.pred_summ\\.tsv$"
+    glob: ["*.cuppa.pred_summ.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'sample_id'
@@ -102,6 +104,7 @@ tables:
   visdata:
     description: 'Visualisation data (CUPPA v2).'
     pattern: "\\.cuppa\\.vis_data\\.tsv$"
+    glob: ["*.cuppa.vis_data.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'sample_id'

@@ -7,13 +7,13 @@
 Amber file parsing and manipulation.
 }
 \examples{
-cls <- Amber
-indir <- system.file("extdata/oa", package = "tidywigits")
+cls <- Amber; tool <- "amber"
+indir <- system.file("extdata/oa", tool, package = "tidywigits")
 odir <- tempdir()
-id <- "amber_run1"
+id <- paste0(tool, "_run1")
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "amber_.*parquet", full.names = FALSE))
+(lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 }
 \section{Super class}{
 \code{\link[nemo:Tool]{nemo::Tool}} -> \code{Amber}
@@ -22,13 +22,13 @@ obj$run(output_dir = odir, format = "parquet", input_id = id)
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Amber-new}{\code{Amber$new()}}
-\item \href{#method-Amber-tidy_qc}{\code{Amber$tidy_qc()}}
 }
 }
 \if{html}{\out{
 <details><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="filter_files"><a href='../../nemo/html/Tool.html#method-Tool-filter_files'><code>nemo::Tool$filter_files()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_globs"><a href='../../nemo/html/Tool.html#method-Tool-get_globs'><code>nemo::Tool$get_globs()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_metadata"><a href='../../nemo/html/Tool.html#method-Tool-get_metadata'><code>nemo::Tool$get_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_tbls"><a href='../../nemo/html/Tool.html#method-Tool-get_tbls'><code>nemo::Tool$get_tbls()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="list_files"><a href='../../nemo/html/Tool.html#method-Tool-list_files'><code>nemo::Tool$list_files()</code></a></span></li>
@@ -56,24 +56,6 @@ Output directory of tool. If \code{files_tbl} is supplied, this is ignored.}
 
 \item{\code{files_tbl}}{(\code{tibble(n)})\cr
 Tibble of files from \code{\link[nemo:list_files_dir]{nemo::list_files_dir()}}.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Amber-tidy_qc"></a>}}
-\if{latex}{\out{\hypertarget{method-Amber-tidy_qc}{}}}
-\subsection{Method \code{tidy_qc()}}{
-Tidy \code{qc} file.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Amber$tidy_qc(x)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{(\code{character(1)} or \code{tibble()})\cr
-Path to file or already parsed tibble.}
 }
 \if{html}{\out{</div>}}
 }

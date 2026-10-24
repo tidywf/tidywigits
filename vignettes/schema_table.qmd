@@ -11,12 +11,16 @@ knitr:
 #| label: setup
 #| message: false
 
-use("tidywigits", "WIGITS_TOOLS")
+use("tidywigits", c("WIGITS_TOOLS", "WIGITS_TOOL_COLOURS"))
 use("nemo", "nemo_schema_reactable")
 ```
 
 ```{r}
 #| label: reactable
 
-nemo_schema_reactable(names(WIGITS_TOOLS), pkg = "tidywigits")
+nemo_schema_reactable(
+  names(WIGITS_TOOLS),
+  pkg = "tidywigits",
+  tool_colours = WIGITS_TOOL_COLOURS
+)
 ```

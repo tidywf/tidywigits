@@ -2,6 +2,7 @@ tables:
   bqrtsv:
     description: 'Base quality recalibration metrics.'
     pattern: "\\.sage\\.bqr\\.tsv$"
+    glob: ["*.sage.bqr.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'alt'
@@ -42,6 +43,7 @@ tables:
   exoncvg:
     description: 'Exon coverage metrics.'
     pattern: "\\.sage\\.exon\\.medians\\.tsv$"
+    glob: ["*.sage.exon.medians.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'gene'
@@ -75,8 +77,9 @@ tables:
         description: 'median depth'
         versions: ['latest']
   genecvg:
-    description: 'Gene coverage depth ranges.'
+    description: 'SAGE gene coverage TSV: per-gene info plus depth-range base counts.'
     pattern: "\\.sage\\.gene\\.coverage\\.tsv$"
+    glob: ["*.sage.gene.coverage.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'gene'
@@ -449,3 +452,42 @@ tables:
         type: 'float'
         description: 'depth range 10000+'
         versions: ['latest']
+    outputs:
+      genecvgmain:
+        description: 'Gene coverage depth ranges.'
+        columns:
+          - tidy: 'gene'
+            type: 'char'
+            description: 'gene name'
+            versions: ['latest']
+          - tidy: 'chrom'
+            type: 'char'
+            description: 'chromosome'
+            versions: ['latest']
+          - tidy: 'pos_start'
+            type: 'float'
+            description: 'start position'
+            versions: ['latest']
+          - tidy: 'pos_end'
+            type: 'float'
+            description: 'end position'
+            versions: ['latest']
+          - tidy: 'missed_var_likelihood'
+            type: 'float'
+            description: 'missed variant likelihood'
+            versions: ['latest']
+      genecvgcvg:
+        description: 'Per-gene base counts per depth range, long-form.'
+        columns:
+          - tidy: 'gene'
+            type: 'char'
+            description: 'gene name'
+            versions: ['latest']
+          - tidy: 'dr'
+            type: 'char'
+            description: 'depth range (e.g. 1000_1999)'
+            versions: ['latest']
+          - tidy: 'value'
+            type: 'float'
+            description: 'number of bases within the depth range'
+            versions: ['latest']

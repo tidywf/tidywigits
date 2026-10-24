@@ -7,13 +7,13 @@
 Cobalt file parsing and manipulation.
 }
 \examples{
-cls <- Cobalt
-indir <- system.file("extdata/oa", package = "tidywigits")
+cls <- Cobalt; tool <- "cobalt"
+indir <- system.file("extdata/oa", tool, package = "tidywigits")
 odir <- tempdir()
-id <- "cobalt_run1"
+id <- paste0(tool, "_run1")
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "cobalt_.*parquet", full.names = FALSE))
+(lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 }
 \section{Super class}{
 \code{\link[nemo:Tool]{nemo::Tool}} -> \code{Cobalt}
@@ -30,6 +30,7 @@ obj$run(output_dir = odir, format = "parquet", input_id = id)
 <details><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="filter_files"><a href='../../nemo/html/Tool.html#method-Tool-filter_files'><code>nemo::Tool$filter_files()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_globs"><a href='../../nemo/html/Tool.html#method-Tool-get_globs'><code>nemo::Tool$get_globs()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_metadata"><a href='../../nemo/html/Tool.html#method-Tool-get_metadata'><code>nemo::Tool$get_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_tbls"><a href='../../nemo/html/Tool.html#method-Tool-get_tbls'><code>nemo::Tool$get_tbls()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="list_files"><a href='../../nemo/html/Tool.html#method-Tool-list_files'><code>nemo::Tool$list_files()</code></a></span></li>
@@ -83,9 +84,7 @@ Path to file.}
 \if{html}{\out{<a id="method-Cobalt-tidy_gcmed"></a>}}
 \if{latex}{\out{\hypertarget{method-Cobalt-tidy_gcmed}{}}}
 \subsection{Method \code{tidy_gcmed()}}{
-Tidy \code{gc.median.tsv} file. Generates 2 sub-tbls:
-\emph{sample} with the sample mean/median read depth, and \emph{buckets} with the
-median depth per GC bucket.
+Tidy \code{gc.median.tsv} file.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cobalt$tidy_gcmed(x)}\if{html}{\out{</div>}}
 }

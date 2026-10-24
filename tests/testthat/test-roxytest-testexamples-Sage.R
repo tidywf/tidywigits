@@ -4,19 +4,19 @@
 
 test_that("Function Sage() @ L22", {
   
-  cls <- Sage
-  indir <- system.file("extdata/oa", package = "tidywigits")
+  cls <- Sage; tool <- "sage"
+  indir <- system.file("extdata/oa", tool, package = "tidywigits")
   odir <- tempdir()
-  id <- "sage_run1"
+  id <- paste0(tool, "_run1")
   obj <- cls$new(indir)
   obj$run(output_dir = odir, format = "parquet", input_id = id)
-  (lf <- list.files(odir, pattern = "sage_.*parquet", full.names = FALSE))
+  (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
   expect_equal(length(lf), 11)
-  bqr <- arrow::read_parquet(file.path(odir, grep("^sample1_germline_sage_bqrtsv", lf, value = TRUE)))
+  bqr <- nemo::read_parquet_grep(odir, lf, "^sample1_germline_sage_bqrtsv")
   expect_named(bqr, c("input_id", "alt", "ref", "context", "read_type", "count", "origq", "recalq"))
-  exon <- arrow::read_parquet(file.path(odir, grep("^sample1_somatic_sage_exoncvg", lf, value = TRUE)))
+  exon <- nemo::read_parquet_grep(odir, lf, "^sample1_somatic_sage_exoncvg")
   expect_named(exon, c("input_id", "gene", "chrom", "start", "end", "exon", "dp_med"))
-  cvg <- arrow::read_parquet(file.path(odir, grep("^sample1_somatic_sage_genecvgcvg", lf, value = TRUE)))
+  cvg <- nemo::read_parquet_grep(odir, lf, "^sample1_somatic_sage_genecvgcvg")
   expect_named(cvg, c("input_id", "gene", "dr", "value"))
 })
 

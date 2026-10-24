@@ -1,5 +1,5 @@
 [tool.bumpversion]
-current_version = "0.1.0"
+current_version = "0.1.0.9004"
 search = "{current_version}"
 replace = "{new_version}"
 message = "Bump version: {current_version} => {new_version}"
@@ -38,4 +38,9 @@ replace = "r-tidywigits =={new_version}"
 filename = "deploy/conda/env/yaml/pkgdown.yaml"
 search = "r-tidywigits =={current_version}"
 replace = "r-tidywigits =={new_version}"
+
+[[tool.bumpversion.files]]
+filename = "docker-compose.yaml"
+search = "tidywigits:${{IMAGE_TAG:-{current_version}}}"
+replace = "tidywigits:${{IMAGE_TAG:-{new_version}}}"
 

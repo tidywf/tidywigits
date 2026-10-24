@@ -3,16 +3,16 @@
 #' @description
 #' Virusbreakend file parsing and manipulation.
 #' @examples
-#' cls <- Virusbreakend
-#' indir <- system.file("extdata/oa", package = "tidywigits")
+#' cls <- Virusbreakend; tool <- "virusbreakend"
+#' indir <- system.file("extdata/oa", tool, package = "tidywigits")
 #' odir <- tempdir()
-#' id <- "virusbreakend_run1"
+#' id <- paste0(tool, "_run1")
 #' obj <- cls$new(indir)
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
-#' (lf <- list.files(odir, pattern = "virusbreakend_.*parquet", full.names = FALSE))
+#' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
 #' expect_equal(length(lf), 1)
-#' vb <- arrow::read_parquet(file.path(odir, grep("virusbreakend_vcfsummary", lf, value = TRUE)))
+#' vb <- nemo::read_parquet_grep(odir, lf, "virusbreakend_vcfsummary")
 #' expect_named(vb, c("input_id", "taxid_genus", "name_genus", "reads_genus_tree",
 #'   "taxid_species", "name_species", "reads_species_tree", "taxid_assigned", "name_assigned",
 #'   "reads_assigned_tree", "reads_assigned_direct", "reference", "reference_taxid",

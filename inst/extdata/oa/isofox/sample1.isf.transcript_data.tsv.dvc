@@ -1,0 +1,5 @@
+outs:
+- md5: 3656ea91b1857807596c25b368dce100
+  size: 1277
+  hash: md5
+  path: sample1.isf.transcript_data.tsv

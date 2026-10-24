@@ -7,13 +7,13 @@
 Isofox file parsing and manipulation.
 }
 \examples{
-cls <- Isofox
-indir <- system.file("extdata/oa", package = "tidywigits")
+cls <- Isofox; tool <- "isofox"
+indir <- system.file("extdata/oa", tool, package = "tidywigits")
 odir <- tempdir()
-id <- "isofox_run1"
+id <- paste0(tool, "_run1")
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "isofox_.*parquet", full.names = FALSE))
+(lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 }
 \section{Super class}{
 \code{\link[nemo:Tool]{nemo::Tool}} -> \code{Isofox}
@@ -28,6 +28,7 @@ obj$run(output_dir = odir, format = "parquet", input_id = id)
 <details><summary>Inherited methods</summary>
 <ul>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="filter_files"><a href='../../nemo/html/Tool.html#method-Tool-filter_files'><code>nemo::Tool$filter_files()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_globs"><a href='../../nemo/html/Tool.html#method-Tool-get_globs'><code>nemo::Tool$get_globs()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_metadata"><a href='../../nemo/html/Tool.html#method-Tool-get_metadata'><code>nemo::Tool$get_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_tbls"><a href='../../nemo/html/Tool.html#method-Tool-get_tbls'><code>nemo::Tool$get_tbls()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="list_files"><a href='../../nemo/html/Tool.html#method-Tool-list_files'><code>nemo::Tool$list_files()</code></a></span></li>

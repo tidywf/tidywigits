@@ -1,0 +1,5 @@
+outs:
+- md5: 83d0141c05e7797e82ca45588ecf432e
+  size: 819
+  hash: md5
+  path: sample1.purple.driver.catalog.germline.tsv

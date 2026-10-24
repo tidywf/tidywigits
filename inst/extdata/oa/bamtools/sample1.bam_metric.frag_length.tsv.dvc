@@ -1,5 +1,5 @@
 outs:
-- md5: bddeaf51e2f31f75c364d51ae0720106
-  size: 81
+- md5: 652404e85735f8c786b61cea3112d417
+  size: 93
   hash: md5
   path: sample1.bam_metric.frag_length.tsv

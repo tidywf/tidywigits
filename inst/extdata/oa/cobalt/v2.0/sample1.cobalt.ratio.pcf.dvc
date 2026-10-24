@@ -1,0 +1,5 @@
+outs:
+- md5: dfb8359be219a674a42fd8464644af6e
+  size: 427
+  hash: md5
+  path: sample1.cobalt.ratio.pcf

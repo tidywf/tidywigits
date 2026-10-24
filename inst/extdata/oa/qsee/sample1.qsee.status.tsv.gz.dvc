@@ -1,0 +1,5 @@
+outs:
+- md5: 102d342c6b42ad5f9da28e6d1d21b4b2
+  size: 263
+  hash: md5
+  path: sample1.qsee.status.tsv.gz

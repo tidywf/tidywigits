@@ -1,0 +1,5 @@
+outs:
+- md5: fa7e150884069a106bc1789e28a232cd
+  size: 395
+  hash: md5
+  path: sample1.purple.chromosome_arm.tsv

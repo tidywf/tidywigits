@@ -2,6 +2,7 @@ tables:
   events:
     description: 'Variant events.'
     pattern: "\\.peach\\.events\\.tsv$"
+    glob: ["*.peach.events.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'event'
@@ -17,6 +18,7 @@ tables:
   geneevents:
     description: 'Variant events linked to gene.'
     pattern: "\\.peach\\.gene\\.events\\.tsv$"
+    glob: ["*.peach.gene.events.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'gene'
@@ -37,6 +39,7 @@ tables:
   haplotypesall:
     description: 'All haplotypes.'
     pattern: "\\.peach\\.haplotypes\\.all\\.tsv$"
+    glob: ["*.peach.haplotypes.all.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'gene'
@@ -62,6 +65,7 @@ tables:
   haplotypesbest:
     description: 'Best haplotypes.'
     pattern: "\\.peach\\.haplotypes\\.best\\.tsv$"
+    glob: ["*.peach.haplotypes.best.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'gene'
@@ -97,6 +101,7 @@ tables:
   qc:
     description: 'QC metrics.'
     pattern: "\\.peach\\.qc\\.tsv$"
+    glob: ["*.peach.qc.tsv"]
     ftype: 'tsv'
     columns:
       - raw: 'gene'

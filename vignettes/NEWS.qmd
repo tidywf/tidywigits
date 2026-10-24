@@ -8,54 +8,77 @@ knitr:
 
 ```{r}
 #| label: pkgs
-#| message: false
-#| warning: false
-#| echo: false
-
-{
-  use("htmltools", "a")
-  use("glue", "glue")
-}
-```
-
-```{r}
-#| echo: false
-#| label: funcs
+#| include: false
 
 repo <- "https://github.com/tidywf/tidywigits"
-vdiff <- function(new, old) {
-  stopifnot(utils::compareVersion(new, old) == 1)
-  htmltools::a(
-    href = glue::glue("{repo}/compare/v{old}...v{new}"),
-    glue::glue("v{new} - v{old} diff")
-  )
-}
-
-pr_or_issue <- function(n, type) {
-  x <- c(iss = "issues", pr = "pull")
-  stopifnot(is.numeric(n), n > 0, type %in% names(x))
-  type2 <- x[type]
-  htmltools::a(
-    href = glue::glue("{repo}/{type2}/{n}"),
-    glue::glue("{type}{n}")
-  )
-}
-
-iss <- function(n) {
-  pr_or_issue(n, "iss")
-}
-
-pr <- function(n) {
-  pr_or_issue(n, "pr")
-}
-
-user <- function(x) {
-  a(
-    href = glue("https://github.com/{x}"),
-    glue("@{x}")
-  )
-}
+child1 <- system.file(
+  "doc-templates/vignettes/_news.qmd",
+  package = "nemo"
+)
 ```
+
+```{r, child=child1}
+#| label: child-news
+```
+
+## v0.2.0.9000 (dev)
+
+## v0.2.0 (2026-10-24)
+
+### Oncoanalyser v3
+
+Oncoanalyser v3 outputs are supported across every tool
+(`r pr(212)`-`r pr(222)`, `r pr(225)`). Pre-v3 outputs are still parsed via
+older schema versions.
+
+- New tool: Qsee, the v3 QC summary (`r pr(222)`).
+- Alignments: new `bqrtsv` table for `*.redux.bqr.tsv` (`r pr(225)`).
+- Breaking schema changes (older versions retained): Amber, Bamtools, Cider,
+  Cobalt, Isofox, Lilac, Linx.
+- Additive schema changes: Esvee, Neo, Purple.
+- `orange`/`pave` outputs are ignored for now.
+
+### Breaking changes
+
+- Output tables renamed for tools that split one file into several tables: the
+  main part of each file is now `<file>main` (`r pr(229)`). The `tool_parser`
+  names used by `include`/`exclude` are unchanged.
+
+| Old                        | New                       |
+| -------------------------- | ------------------------- |
+| `bamtools_summarystats`    | `bamtools_summarymain`    |
+| `bamtools_wgsmetricsstats` | `bamtools_wgsmetricsmain` |
+| `bamtools_exoncvgexons`    | `bamtools_exoncvgmain`    |
+| `bamtools_genecvggenes`    | `bamtools_genecvgmain`    |
+| `sage_genecvggenes`        | `sage_genecvgmain`        |
+| `cobalt_gcmedsample`       | `cobalt_gcmedmain`        |
+
+- `bamtools_wgsmetricsdp`: `dp` is now numeric (`10`) instead of a string
+  (`"10x"`) (`r pr(230)`).
+- Docker image entrypoint is now `tidywigits.R`, so run
+  `docker run <img> tidy ...` without repeating the executable (`r pr(227)`).
+
+### New features
+
+- `s3sync()` pulls only the files the tool schemas need (Esvee's are excluded
+  for now), and a new `tidywigits.R sync` CLI subcommand is available
+  (`r pr(226)`, `r pr(228)`).
+- New `docker-compose.yaml` wrapper (`r pr(227)`).
+- New `WIGITS_TOOL_COLOURS` export, used for the tool colours in the [Schema
+  table](schema_table.html) (`r pr(231)`).
+
+### Schema
+
+- Fan-out files declare their sub-tables under `outputs:` in `schema.yaml`,
+  replacing the `__no_file_match__` sentinel tables (`r pr(233)`). See
+  [Structure](structure.html) for the current fan-outs.
+
+### Infrastructure
+
+- Release deploys (conda, Docker, pkgdown) trigger on `v*` tags only; conda
+  lockfiles are published as release assets (`r pr(224)`).
+- Docker builder stage uses a pinned miniforge3 base image (`r pr(232)`).
+- `devnotes` vignette removed (`r pr(234)`).
 
 ## v0.1.0 (2026-07-28)
 
