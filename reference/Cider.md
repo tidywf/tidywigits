@@ -16,6 +16,7 @@ Cider file parsing and manipulation.
 Inherited methods
 
 - [`nemo::Tool$filter_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-filter_files)
+- [`nemo::Tool$get_globs()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_globs)
 - [`nemo::Tool$get_metadata()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_metadata)
 - [`nemo::Tool$get_tbls()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_tbls)
 - [`nemo::Tool$list_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-list_files)
@@ -50,13 +51,14 @@ Create a new Cider object.
 ## Examples
 
 ``` r
-cls <- Cider
-indir <- system.file("extdata/oa", package = "tidywigits")
+cls <- Cider; tool <- "cider"
+indir <- system.file("extdata/oa", tool, package = "tidywigits")
 odir <- tempdir()
-id <- "cider_run1"
+id <- paste0(tool, "_run1")
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "cider_.*parquet", full.names = FALSE))
-#> [1] "sample1_cider_blastn.parquet"     "sample1_cider_locusstats.parquet"
-#> [3] "sample1_cider_vdj.parquet"       
+(lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
+#> [1] "sample1_2_cider_vdj.parquet"      "sample1_cider_alignmatch.parquet"
+#> [3] "sample1_cider_blastn.parquet"     "sample1_cider_locusstats.parquet"
+#> [5] "sample1_cider_vdj.parquet"       
 ```

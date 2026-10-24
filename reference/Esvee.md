@@ -16,6 +16,7 @@ Esvee file parsing and manipulation.
 Inherited methods
 
 - [`nemo::Tool$filter_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-filter_files)
+- [`nemo::Tool$get_globs()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_globs)
 - [`nemo::Tool$get_metadata()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_metadata)
 - [`nemo::Tool$get_tbls()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_tbls)
 - [`nemo::Tool$list_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-list_files)
@@ -50,18 +51,20 @@ Create a new Esvee object.
 ## Examples
 
 ``` r
-cls <- Esvee
-indir <- system.file("extdata/oa", package = "tidywigits")
+cls <- Esvee; tool <- "esvee"
+indir <- system.file("extdata/oa", tool, package = "tidywigits")
 odir <- tempdir()
-id <- "esvee_run1"
+id <- paste0(tool, "_run1")
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "esvee_.*parquet", full.names = FALSE))
-#> [1] "sample1_esvee_assemblealignment.parquet"
-#> [2] "sample1_esvee_assembleassembly.parquet" 
-#> [3] "sample1_esvee_assemblebreakend.parquet" 
-#> [4] "sample1_esvee_assemblephased.parquet"   
-#> [5] "sample1_esvee_prepdiscstats.parquet"    
-#> [6] "sample1_esvee_prepfraglen.parquet"      
-#> [7] "sample1_esvee_prepjunction.parquet"     
+(lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
+#> [1] "sample1_2_esvee_assemblebreakend.parquet"
+#> [2] "sample1_2_esvee_prepjunction.parquet"    
+#> [3] "sample1_esvee_assemblealignment.parquet" 
+#> [4] "sample1_esvee_assembleassembly.parquet"  
+#> [5] "sample1_esvee_assemblebreakend.parquet"  
+#> [6] "sample1_esvee_assemblephased.parquet"    
+#> [7] "sample1_esvee_prepdiscstats.parquet"     
+#> [8] "sample1_esvee_prepfraglen.parquet"       
+#> [9] "sample1_esvee_prepjunction.parquet"      
 ```

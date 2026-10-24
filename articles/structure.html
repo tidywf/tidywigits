@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +48,6 @@
     <li><a class="dropdown-item" href="../articles/uml.html">UML</a></li>
     <li><a class="dropdown-item" href="../articles/cicd.html">CI/CD Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/postgresql.html">PostgreSQL</a></li>
-    <li><a class="dropdown-item" href="../articles/devnotes.html">Devnotes</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../articles/NEWS.html">NEWS</a></li>
@@ -72,7 +71,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/main/vignettes/structure.qmd" class="external-link"><code>vignettes/structure.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.2.0/vignettes/structure.qmd" class="external-link"><code>vignettes/structure.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -82,10 +81,70 @@
 
 
     <p>Each WiGiTS tool has a single <code>schema.yaml</code> under <code>inst/config/tools/&lt;tool&gt;/</code>. See <a href="https://tidywf.github.io/nemo/articles/structure.html" class="external-link uri">https://tidywf.github.io/nemo/articles/structure.html</a> for a walkthrough of the <code>Tool</code>/<code>Workflow</code>/<code>Config</code> class structure and schema contents.</p>
-
-
-
-<script id="quarto-html-after-body" type="application/javascript">
+<section class="level2"><h2 id="fan-out">Fan-out<a class="anchor" aria-label="anchor" href="#fan-out"></a>
+</h2>
+<p>Some files split into several output tables, declared under <code>outputs</code> in their tool’s <code>schema.yaml</code> and written as <code>&lt;prefix&gt;_&lt;tool&gt;_&lt;output&gt;</code>:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 17%">
+<col style="width: 70%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Tool</th>
+<th style="text-align: left;">File table</th>
+<th style="text-align: left;">Outputs</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">bamtools</td>
+<td style="text-align: left;"><code>wgsmetrics</code></td>
+<td style="text-align: left;">
+<code>wgsmetricsmain</code>, <code>wgsmetricsdp</code>, <code>wgsmetricshisto</code>
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bamtools</td>
+<td style="text-align: left;"><code>summary</code></td>
+<td style="text-align: left;">
+<code>summarymain</code>, <code>summarydp</code>
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bamtools</td>
+<td style="text-align: left;"><code>exoncvg</code></td>
+<td style="text-align: left;">
+<code>exoncvgmain</code>, <code>exoncvgperc</code>
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">bamtools</td>
+<td style="text-align: left;"><code>genecvg</code></td>
+<td style="text-align: left;">
+<code>genecvgmain</code>, <code>genecvgcvg</code>
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cobalt</td>
+<td style="text-align: left;"><code>gcmed</code></td>
+<td style="text-align: left;">
+<code>gcmedmain</code>, <code>gcmedbuckets</code>
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sage</td>
+<td style="text-align: left;"><code>genecvg</code></td>
+<td style="text-align: left;">
+<code>genecvgmain</code>, <code>genecvgcvg</code>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);

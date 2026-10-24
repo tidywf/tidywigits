@@ -16,23 +16,11 @@
 
 ## tidywigits
 
-tidywigits is an R package for parsing and tidying output from the
+Parses and tidies
 [WiGiTS/hmftools](https://github.com/hartwigmedical/hmftools "WiGiTS suite")
-suite of genome and transcriptome analysis tools.
-
-The WiGiTS pipeline produces hundreds of files per sample across dozens
-of tools, but consuming them downstream is fragile: formats are
-inconsistent, column names span a mix of conventions (e.g. `snake_case`,
-`camelCase`, `dot.separated`), some sub-tables are embedded in wide
-files, and column layouts change between tool versions.
-
-tidywigits addresses this with a schema-driven parsing layer built on
-the [nemo](https://github.com/tidywf/nemo "nemo") base R6 classes,
-supplying WiGiTS-specific schemas and parsers that turn raw outputs into
-consistently structured, versioned, analysis-ready tables that can be
-written to a variety of formats such as Apache Parquet, PostgreSQL, TSV,
-or RDS. Each run also produces a `metadata.parquet` file alongside the
-tidy tables, capturing IDs, paths, and R package versions.
+outputs into versioned, tidy tables, written to Parquet, PostgreSQL,
+TSV, CSV or RDS (plus a `metadata.parquet` per run). Built on
+[nemo](https://github.com/tidywf/nemo "nemo").
 
 ## Documentation
 
@@ -51,9 +39,7 @@ tidy tables, capturing IDs, paths, and R package versions.
 
 ### Single tool
 
-Some WiGiTS output files have non-standard layouts. For a very simple
-example, let’s look at PURPLE’s `purple.qc` file that stores QC metrics
-as key-value rows rather than columns:
+Raw PURPLE `purple.qc` (key-value rows):
 
 ``` r
 
@@ -75,8 +61,7 @@ writeLines(readLines(file.path(indir_ppl, "sample1.purple.qc")))
 #> ChimerismPercentage  0.0000
 ```
 
-We can utilise the `Purple` class to parse, tidy and write PURPLE files
-in one call via its `run()` method:
+Parse, tidy and write with `Purple$run()`:
 
 ``` r
 
@@ -89,17 +74,29 @@ ppl$run(
   input_id = "run1"
 )
 list.files(outdir_ppl, pattern = "\\.parquet$")
-#>  [1] "metadata_purple.parquet"                       "sample1_2_purple_cnvgenetsv.parquet"          
-#>  [3] "sample1_2_purple_qc.parquet"                   "sample1_germline_purple_drivercatalog.parquet"
-#>  [5] "sample1_purple_cnvgenetsv.parquet"             "sample1_purple_cnvsomtsv.parquet"             
-#>  [7] "sample1_purple_germdeltsv.parquet"             "sample1_purple_purityrange.parquet"           
-#>  [9] "sample1_purple_puritytsv.parquet"              "sample1_purple_qc.parquet"                    
-#> [11] "sample1_purple_somclonality.parquet"           "sample1_purple_somhist.parquet"               
-#> [13] "sample1_somatic_purple_drivercatalog.parquet"  "version_2_purple_version.parquet"             
-#> [15] "version_purple_version.parquet"
+#>  [1] "metadata_purple.parquet"                        
+#>  [2] "sample1_2_purple_cnvgenetsv.parquet"            
+#>  [3] "sample1_2_purple_qc.parquet"                    
+#>  [4] "sample1_3_purple_cnvgenetsv.parquet"            
+#>  [5] "sample1_germline_2_purple_drivercatalog.parquet"
+#>  [6] "sample1_germline_purple_drivercatalog.parquet"  
+#>  [7] "sample1_purple_chromarm.parquet"                
+#>  [8] "sample1_purple_cnvgenetsv.parquet"              
+#>  [9] "sample1_purple_cnvsomtsv.parquet"               
+#> [10] "sample1_purple_germampdel.parquet"              
+#> [11] "sample1_purple_germdeltsv.parquet"              
+#> [12] "sample1_purple_purityrange.parquet"             
+#> [13] "sample1_purple_puritytsv.parquet"               
+#> [14] "sample1_purple_qc.parquet"                      
+#> [15] "sample1_purple_somclonality.parquet"            
+#> [16] "sample1_purple_somhist.parquet"                 
+#> [17] "sample1_somatic_2_purple_drivercatalog.parquet" 
+#> [18] "sample1_somatic_purple_drivercatalog.parquet"   
+#> [19] "version_2_purple_version.parquet"               
+#> [20] "version_purple_version.parquet"
 ```
 
-Now read back the tidied table:
+Tidy output:
 
 ``` r
 
@@ -130,9 +127,7 @@ arrow::read_parquet(qc_file) |> str()
 
 ### Full WiGiTS
 
-Files from the full WiGiTS suite can be processed with the convenient
-`Wigits` class. The starting point is a parent directory with WiGiTS
-results, and we can again utilise the `run()` method:
+`Wigits` runs all tools over a parent results directory:
 
 View input files
 
@@ -145,31 +140,43 @@ dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
 │   ├── sample1.md.metrics
 │   └── sample1.redux.duplicate_freq.tsv
 ├── amber
+│   ├── amber.version
 │   ├── sample1.amber.baf.pcf
 │   ├── sample1.amber.contamination.tsv
 │   ├── sample1.amber.homozygousregion.tsv
-│   └── sample1.amber.qc
+│   ├── sample1.amber.qc
+│   └── v4.2
+│       └── sample1.amber.baf.pcf
 ├── bamtools
 │   ├── sample1.bam_metric.coverage.tsv
-│   ├── sample1.bam_metric.exon_medians.tsv
+│   ├── sample1.bam_metric.exon_coverage.tsv
 │   ├── sample1.bam_metric.flag_counts.tsv
 │   ├── sample1.bam_metric.frag_length.tsv
 │   ├── sample1.bam_metric.gene_coverage.tsv
 │   ├── sample1.bam_metric.partition_stats.tsv
 │   ├── sample1.bam_metric.summary.tsv
-│   └── sample1.wgsmetrics
+│   └── v1.4.2
+│       ├── sample1.bam_metric.exon_medians.tsv
+│       ├── sample1.bam_metric.gene_coverage.tsv
+│       ├── sample1.bam_metric.summary.tsv
+│       └── sample1.wgsmetrics
 ├── chord
 │   ├── sample1.chord.mutation_contexts.tsv
 │   └── sample1.chord.prediction.tsv
 ├── cider
-│   ├── sample1.cider.blastn_match.tsv.gz
+│   ├── sample1.cider.alignment_match.tsv.gz
 │   ├── sample1.cider.locus_stats.tsv
-│   └── sample1.cider.vdj.tsv.gz
+│   ├── sample1.cider.vdj.tsv.gz
+│   └── v1.0.0
+│       ├── sample1.cider.blastn_match.tsv.gz
+│       └── sample1.cider.vdj.tsv.gz
 ├── cobalt
 │   ├── cobalt.version
 │   ├── sample1.cobalt.gc.median.tsv
 │   ├── sample1.cobalt.ratio.median.tsv
-│   └── sample1.cobalt.ratio.pcf
+│   ├── sample1.cobalt.ratio.pcf
+│   └── v2.0
+│       └── sample1.cobalt.ratio.pcf
 ├── cuppa
 │   ├── sample1.cup.data.csv
 │   ├── sample1.cuppa.pred_summ.tsv
@@ -184,27 +191,41 @@ dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
 │   ├── sample1.esvee.phased_assembly.tsv
 │   ├── sample1.esvee.prep.disc_stats.tsv
 │   ├── sample1.esvee.prep.fragment_length.tsv
-│   └── sample1.esvee.prep.junction.tsv
+│   ├── sample1.esvee.prep.junction.tsv
+│   └── v1.0
+│       ├── sample1.esvee.breakend.tsv
+│       └── sample1.esvee.prep.junction.tsv
 ├── flagstats
 │   └── sample1.flagstat
 ├── isofox
 │   ├── sample1.isf.alt_splice_junc.csv
+│   ├── sample1.isf.alt_splice_junc.tsv
+│   ├── sample1.isf.alt_splice_junc_unfiltered.tsv
 │   ├── sample1.isf.fusions.csv
+│   ├── sample1.isf.fusions.tsv
 │   ├── sample1.isf.gene_collection.csv
+│   ├── sample1.isf.gene_collection.tsv
 │   ├── sample1.isf.gene_data.csv
+│   ├── sample1.isf.gene_data.tsv
 │   ├── sample1.isf.pass_fusions.csv
+│   ├── sample1.isf.pass_fusions.tsv
 │   ├── sample1.isf.retained_intron.csv
 │   ├── sample1.isf.summary.csv
-│   └── sample1.isf.transcript_data.csv
+│   ├── sample1.isf.summary.tsv
+│   ├── sample1.isf.transcript_data.csv
+│   └── sample1.isf.transcript_data.tsv
 ├── lilac
-│   ├── sample1.lilac.candidates.coverage.tsv
 │   ├── sample1.lilac.qc.tsv
-│   └── sample1.lilac.tsv
+│   ├── sample1.lilac.tsv
+│   └── v1.7.1
+│       ├── sample1.lilac.qc.tsv
+│       └── sample1.lilac.tsv
 ├── linx
 │   ├── germline_annotations
 │   │   ├── linx.version
 │   │   ├── sample1.linx.germline.breakend.tsv
 │   │   ├── sample1.linx.germline.clusters.tsv
+│   │   ├── sample1.linx.germline.disruption.tsv
 │   │   ├── sample1.linx.germline.driver.catalog.tsv
 │   │   ├── sample1.linx.germline.links.tsv
 │   │   └── sample1.linx.germline.svs.tsv
@@ -216,6 +237,7 @@ dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
 │   │   ├── sample1.linx.drivers.tsv
 │   │   ├── sample1.linx.fusion.tsv
 │   │   ├── sample1.linx.links.tsv
+│   │   ├── sample1.linx.neoepitope.tsv
 │   │   ├── sample1.linx.svs.tsv
 │   │   ├── sample1.linx.vis_copy_number.tsv
 │   │   ├── sample1.linx.vis_fusion.tsv
@@ -223,22 +245,34 @@ dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
 │   │   ├── sample1.linx.vis_protein_domain.tsv
 │   │   ├── sample1.linx.vis_segments.tsv
 │   │   └── sample1.linx.vis_sv_data.tsv
-│   └── v1.25
-│       ├── germline_annotations
-│       │   ├── linx.version
-│       │   └── sample1.linx.germline.breakend.tsv
-│       └── somatic_annotations
-│           ├── linx.version
+│   ├── v1.25
+│   │   ├── germline_ann
+│   │   │   ├── linx.version
+│   │   │   └── sample1.linx.germline.breakend.tsv
+│   │   └── somatic_ann
+│   │       ├── linx.version
+│   │       ├── sample1.linx.breakend.tsv
+│   │       ├── sample1.linx.vis_copy_number.tsv
+│   │       ├── sample1.linx.vis_fusion.tsv
+│   │       ├── sample1.linx.vis_gene_exon.tsv
+│   │       ├── sample1.linx.vis_protein_domain.tsv
+│   │       ├── sample1.linx.vis_segments.tsv
+│   │       └── sample1.linx.vis_sv_data.tsv
+│   └── v2.1
+│       ├── germline_ann
+│       │   ├── sample1.linx.germline.breakend.tsv
+│       │   ├── sample1.linx.germline.driver.catalog.tsv
+│       │   └── sample1.linx.germline.svs.tsv
+│       └── somatic_ann
 │           ├── sample1.linx.breakend.tsv
-│           ├── sample1.linx.vis_copy_number.tsv
-│           ├── sample1.linx.vis_fusion.tsv
-│           ├── sample1.linx.vis_gene_exon.tsv
-│           ├── sample1.linx.vis_protein_domain.tsv
-│           ├── sample1.linx.vis_segments.tsv
-│           └── sample1.linx.vis_sv_data.tsv
+│           ├── sample1.linx.driver.catalog.tsv
+│           ├── sample1.linx.fusion.tsv
+│           └── sample1.linx.svs.tsv
 ├── neo
+│   ├── sample1.isf.neoepitope.tsv
 │   ├── sample1.neo.neo_data.tsv
-│   └── sample1.neo.neoepitope.tsv
+│   ├── sample1.neo.neoepitope.tsv
+│   └── sample1.neo.peptide_scores.tsv
 ├── peach
 │   ├── sample1.peach.events.tsv
 │   ├── sample1.peach.gene.events.tsv
@@ -247,20 +281,29 @@ dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
 │   └── sample1.peach.qc.tsv
 ├── purple
 │   ├── purple.version
+│   ├── sample1.purple.chromosome_arm.tsv
 │   ├── sample1.purple.cnv.gene.tsv
 │   ├── sample1.purple.cnv.somatic.tsv
 │   ├── sample1.purple.driver.catalog.germline.tsv
 │   ├── sample1.purple.driver.catalog.somatic.tsv
-│   ├── sample1.purple.germline.deletion.tsv
+│   ├── sample1.purple.germline_amp_del.tsv
 │   ├── sample1.purple.purity.range.tsv
 │   ├── sample1.purple.purity.tsv
 │   ├── sample1.purple.qc
 │   ├── sample1.purple.somatic.clonality.tsv
 │   ├── sample1.purple.somatic.hist.tsv
-│   └── v4.0
-│       ├── purple.version
+│   ├── v4.0
+│   │   ├── purple.version
+│   │   ├── sample1.purple.cnv.gene.tsv
+│   │   └── sample1.purple.qc
+│   └── v4.2
 │       ├── sample1.purple.cnv.gene.tsv
-│       └── sample1.purple.qc
+│       ├── sample1.purple.driver.catalog.germline.tsv
+│       ├── sample1.purple.driver.catalog.somatic.tsv
+│       └── sample1.purple.germline.deletion.tsv
+├── qsee
+│   ├── sample1.qsee.status.tsv.gz
+│   └── sample1.qsee.vis.data.tsv.gz
 ├── sage
 │   ├── germline
 │   │   ├── sample1.sage.bqr.tsv
@@ -286,10 +329,7 @@ dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
     └── sample1.virus.annotated.tsv
 ```
 
-We can parse, tidy up, and write the WiGiTS results into e.g. Parquet
-format or a PostgreSQL database as follows:
-
-- Parquet:
+Parquet:
 
 ``` r
 
@@ -309,16 +349,16 @@ res # shows summary of Wigits object
 #> |:-------------|:-------------------------------------------------------------------------|
 #> |name          |Wigits                                                                    |
 #> |path          |/home/runner/miniconda3/envs/bump_env/lib/R/library/tidywigits/extdata/oa |
-#> |ntools        |19                                                                        |
-#> |files_total   |228                                                                       |
-#> |files_matched |112                                                                       |
+#> |ntools        |20                                                                        |
+#> |files_total   |302                                                                       |
+#> |files_matched |150                                                                       |
 #> |tidied        |true                                                                      |
 #> |written       |true                                                                      |
 list.files(outdir_w, pattern = "\\.parquet$") |> str()
-#>  chr [1:120] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...
+#>  chr [1:161] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...
 ```
 
-- PostgreSQL (adjust dbname/user for your purposes):
+PostgreSQL:
 
 ``` r
 
@@ -337,12 +377,10 @@ res <- w2$run(
 )
 ```
 
-> **Note:** Support for VCFs is a work in progress.
+> **Note:** VCF support is WIP.
 
-Three optional columns can be prepended to every written table to
-support downstream tracing and joining. All are opt-in and off by
-default, but highly recommended for any multi-sample or multi-run
-pipeline:
+Optional provenance columns (recommended for multi-sample/multi-run
+use):
 
 | Column | Purpose | User-supplied or auto-generated? |
 |----|----|----|
@@ -352,33 +390,23 @@ pipeline:
 
 ## Installation
 
-Using {remotes} directly from GitHub:
+From GitHub:
 
 ``` r
 
 install.packages("remotes")
 remotes::install_github("tidywf/tidywigits") # latest main commit
-remotes::install_github("tidywf/tidywigits@v0.1.0") # specific version
+remotes::install_github("tidywf/tidywigits@v0.2.0") # specific version
 ```
 
-Alternatively:
-
-- conda package: <https://anaconda.org/tidywf/r-tidywigits>
-- Docker image:
+- conda: <https://anaconda.org/tidywf/r-tidywigits>
+- Docker:
   <https://github.com/tidywf/tidywigits/pkgs/container/tidywigits>
-
-For more details see:
-<https://tidywf.github.io/tidywigits/articles/installation>
+- more: <https://tidywf.github.io/tidywigits/articles/installation>
 
 ## CLI
 
-A `tidywigits.R` command line interface is available for convenience.
-
-- If you’re using the conda package, the `tidywigits.R` command will
-  already be available inside the activated conda environment.
-- If you’re *not* using the conda package, you need to export the
-  `tidywigits/inst/cli/` directory to your `PATH` in order to use
-  `tidywigits.R`.
+`tidywigits.R` is on `PATH` in the conda env. Otherwise:
 
 ``` bash
 tw_cli=$(Rscript -e 'x = system.file("cli", package = "tidywigits"); cat(x, "\n")' | xargs)
@@ -387,22 +415,23 @@ export PATH="${tw_cli}:${PATH}"
 
 ``` R
 $ tidywigits.R --version
-tidywigits 0.1.0
+tidywigits 0.2.0
 
 #-----------------------------------#
 $ tidywigits.R --help
-usage: tidywigits.R [-h] [-v] {tidy,list} ...
+usage: tidywigits.R [-h] [-v] {tidy,list,sync} ...
 
 ✨ WiGiTS Output Tidying ✨
 
 positional arguments:
-  {tidy,list}    sub-command help
-    tidy         Tidy Workflow Outputs
-    list         List Parsable Workflow Outputs
+  {tidy,list,sync}  sub-command help
+    tidy            Tidy Workflow Outputs
+    list            List Parsable Workflow Outputs
+    sync            Sync Parsable Workflow Outputs From AWS S3
 
 options:
-  -h, --help     show this help message and exit
-  -v, --version  show program's version number and exit
+  -h, --help        show this help message and exit
+  -v, --version     show program's version number and exit
 '
 #-----------------------------------#
 #------- Tidy ----------------------#
@@ -410,6 +439,7 @@ $ tidywigits.R tidy --help
 usage: tidywigits.R tidy [-h] -d IN_DIR [-o OUTPUT_DIR] [-f FORMAT]
                          [--input_id INPUT_ID] [--output_id OUTPUT_ID |
                          --ulid] [--dbname DBNAME] [--dbuser DBUSER]
+                         [--dbhost DBHOST] [--dbport DBPORT]
                          [--include INCLUDE] [--exclude EXCLUDE]
                          [--prefix_include] [-q]
 
@@ -426,6 +456,10 @@ options:
   --ulid                Generate a ULID as output ID.
   --dbname DBNAME       Database name.
   --dbuser DBUSER       Database user.
+  --dbhost DBHOST       Database host (default: driver/env default, e.g.
+                        PGHOST).
+  --dbport DBPORT       Database port (default: driver/env default, e.g.
+                        PGPORT).
   --include INCLUDE     Include only these files (comma sep tool_parsers).
   --exclude EXCLUDE     Exclude only these files (comma sep tool_parsers).
   --prefix_include      Include input prefix column in output tables.
@@ -442,6 +476,19 @@ options:
   -f, --format FORMAT  Format of list output [def: pretty] (tsv, pretty)
   -m, --max MAX        Max rows to show.
   -q, --quiet          Shush all the logs.
+
+#-----------------------------------#
+#------- Sync ----------------------#
+$ tidywigits.R sync --help
+usage: tidywigits.R sync [-h] -s SRC -d DEST [--dryrun] [--show_patterns] [-q]
+
+options:
+  -h, --help       show this help message and exit
+  -s, --src SRC    S3 source path.
+  -d, --dest DEST  Local destination directory.
+  --dryrun         Show what would be synced, without syncing.
+  --show_patterns  Print the include/exclude patterns and exit.
+  -q, --quiet      Shush all the logs.
 ```
 
 # Package index
@@ -476,6 +523,8 @@ options:
   Peach Object
 - [`Purple`](https://tidywf.github.io/tidywigits/reference/Purple.md) :
   Purple Object
+- [`Qsee`](https://tidywf.github.io/tidywigits/reference/Qsee.md) : Qsee
+  Object
 - [`Sage`](https://tidywf.github.io/tidywigits/reference/Sage.md) : Sage
   Object
 - [`Sigs`](https://tidywf.github.io/tidywigits/reference/Sigs.md) : Sigs
@@ -496,6 +545,10 @@ options:
 
 - [`WIGITS_TOOLS`](https://tidywf.github.io/tidywigits/reference/WIGITS_TOOLS.md)
   : WiGiTS Tools Supported
+- [`WIGITS_TOOL_COLOURS`](https://tidywf.github.io/tidywigits/reference/WIGITS_TOOL_COLOURS.md)
+  : WiGiTS Tool Colours
+- [`WIGITS_SYNC_EXCLUDE`](https://tidywf.github.io/tidywigits/reference/WIGITS_SYNC_EXCLUDE.md)
+  : WiGiTS S3 Sync Excludes
 - [`purple_plot_getter()`](https://tidywf.github.io/tidywigits/reference/purple_plot_getter.md)
   : Retrieve PURPLE Plots
 - [`s3sync()`](https://tidywf.github.io/tidywigits/reference/s3sync.md)
@@ -507,7 +560,6 @@ options:
 
 - [CI/CD
   Workflow](https://tidywf.github.io/tidywigits/articles/cicd.md):
-- [Devnotes](https://tidywf.github.io/tidywigits/articles/devnotes.md):
 - [Installation](https://tidywf.github.io/tidywigits/articles/installation.md):
 - [NEWS](https://tidywf.github.io/tidywigits/articles/NEWS.md):
 - [Output

@@ -1,5 +1,80 @@
 # NEWS
 
+## v0.2.0.9000 (dev)
+
+## v0.2.0 (2026-10-24)
+
+### Oncoanalyser v3
+
+Oncoanalyser v3 outputs are supported across every tool
+([pr212](https://github.com/tidywf/tidywigits/pull/212)-[pr222](https://github.com/tidywf/tidywigits/pull/222),
+[pr225](https://github.com/tidywf/tidywigits/pull/225)). Pre-v3 outputs
+are still parsed via older schema versions.
+
+- New tool: Qsee, the v3 QC summary
+  ([pr222](https://github.com/tidywf/tidywigits/pull/222)).
+- Alignments: new `bqrtsv` table for `*.redux.bqr.tsv`
+  ([pr225](https://github.com/tidywf/tidywigits/pull/225)).
+- Breaking schema changes (older versions retained): Amber, Bamtools,
+  Cider, Cobalt, Isofox, Lilac, Linx.
+- Additive schema changes: Esvee, Neo, Purple.
+- `orange`/`pave` outputs are ignored for now.
+
+### Breaking changes
+
+- Output tables renamed for tools that split one file into several
+  tables: the main part of each file is now `<file>main`
+  ([pr229](https://github.com/tidywf/tidywigits/pull/229)). The
+  `tool_parser` names used by `include`/`exclude` are unchanged.
+
+| Old                        | New                       |
+|----------------------------|---------------------------|
+| `bamtools_summarystats`    | `bamtools_summarymain`    |
+| `bamtools_wgsmetricsstats` | `bamtools_wgsmetricsmain` |
+| `bamtools_exoncvgexons`    | `bamtools_exoncvgmain`    |
+| `bamtools_genecvggenes`    | `bamtools_genecvgmain`    |
+| `sage_genecvggenes`        | `sage_genecvgmain`        |
+| `cobalt_gcmedsample`       | `cobalt_gcmedmain`        |
+
+- `bamtools_wgsmetricsdp`: `dp` is now numeric (`10`) instead of a
+  string (`"10x"`)
+  ([pr230](https://github.com/tidywf/tidywigits/pull/230)).
+- Docker image entrypoint is now `tidywigits.R`, so run
+  `docker run <img> tidy ...` without repeating the executable
+  ([pr227](https://github.com/tidywf/tidywigits/pull/227)).
+
+### New features
+
+- [`s3sync()`](https://tidywf.github.io/tidywigits/reference/s3sync.md)
+  pulls only the files the tool schemas need (Esvee’s are excluded for
+  now), and a new `tidywigits.R sync` CLI subcommand is available
+  ([pr226](https://github.com/tidywf/tidywigits/pull/226),
+  [pr228](https://github.com/tidywf/tidywigits/pull/228)).
+- New `docker-compose.yaml` wrapper
+  ([pr227](https://github.com/tidywf/tidywigits/pull/227)).
+- New `WIGITS_TOOL_COLOURS` export, used for the tool colours in the
+  [Schema
+  table](https://tidywf.github.io/tidywigits/articles/schema_table.md)
+  ([pr231](https://github.com/tidywf/tidywigits/pull/231)).
+
+### Schema
+
+- Fan-out files declare their sub-tables under `outputs:` in
+  `schema.yaml`, replacing the `__no_file_match__` sentinel tables
+  ([pr233](https://github.com/tidywf/tidywigits/pull/233)). See
+  [Structure](https://tidywf.github.io/tidywigits/articles/structure.md)
+  for the current fan-outs.
+
+### Infrastructure
+
+- Release deploys (conda, Docker, pkgdown) trigger on `v*` tags only;
+  conda lockfiles are published as release assets
+  ([pr224](https://github.com/tidywf/tidywigits/pull/224)).
+- Docker builder stage uses a pinned miniforge3 base image
+  ([pr232](https://github.com/tidywf/tidywigits/pull/232)).
+- `devnotes` vignette removed
+  ([pr234](https://github.com/tidywf/tidywigits/pull/234)).
+
 ## v0.1.0 (2026-07-28)
 
 Major refactor. GitHub org migrated from `umccr` to `tidywf`. All 19

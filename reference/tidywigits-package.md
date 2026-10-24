@@ -1,4 +1,4 @@
-# tidywigits: Tidy WiGiTS
+# tidywigits: Tidy WiGiTS Outputs
 
 Tidies outputs from The Hartwig Medical Foundation's WiGiTS suite of
 genome and transcriptome analysis tools. Writes to various formats for

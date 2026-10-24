@@ -13,11 +13,10 @@ Purple file parsing and manipulation.
 
 - [`Purple$new()`](#method-Purple-new)
 
-- [`Purple$tidy_qc()`](#method-Purple-tidy_qc)
-
 Inherited methods
 
 - [`nemo::Tool$filter_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-filter_files)
+- [`nemo::Tool$get_globs()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_globs)
 - [`nemo::Tool$get_metadata()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_metadata)
 - [`nemo::Tool$get_tbls()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_tbls)
 - [`nemo::Tool$list_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-list_files)
@@ -49,45 +48,33 @@ Create a new Purple object.
   Tibble of files from
   [`nemo::list_files_dir()`](https://tidywf.github.io/nemo/reference/list_files_dir.html).
 
-------------------------------------------------------------------------
-
-### Method `tidy_qc()`
-
-Tidy `purple.qc` file.
-
-#### Usage
-
-    Purple$tidy_qc(x)
-
-#### Arguments
-
-- `x`:
-
-  (`character(1)` or `tibble()`)  
-  Path to file or already parsed tibble.
-
 ## Examples
 
 ``` r
-cls <- Purple
-indir <- system.file("extdata/oa", package = "tidywigits")
+cls <- Purple; tool <- "purple"
+indir <- system.file("extdata/oa", tool, package = "tidywigits")
 odir <- tempdir()
-id <- "purple_run1"
+id <- paste0(tool, "_run1")
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "purple_.*parquet", full.names = FALSE))
-#>  [1] "sample1_2_purple_cnvgenetsv.parquet"          
-#>  [2] "sample1_2_purple_qc.parquet"                  
-#>  [3] "sample1_germline_purple_drivercatalog.parquet"
-#>  [4] "sample1_purple_cnvgenetsv.parquet"            
-#>  [5] "sample1_purple_cnvsomtsv.parquet"             
-#>  [6] "sample1_purple_germdeltsv.parquet"            
-#>  [7] "sample1_purple_purityrange.parquet"           
-#>  [8] "sample1_purple_puritytsv.parquet"             
-#>  [9] "sample1_purple_qc.parquet"                    
-#> [10] "sample1_purple_somclonality.parquet"          
-#> [11] "sample1_purple_somhist.parquet"               
-#> [12] "sample1_somatic_purple_drivercatalog.parquet" 
-#> [13] "version_2_purple_version.parquet"             
-#> [14] "version_purple_version.parquet"               
+(lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
+#>  [1] "sample1_2_purple_cnvgenetsv.parquet"            
+#>  [2] "sample1_2_purple_qc.parquet"                    
+#>  [3] "sample1_3_purple_cnvgenetsv.parquet"            
+#>  [4] "sample1_germline_2_purple_drivercatalog.parquet"
+#>  [5] "sample1_germline_purple_drivercatalog.parquet"  
+#>  [6] "sample1_purple_chromarm.parquet"                
+#>  [7] "sample1_purple_cnvgenetsv.parquet"              
+#>  [8] "sample1_purple_cnvsomtsv.parquet"               
+#>  [9] "sample1_purple_germampdel.parquet"              
+#> [10] "sample1_purple_germdeltsv.parquet"              
+#> [11] "sample1_purple_purityrange.parquet"             
+#> [12] "sample1_purple_puritytsv.parquet"               
+#> [13] "sample1_purple_qc.parquet"                      
+#> [14] "sample1_purple_somclonality.parquet"            
+#> [15] "sample1_purple_somhist.parquet"                 
+#> [16] "sample1_somatic_2_purple_drivercatalog.parquet" 
+#> [17] "sample1_somatic_purple_drivercatalog.parquet"   
+#> [18] "version_2_purple_version.parquet"               
+#> [19] "version_purple_version.parquet"                 
 ```

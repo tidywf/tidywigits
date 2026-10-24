@@ -20,6 +20,7 @@ Cobalt file parsing and manipulation.
 Inherited methods
 
 - [`nemo::Tool$filter_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-filter_files)
+- [`nemo::Tool$get_globs()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_globs)
 - [`nemo::Tool$get_metadata()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_metadata)
 - [`nemo::Tool$get_tbls()`](https://tidywf.github.io/nemo/reference/Tool.html#method-get_tbls)
 - [`nemo::Tool$list_files()`](https://tidywf.github.io/nemo/reference/Tool.html#method-list_files)
@@ -72,9 +73,7 @@ Read `gc.median.tsv` file.
 
 ### Method `tidy_gcmed()`
 
-Tidy `gc.median.tsv` file. Generates 2 sub-tbls: *sample* with the
-sample mean/median read depth, and *buckets* with the median depth per
-GC bucket.
+Tidy `gc.median.tsv` file.
 
 #### Usage
 
@@ -90,14 +89,14 @@ GC bucket.
 ## Examples
 
 ``` r
-cls <- Cobalt
-indir <- system.file("extdata/oa", package = "tidywigits")
+cls <- Cobalt; tool <- "cobalt"
+indir <- system.file("extdata/oa", tool, package = "tidywigits")
 odir <- tempdir()
-id <- "cobalt_run1"
+id <- paste0(tool, "_run1")
 obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
-(lf <- list.files(odir, pattern = "cobalt_.*parquet", full.names = FALSE))
-#> [1] "sample1_cobalt_gcmedbuckets.parquet" "sample1_cobalt_gcmedsample.parquet" 
-#> [3] "sample1_cobalt_ratiomed.parquet"     "sample1_cobalt_ratiopcf.parquet"    
-#> [5] "version_cobalt_version.parquet"     
+(lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
+#> [1] "sample1_2_cobalt_ratiopcf.parquet"   "sample1_cobalt_gcmedbuckets.parquet"
+#> [3] "sample1_cobalt_gcmedmain.parquet"    "sample1_cobalt_ratiomed.parquet"    
+#> [5] "sample1_cobalt_ratiopcf.parquet"     "version_cobalt_version.parquet"     
 ```

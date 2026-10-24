@@ -5,7 +5,6 @@
 <url><loc>https://tidywf.github.io/tidywigits/LICENSE.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/articles/NEWS.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/articles/cicd.html</loc></url>
-<url><loc>https://tidywf.github.io/tidywigits/articles/devnotes.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/articles/index.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/articles/installation.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/articles/output_naming.html</loc></url>
@@ -30,12 +29,15 @@
 <url><loc>https://tidywf.github.io/tidywigits/reference/Neo.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/reference/Peach.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/reference/Purple.html</loc></url>
+<url><loc>https://tidywf.github.io/tidywigits/reference/Qsee.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/reference/Sage.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/reference/Sigs.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/reference/Teal.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/reference/Virusbreakend.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/reference/Virusinterpreter.html</loc></url>
+<url><loc>https://tidywf.github.io/tidywigits/reference/WIGITS_SYNC_EXCLUDE.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/reference/WIGITS_TOOLS.html</loc></url>
+<url><loc>https://tidywf.github.io/tidywigits/reference/WIGITS_TOOL_COLOURS.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/reference/Wigits.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/reference/index.html</loc></url>
 <url><loc>https://tidywf.github.io/tidywigits/reference/purple_plot_getter.html</loc></url>

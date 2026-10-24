@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +26,6 @@
     <li><a class="dropdown-item" href="../articles/uml.html">UML</a></li>
     <li><a class="dropdown-item" href="../articles/cicd.html">CI/CD Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/postgresql.html">PostgreSQL</a></li>
-    <li><a class="dropdown-item" href="../articles/devnotes.html">Devnotes</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../articles/NEWS.html">NEWS</a></li>
       </ul><ul class="navbar-nav"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
@@ -41,7 +40,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Cobalt Object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/main/R/Cobalt.R" class="external-link"><code>R/Cobalt.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.2.0/R/Cobalt.R" class="external-link"><code>R/Cobalt.R</code></a></small>
       <div class="d-none name"><code>Cobalt.Rd</code></div>
     </div>
 
@@ -64,6 +63,7 @@
 <li><p><a href="#method-Cobalt-parse_gcmed"><code>Cobalt$parse_gcmed()</code></a></p></li>
 <li><p><a href="#method-Cobalt-tidy_gcmed"><code>Cobalt$tidy_gcmed()</code></a></p></li>
 </ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="filter_files"><a href="https://tidywf.github.io/nemo/reference/Tool.html#method-filter_files"><code>nemo::Tool$filter_files()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_globs"><a href="https://tidywf.github.io/nemo/reference/Tool.html#method-get_globs"><code>nemo::Tool$get_globs()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_metadata"><a href="https://tidywf.github.io/nemo/reference/Tool.html#method-get_metadata"><code>nemo::Tool$get_metadata()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="get_tbls"><a href="https://tidywf.github.io/nemo/reference/Tool.html#method-get_tbls"><code>nemo::Tool$get_tbls()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="nemo" data-topic="Tool" data-id="list_files"><a href="https://tidywf.github.io/nemo/reference/Tool.html#method-list_files"><code>nemo::Tool$list_files()</code></a></span></li>
@@ -112,9 +112,7 @@ Path to file.</p></dd>
 
 </div><p></p><hr><a id="method-Cobalt-tidy_gcmed"></a><div class="section">
 <h3 id="method-tidy-gcmed-">Method <code>tidy_gcmed()</code><a class="anchor" aria-label="anchor" href="#method-tidy-gcmed-"></a></h3>
-<p>Tidy <code>gc.median.tsv</code> file. Generates 2 sub-tbls:
-<em>sample</em> with the sample mean/median read depth, and <em>buckets</em> with the
-median depth per GC bucket.</p><div class="section">
+<p>Tidy <code>gc.median.tsv</code> file.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Cobalt</span><span class="op">$</span><span class="fu">tidy_gcmed</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
@@ -135,16 +133,16 @@ Path to file.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">cls</span> <span class="op">&lt;-</span> <span class="va">Cobalt</span></span></span>
-<span class="r-in"><span><span class="va">indir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/oa"</span>, package <span class="op">=</span> <span class="st">"tidywigits"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">cls</span> <span class="op">&lt;-</span> <span class="va">Cobalt</span>; <span class="va">tool</span> <span class="op">&lt;-</span> <span class="st">"cobalt"</span></span></span>
+<span class="r-in"><span><span class="va">indir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/oa"</span>, <span class="va">tool</span>, package <span class="op">=</span> <span class="st">"tidywigits"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">odir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">id</span> <span class="op">&lt;-</span> <span class="st">"cobalt_run1"</span></span></span>
+<span class="r-in"><span><span class="va">id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">tool</span>, <span class="st">"_run1"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="va">cls</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="va">indir</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obj</span><span class="op">$</span><span class="fu">run</span><span class="op">(</span>output_dir <span class="op">=</span> <span class="va">odir</span>, format <span class="op">=</span> <span class="st">"parquet"</span>, input_id <span class="op">=</span> <span class="va">id</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">(</span><span class="va">lf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">odir</span>, pattern <span class="op">=</span> <span class="st">"cobalt_.*parquet"</span>, full.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "sample1_cobalt_gcmedbuckets.parquet" "sample1_cobalt_gcmedsample.parquet" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "sample1_cobalt_ratiomed.parquet"     "sample1_cobalt_ratiopcf.parquet"    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5] "version_cobalt_version.parquet"     </span>
+<span class="r-in"><span><span class="op">(</span><span class="va">lf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">odir</span>, pattern <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">tool</span>, <span class="st">"_.*parquet"</span><span class="op">)</span>, full.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "sample1_2_cobalt_ratiopcf.parquet"   "sample1_cobalt_gcmedbuckets.parquet"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "sample1_cobalt_gcmedmain.parquet"    "sample1_cobalt_ratiomed.parquet"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5] "sample1_cobalt_ratiopcf.parquet"     "version_cobalt_version.parquet"     </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -30,6 +30,8 @@
   Peach Object
 - [`Purple`](https://tidywf.github.io/tidywigits/reference/Purple.md) :
   Purple Object
+- [`Qsee`](https://tidywf.github.io/tidywigits/reference/Qsee.md) : Qsee
+  Object
 - [`Sage`](https://tidywf.github.io/tidywigits/reference/Sage.md) : Sage
   Object
 - [`Sigs`](https://tidywf.github.io/tidywigits/reference/Sigs.md) : Sigs
@@ -50,6 +52,10 @@
 
 - [`WIGITS_TOOLS`](https://tidywf.github.io/tidywigits/reference/WIGITS_TOOLS.md)
   : WiGiTS Tools Supported
+- [`WIGITS_TOOL_COLOURS`](https://tidywf.github.io/tidywigits/reference/WIGITS_TOOL_COLOURS.md)
+  : WiGiTS Tool Colours
+- [`WIGITS_SYNC_EXCLUDE`](https://tidywf.github.io/tidywigits/reference/WIGITS_SYNC_EXCLUDE.md)
+  : WiGiTS S3 Sync Excludes
 - [`purple_plot_getter()`](https://tidywf.github.io/tidywigits/reference/purple_plot_getter.md)
   : Retrieve PURPLE Plots
 - [`s3sync()`](https://tidywf.github.io/tidywigits/reference/s3sync.md)
