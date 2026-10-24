@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9004</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,7 +72,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.1.0.9004/vignettes/output_naming.qmd" class="external-link"><code>vignettes/output_naming.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.2.0.9000/vignettes/output_naming.qmd" class="external-link"><code>vignettes/output_naming.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -127,7 +127,7 @@
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_runs</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/Rtmp6d0fKh/naming-demo/runs</span></span>
+<span><span class="co">#&gt; /tmp/RtmpUXFBfv/naming-demo/runs</span></span>
 <span><span class="co">#&gt; ├── run1</span></span>
 <span><span class="co">#&gt; │   ├── sampleA.tool1.table1.tsv</span></span>
 <span><span class="co">#&gt; │   └── sampleA.tool1.table2.tsv</span></span>
@@ -150,12 +150,12 @@
 <span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
 <span><span class="co">#&gt;   path                                                           prefix   parser</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;                                                          &lt;chr&gt;    &lt;chr&gt; </span></span>
-<span><span class="co">#&gt; 1 /tmp/Rtmp6d0fKh/naming-demo/runs/run1/sampleA.tool1.table1.tsv sampleA  table1</span></span>
-<span><span class="co">#&gt; 2 /tmp/Rtmp6d0fKh/naming-demo/runs/run2/sampleA.tool1.table1.tsv sampleA… table1</span></span>
-<span><span class="co">#&gt; 3 /tmp/Rtmp6d0fKh/naming-demo/runs/run3/sampleA.tool1.table1.tsv sampleA… table1</span></span>
-<span><span class="co">#&gt; 4 /tmp/Rtmp6d0fKh/naming-demo/runs/run1/sampleA.tool1.table2.tsv sampleA  table2</span></span>
-<span><span class="co">#&gt; 5 /tmp/Rtmp6d0fKh/naming-demo/runs/run2/sampleA.tool1.table2.tsv sampleA… table2</span></span>
-<span><span class="co">#&gt; 6 /tmp/Rtmp6d0fKh/naming-demo/runs/run3/sampleA.tool1.table2.tsv sampleA… table2</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 /tmp/RtmpUXFBfv/naming-demo/runs/run1/sampleA.tool1.table1.tsv sampleA  table1</span></span>
+<span><span class="co">#&gt; 2 /tmp/RtmpUXFBfv/naming-demo/runs/run2/sampleA.tool1.table1.tsv sampleA… table1</span></span>
+<span><span class="co">#&gt; 3 /tmp/RtmpUXFBfv/naming-demo/runs/run3/sampleA.tool1.table1.tsv sampleA… table1</span></span>
+<span><span class="co">#&gt; 4 /tmp/RtmpUXFBfv/naming-demo/runs/run1/sampleA.tool1.table2.tsv sampleA  table2</span></span>
+<span><span class="co">#&gt; 5 /tmp/RtmpUXFBfv/naming-demo/runs/run2/sampleA.tool1.table2.tsv sampleA… table2</span></span>
+<span><span class="co">#&gt; 6 /tmp/RtmpUXFBfv/naming-demo/runs/run3/sampleA.tool1.table2.tsv sampleA… table2</span></span></code></pre></div>
 </div>
 <p>No overwrites:</p>
 <div class="cell">
@@ -169,7 +169,7 @@
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_outA</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/Rtmp6d0fKh/naming-demo/outA</span></span>
+<span><span class="co">#&gt; /tmp/RtmpUXFBfv/naming-demo/outA</span></span>
 <span><span class="co">#&gt; ├── metadata_tool1.parquet</span></span>
 <span><span class="co">#&gt; ├── sampleA_2_tool1_table1.parquet</span></span>
 <span><span class="co">#&gt; ├── sampleA_2_tool1_table2.parquet</span></span>
@@ -214,7 +214,7 @@
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_outB</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/Rtmp6d0fKh/naming-demo/outB</span></span>
+<span><span class="co">#&gt; /tmp/RtmpUXFBfv/naming-demo/outB</span></span>
 <span><span class="co">#&gt; ├── run1</span></span>
 <span><span class="co">#&gt; │   ├── metadata_tool1.parquet</span></span>
 <span><span class="co">#&gt; │   ├── sampleA_tool1_table1.parquet</span></span>
@@ -282,7 +282,7 @@
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_inP</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/Rtmp6d0fKh/purple-runs</span></span>
+<span><span class="co">#&gt; /tmp/RtmpUXFBfv/purple-runs</span></span>
 <span><span class="co">#&gt; ├── run1</span></span>
 <span><span class="co">#&gt; │   ├── sample1.purple.driver.catalog.germline.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.purple.driver.catalog.somatic.tsv</span></span>
@@ -308,7 +308,7 @@
 <span>  prefix_include <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_outP</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/Rtmp6d0fKh/purple-out</span></span>
+<span><span class="co">#&gt; /tmp/RtmpUXFBfv/purple-out</span></span>
 <span><span class="co">#&gt; ├── metadata_purple.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_2_purple_qc.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_3_purple_qc.parquet</span></span>
@@ -342,7 +342,6 @@
 <span><span class="co">#&gt; 10 input1   sample1_somatic_3  output1   chr20 PLCG1  3.47  </span></span>
 <span><span class="co">#&gt; 11 input1   sample1_somatic    output1   chr8  TG     6.42  </span></span>
 <span><span class="co">#&gt; 12 input1   sample1_somatic    output1   chr20 PLCG1  3.47</span></span>
-<span><span class="co"># and look at qc too</span></span>
 <span><span class="fu">dir_ls</span><span class="op">(</span><span class="va">dir_outP</span>, regexp <span class="op">=</span> <span class="st">"purple_qc\\.parquet"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">arrow</span><span class="fu">::</span><span class="fu"><a href="https://arrow.apache.org/docs/r/reference/read_parquet.html" class="external-link">read_parquet</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/list_c.html" class="external-link">list_rbind</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -374,7 +373,7 @@
 <span>  <span class="fu">file_copy</span><span class="op">(</span><span class="va">linx_files</span>, <span class="va">dest</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_inL</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/Rtmp6d0fKh/linx-runs</span></span>
+<span><span class="co">#&gt; /tmp/RtmpUXFBfv/linx-runs</span></span>
 <span><span class="co">#&gt; ├── run1</span></span>
 <span><span class="co">#&gt; │   ├── sample1.linx.breakend.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.linx.fusion.tsv</span></span>
@@ -413,7 +412,7 @@
 <span>  prefix_include <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_outL</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/Rtmp6d0fKh/linx-out</span></span>
+<span><span class="co">#&gt; /tmp/RtmpUXFBfv/linx-out</span></span>
 <span><span class="co">#&gt; ├── metadata_linx.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_2_linx_fusions.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_3_linx_fusions.parquet</span></span>
@@ -484,7 +483,7 @@
 <span>  <span class="op">}</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_inS</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/Rtmp6d0fKh/sage-runs</span></span>
+<span><span class="co">#&gt; /tmp/RtmpUXFBfv/sage-runs</span></span>
 <span><span class="co">#&gt; ├── run1</span></span>
 <span><span class="co">#&gt; │   ├── germline</span></span>
 <span><span class="co">#&gt; │   │   ├── sample1.sage.bqr.tsv</span></span>
@@ -525,7 +524,7 @@
 <span>  prefix_include <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu">dir_tree</span><span class="op">(</span><span class="va">dir_outS</span><span class="op">)</span></span>
-<span><span class="co">#&gt; /tmp/Rtmp6d0fKh/sage-out</span></span>
+<span><span class="co">#&gt; /tmp/RtmpUXFBfv/sage-out</span></span>
 <span><span class="co">#&gt; ├── metadata_sage.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_germline_2_sage_bqrtsv.parquet</span></span>
 <span><span class="co">#&gt; ├── sample1_germline_3_sage_bqrtsv.parquet</span></span>

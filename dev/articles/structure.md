@@ -8,8 +8,8 @@ contents.
 
 ## Fan-out
 
-Some files split into several output tables, declared under `outputs:`
-in their tool’s `schema.yaml` and written as `<prefix>_<tool>_<output>`:
+Some files split into several output tables, declared under `outputs` in
+their tool’s `schema.yaml` and written as `<prefix>_<tool>_<output>`:
 
 | Tool     | File table   | Outputs                                             |
 |:---------|:-------------|:----------------------------------------------------|

@@ -1,22 +1,24 @@
 # NEWS
 
-## v0.1.0.9003 (current dev)
+## v0.2.0.9000 (dev)
+
+## v0.2.0 (2026-10-24)
 
 ### Oncoanalyser v3
 
-Oncoanalyser v3 (WiGiTS) outputs are supported across every tool
+Oncoanalyser v3 outputs are supported across every tool
 ([pr212](https://github.com/tidywf/tidywigits/pull/212)-[pr222](https://github.com/tidywf/tidywigits/pull/222),
 [pr225](https://github.com/tidywf/tidywigits/pull/225)). Pre-v3 outputs
 are still parsed via older schema versions.
 
-- New tool: Qsee (v3 QC summary)
+- New tool: Qsee, the v3 QC summary
   ([pr222](https://github.com/tidywf/tidywigits/pull/222)).
 - Alignments: new `bqrtsv` table for `*.redux.bqr.tsv`
   ([pr225](https://github.com/tidywf/tidywigits/pull/225)).
 - Breaking schema changes (older versions retained): Amber, Bamtools,
   Cider, Cobalt, Isofox, Lilac, Linx.
 - Additive schema changes: Esvee, Neo, Purple.
-- `orange`/`pave` outputs are ignored.
+- `orange`/`pave` outputs are ignored for now.
 
 ### Breaking changes
 
@@ -44,18 +46,34 @@ are still parsed via older schema versions.
 ### New features
 
 - [`s3sync()`](https://tidywf.github.io/tidywigits/dev/reference/s3sync.md)
-  pulls only the files the tool schemas need (Esvee’s are excluded), and
-  a new `tidywigits.R sync` CLI subcommand is available
+  pulls only the files the tool schemas need (Esvee’s are excluded for
+  now), and a new `tidywigits.R sync` CLI subcommand is available
   ([pr226](https://github.com/tidywf/tidywigits/pull/226),
   [pr228](https://github.com/tidywf/tidywigits/pull/228)).
 - New `docker-compose.yaml` wrapper
   ([pr227](https://github.com/tidywf/tidywigits/pull/227)).
+- New `WIGITS_TOOL_COLOURS` export, used for the tool colours in the
+  [Schema
+  table](https://tidywf.github.io/tidywigits/dev/articles/schema_table.md)
+  ([pr231](https://github.com/tidywf/tidywigits/pull/231)).
+
+### Schema
+
+- Fan-out files declare their sub-tables under `outputs:` in
+  `schema.yaml`, replacing the `__no_file_match__` sentinel tables
+  ([pr233](https://github.com/tidywf/tidywigits/pull/233)). See
+  [Structure](https://tidywf.github.io/tidywigits/dev/articles/structure.md)
+  for the current fan-outs.
 
 ### Infrastructure
 
 - Release deploys (conda, Docker, pkgdown) trigger on `v*` tags only;
   conda lockfiles are published as release assets
   ([pr224](https://github.com/tidywf/tidywigits/pull/224)).
+- Docker builder stage uses a pinned miniforge3 base image
+  ([pr232](https://github.com/tidywf/tidywigits/pull/232)).
+- `devnotes` vignette removed
+  ([pr234](https://github.com/tidywf/tidywigits/pull/234)).
 
 ## v0.1.0 (2026-07-28)
 
