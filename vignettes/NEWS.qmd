@@ -21,20 +21,20 @@ child1 <- system.file(
 #| label: child-news
 ```
 
-## v0.1.0.9003 (current dev)
+## v0.2.0 (2026-10-24)
 
 ### Oncoanalyser v3
 
-Oncoanalyser v3 (WiGiTS) outputs are supported across every tool
+Oncoanalyser v3 outputs are supported across every tool
 (`r pr(212)`-`r pr(222)`, `r pr(225)`). Pre-v3 outputs are still parsed via
 older schema versions.
 
-- New tool: Qsee (v3 QC summary) (`r pr(222)`).
+- New tool: Qsee, the v3 QC summary (`r pr(222)`).
 - Alignments: new `bqrtsv` table for `*.redux.bqr.tsv` (`r pr(225)`).
 - Breaking schema changes (older versions retained): Amber, Bamtools, Cider,
   Cobalt, Isofox, Lilac, Linx.
 - Additive schema changes: Esvee, Neo, Purple.
-- `orange`/`pave` outputs are ignored.
+- `orange`/`pave` outputs are ignored for now.
 
 ### Breaking changes
 
@@ -58,15 +58,25 @@ older schema versions.
 
 ### New features
 
-- `s3sync()` pulls only the files the tool schemas need (Esvee's are excluded),
-  and a new `tidywigits.R sync` CLI subcommand is available (`r pr(226)`,
-  `r pr(228)`).
+- `s3sync()` pulls only the files the tool schemas need (Esvee's are excluded
+  for now), and a new `tidywigits.R sync` CLI subcommand is available
+  (`r pr(226)`, `r pr(228)`).
 - New `docker-compose.yaml` wrapper (`r pr(227)`).
+- New `WIGITS_TOOL_COLOURS` export, used for the tool colours in the [Schema
+  table](schema_table.html) (`r pr(231)`).
+
+### Schema
+
+- Fan-out files declare their sub-tables under `outputs:` in `schema.yaml`,
+  replacing the `__no_file_match__` sentinel tables (`r pr(233)`). See
+  [Structure](structure.html) for the current fan-outs.
 
 ### Infrastructure
 
 - Release deploys (conda, Docker, pkgdown) trigger on `v*` tags only; conda
   lockfiles are published as release assets (`r pr(224)`).
+- Docker builder stage uses a pinned miniforge3 base image (`r pr(232)`).
+- `devnotes` vignette removed (`r pr(234)`).
 
 ## v0.1.0 (2026-07-28)
 

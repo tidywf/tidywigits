@@ -12,7 +12,7 @@ the `Tool`/`Workflow`/`Config` class structure and schema contents.
 
 ## Fan-out
 
-Some files split into several output tables, declared under `outputs:` in their
+Some files split into several output tables, declared under `outputs` in their
 tool's `schema.yaml` and written as `<prefix>_<tool>_<output>`:
 
 ```{r}

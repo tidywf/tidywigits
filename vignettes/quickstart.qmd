@@ -22,8 +22,12 @@ options(width = 90)
 `dvc pull` in a clone, or from R:
 
 ```r
-input_dir <- system.file("extdata/oa/purple", package = "tidywigits")
-nemo::dvc_download_all(input_dir, file.path(tempdir(), "dvc_test"))
+input_dir <- system.file("extdata/oa", package = "tidywigits")
+nemo::dvc_download_all(
+  input_dir = file.path(input_dir, "purple"),
+  output_dir = file.path(tempdir(), "dvc_purple_test1"),
+  pkg_nm = "tidywigits"
+)
 ```
 
 ## Input
