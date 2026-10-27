@@ -396,7 +396,7 @@ From GitHub:
 
 install.packages("remotes")
 remotes::install_github("tidywf/tidywigits") # latest main commit
-remotes::install_github("tidywf/tidywigits@v0.2.0") # specific version
+remotes::install_github("tidywf/tidywigits@v0.2.1") # specific version
 ```
 
 - conda: <https://anaconda.org/tidywf/r-tidywigits>
@@ -415,7 +415,7 @@ export PATH="${tw_cli}:${PATH}"
 
 ``` R
 $ tidywigits.R --version
-tidywigits 0.2.0
+tidywigits 0.2.1
 
 #-----------------------------------#
 $ tidywigits.R --help

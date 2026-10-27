@@ -1,6 +1,11 @@
 # NEWS
 
-## v0.2.0.9000 (dev)
+## v0.2.1.9000 (dev)
+
+## v0.2.1 (2026-10-27)
+
+- Neo scores: NeIds should be char
+  ([pr236](https://github.com/tidywf/tidywigits/pull/236))
 
 ## v0.2.0 (2026-10-24)
 
