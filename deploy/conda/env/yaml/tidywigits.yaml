@@ -3,4 +3,4 @@ channels:
   - tidywf
   - conda-forge
 dependencies:
-  - r-tidywigits ==0.2.0 # bump
+  - r-tidywigits ==0.2.1 # bump
