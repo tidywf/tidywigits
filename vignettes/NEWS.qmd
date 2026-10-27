@@ -21,7 +21,11 @@ child1 <- system.file(
 #| label: child-news
 ```
 
-## v0.2.0.9000 (dev)
+## v0.2.1.9000 (dev)
+
+## v0.2.1 (2026-10-27)
+
+- Neo scores: NeIds should be char (`r pr(236)`)
 
 ## v0.2.0 (2026-10-24)
 

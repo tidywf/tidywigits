@@ -354,8 +354,8 @@ tables:
     columns:
       - raw: 'NeIds'
         tidy: 'ne_ids'
-        type: 'int'
-        description: 'Unique ID(s) for neoepitope'
+        type: 'char'
+        description: 'Unique ID(s) for neoepitope, semicolon-separated when a peptide maps to several (e.g. 8;6;7)'
         versions: ['latest']
       - raw: 'VariantType'
         tidy: 'variant_type'
