@@ -73,6 +73,6 @@ reference:
     contents:
       - WIGITS_TOOLS
       - WIGITS_TOOL_COLOURS
-      - WIGITS_SYNC_EXCLUDE
+      - WIGITS_S3SYNC_EXCLUDE
       - purple_plot_getter
       - s3sync
