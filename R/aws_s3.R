@@ -1,8 +1,8 @@
 #' AWS S3 Sync Helper
 #'
 #' Syncs parse-relevant WiGiTS outputs from `src` to `dest`. Include patterns
-#' come from the tool schema `glob`s (see [nemo::wf_sync_patterns()]), followed
-#' by the [WIGITS_SYNC_EXCLUDE] list.
+#' come from the tool schema `glob`s (see [nemo::wf_s3sync_patterns()]), followed
+#' by the [WIGITS_S3SYNC_EXCLUDE] list.
 #'
 #' @inheritParams nemo::s3sync
 #'
@@ -13,7 +13,7 @@
 #' s3sync(src, dest, dryrun = TRUE)
 #'
 #' # inspect what would be pulled down
-#' nemo::wf_sync_patterns("wigits")
+#' nemo::wf_s3sync_patterns("wigits")
 #'
 #' # override with your own patterns
 #' pats <- tibble::tribble(

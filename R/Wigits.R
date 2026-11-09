@@ -5,7 +5,7 @@
 #' last-match wins, so these carve files back out of the includes.
 #'
 #' @export
-WIGITS_SYNC_EXCLUDE <- c(
+WIGITS_S3SYNC_EXCLUDE <- c(
   "*.esvee.prep.fragment_length.tsv",
   "*.esvee.prep.disc_stats.tsv",
   "*.esvee.prep.junction.tsv",
@@ -32,9 +32,9 @@ Wigits <- R6::R6Class(
   cloneable = FALSE,
   inherit = Workflow,
   public = list(
-    #' @field sync_exclude (`character(n)`)\cr
-    #' Trailing `aws s3 sync` excludes, see [WIGITS_SYNC_EXCLUDE].
-    sync_exclude = WIGITS_SYNC_EXCLUDE,
+    #' @field s3sync_exclude (`character(n)`)\cr
+    #' Trailing `aws s3 sync` excludes, see [WIGITS_S3SYNC_EXCLUDE].
+    s3sync_exclude = WIGITS_S3SYNC_EXCLUDE,
     #' @description Create a new Wigits object.
     #' @param path (`character(n)`)\cr
     #' Path(s) to Wigits results.
