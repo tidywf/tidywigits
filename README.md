@@ -399,7 +399,7 @@ From GitHub:
 ``` r
 install.packages("remotes")
 remotes::install_github("tidywf/tidywigits") # latest main commit
-remotes::install_github("tidywf/tidywigits@v0.2.1") # specific version
+remotes::install_github("tidywf/tidywigits@v0.2.2") # specific version
 ```
 
 - conda: <https://anaconda.org/tidywf/r-tidywigits>
@@ -417,7 +417,7 @@ export PATH="${tw_cli}:${PATH}"
 ```
 
     $ tidywigits.R --version
-    tidywigits 0.2.1
+    tidywigits 0.2.2
 
     #-----------------------------------#
     $ tidywigits.R --help
@@ -481,13 +481,6 @@ export PATH="${tw_cli}:${PATH}"
 
     #-----------------------------------#
     #------- Sync ----------------------#
-    $ tidywigits.R sync --help
-    usage: tidywigits.R sync [-h] -s SRC -d DEST [--dryrun] [--show_patterns] [-q]
-
-    options:
-      -h, --help       show this help message and exit
-      -s, --src SRC    S3 source path.
-      -d, --dest DEST  Local destination directory.
-      --dryrun         Show what would be synced, without syncing.
-      --show_patterns  Print the include/exclude patterns and exit.
-      -q, --quiet      Shush all the logs.
+    $ tidywigits.R s3sync --help
+    usage: tidywigits.R [-h] [-v] {tidy,list,sync} ...
+    tidywigits.R: error: argument subparser_name: invalid choice: 's3sync', maybe you meant 'sync'? (choose from 'tidy', 'list', 'sync')
