@@ -55,12 +55,12 @@ Create a new Bamtools object.
 
 - `path`:
 
-  (`character(1)`)  
+  (`character(1)`)\
   Output directory of tool. If `files_tbl` is supplied, this is ignored.
 
 - `files_tbl`:
 
-  (`tibble(n)`)  
+  (`tibble(n)`)\
   Tibble of files from
   [`nemo::list_files_dir()`](https://tidywf.github.io/nemo/reference/list_files_dir.html).
 
@@ -78,7 +78,7 @@ Read `summary.tsv` file.
 
 - `x`:
 
-  (`character(1)`)  
+  (`character(1)`)\
   Path to file.
 
 ------------------------------------------------------------------------
@@ -95,7 +95,7 @@ Tidy `summary.tsv` file.
 
 - `x`:
 
-  (`character(1)`)  
+  (`character(1)`)\
   Path to file.
 
 ------------------------------------------------------------------------
@@ -112,7 +112,7 @@ Read `wgsmetrics` file.
 
 - `x`:
 
-  (`character(1)`)  
+  (`character(1)`)\
   Path to file.
 
 ------------------------------------------------------------------------
@@ -129,7 +129,7 @@ Tidy `wgsmetrics` file.
 
 - `x`:
 
-  (`character(1)`)  
+  (`character(1)`)\
   Path to file.
 
 ------------------------------------------------------------------------
@@ -146,7 +146,7 @@ Read `flag_counts.tsv` file.
 
 - `x`:
 
-  (`character(1)`)  
+  (`character(1)`)\
   Path to file.
 
 ------------------------------------------------------------------------
@@ -163,7 +163,7 @@ Tidy `flag_counts.tsv` file.
 
 - `x`:
 
-  (`character(1)`)  
+  (`character(1)`)\
   Path to file.
 
 ------------------------------------------------------------------------
@@ -180,7 +180,7 @@ Tidy `gene_coverage.tsv` file.
 
 - `x`:
 
-  (`character(1)`)  
+  (`character(1)`)\
   Path to file.
 
 ------------------------------------------------------------------------
@@ -197,7 +197,7 @@ Tidy `exon_coverage.tsv` file.
 
 - `x`:
 
-  (`character(1)`)  
+  (`character(1)`)\
   Path to file.
 
 ## Examples

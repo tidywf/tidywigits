@@ -1,6 +1,13 @@
 # NEWS
 
-## v0.2.1.9000 (dev)
+## dev
+
+## v0.2.2 (2026-11-09)
+
+- CLI: `sync` subcommand renamed to `s3sync`, with repeatable
+  `--include` and `--exclude` globs (via nemo 0.2.1).
+- CLI: `tidy`/`list` `--in_dir` renamed to `--input_dir` (via nemo
+  0.2.1).
 
 ## v0.2.1 (2026-10-27)
 

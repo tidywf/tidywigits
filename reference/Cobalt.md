@@ -43,12 +43,12 @@ Create a new Cobalt object.
 
 - `path`:
 
-  (`character(1)`)  
+  (`character(1)`)\
   Output directory of tool. If `files_tbl` is supplied, this is ignored.
 
 - `files_tbl`:
 
-  (`tibble(n)`)  
+  (`tibble(n)`)\
   Tibble of files from
   [`nemo::list_files_dir()`](https://tidywf.github.io/nemo/reference/list_files_dir.html).
 
@@ -66,7 +66,7 @@ Read `gc.median.tsv` file.
 
 - `x`:
 
-  (`character(1)`)  
+  (`character(1)`)\
   Path to file.
 
 ------------------------------------------------------------------------
@@ -83,7 +83,7 @@ Tidy `gc.median.tsv` file.
 
 - `x`:
 
-  (`character(1)`)  
+  (`character(1)`)\
   Path to file.
 
 ## Examples

@@ -9,11 +9,11 @@ WiGiTS file parsing and manipulation.
 
 ## Public fields
 
-- `sync_exclude`:
+- `s3sync_exclude`:
 
-  (`character(n)`)  
+  (`character(n)`)\
   Trailing `aws s3 sync` excludes, see
-  [WIGITS_SYNC_EXCLUDE](https://tidywf.github.io/tidywigits/reference/WIGITS_SYNC_EXCLUDE.md).
+  [WIGITS_S3SYNC_EXCLUDE](https://tidywf.github.io/tidywigits/reference/WIGITS_S3SYNC_EXCLUDE.md).
 
 ## Methods
 
@@ -26,9 +26,9 @@ Inherited methods
 - [`nemo::Workflow$filter_files()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-filter_files)
 - [`nemo::Workflow$get_globs()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_globs)
 - [`nemo::Workflow$get_metadata()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_metadata)
+- [`nemo::Workflow$get_s3sync_patterns()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_s3sync_patterns)
 - [`nemo::Workflow$get_schemas_raw()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_schemas_raw)
 - [`nemo::Workflow$get_schemas_tidy()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_schemas_tidy)
-- [`nemo::Workflow$get_sync_patterns()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_sync_patterns)
 - [`nemo::Workflow$get_tbls()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_tbls)
 - [`nemo::Workflow$get_tools()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-get_tools)
 - [`nemo::Workflow$list_files()`](https://tidywf.github.io/nemo/reference/Workflow.html#method-list_files)
@@ -51,7 +51,7 @@ Create a new Wigits object.
 
 - `path`:
 
-  (`character(n)`)  
+  (`character(n)`)\
   Path(s) to Wigits results.
 
 ## Examples

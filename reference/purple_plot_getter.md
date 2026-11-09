@@ -12,12 +12,12 @@ purple_plot_getter(x, cp_dir = NULL)
 
 - x:
 
-  (`character(1)`)  
+  (`character(1)`)\
   Path to recursively look for PURPLE plots.
 
 - cp_dir:
 
-  (`character(1)`)  
+  (`character(1)`)\
   If provided, copies the plots from `x` into `cp_dir` for use in
   reports, and adds a 'copied' boolean column at the end.
 
