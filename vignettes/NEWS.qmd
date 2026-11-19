@@ -23,6 +23,17 @@ child1 <- system.file(
 
 ## dev
 
+## v0.2.3 (2026-11-19)
+
+- Alignments `bqrtsv` (`*.redux.bqr.tsv`): fix raw column names to the
+  capitalised headers Redux v2.0+ writes (`Alt`, `Ref`, `TrinucleotideContext`,
+  ...). The schema (`r pr(225)`) had copied Sage's lowercase `*.sage.bqr.tsv`
+  headers, so no real file matched. Added a Redux BQR fixture.
+- Purple `qc`: `ChimerismPercentage` only exists in PURPLE v4.2-v4.3 (dropped in
+  v4.4), but was required for `latest`, so v4.4 `.purple.qc` files failed to
+  parse. Now tagged `v4.2` only; the old fixture moved to `v4.2/` and a v4.4 one
+  added.
+
 ## v0.2.2 (2026-11-09)
 
 - CLI: `sync` subcommand renamed to `s3sync`, with repeatable `--include` and

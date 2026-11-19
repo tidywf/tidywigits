@@ -11,7 +11,11 @@
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
-#' expect_equal(length(lf), 3)
+#' expect_equal(length(lf), 4)
+#' bqr <- nemo::read_parquet_grep(odir, lf, "alignments_bqrtsv")
+#' expect_named(bqr, c("input_id", "alt", "ref", "context", "read_type", "count",
+#'   "origq", "recalq"))
+#' expect_equal(nrow(bqr), 10L)
 #' mdup <- nemo::read_parquet_grep(odir, lf, "markdup")
 #' expect_named(mdup, c("input_id", "library", "unpaired_reads_examined", "read_pairs_examined",
 #'   "secondary_or_supplementary_reads", "unmapped_reads", "unpaired_read_duplicates",
