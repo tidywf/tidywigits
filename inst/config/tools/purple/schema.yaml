@@ -692,72 +692,72 @@ tables:
         tidy: 'qc_status'
         type: 'char'
         description: 'QC status'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'Method'
         tidy: 'method'
         type: 'char'
         description: 'method used to determine the cn of the region (NORMAL, HIGHLY_DIPLOID, SOMATIC or NO_TUMOR)'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'CopyNumberSegments'
         tidy: 'cn_segments'
         type: 'int'
         description: 'total number of cn segments in sample'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'UnsupportedCopyNumberSegments'
         tidy: 'cn_segments_unsupported'
         type: 'int'
         description: 'count of cn segments with no SV support on either side'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'Purity'
         tidy: 'purity'
         type: 'float'
         description: 'purity of tumor in the sample'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'AmberGender'
         tidy: 'gender_amber'
         type: 'char'
         description: 'gender from amber data'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'CobaltGender'
         tidy: 'gender_cobalt'
         type: 'char'
         description: 'gender from cobalt data'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'DeletedGenes'
         tidy: 'deleted_genes'
         type: 'int'
         description: 'number of genes with cn < 0.5'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'Contamination'
         tidy: 'contamination'
         type: 'float'
         description: 'rate of contamination in tumor sample as determined by Amber'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'GermlineAberrations'
         tidy: 'germline_aberrations'
         type: 'char'
         description: 'any germline chromosomal aberrations detected (KLINEFELTER, TRISOMY_X, TRISOMY_21, TRISOMY_13, TRISOMY_18, TRISOMY_15, XYY, MOSAIC_X)'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'AmberMeanDepth'
         tidy: 'mean_depth_amber'
         type: 'float'
         description: 'as calculated by Amber'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'LohPercent'
         tidy: 'loh_percent'
         type: 'float'
         description: 'LOH percentage'
-        versions: ['v4.0', 'latest']
+        versions: ['v4.0', 'v4.2', 'latest']
       - raw: 'TincLevel'
         tidy: 'tinc_level'
         type: 'float'
         description: 'tumor in normal contamination level'
-        versions: ['latest']
-      - raw: 'ChimerismPercentage'
+        versions: ['v4.2', 'latest']
+      - raw: 'ChimerismPercentage' # dropped in v4.4
         tidy: 'chimerism_percent'
         type: 'float'
         description: 'chimerism percentage (presence of a donor sample)'
-        versions: ['latest']
+        versions: ['v4.2']
   somclonality:
     description: 'Clonality peak model data.'
     pattern: "\\.purple\\.somatic\\.clonality\\.tsv$"

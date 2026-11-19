@@ -5,37 +5,37 @@ tables:
     glob: ["*.redux.bqr.tsv"]
     ftype: 'tsv'
     columns:
-      - raw: 'alt'
+      - raw: 'Alt'
         tidy: 'alt'
         type: 'char'
         description: 'alternate allele'
         versions: ['latest']
-      - raw: 'ref'
+      - raw: 'Ref'
         tidy: 'ref'
         type: 'char'
         description: 'reference allele'
         versions: ['latest']
-      - raw: 'trinucleotideContext'
+      - raw: 'TrinucleotideContext'
         tidy: 'context'
         type: 'char'
         description: 'trinucleotide context'
         versions: ['latest']
-      - raw: 'readType'
+      - raw: 'ReadType'
         tidy: 'read_type'
         type: 'char'
         description: 'read type'
         versions: ['latest']
-      - raw: 'count'
+      - raw: 'Count'
         tidy: 'count'
         type: 'float'
         description: 'count'
         versions: ['latest']
-      - raw: 'originalQual'
+      - raw: 'OriginalQual'
         tidy: 'origq'
         type: 'float'
         description: 'original quality'
         versions: ['latest']
-      - raw: 'recalibratedQual'
+      - raw: 'RecalibratedQual'
         tidy: 'recalq'
         type: 'float'
         description: 'recalibrated quality'

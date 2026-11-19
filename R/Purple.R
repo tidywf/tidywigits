@@ -11,7 +11,7 @@
 #' obj$run(output_dir = odir, format = "parquet", input_id = id)
 #' (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #' @testexamples
-#' expect_equal(length(lf), 19)
+#' expect_equal(length(lf), 20)
 #' pur <- nemo::read_parquet_grep(odir, lf, "^sample1_purple_puritytsv")
 #' expect_named(pur, c("input_id", "purity", "norm_factor", "fit_score", "diploid_proportion",
 #'   "ploidy", "gender", "status", "polyclonal_proportion", "purity_min", "purity_max",
@@ -22,9 +22,14 @@
 #' qc <- nemo::read_parquet_grep(odir, lf, "^sample1_purple_qc")
 #' expect_named(qc, c("input_id", "qc_status", "method", "cn_segments", "cn_segments_unsupported",
 #'   "purity", "gender_amber", "gender_cobalt", "deleted_genes", "contamination",
-#'   "germline_aberrations", "mean_depth_amber", "loh_percent", "tinc_level",
-#'   "chimerism_percent"))
+#'   "germline_aberrations", "mean_depth_amber", "loh_percent", "tinc_level"))
 #' expect_equal(nrow(qc), 1L)
+#' # v4.0 (no tinc), v4.2 (tinc + chimerism), v4.4 (tinc, chimerism dropped)
+#' qcs <- lapply(grep("purple_qc", lf, value = TRUE),
+#'   function(f) names(arrow::read_parquet(file.path(odir, f))))
+#' expect_equal(length(qcs), 3)
+#' expect_equal(sum(vapply(qcs, function(n) "chimerism_percent" %in% n, logical(1))), 1L)
+#' expect_equal(sum(vapply(qcs, function(n) "tinc_level" %in% n, logical(1))), 2L)
 #' cnvs <- lapply(grep("purple_cnvgenetsv", lf, value = TRUE),
 #'   function(f) names(arrow::read_parquet(file.path(odir, f))))
 #' expect_equal(length(cnvs), 3)
