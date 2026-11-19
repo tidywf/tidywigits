@@ -57,7 +57,7 @@ for (r in run_ids) {
 }
 
 dir_tree(dir_runs)
-#> /tmp/RtmpHGTPiu/naming-demo/runs
+#> /tmp/RtmpCxqMTO/naming-demo/runs
 #> ├── run1
 #> │   ├── sampleA.tool1.table1.tsv
 #> │   └── sampleA.tool1.table2.tsv
@@ -82,12 +82,12 @@ tool$list_files() |>
 #> # A tibble: 6 × 3
 #>   path                                                           prefix   parser
 #>   <chr>                                                          <chr>    <chr> 
-#> 1 /tmp/RtmpHGTPiu/naming-demo/runs/run1/sampleA.tool1.table1.tsv sampleA  table1
-#> 2 /tmp/RtmpHGTPiu/naming-demo/runs/run2/sampleA.tool1.table1.tsv sampleA… table1
-#> 3 /tmp/RtmpHGTPiu/naming-demo/runs/run3/sampleA.tool1.table1.tsv sampleA… table1
-#> 4 /tmp/RtmpHGTPiu/naming-demo/runs/run1/sampleA.tool1.table2.tsv sampleA  table2
-#> 5 /tmp/RtmpHGTPiu/naming-demo/runs/run2/sampleA.tool1.table2.tsv sampleA… table2
-#> 6 /tmp/RtmpHGTPiu/naming-demo/runs/run3/sampleA.tool1.table2.tsv sampleA… table2
+#> 1 /tmp/RtmpCxqMTO/naming-demo/runs/run1/sampleA.tool1.table1.tsv sampleA  table1
+#> 2 /tmp/RtmpCxqMTO/naming-demo/runs/run2/sampleA.tool1.table1.tsv sampleA… table1
+#> 3 /tmp/RtmpCxqMTO/naming-demo/runs/run3/sampleA.tool1.table1.tsv sampleA… table1
+#> 4 /tmp/RtmpCxqMTO/naming-demo/runs/run1/sampleA.tool1.table2.tsv sampleA  table2
+#> 5 /tmp/RtmpCxqMTO/naming-demo/runs/run2/sampleA.tool1.table2.tsv sampleA… table2
+#> 6 /tmp/RtmpCxqMTO/naming-demo/runs/run3/sampleA.tool1.table2.tsv sampleA… table2
 ```
 
 No overwrites:
@@ -103,7 +103,7 @@ tool$run(
 )
 
 dir_tree(dir_outA)
-#> /tmp/RtmpHGTPiu/naming-demo/outA
+#> /tmp/RtmpCxqMTO/naming-demo/outA
 #> ├── metadata_tool1.parquet
 #> ├── sampleA_2_tool1_table1.parquet
 #> ├── sampleA_2_tool1_table2.parquet
@@ -154,7 +154,7 @@ for (r in run_ids) {
 }
 
 dir_tree(dir_outB)
-#> /tmp/RtmpHGTPiu/naming-demo/outB
+#> /tmp/RtmpCxqMTO/naming-demo/outB
 #> ├── run1
 #> │   ├── metadata_tool1.parquet
 #> │   ├── sampleA_tool1_table1.parquet
@@ -233,7 +233,7 @@ for (r in c("run1", "run2", "run3")) {
   )
 }
 dir_tree(dir_inP)
-#> /tmp/RtmpHGTPiu/purple-runs
+#> /tmp/RtmpCxqMTO/purple-runs
 #> ├── run1
 #> │   ├── sample1.purple.driver.catalog.germline.tsv
 #> │   ├── sample1.purple.driver.catalog.somatic.tsv
@@ -260,7 +260,7 @@ ppl$run(
   prefix_include = TRUE
 )
 dir_tree(dir_outP)
-#> /tmp/RtmpHGTPiu/purple-out
+#> /tmp/RtmpCxqMTO/purple-out
 #> ├── metadata_purple.parquet
 #> ├── sample1_2_purple_qc.parquet
 #> ├── sample1_3_purple_qc.parquet
@@ -331,7 +331,7 @@ for (r in c("run1", "run2", "run3")) {
   file_copy(linx_files, dest, overwrite = TRUE)
 }
 dir_tree(dir_inL)
-#> /tmp/RtmpHGTPiu/linx-runs
+#> /tmp/RtmpCxqMTO/linx-runs
 #> ├── run1
 #> │   ├── sample1.linx.breakend.tsv
 #> │   ├── sample1.linx.fusion.tsv
@@ -373,7 +373,7 @@ l$run(
   prefix_include = TRUE
 )
 dir_tree(dir_outL)
-#> /tmp/RtmpHGTPiu/linx-out
+#> /tmp/RtmpCxqMTO/linx-out
 #> ├── metadata_linx.parquet
 #> ├── sample1_2_linx_fusions.parquet
 #> ├── sample1_3_linx_fusions.parquet
@@ -449,7 +449,7 @@ for (r in c("run1", "run2", "run3")) {
   }
 }
 dir_tree(dir_inS)
-#> /tmp/RtmpHGTPiu/sage-runs
+#> /tmp/RtmpCxqMTO/sage-runs
 #> ├── run1
 #> │   ├── germline
 #> │   │   ├── sample1.sage.bqr.tsv
@@ -491,7 +491,7 @@ s$run(
   prefix_include = TRUE
 )
 dir_tree(dir_outS)
-#> /tmp/RtmpHGTPiu/sage-out
+#> /tmp/RtmpCxqMTO/sage-out
 #> ├── metadata_sage.parquet
 #> ├── sample1_germline_2_sage_bqrtsv.parquet
 #> ├── sample1_germline_3_sage_bqrtsv.parquet

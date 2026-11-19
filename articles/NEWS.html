@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +71,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.2.2/vignettes/NEWS.qmd" class="external-link"><code>vignettes/NEWS.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.2.3/vignettes/NEWS.qmd" class="external-link"><code>vignettes/NEWS.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -94,7 +94,12 @@ runs; the helpers below close over it. They build links to compares, PRs,
 issues, and users: pr(48), iss(11), vdiff("0.1.0", "0.0.3"), user("reisingerf").
 --><section class="level2"><h2 id="dev">dev<a class="anchor" aria-label="anchor" href="#dev"></a>
 </h2>
-</section><section class="level2"><h2 id="v0-2-2-2026-11-09">v0.2.2 (2026-11-09)<a class="anchor" aria-label="anchor" href="#v0-2-2-2026-11-09"></a>
+</section><section class="level2"><h2 id="v0-2-3-2026-11-19">v0.2.3 (2026-11-19)<a class="anchor" aria-label="anchor" href="#v0-2-3-2026-11-19"></a>
+</h2>
+<ul>
+<li>Alignments <code>bqrtsv</code> (<code>*.redux.bqr.tsv</code>): fix raw column names to the capitalised headers Redux v2.0+ writes (<code>Alt</code>, <code>Ref</code>, <code>TrinucleotideContext</code>, …). The schema (<a href="https://github.com/tidywf/tidywigits/pull/225" class="external-link">pr225</a>) had copied Sage’s lowercase <code>*.sage.bqr.tsv</code> headers, so no real file matched. Added a Redux BQR fixture.</li>
+<li>Purple <code>qc</code>: <code>ChimerismPercentage</code> only exists in PURPLE v4.2-v4.3 (dropped in v4.4), but was required for <code>latest</code>, so v4.4 <code>.purple.qc</code> files failed to parse. Now tagged <code>v4.2</code> only; the old fixture moved to <code>v4.2/</code> and a v4.4 one added.</li>
+</ul></section><section class="level2"><h2 id="v0-2-2-2026-11-09">v0.2.2 (2026-11-09)<a class="anchor" aria-label="anchor" href="#v0-2-2-2026-11-09"></a>
 </h2>
 <ul>
 <li>CLI: <code>sync</code> subcommand renamed to <code>s3sync</code>, with repeatable <code>--include</code> and <code>--exclude</code> globs (via nemo 0.2.1).</li>

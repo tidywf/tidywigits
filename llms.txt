@@ -47,18 +47,17 @@ indir_ppl <- system.file("extdata/oa/purple", package = "tidywigits")
 writeLines(readLines(file.path(indir_ppl, "sample1.purple.qc")))
 #> QCStatus PASS
 #> Method   NORMAL
-#> CopyNumberSegments   472
-#> UnsupportedCopyNumberSegments    5
+#> CopyNumberSegments   2755
+#> UnsupportedCopyNumberSegments    1
 #> Purity   1.0000
-#> AmberGender  FEMALE
-#> CobaltGender FEMALE
-#> DeletedGenes 0
-#> Contamination    0.0
+#> AmberGender  MALE
+#> CobaltGender MALE
+#> DeletedGenes 148
+#> Contamination    0.0000
 #> GermlineAberrations  NONE
-#> AmberMeanDepth   79
-#> LohPercent   0.0270
+#> AmberMeanDepth   89
+#> LohPercent   0.5243
 #> TincLevel    0.0000
-#> ChimerismPercentage  0.0000
 ```
 
 Parse, tidy and write with `Purple$run()`:
@@ -78,22 +77,23 @@ list.files(outdir_ppl, pattern = "\\.parquet$")
 #>  [2] "sample1_2_purple_cnvgenetsv.parquet"            
 #>  [3] "sample1_2_purple_qc.parquet"                    
 #>  [4] "sample1_3_purple_cnvgenetsv.parquet"            
-#>  [5] "sample1_germline_2_purple_drivercatalog.parquet"
-#>  [6] "sample1_germline_purple_drivercatalog.parquet"  
-#>  [7] "sample1_purple_chromarm.parquet"                
-#>  [8] "sample1_purple_cnvgenetsv.parquet"              
-#>  [9] "sample1_purple_cnvsomtsv.parquet"               
-#> [10] "sample1_purple_germampdel.parquet"              
-#> [11] "sample1_purple_germdeltsv.parquet"              
-#> [12] "sample1_purple_purityrange.parquet"             
-#> [13] "sample1_purple_puritytsv.parquet"               
-#> [14] "sample1_purple_qc.parquet"                      
-#> [15] "sample1_purple_somclonality.parquet"            
-#> [16] "sample1_purple_somhist.parquet"                 
-#> [17] "sample1_somatic_2_purple_drivercatalog.parquet" 
-#> [18] "sample1_somatic_purple_drivercatalog.parquet"   
-#> [19] "version_2_purple_version.parquet"               
-#> [20] "version_purple_version.parquet"
+#>  [5] "sample1_3_purple_qc.parquet"                    
+#>  [6] "sample1_germline_2_purple_drivercatalog.parquet"
+#>  [7] "sample1_germline_purple_drivercatalog.parquet"  
+#>  [8] "sample1_purple_chromarm.parquet"                
+#>  [9] "sample1_purple_cnvgenetsv.parquet"              
+#> [10] "sample1_purple_cnvsomtsv.parquet"               
+#> [11] "sample1_purple_germampdel.parquet"              
+#> [12] "sample1_purple_germdeltsv.parquet"              
+#> [13] "sample1_purple_purityrange.parquet"             
+#> [14] "sample1_purple_puritytsv.parquet"               
+#> [15] "sample1_purple_qc.parquet"                      
+#> [16] "sample1_purple_somclonality.parquet"            
+#> [17] "sample1_purple_somhist.parquet"                 
+#> [18] "sample1_somatic_2_purple_drivercatalog.parquet" 
+#> [19] "sample1_somatic_purple_drivercatalog.parquet"   
+#> [20] "version_2_purple_version.parquet"               
+#> [21] "version_purple_version.parquet"
 ```
 
 Tidy output:
@@ -106,22 +106,21 @@ qc_file <- list.files(
   full.names = TRUE
 )
 arrow::read_parquet(qc_file) |> str()
-#> tibble [1 × 15] (S3: tbl_df/tbl/data.frame)
+#> tibble [1 × 14] (S3: tbl_df/tbl/data.frame)
 #>  $ input_id               : chr "run1"
 #>  $ qc_status              : chr "PASS"
 #>  $ method                 : chr "NORMAL"
-#>  $ cn_segments            : int 472
-#>  $ cn_segments_unsupported: int 5
+#>  $ cn_segments            : int 2755
+#>  $ cn_segments_unsupported: int 1
 #>  $ purity                 : num 1
-#>  $ gender_amber           : chr "FEMALE"
-#>  $ gender_cobalt          : chr "FEMALE"
-#>  $ deleted_genes          : int 0
+#>  $ gender_amber           : chr "MALE"
+#>  $ gender_cobalt          : chr "MALE"
+#>  $ deleted_genes          : int 148
 #>  $ contamination          : num 0
 #>  $ germline_aberrations   : chr "NONE"
-#>  $ mean_depth_amber       : num 79
-#>  $ loh_percent            : num 0.027
+#>  $ mean_depth_amber       : num 89
+#>  $ loh_percent            : num 0.524
 #>  $ tinc_level             : num 0
-#>  $ chimerism_percent      : num 0
 #>  - attr(*, "file_version")= chr "latest"
 ```
 
@@ -138,6 +137,7 @@ dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
 ├── alignments
 │   ├── sample1.duplicate_freq.tsv
 │   ├── sample1.md.metrics
+│   ├── sample1.redux.bqr.tsv
 │   └── sample1.redux.duplicate_freq.tsv
 ├── amber
 │   ├── amber.version
@@ -300,7 +300,8 @@ dir_tree(indir_w, invert = TRUE, glob = "*.dvc")
 │       ├── sample1.purple.cnv.gene.tsv
 │       ├── sample1.purple.driver.catalog.germline.tsv
 │       ├── sample1.purple.driver.catalog.somatic.tsv
-│       └── sample1.purple.germline.deletion.tsv
+│       ├── sample1.purple.germline.deletion.tsv
+│       └── sample1.purple.qc
 ├── qsee
 │   ├── sample1.qsee.status.tsv.gz
 │   └── sample1.qsee.vis.data.tsv.gz
@@ -350,12 +351,12 @@ res # shows summary of Wigits object
 #> |name          |Wigits                                                                    |
 #> |path          |/home/runner/miniconda3/envs/bump_env/lib/R/library/tidywigits/extdata/oa |
 #> |ntools        |20                                                                        |
-#> |files_total   |302                                                                       |
-#> |files_matched |150                                                                       |
+#> |files_total   |306                                                                       |
+#> |files_matched |152                                                                       |
 #> |tidied        |true                                                                      |
 #> |written       |true                                                                      |
 list.files(outdir_w, pattern = "\\.parquet$") |> str()
-#>  chr [1:161] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...
+#>  chr [1:163] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...
 ```
 
 PostgreSQL:
@@ -396,7 +397,7 @@ From GitHub:
 
 install.packages("remotes")
 remotes::install_github("tidywf/tidywigits") # latest main commit
-remotes::install_github("tidywf/tidywigits@v0.2.2") # specific version
+remotes::install_github("tidywf/tidywigits@v0.2.3") # specific version
 ```
 
 - conda: <https://anaconda.org/tidywf/r-tidywigits>
@@ -415,7 +416,7 @@ export PATH="${tw_cli}:${PATH}"
 
 ``` R
 $ tidywigits.R --version
-tidywigits 0.2.2
+tidywigits 0.2.3
 
 #-----------------------------------#
 $ tidywigits.R --help

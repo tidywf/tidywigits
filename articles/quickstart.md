@@ -27,6 +27,7 @@ dir_tree(indir, invert = TRUE, glob = "*.dvc")
 #> ├── alignments
 #> │   ├── sample1.duplicate_freq.tsv
 #> │   ├── sample1.md.metrics
+#> │   ├── sample1.redux.bqr.tsv
 #> │   └── sample1.redux.duplicate_freq.tsv
 #> ├── amber
 #> │   ├── amber.version
@@ -189,7 +190,8 @@ dir_tree(indir, invert = TRUE, glob = "*.dvc")
 #> │       ├── sample1.purple.cnv.gene.tsv
 #> │       ├── sample1.purple.driver.catalog.germline.tsv
 #> │       ├── sample1.purple.driver.catalog.somatic.tsv
-#> │       └── sample1.purple.germline.deletion.tsv
+#> │       ├── sample1.purple.germline.deletion.tsv
+#> │       └── sample1.purple.qc
 #> ├── qsee
 #> │   ├── sample1.qsee.status.tsv.gz
 #> │   └── sample1.qsee.vis.data.tsv.gz
@@ -236,22 +238,23 @@ list.files(outdir, pattern = "\\.parquet$")
 #>  [2] "sample1_2_purple_cnvgenetsv.parquet"            
 #>  [3] "sample1_2_purple_qc.parquet"                    
 #>  [4] "sample1_3_purple_cnvgenetsv.parquet"            
-#>  [5] "sample1_germline_2_purple_drivercatalog.parquet"
-#>  [6] "sample1_germline_purple_drivercatalog.parquet"  
-#>  [7] "sample1_purple_chromarm.parquet"                
-#>  [8] "sample1_purple_cnvgenetsv.parquet"              
-#>  [9] "sample1_purple_cnvsomtsv.parquet"               
-#> [10] "sample1_purple_germampdel.parquet"              
-#> [11] "sample1_purple_germdeltsv.parquet"              
-#> [12] "sample1_purple_purityrange.parquet"             
-#> [13] "sample1_purple_puritytsv.parquet"               
-#> [14] "sample1_purple_qc.parquet"                      
-#> [15] "sample1_purple_somclonality.parquet"            
-#> [16] "sample1_purple_somhist.parquet"                 
-#> [17] "sample1_somatic_2_purple_drivercatalog.parquet" 
-#> [18] "sample1_somatic_purple_drivercatalog.parquet"   
-#> [19] "version_2_purple_version.parquet"               
-#> [20] "version_purple_version.parquet"
+#>  [5] "sample1_3_purple_qc.parquet"                    
+#>  [6] "sample1_germline_2_purple_drivercatalog.parquet"
+#>  [7] "sample1_germline_purple_drivercatalog.parquet"  
+#>  [8] "sample1_purple_chromarm.parquet"                
+#>  [9] "sample1_purple_cnvgenetsv.parquet"              
+#> [10] "sample1_purple_cnvsomtsv.parquet"               
+#> [11] "sample1_purple_germampdel.parquet"              
+#> [12] "sample1_purple_germdeltsv.parquet"              
+#> [13] "sample1_purple_purityrange.parquet"             
+#> [14] "sample1_purple_puritytsv.parquet"               
+#> [15] "sample1_purple_qc.parquet"                      
+#> [16] "sample1_purple_somclonality.parquet"            
+#> [17] "sample1_purple_somhist.parquet"                 
+#> [18] "sample1_somatic_2_purple_drivercatalog.parquet" 
+#> [19] "sample1_somatic_purple_drivercatalog.parquet"   
+#> [20] "version_2_purple_version.parquet"               
+#> [21] "version_purple_version.parquet"
 ```
 
 ### File naming
@@ -266,22 +269,21 @@ Naming](https://tidywf.github.io/tidywigits/articles/output_naming.md).
 
 qc <- read_parquet(file.path(outdir, "sample1_purple_qc.parquet"))
 qc |> str()
-#> tibble [1 × 15] (S3: tbl_df/tbl/data.frame)
+#> tibble [1 × 14] (S3: tbl_df/tbl/data.frame)
 #>  $ input_id               : chr "sample1_id"
 #>  $ qc_status              : chr "PASS"
 #>  $ method                 : chr "NORMAL"
-#>  $ cn_segments            : int 472
-#>  $ cn_segments_unsupported: int 5
+#>  $ cn_segments            : int 2755
+#>  $ cn_segments_unsupported: int 1
 #>  $ purity                 : num 1
-#>  $ gender_amber           : chr "FEMALE"
-#>  $ gender_cobalt          : chr "FEMALE"
-#>  $ deleted_genes          : int 0
+#>  $ gender_amber           : chr "MALE"
+#>  $ gender_cobalt          : chr "MALE"
+#>  $ deleted_genes          : int 148
 #>  $ contamination          : num 0
 #>  $ germline_aberrations   : chr "NONE"
-#>  $ mean_depth_amber       : num 79
-#>  $ loh_percent            : num 0.027
+#>  $ mean_depth_amber       : num 89
+#>  $ loh_percent            : num 0.524
 #>  $ tinc_level             : num 0
-#>  $ chimerism_percent      : num 0
 #>  - attr(*, "file_version")= chr "latest"
 ```
 
@@ -298,7 +300,7 @@ w$run(
   format = "parquet"
 )
 list.files(outdir_w, pattern = "\\.parquet$") |> sort() |> str()
-#>  chr [1:161] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...
+#>  chr [1:163] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...
 ```
 
 ## ID columns
@@ -322,13 +324,13 @@ Purple$new(file.path(indir, "purple"))$run(
   prefix_include = TRUE
 )
 read_parquet(file.path(outdir_id, "sample1_purple_qc.parquet"))
-#> # A tibble: 1 × 17
+#> # A tibble: 1 × 16
 #>   input_id input_prefix output_id qc_status method cn_segments cn_segments_unsupported
 #> * <chr>    <chr>        <chr>     <chr>     <chr>        <int>                   <int>
-#> 1 sample1  sample1      out1      PASS      NORMAL         472                       5
-#> # ℹ 10 more variables: purity <dbl>, gender_amber <chr>, gender_cobalt <chr>,
+#> 1 sample1  sample1      out1      PASS      NORMAL        2755                       1
+#> # ℹ 9 more variables: purity <dbl>, gender_amber <chr>, gender_cobalt <chr>,
 #> #   deleted_genes <int>, contamination <dbl>, germline_aberrations <chr>,
-#> #   mean_depth_amber <dbl>, loh_percent <dbl>, tinc_level <dbl>, chimerism_percent <dbl>
+#> #   mean_depth_amber <dbl>, loh_percent <dbl>, tinc_level <dbl>
 ```
 
 ## Metadata
@@ -346,7 +348,7 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 #>  $ input_dirs  : list<character> [1:1] 
 #>   ..$ : chr "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa"
 #>   ..@ ptype: chr(0) 
-#>  $ output_dir  : chr "/tmp/RtmpS5SbG6/qs_wigits"
+#>  $ output_dir  : chr "/tmp/Rtmpp8WmwG/qs_wigits"
 #>  $ pkg_versions: list<
 #>   tbl_df<
 #>     name   : character
@@ -355,7 +357,7 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 #> > [1:1] 
 #>   ..$ : tibble [2 × 2] (S3: tbl_df/tbl/data.frame)
 #>   .. ..$ name   : chr [1:2] "nemo" "tidywigits"
-#>   .. ..$ version: chr [1:2] "0.2.0.9000" "0.2.2"
+#>   .. ..$ version: chr [1:2] "0.2.0.9000" "0.2.3"
 #>   ..@ ptype: tibble [0 × 2] (S3: tbl_df/tbl/data.frame)
 #>   .. ..$ name   : chr(0) 
 #>   .. ..$ version: chr(0) 
@@ -367,11 +369,11 @@ read_parquet(file.path(outdir_w, "metadata.parquet")) |> str()
 #>     fin   : character
 #>   >
 #> > [1:1] 
-#>   ..$ : tibble [160 × 4] (S3: tbl_df/tbl/data.frame)
-#>   .. ..$ tbl   : chr [1:160] "alignments_dupfreq" "alignments_markdup" "alignments_dupfreq" "amber_version" ...
-#>   .. ..$ prefix: chr [1:160] "sample1" "sample1" "sample1_2" "version" ...
-#>   .. ..$ fout  : chr [1:160] "sample1_alignments_dupfreq.parquet" "sample1_alignments_markdup.parquet" "sample1_2_alignments_dupfreq.parquet" "version_amber_version.parquet" ...
-#>   .. ..$ fin   : chr [1:160] "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.md.metrics" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.redux.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/amber/amber.version" ...
+#>   ..$ : tibble [162 × 4] (S3: tbl_df/tbl/data.frame)
+#>   .. ..$ tbl   : chr [1:162] "alignments_dupfreq" "alignments_markdup" "alignments_bqrtsv" "alignments_dupfreq" ...
+#>   .. ..$ prefix: chr [1:162] "sample1" "sample1" "sample1" "sample1_2" ...
+#>   .. ..$ fout  : chr [1:162] "sample1_alignments_dupfreq.parquet" "sample1_alignments_markdup.parquet" "sample1_alignments_bqrtsv.parquet" "sample1_2_alignments_dupfreq.parquet" ...
+#>   .. ..$ fin   : chr [1:162] "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.md.metrics" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.redux.bqr.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.redux.duplicate_freq.tsv" ...
 #>   ..@ ptype: tibble [0 × 4] (S3: tbl_df/tbl/data.frame)
 #>   .. ..$ tbl   : chr(0) 
 #>   .. ..$ prefix: chr(0) 

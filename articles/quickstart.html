@@ -27,7 +27,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidywigits</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +71,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.2.2/vignettes/quickstart.qmd" class="external-link"><code>vignettes/quickstart.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tidywf/tidywigits/blob/v0.2.3/vignettes/quickstart.qmd" class="external-link"><code>vignettes/quickstart.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -100,6 +100,7 @@
 <span><span class="co">#&gt; ├── alignments</span></span>
 <span><span class="co">#&gt; │   ├── sample1.duplicate_freq.tsv</span></span>
 <span><span class="co">#&gt; │   ├── sample1.md.metrics</span></span>
+<span><span class="co">#&gt; │   ├── sample1.redux.bqr.tsv</span></span>
 <span><span class="co">#&gt; │   └── sample1.redux.duplicate_freq.tsv</span></span>
 <span><span class="co">#&gt; ├── amber</span></span>
 <span><span class="co">#&gt; │   ├── amber.version</span></span>
@@ -262,7 +263,8 @@
 <span><span class="co">#&gt; │       ├── sample1.purple.cnv.gene.tsv</span></span>
 <span><span class="co">#&gt; │       ├── sample1.purple.driver.catalog.germline.tsv</span></span>
 <span><span class="co">#&gt; │       ├── sample1.purple.driver.catalog.somatic.tsv</span></span>
-<span><span class="co">#&gt; │       └── sample1.purple.germline.deletion.tsv</span></span>
+<span><span class="co">#&gt; │       ├── sample1.purple.germline.deletion.tsv</span></span>
+<span><span class="co">#&gt; │       └── sample1.purple.qc</span></span>
 <span><span class="co">#&gt; ├── qsee</span></span>
 <span><span class="co">#&gt; │   ├── sample1.qsee.status.tsv.gz</span></span>
 <span><span class="co">#&gt; │   └── sample1.qsee.vis.data.tsv.gz</span></span>
@@ -307,22 +309,23 @@
 <span><span class="co">#&gt;  [2] "sample1_2_purple_cnvgenetsv.parquet"            </span></span>
 <span><span class="co">#&gt;  [3] "sample1_2_purple_qc.parquet"                    </span></span>
 <span><span class="co">#&gt;  [4] "sample1_3_purple_cnvgenetsv.parquet"            </span></span>
-<span><span class="co">#&gt;  [5] "sample1_germline_2_purple_drivercatalog.parquet"</span></span>
-<span><span class="co">#&gt;  [6] "sample1_germline_purple_drivercatalog.parquet"  </span></span>
-<span><span class="co">#&gt;  [7] "sample1_purple_chromarm.parquet"                </span></span>
-<span><span class="co">#&gt;  [8] "sample1_purple_cnvgenetsv.parquet"              </span></span>
-<span><span class="co">#&gt;  [9] "sample1_purple_cnvsomtsv.parquet"               </span></span>
-<span><span class="co">#&gt; [10] "sample1_purple_germampdel.parquet"              </span></span>
-<span><span class="co">#&gt; [11] "sample1_purple_germdeltsv.parquet"              </span></span>
-<span><span class="co">#&gt; [12] "sample1_purple_purityrange.parquet"             </span></span>
-<span><span class="co">#&gt; [13] "sample1_purple_puritytsv.parquet"               </span></span>
-<span><span class="co">#&gt; [14] "sample1_purple_qc.parquet"                      </span></span>
-<span><span class="co">#&gt; [15] "sample1_purple_somclonality.parquet"            </span></span>
-<span><span class="co">#&gt; [16] "sample1_purple_somhist.parquet"                 </span></span>
-<span><span class="co">#&gt; [17] "sample1_somatic_2_purple_drivercatalog.parquet" </span></span>
-<span><span class="co">#&gt; [18] "sample1_somatic_purple_drivercatalog.parquet"   </span></span>
-<span><span class="co">#&gt; [19] "version_2_purple_version.parquet"               </span></span>
-<span><span class="co">#&gt; [20] "version_purple_version.parquet"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [5] "sample1_3_purple_qc.parquet"                    </span></span>
+<span><span class="co">#&gt;  [6] "sample1_germline_2_purple_drivercatalog.parquet"</span></span>
+<span><span class="co">#&gt;  [7] "sample1_germline_purple_drivercatalog.parquet"  </span></span>
+<span><span class="co">#&gt;  [8] "sample1_purple_chromarm.parquet"                </span></span>
+<span><span class="co">#&gt;  [9] "sample1_purple_cnvgenetsv.parquet"              </span></span>
+<span><span class="co">#&gt; [10] "sample1_purple_cnvsomtsv.parquet"               </span></span>
+<span><span class="co">#&gt; [11] "sample1_purple_germampdel.parquet"              </span></span>
+<span><span class="co">#&gt; [12] "sample1_purple_germdeltsv.parquet"              </span></span>
+<span><span class="co">#&gt; [13] "sample1_purple_purityrange.parquet"             </span></span>
+<span><span class="co">#&gt; [14] "sample1_purple_puritytsv.parquet"               </span></span>
+<span><span class="co">#&gt; [15] "sample1_purple_qc.parquet"                      </span></span>
+<span><span class="co">#&gt; [16] "sample1_purple_somclonality.parquet"            </span></span>
+<span><span class="co">#&gt; [17] "sample1_purple_somhist.parquet"                 </span></span>
+<span><span class="co">#&gt; [18] "sample1_somatic_2_purple_drivercatalog.parquet" </span></span>
+<span><span class="co">#&gt; [19] "sample1_somatic_purple_drivercatalog.parquet"   </span></span>
+<span><span class="co">#&gt; [20] "version_2_purple_version.parquet"               </span></span>
+<span><span class="co">#&gt; [21] "version_purple_version.parquet"</span></span></code></pre></div>
 </div>
 <section class="level3"><h3 id="file-naming">File naming<a class="anchor" aria-label="anchor" href="#file-naming"></a>
 </h3>
@@ -333,22 +336,21 @@
 <div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">qc</span> <span class="op">&lt;-</span> <span class="fu">read_parquet</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">outdir</span>, <span class="st">"sample1_purple_qc.parquet"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">qc</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; tibble [1 × 15] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">#&gt; tibble [1 × 14] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;  $ input_id               : chr "sample1_id"</span></span>
 <span><span class="co">#&gt;  $ qc_status              : chr "PASS"</span></span>
 <span><span class="co">#&gt;  $ method                 : chr "NORMAL"</span></span>
-<span><span class="co">#&gt;  $ cn_segments            : int 472</span></span>
-<span><span class="co">#&gt;  $ cn_segments_unsupported: int 5</span></span>
+<span><span class="co">#&gt;  $ cn_segments            : int 2755</span></span>
+<span><span class="co">#&gt;  $ cn_segments_unsupported: int 1</span></span>
 <span><span class="co">#&gt;  $ purity                 : num 1</span></span>
-<span><span class="co">#&gt;  $ gender_amber           : chr "FEMALE"</span></span>
-<span><span class="co">#&gt;  $ gender_cobalt          : chr "FEMALE"</span></span>
-<span><span class="co">#&gt;  $ deleted_genes          : int 0</span></span>
+<span><span class="co">#&gt;  $ gender_amber           : chr "MALE"</span></span>
+<span><span class="co">#&gt;  $ gender_cobalt          : chr "MALE"</span></span>
+<span><span class="co">#&gt;  $ deleted_genes          : int 148</span></span>
 <span><span class="co">#&gt;  $ contamination          : num 0</span></span>
 <span><span class="co">#&gt;  $ germline_aberrations   : chr "NONE"</span></span>
-<span><span class="co">#&gt;  $ mean_depth_amber       : num 79</span></span>
-<span><span class="co">#&gt;  $ loh_percent            : num 0.027</span></span>
+<span><span class="co">#&gt;  $ mean_depth_amber       : num 89</span></span>
+<span><span class="co">#&gt;  $ loh_percent            : num 0.524</span></span>
 <span><span class="co">#&gt;  $ tinc_level             : num 0</span></span>
-<span><span class="co">#&gt;  $ chimerism_percent      : num 0</span></span>
 <span><span class="co">#&gt;  - attr(*, "file_version")= chr "latest"</span></span></code></pre></div>
 </div>
 </section></section><section class="level2"><h2 id="output---full-wigits-run">Output - Full WiGiTS run<a class="anchor" aria-label="anchor" href="#output---full-wigits-run"></a>
@@ -363,7 +365,7 @@
 <span>  format <span class="op">=</span> <span class="st">"parquet"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">outdir_w</span>, pattern <span class="op">=</span> <span class="st">"\\.parquet$"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  chr [1:161] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...</span></span></code></pre></div>
+<span><span class="co">#&gt;  chr [1:163] "metadata.parquet" "sample1_2_alignments_dupfreq.parquet" ...</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h2 id="id-columns">ID columns<a class="anchor" aria-label="anchor" href="#id-columns"></a>
 </h2>
@@ -408,13 +410,13 @@
 <span>  prefix_include <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu">read_parquet</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">outdir_id</span>, <span class="st">"sample1_purple_qc.parquet"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A tibble: 1 × 17</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 16</span></span>
 <span><span class="co">#&gt;   input_id input_prefix output_id qc_status method cn_segments cn_segments_unsupported</span></span>
 <span><span class="co">#&gt; * &lt;chr&gt;    &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;        &lt;int&gt;                   &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 sample1  sample1      out1      PASS      NORMAL         472                       5</span></span>
-<span><span class="co">#&gt; # ℹ 10 more variables: purity &lt;dbl&gt;, gender_amber &lt;chr&gt;, gender_cobalt &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; 1 sample1  sample1      out1      PASS      NORMAL        2755                       1</span></span>
+<span><span class="co">#&gt; # ℹ 9 more variables: purity &lt;dbl&gt;, gender_amber &lt;chr&gt;, gender_cobalt &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   deleted_genes &lt;int&gt;, contamination &lt;dbl&gt;, germline_aberrations &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   mean_depth_amber &lt;dbl&gt;, loh_percent &lt;dbl&gt;, tinc_level &lt;dbl&gt;, chimerism_percent &lt;dbl&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; #   mean_depth_amber &lt;dbl&gt;, loh_percent &lt;dbl&gt;, tinc_level &lt;dbl&gt;</span></span></code></pre></div>
 </div>
 </section><section class="level2"><h2 id="metadata">Metadata<a class="anchor" aria-label="anchor" href="#metadata"></a>
 </h2>
@@ -428,7 +430,7 @@
 <span><span class="co">#&gt;  $ input_dirs  : list&lt;character&gt; [1:1] </span></span>
 <span><span class="co">#&gt;   ..$ : chr "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa"</span></span>
 <span><span class="co">#&gt;   ..@ ptype: chr(0) </span></span>
-<span><span class="co">#&gt;  $ output_dir  : chr "/tmp/RtmpS5SbG6/qs_wigits"</span></span>
+<span><span class="co">#&gt;  $ output_dir  : chr "/tmp/Rtmpp8WmwG/qs_wigits"</span></span>
 <span><span class="co">#&gt;  $ pkg_versions: list&lt;</span></span>
 <span><span class="co">#&gt;   tbl_df&lt;</span></span>
 <span><span class="co">#&gt;     name   : character</span></span>
@@ -437,7 +439,7 @@
 <span><span class="co">#&gt; &gt; [1:1] </span></span>
 <span><span class="co">#&gt;   ..$ : tibble [2 × 2] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;   .. ..$ name   : chr [1:2] "nemo" "tidywigits"</span></span>
-<span><span class="co">#&gt;   .. ..$ version: chr [1:2] "0.2.0.9000" "0.2.2"</span></span>
+<span><span class="co">#&gt;   .. ..$ version: chr [1:2] "0.2.0.9000" "0.2.3"</span></span>
 <span><span class="co">#&gt;   ..@ ptype: tibble [0 × 2] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;   .. ..$ name   : chr(0) </span></span>
 <span><span class="co">#&gt;   .. ..$ version: chr(0) </span></span>
@@ -449,11 +451,11 @@
 <span><span class="co">#&gt;     fin   : character</span></span>
 <span><span class="co">#&gt;   &gt;</span></span>
 <span><span class="co">#&gt; &gt; [1:1] </span></span>
-<span><span class="co">#&gt;   ..$ : tibble [160 × 4] (S3: tbl_df/tbl/data.frame)</span></span>
-<span><span class="co">#&gt;   .. ..$ tbl   : chr [1:160] "alignments_dupfreq" "alignments_markdup" "alignments_dupfreq" "amber_version" ...</span></span>
-<span><span class="co">#&gt;   .. ..$ prefix: chr [1:160] "sample1" "sample1" "sample1_2" "version" ...</span></span>
-<span><span class="co">#&gt;   .. ..$ fout  : chr [1:160] "sample1_alignments_dupfreq.parquet" "sample1_alignments_markdup.parquet" "sample1_2_alignments_dupfreq.parquet" "version_amber_version.parquet" ...</span></span>
-<span><span class="co">#&gt;   .. ..$ fin   : chr [1:160] "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.md.metrics" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.redux.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/amber/amber.version" ...</span></span>
+<span><span class="co">#&gt;   ..$ : tibble [162 × 4] (S3: tbl_df/tbl/data.frame)</span></span>
+<span><span class="co">#&gt;   .. ..$ tbl   : chr [1:162] "alignments_dupfreq" "alignments_markdup" "alignments_bqrtsv" "alignments_dupfreq" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ prefix: chr [1:162] "sample1" "sample1" "sample1" "sample1_2" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ fout  : chr [1:162] "sample1_alignments_dupfreq.parquet" "sample1_alignments_markdup.parquet" "sample1_alignments_bqrtsv.parquet" "sample1_2_alignments_dupfreq.parquet" ...</span></span>
+<span><span class="co">#&gt;   .. ..$ fin   : chr [1:162] "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.duplicate_freq.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.md.metrics" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.redux.bqr.tsv" "/home/runner/miniconda3/envs/pkgdown_env/lib/R/library/tidywigits/extdata/oa/alignments/sample1.redux.duplicate_freq.tsv" ...</span></span>
 <span><span class="co">#&gt;   ..@ ptype: tibble [0 × 4] (S3: tbl_df/tbl/data.frame)</span></span>
 <span><span class="co">#&gt;   .. ..$ tbl   : chr(0) </span></span>
 <span><span class="co">#&gt;   .. ..$ prefix: chr(0) </span></span>

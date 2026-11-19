@@ -78,6 +78,7 @@ obj <- cls$new(indir)
 obj$run(output_dir = odir, format = "parquet", input_id = id)
 (lf <- list.files(odir, pattern = paste0(tool, "_.*parquet"), full.names = FALSE))
 #> [1] "sample1_2_alignments_dupfreq.parquet"
-#> [2] "sample1_alignments_dupfreq.parquet"  
-#> [3] "sample1_alignments_markdup.parquet"  
+#> [2] "sample1_alignments_bqrtsv.parquet"   
+#> [3] "sample1_alignments_dupfreq.parquet"  
+#> [4] "sample1_alignments_markdup.parquet"  
 ```
