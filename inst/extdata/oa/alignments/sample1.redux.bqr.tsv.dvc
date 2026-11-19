@@ -1,0 +1,5 @@
+outs:
+- md5: dff209594b153f4c42535bb8faa92c72
+  size: 384
+  hash: md5
+  path: sample1.redux.bqr.tsv
